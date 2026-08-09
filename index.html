@@ -6,9 +6,14 @@
     <title>I Don't Know Seoul — 상경인을 위한 자취 구역 지도</title>
     <meta
       name="description"
-      content="상경인들을 위한, 자취생들을 위한 통근 가능한 서울 동네들을 치안·월세·생활편의 등급으로 한눈에 보여줍니다. 왜 그 등급인지 계산 과정까지 공개합니다."
+      content="상경한 자취생을 위한 지도. 회사나 학교를 검색하면 통근 가능한 서울 동네를 치안·월세·생활편의 등급으로 보여줍니다. 왜 그 등급인지 계산 과정까지 공개합니다."
     />
-    <meta name="theme-color" content="#16181d" />
+    <!--
+      모바일 브라우저 상단바 색. JS 로드 전에도 맞도록 OS 설정을 따라 두 벌 두고,
+      사용자가 테마를 직접 바꾸면 App 이 이 태그를 갱신한다.
+    -->
+    <meta name="theme-color" content="#16181d" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f5f7" media="(prefers-color-scheme: light)" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>" />
   </head>
   <body>

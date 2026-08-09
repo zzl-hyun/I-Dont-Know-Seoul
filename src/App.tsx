@@ -79,6 +79,24 @@ export default function App() {
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     localStorage.setItem("oneday.theme", theme);
+
+    /*
+     * 모바일 브라우저 상단바 색을 맞춘다.
+     *
+     * index.html 의 theme-color 는 prefers-color-scheme 으로만 갈리는데, 여기서는
+     * 사용자가 토글로 OS 설정을 거스를 수 있다. 그 경우 상단바만 반대 색으로
+     * 남으므로 직접 갱신한다. media 속성이 붙은 태그는 지우고 하나만 남긴다.
+     */
+    document
+      .querySelectorAll('meta[name="theme-color"][media]')
+      .forEach((el) => el.remove());
+    let tag = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]:not([media])');
+    if (!tag) {
+      tag = document.createElement("meta");
+      tag.name = "theme-color";
+      document.head.appendChild(tag);
+    }
+    tag.content = theme === "dark" ? "#16181d" : "#f4f5f7";
   }, [theme]);
 
   useEffect(() => {
