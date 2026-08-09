@@ -3,6 +3,9 @@ import type { Destination } from "../types";
 
 interface Props {
   onPick: (dest: Destination) => void;
+  /** 목적지 상한에 도달하면 입력을 막는다 */
+  disabled?: boolean;
+  placeholder?: string;
 }
 
 interface Suggestion {
@@ -21,7 +24,7 @@ interface Suggestion {
  * 클라이언트에 노출하지 않기 위해서다. 키가 설정되지 않은 환경에서는
  * Worker가 지하철역 이름 검색으로 폴백하므로 개발 중에도 동작한다.
  */
-export default function DestinationSearch({ onPick }: Props) {
+export default function DestinationSearch({ onPick, disabled, placeholder }: Props) {
   const [query, setQuery] = useState("");
   const [items, setItems] = useState<Suggestion[]>([]);
   const [open, setOpen] = useState(false);
@@ -87,7 +90,8 @@ export default function DestinationSearch({ onPick }: Props) {
   const choose = (s: Suggestion) => {
     onPick({ name: s.name, address: s.address, lat: s.lat, lng: s.lng });
     skipNextSearch.current = true;
-    setQuery(s.name);
+    // 교체가 아니라 추가이므로 입력창을 비운다 — 이름이 남으면 다음 검색에 방해된다
+    setQuery("");
     setItems([]);
     setOpen(false);
   };
@@ -116,7 +120,12 @@ export default function DestinationSearch({ onPick }: Props) {
         onChange={(e) => setQuery(e.target.value)}
         onKeyDown={onKeyDown}
         onFocus={() => items.length && setOpen(true)}
-        placeholder="회사나 학교를 검색하세요 (예: 강남역, 서울대학교)"
+        disabled={disabled}
+        placeholder={
+          disabled
+            ? "목적지를 더 추가할 수 없습니다"
+            : (placeholder ?? "회사나 학교를 검색하세요 (예: 강남역, 서울대학교)")
+        }
         autoComplete="off"
         spellCheck={false}
         aria-label="목적지 검색"

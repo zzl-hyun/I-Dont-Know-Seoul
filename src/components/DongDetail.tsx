@@ -27,14 +27,21 @@ export interface ExplainContext {
   cuts: { best: number; normal: number };
 }
 
+/** 목적지 하나에 대한 통근 결과 + 복원된 경로 */
+export interface CommuteLeg {
+  destName: string;
+  result: CommuteResult;
+  route: RouteLeg[];
+}
+
 interface Props {
   dong: DongMeta;
   score: DongScore;
   grade: Grade;
   rank: number;
   total: number;
-  commute: CommuteResult | undefined;
-  route: RouteLeg[];
+  /** 목적지별 통근. 목적지가 없으면 빈 배열 */
+  commutes: CommuteLeg[];
   ctx: ExplainContext;
 }
 
@@ -58,8 +65,7 @@ export default function DongDetail({
   grade,
   rank,
   total,
-  commute,
-  route,
+  commutes,
   ctx,
 }: Props) {
   const summary = summarize(score, ctx.pctKeys, grade, ctx.weights, ctx.axisWeights);
@@ -81,35 +87,43 @@ export default function DongDetail({
 
       <p className="summary">{summary}</p>
 
-      {commute?.totalMin != null ? (
+      {commutes.length > 0 && (
         <div className="route">
-          <div className="route-total">
-            <b>{Math.round(commute.totalMin)}분</b>
-            <span>
-              {commute.transfers > 0 ? `환승 ${commute.transfers}회` : "환승 없음"}
-            </span>
-          </div>
-          <ol className="route-legs">
-            {/* 0분짜리 구간(목적지가 역 바로 앞)은 줄만 차지하므로 뺀다 */}
-            {route
-              .filter((leg) => Math.round(leg.minutes) > 0)
-              .map((leg, i) => (
-                <li key={i} className={`leg leg-${leg.kind}`}>
-                  <span className="leg-time">{Math.round(leg.minutes)}분</span>
-                  <span className="leg-text">{legText(leg)}</span>
-                </li>
-              ))}
-          </ol>
+          {commutes.map(({ destName, result, route }, i) => (
+            <div className="route-block" key={i}>
+              {/* 목적지가 하나면 이름을 반복할 필요가 없다 */}
+              {commutes.length > 1 && <p className="route-dest">→ {destName}</p>}
+              {result.totalMin != null ? (
+                <>
+                  <div className="route-total">
+                    <b>{Math.round(result.totalMin)}분</b>
+                    <span>
+                      {result.transfers > 0 ? `환승 ${result.transfers}회` : "환승 없음"}
+                    </span>
+                  </div>
+                  <ol className="route-legs">
+                    {/* 0분짜리 구간(목적지가 역 바로 앞)은 줄만 차지하므로 뺀다 */}
+                    {route
+                      .filter((leg) => Math.round(leg.minutes) > 0)
+                      .map((leg, j) => (
+                        <li key={j} className={`leg leg-${leg.kind}`}>
+                          <span className="leg-time">{Math.round(leg.minutes)}분</span>
+                          <span className="leg-text">{legText(leg)}</span>
+                        </li>
+                      ))}
+                  </ol>
+                </>
+              ) : (
+                <div className="route-total">
+                  <b style={{ fontSize: 14, color: "var(--text-dim)" }}>도달 불가</b>
+                </div>
+              )}
+            </div>
+          ))}
           <p className="metric-note">
             지하철 기준 추정치입니다. 역간 소요시간은 실측이 아니라 거리와 노선
             특성으로 계산한 값입니다.
           </p>
-        </div>
-      ) : (
-        <div className="route">
-          <div className="route-total">
-            <b style={{ fontSize: 14, color: "var(--text-dim)" }}>통근 시간 밖</b>
-          </div>
         </div>
       )}
 

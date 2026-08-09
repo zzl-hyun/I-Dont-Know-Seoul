@@ -121,6 +121,58 @@ export function computeCommute(
   return { byDong, sp, destWalk };
 }
 
+/* ------------------------------------------------------------------ */
+/* 목적지 여러 개                                                       */
+/* ------------------------------------------------------------------ */
+
+/** 목적지를 여러 개 둘 때 한 동의 통근 결과 */
+export interface CombinedCommute {
+  /**
+   * 모든 목적지 중 **가장 오래 걸리는** 시간.
+   * 하나라도 도달 불가면 null — "둘 다 40분 이내" 를 판정하려면 최악값을 봐야 한다.
+   */
+  worstMin: number | null;
+  /** 목적지별 결과 (입력 순서와 같다) */
+  per: CommuteResult[];
+}
+
+export interface MultiCommute {
+  /** 목적지별 계산 맥락. 경로 복원에 필요한 prev 배열을 들고 있다 */
+  contexts: CommuteContext[];
+  byDong: Map<string, CombinedCommute>;
+}
+
+/**
+ * 목적지 여러 곳에 대한 통근시간을 한 번에 계산한다.
+ *
+ * 커플이 각자 다른 회사에 다니거나 회사 + 학원처럼, "둘 다 40분 이내인 동네"를
+ * 찾는 건 흔한 니즈인데 어떤 부동산 서비스도 잘 해주지 않는다. 그리고 이 앱의
+ * 구조가 이걸 거의 공짜로 지원한다 — 목적지마다 Dijkstra 를 한 번씩 돌리면
+ * 되고, 한 번이 1ms 미만이라 3개여도 5ms를 넘지 않는다.
+ *
+ * 판정은 **max** 다. 평균이나 합을 쓰면 "한 명은 20분, 다른 한 명은 90분" 인
+ * 동네가 통과해버린다.
+ */
+export function computeMultiCommute(
+  graph: SubwayGraph,
+  dongs: DongMeta[],
+  dests: Array<{ lat: number; lng: number }>
+): MultiCommute {
+  const contexts = dests.map((d) => computeCommute(graph, dongs, d));
+  const byDong = new Map<string, CombinedCommute>();
+
+  for (const dong of dongs) {
+    const per = contexts.map((c) => c.byDong.get(dong.code) ?? unreachable());
+    // 하나라도 못 가면 그 동은 조건을 만족하지 못한다
+    const worstMin = per.some((r) => r.totalMin === null)
+      ? null
+      : Math.max(...per.map((r) => r.totalMin!));
+    byDong.set(dong.code, { worstMin, per });
+  }
+
+  return { contexts, byDong };
+}
+
 const unreachable = (): CommuteResult => ({
   totalMin: null,
   viaStation: null,

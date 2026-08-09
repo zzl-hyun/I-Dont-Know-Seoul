@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import MapView, { type DongView } from "./components/MapView";
 import DestinationSearch from "./components/DestinationSearch";
-import DongDetail, { type ExplainContext } from "./components/DongDetail";
+import DongDetail, { type CommuteLeg, type ExplainContext } from "./components/DongDetail";
 import TopPicks, { type Pick } from "./components/TopPicks";
 import { loadAppData, type AppData } from "./lib/data";
-import { buildRoute, computeCommute } from "./lib/commute";
+import { buildRoute, computeMultiCommute } from "./lib/commute";
 import { gradeAll, rebalanceWeights } from "./lib/score";
 import { buildDistributions, summarize } from "./lib/explain";
 import { buildSubwayLayers, LINE_COLOR, lineName } from "./lib/subwayLines";
@@ -21,6 +21,9 @@ import type { CommuteResult, Destination, Weights } from "./types";
  */
 const MAIN_LINES = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "신분당", "경의·중앙", "수인·분당"];
 
+/** 목적지 상한 */
+const MAX_DESTINATIONS = 3;
+
 const NO_COMMUTE: CommuteResult = {
   totalMin: null,
   viaStation: null,
@@ -34,7 +37,7 @@ export default function App() {
   const [data, setData] = useState<AppData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const [destination, setDestination] = useState<Destination | null>(null);
+  const [destinations, setDestinations] = useState<Destination[]>([]);
   const [maxCommute, setMaxCommute] = useState(DEFAULT_MAX_COMMUTE_MIN);
   const [weights, setWeights] = useState<Weights>({ ...DEFAULT_WEIGHTS });
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
@@ -57,9 +60,9 @@ export default function App() {
    * 슬라이더를 움직여도 여기는 다시 돌지 않는다.
    */
   const commute = useMemo(() => {
-    if (!data || !destination) return null;
-    return computeCommute(data.graph, data.dongs, destination);
-  }, [data, destination]);
+    if (!data || destinations.length === 0) return null;
+    return computeMultiCommute(data.graph, data.dongs, destinations);
+  }, [data, destinations]);
 
   /* 등급은 가중치가 바뀔 때만 다시 매긴다 (427회 곱셈 — 사실상 즉시). */
   const graded = useMemo(() => {
@@ -99,11 +102,12 @@ export default function App() {
       const s = data.scores.get(dong.code);
       if (!g || !s) continue;
       const c = commute?.byDong.get(dong.code);
-      const reachable = c?.totalMin != null && c.totalMin <= maxCommute;
+      const reachable = c?.worstMin != null && c.worstMin <= maxCommute;
       map.set(dong.code, {
         grade: g.grade,
         score: g.score,
-        commute: c ?? NO_COMMUTE,
+        commute: c?.per[0] ?? NO_COMMUTE,
+        worstMin: c?.worstMin ?? null,
         reachable,
         // 툴팁용이라 통근권 안인 동만 만든다 (427개 전부 만들 필요 없다)
         reason: reachable
@@ -121,8 +125,8 @@ export default function App() {
     for (const dong of data.dongs) {
       const c = commute.byDong.get(dong.code);
       const g = graded.byDong.get(dong.code);
-      if (!g || c?.totalMin == null || c.totalMin > maxCommute) continue;
-      out.push({ dong, grade: g.grade, score: g.score, commuteMin: c.totalMin });
+      if (!g || c?.worstMin == null || c.worstMin > maxCommute) continue;
+      out.push({ dong, grade: g.grade, score: g.score, commuteMin: c.worstMin });
     }
     out.sort((a, b) => b.score - a.score);
     return out;
@@ -134,16 +138,25 @@ export default function App() {
     const score = data.scores.get(selectedCode);
     const g = graded.byDong.get(selectedCode);
     if (!dong || !score || !g) return null;
+    // 경로는 선택된 동 하나만, 목적지별로 되짚는다
     const c = commute?.byDong.get(selectedCode);
-    // 경로는 선택된 동 하나만 되짚는다
-    const route = commute && c ? buildRoute(data.graph, commute, c) : [];
-    return { dong, score, grade: g.grade, rank: g.rank, total: g.total, commute: c, route };
-  }, [data, graded, commute, selectedCode]);
+    const commutes: CommuteLeg[] =
+      commute && c
+        ? commute.contexts.map((ctx, i) => ({
+            destName: destinations[i]?.name ?? `목적지 ${i + 1}`,
+            result: c.per[i],
+            route: buildRoute(data.graph, ctx, c.per[i]),
+          }))
+        : [];
+    return { dong, score, grade: g.grade, rank: g.rank, total: g.total, commutes };
+  }, [data, graded, commute, selectedCode, destinations]);
 
   /** 선택된 동의 경로를 지도에 그릴 좌표열 */
   const routePath = useMemo(() => {
     if (!selected) return [];
-    return selected.route.flatMap((leg) => (leg.kind === "ride" ? [leg.path] : []));
+    return selected.commutes.flatMap((c) =>
+      c.route.flatMap((leg) => (leg.kind === "ride" ? [leg.path] : []))
+    );
   }, [selected]);
 
   const setWeight = (key: keyof Weights, value: number) =>
@@ -167,9 +180,23 @@ export default function App() {
       return next;
     });
 
-  /** 지도의 역을 클릭 → 목적지로 지정 */
+  /**
+   * 목적지 추가. 상한은 3개 — 그 이상은 max 판정상 조건을 만족하는 동이
+   * 사실상 사라져 의미가 없다. 같은 좌표는 중복으로 넣지 않는다.
+   */
+  const addDestination = (d: Destination) =>
+    setDestinations((prev) => {
+      if (prev.length >= MAX_DESTINATIONS) return prev;
+      if (prev.some((p) => p.lat === d.lat && p.lng === d.lng)) return prev;
+      return [...prev, d];
+    });
+
+  const removeDestination = (i: number) =>
+    setDestinations((prev) => prev.filter((_, j) => j !== i));
+
+  /** 지도의 역을 클릭 → 목적지로 추가 */
   const pickStation = (s: { name: string; lat: number; lng: number }) =>
-    setDestination({ name: s.name, address: "지하철역", lat: s.lat, lng: s.lng });
+    addDestination({ name: s.name, address: "지하철역", lat: s.lat, lng: s.lng });
 
   return (
     <div className="app">
@@ -179,10 +206,10 @@ export default function App() {
             <MapView
               dongs={data.dongs}
               views={views}
-              destination={destination}
+              destinations={destinations}
               selectedCode={selectedCode}
               onSelect={setSelectedCode}
-              hasDestination={!!destination}
+              hasDestination={destinations.length > 0}
               routePath={routePath}
               subway={subway}
               showSubway={showSubway}
@@ -247,14 +274,46 @@ export default function App() {
           </p>
         </div>
 
-        <DestinationSearch onPick={setDestination} />
+        <DestinationSearch
+          onPick={addDestination}
+          disabled={destinations.length >= MAX_DESTINATIONS}
+          placeholder={
+            destinations.length === 0
+              ? "회사나 학교를 검색하세요 (예: 강남역, 서울대학교)"
+              : "목적지 추가 (예: 룸메이트 회사)"
+          }
+        />
 
-        {destination && (
+        {destinations.length > 0 && (
           <>
             <div className="section">
-              <p className="section-title">목적지</p>
-              <div style={{ fontSize: 14, marginBottom: 2 }}>{destination.name}</div>
-              <div className="metric-note">{destination.address}</div>
+              <p className="section-title">
+                목적지 {destinations.length > 1 && `· 모두 만족하는 지역`}
+              </p>
+              <ul className="dest-list">
+                {destinations.map((d, i) => (
+                  <li key={`${d.lat},${d.lng}`}>
+                    <span className="dest-name">{d.name}</span>
+                    <span className="dest-addr">{d.address}</span>
+                    <button
+                      type="button"
+                      onClick={() => removeDestination(i)}
+                      aria-label={`${d.name} 제거`}
+                      title="제거"
+                    >
+                      ✕
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              {destinations.length < MAX_DESTINATIONS ? (
+                <p className="metric-note">
+                  검색하거나 지도의 역을 클릭해 목적지를 더할 수 있습니다
+                  (최대 {MAX_DESTINATIONS}개).
+                </p>
+              ) : (
+                <p className="metric-note">목적지는 최대 {MAX_DESTINATIONS}개까지입니다.</p>
+              )}
             </div>
 
             <div className="section">
@@ -315,7 +374,7 @@ export default function App() {
           </>
         )}
 
-        {!destination && (
+        {destinations.length === 0 && (
           <div className="empty">
             먼저 목적지를 정해주세요.
             <br />
@@ -332,8 +391,7 @@ export default function App() {
             grade={selected.grade}
             rank={selected.rank}
             total={selected.total}
-            commute={selected.commute}
-            route={selected.route}
+            commutes={selected.commutes}
             ctx={explainCtx}
           />
         )}

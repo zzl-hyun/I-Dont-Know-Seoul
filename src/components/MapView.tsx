@@ -23,7 +23,10 @@ const SEOUL_BOUNDS: [[number, number], [number, number]] = [
 export interface DongView {
   grade: Grade;
   score: number;
+  /** 첫 번째 목적지 기준 상세 (툴팁의 "○○역 경유" 표기용) */
   commute: CommuteResult;
+  /** 모든 목적지 중 가장 오래 걸리는 시간 — 통근권 판정과 툴팁 숫자에 쓴다 */
+  worstMin: number | null;
   reachable: boolean;
   /** 툴팁에 띄울 한 줄 이유 — 지도만 훑어도 왜 그 등급인지 알 수 있게 */
   reason: string;
@@ -32,7 +35,8 @@ export interface DongView {
 interface Props {
   dongs: DongMeta[];
   views: Map<string, DongView>;
-  destination: Destination | null;
+  /** 목적지 (최대 3개). 지도에는 전부 마커로 찍는다 */
+  destinations: Destination[];
   selectedCode: string | null;
   onSelect: (code: string | null) => void;
   /** 목적지가 아직 없으면 등급 대신 안내만 보여준다 */
@@ -64,7 +68,7 @@ const SUBWAY_LAYERS = ["subway-line", "subway-hit", "subway-station", "subway-la
 export default function MapView({
   dongs,
   views,
-  destination,
+  destinations,
   selectedCode,
   onSelect,
   hasDestination,
@@ -491,26 +495,32 @@ export default function MapView({
     const apply = () => {
       const src = map.getSource(SRC_DEST) as maplibregl.GeoJSONSource | undefined;
       if (!src) return;
-      if (!destination) {
+      if (destinations.length === 0) {
         src.setData(emptyFC());
         return;
       }
       src.setData({
         type: "FeatureCollection",
-        features: [
-          {
-            type: "Feature",
-            geometry: { type: "Point", coordinates: [destination.lng, destination.lat] },
-            properties: { name: destination.name },
-          },
-        ],
+        features: destinations.map((d) => ({
+          type: "Feature",
+          geometry: { type: "Point", coordinates: [d.lng, d.lat] },
+          properties: { name: d.name },
+        })),
       });
-      map.easeTo({ center: [destination.lng, destination.lat], zoom: 11.2, duration: 700 });
+      // 목적지가 여럿이면 전부 보이도록 맞춘다
+      if (destinations.length === 1) {
+        const d = destinations[0];
+        map.easeTo({ center: [d.lng, d.lat], zoom: 11.2, duration: 700 });
+      } else {
+        const b = new maplibregl.LngLatBounds();
+        for (const d of destinations) b.extend([d.lng, d.lat]);
+        map.fitBounds(b, { padding: 120, maxZoom: 12, duration: 700 });
+      }
     };
 
     if (readyRef.current) apply();
     else map.once("oneday.ready", apply);
-  }, [destination]);
+  }, [destinations]);
 
   /* ---------------- 지하철 표시/숨김 ---------------- */
   useEffect(() => {
@@ -651,7 +661,7 @@ function tooltipHtml(name: string, view: DongView | undefined): string {
   if (!view || !view.reachable) {
     return `<b>${esc(name)}</b><br><span style="color:#9aa1ae">통근 가능 시간 밖</span>`;
   }
-  const min = view.commute.totalMin;
+  const min = view.worstMin;
   const lines = [
     `<b>${esc(name)}</b> <span style="color:${GRADE_COLOR[view.grade]}">● ${GRADE_LABEL[view.grade]}</span>`,
   ];

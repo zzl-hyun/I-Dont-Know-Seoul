@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { SubwayGraph, DongMeta } from "../types";
 import { multiSourceDijkstra } from "./dijkstra";
-import { computeCommute, buildRoute } from "./commute";
+import { computeCommute, computeMultiCommute, buildRoute } from "./commute";
 import { FIRST_WAIT_MIN } from "./constants";
 
 const graph: SubwayGraph = JSON.parse(
@@ -219,5 +219,68 @@ describe("통근 경로 복원", () => {
       checked++;
     }
     expect(checked).toBeGreaterThan(400);
+  });
+});
+
+describe("목적지 여러 개", () => {
+  const gangnam = station("강남");
+  const yeouido = station("여의도");
+
+  it("목적지 1개면 기존 계산과 결과가 같다", () => {
+    // 회귀 방지 — 다중 경로가 단일 경로 동작을 바꾸면 안 된다
+    const single = computeCommute(graph, dongMeta.dongs, gangnam);
+    const multi = computeMultiCommute(graph, dongMeta.dongs, [gangnam]);
+    for (const d of dongMeta.dongs) {
+      const a = single.byDong.get(d.code)!;
+      const b = multi.byDong.get(d.code)!;
+      expect(b.worstMin, d.name).toBe(a.totalMin);
+      expect(b.per[0].viaStation, d.name).toBe(a.viaStation);
+    }
+  });
+
+  it("worstMin 이 목적지별 시간의 최댓값이다", () => {
+    const multi = computeMultiCommute(graph, dongMeta.dongs, [gangnam, yeouido]);
+    let checked = 0;
+    for (const d of dongMeta.dongs) {
+      const c = multi.byDong.get(d.code)!;
+      expect(c.per).toHaveLength(2);
+      if (c.per.some((r) => r.totalMin === null)) {
+        expect(c.worstMin, d.name).toBeNull();
+        continue;
+      }
+      expect(c.worstMin, d.name).toBe(Math.max(...c.per.map((r) => r.totalMin!)));
+      checked++;
+    }
+    expect(checked).toBeGreaterThan(400);
+  });
+
+  it("목적지를 추가하면 통근권이 좁아지기만 한다", () => {
+    // max 판정이므로 조건이 느슨해질 수는 없다
+    const LIMIT = 40;
+    const one = computeMultiCommute(graph, dongMeta.dongs, [gangnam]);
+    const two = computeMultiCommute(graph, dongMeta.dongs, [gangnam, yeouido]);
+    const within = (m: typeof one) =>
+      dongMeta.dongs.filter((d) => {
+        const v = m.byDong.get(d.code)!.worstMin;
+        return v !== null && v <= LIMIT;
+      }).length;
+
+    const a = within(one);
+    const b = within(two);
+    expect(b).toBeLessThanOrEqual(a);
+    expect(b).toBeGreaterThan(0); // 강남·여의도 둘 다 40분인 동네는 실제로 있다
+  });
+
+  it("목적지별 경로를 각각 되짚을 수 있다", () => {
+    const multi = computeMultiCommute(graph, dongMeta.dongs, [gangnam, yeouido]);
+    const home = dongMeta.dongs.find((d) => d.gu === "관악구" && d.dong === "신림동")!;
+    const c = multi.byDong.get(home.code)!;
+
+    multi.contexts.forEach((ctx, i) => {
+      const legs = buildRoute(graph, ctx, c.per[i]);
+      expect(legs.length, `목적지 ${i} 경로`).toBeGreaterThan(0);
+      const sum = legs.reduce((s, l) => s + l.minutes, 0);
+      expect(sum, `목적지 ${i} 구간 합`).toBeCloseTo(c.per[i].totalMin!, 5);
+    });
   });
 });
