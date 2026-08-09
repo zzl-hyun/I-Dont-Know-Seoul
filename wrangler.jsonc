@@ -19,9 +19,10 @@
   "kv_namespaces": [
     {
       "binding": "ONEDAY_KV",
-      // TODO(M6): `wrangler kv namespace create ONEDAY_KV` 실행 후 실제 id로 교체.
-      // 로컬 `wrangler dev` 는 이 값과 무관하게 자체 로컬 스토리지를 쓰므로 개발에는 지장 없음.
-      "id": "PLACEHOLDER_REPLACE_IN_M6"
+      // `wrangler kv namespace create ONEDAY_KV` 로 발급받은 id.
+      // 네임스페이스 id는 비밀값이 아니다 (접근에는 계정 인증이 따로 필요하다).
+      // 로컬 `wrangler dev` 는 이 값과 무관하게 자체 로컬 스토리지를 쓴다.
+      "id": "449c8a839eba40dc9935a87e6352f047"
     }
   ],
 
