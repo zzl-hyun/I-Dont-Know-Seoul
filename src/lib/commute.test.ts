@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import type { SubwayGraph, DongMeta } from "../types";
 import { multiSourceDijkstra } from "./dijkstra";
-import { computeCommute } from "./commute";
+import { computeCommute, buildRoute } from "./commute";
 import { FIRST_WAIT_MIN } from "./constants";
 
 const graph: SubwayGraph = JSON.parse(
@@ -104,7 +104,8 @@ describe("통근시간 정확도 (승강장→승강장)", () => {
 
 describe("동별 통근 계산", () => {
   const gangnam = station("강남");
-  const result = computeCommute(graph, dongMeta.dongs, gangnam);
+  const ctx = computeCommute(graph, dongMeta.dongs, gangnam);
+  const result = ctx.byDong;
 
   it("모든 행정동에 결과가 있다", () => {
     expect(result.size).toBe(dongMeta.dongs.length);
@@ -139,5 +140,84 @@ describe("동별 통근 계산", () => {
     const r = result.get(sillim!.code)!;
     expect(r.totalMin).not.toBeNull();
     expect(r.totalMin!).toBeLessThan(40);
+  });
+});
+
+describe("통근 경로 복원", () => {
+  /** 목적지에서 Dijkstra를 돌리고, 특정 동의 경로를 되짚는다. */
+  function routeFrom(destName: string, gu: string, dong: string) {
+    const dest = station(destName);
+    const ctx = computeCommute(graph, dongMeta.dongs, dest);
+    const home = dongMeta.dongs.find((d) => d.gu === gu && d.dong === dong)!;
+    const res = ctx.byDong.get(home.code)!;
+    return { legs: buildRoute(graph, ctx, res), res };
+  }
+
+  it("신림동 → 강남역: 2호선 직통 한 구간으로 접힌다", () => {
+    const { legs, res } = routeFrom("강남", "관악구", "신림동");
+
+    // 집→역 도보 / 승차 / 역→목적지 도보
+    expect(legs[0].kind).toBe("walk");
+    expect(legs.at(-1)!.kind).toBe("walk");
+
+    const rides = legs.filter((l) => l.kind === "ride");
+    expect(rides, "환승 없는 직통이어야 한다").toHaveLength(1);
+
+    const ride = rides[0] as Extract<(typeof legs)[number], { kind: "ride" }>;
+    expect(ride.line).toBe("2");
+    expect(ride.from).toBe("신림");
+    expect(ride.to).toBe("강남");
+    // 신림-봉천-서울대입구-낙성대-사당-방배-서초-교대-강남 = 8정거장
+    expect(ride.stops).toBe(8);
+    expect(ride.path).toHaveLength(9); // 정거장 수 + 1
+    expect(res.transfers).toBe(0);
+  });
+
+  it("구간 시간의 합이 총 통근시간과 정확히 같다", () => {
+    // 화면에 구간별 시간을 나열하므로, 합이 헤드라인 숫자와 어긋나면
+    // 사용자는 계산을 못 믿게 된다. 대기시간까지 구간으로 드러낸 이유다.
+    for (const [gu, dong] of [
+      ["관악구", "신림동"],
+      ["노원구", "상계1동"],
+      ["강서구", "화곡1동"],
+    ] as const) {
+      const { legs, res } = routeFrom("강남", gu, dong);
+      const sum = legs.reduce((s, l) => s + l.minutes, 0);
+      expect(sum, `${gu} ${dong}`).toBeCloseTo(res.totalMin!, 5);
+    }
+  });
+
+  it("최초 승차 대기가 구간으로 드러난다", () => {
+    const { legs } = routeFrom("강남", "관악구", "신림동");
+    const wait = legs.find((l) => l.kind === "wait");
+    expect(wait, "대기 구간이 없음").toBeDefined();
+    expect(wait!.minutes).toBe(FIRST_WAIT_MIN);
+  });
+
+  it("환승이 있으면 transfer leg 가 그 횟수만큼 나온다", () => {
+    const { legs, res } = routeFrom("강남", "노원구", "상계1동");
+    const transfers = legs.filter((l) => l.kind === "transfer");
+    expect(res.transfers).toBeGreaterThan(0);
+    expect(transfers).toHaveLength(res.transfers);
+    // 환승 앞뒤로는 서로 다른 노선을 탄다
+    for (const t of transfers) {
+      const tr = t as Extract<(typeof legs)[number], { kind: "transfer" }>;
+      expect(tr.fromLine).not.toBe(tr.toLine);
+    }
+  });
+
+  it("모든 도달 가능한 동에서 경로가 만들어진다", () => {
+    const dest = station("강남");
+    const ctx = computeCommute(graph, dongMeta.dongs, dest);
+    let checked = 0;
+    for (const d of dongMeta.dongs) {
+      const r = ctx.byDong.get(d.code)!;
+      if (r.totalMin === null) continue;
+      const legs = buildRoute(graph, ctx, r);
+      expect(legs.length, `${d.name} 경로가 비었음`).toBeGreaterThan(0);
+      expect(legs[0].kind, `${d.name} 첫 구간`).toBe("walk");
+      checked++;
+    }
+    expect(checked).toBeGreaterThan(400);
   });
 });

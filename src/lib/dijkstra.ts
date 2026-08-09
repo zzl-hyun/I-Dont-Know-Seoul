@@ -9,6 +9,15 @@ export interface ShortestPaths {
   transfers: Uint8Array;
   /** nodeId → 경로에 추정 구간이 포함되었는지 */
   estimated: Uint8Array;
+  /**
+   * nodeId → 최단경로에서 바로 앞(목적지 쪽) 노드. 출발점은 -1.
+   *
+   * 이걸 따라가면 목적지 방향으로 진행한다 — Dijkstra를 목적지에서 출발해
+   * 돌리기 때문이며, 결과적으로 집 → 목적지 순서가 그대로 나온다.
+   * 427개 동의 경로를 미리 만들지 않고 이 배열만 들고 있다가, 사용자가 고른
+   * 동 하나를 그때 되짚는다.
+   */
+  prev: Int32Array;
 }
 
 export interface Seed {
@@ -35,6 +44,7 @@ export function multiSourceDijkstra(
   const dist = new Float64Array(n).fill(Infinity);
   const transfers = new Uint8Array(n);
   const estimated = new Uint8Array(n);
+  const prev = new Int32Array(n).fill(-1);
 
   const heap = new MinHeap(n);
 
@@ -62,12 +72,13 @@ export function multiSourceDijkstra(
         dist[e.to] = nd;
         transfers[e.to] = transfers[u] + (e.kind === "transfer" ? 1 : 0);
         estimated[e.to] = estimated[u] || (e.source === "estimated" ? 1 : 0);
+        prev[e.to] = u;
         heap.push(e.to, nd);
       }
     }
   }
 
-  return { dist, transfers, estimated };
+  return { dist, transfers, estimated, prev };
 }
 
 /**
