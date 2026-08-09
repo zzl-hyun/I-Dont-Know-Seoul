@@ -104,7 +104,26 @@ async function main() {
     console.log(`\n  ${axis}: 데이터 없음 → 전 동 50점 (순위에 영향 없음)`);
   }
 
-  /* ---- 3. 원지표를 함께 실어 UI에서 근거로 보여준다 ---- */
+  /*
+   * ---- 3. 지표별 백분위를 함께 싣는다 ----
+   *
+   * 이게 없으면 UI가 "치안 78점"만 보여줄 뿐 그 78이 어디서 왔는지 설명할 수
+   * 없다. 실제로 유흥업소가 0개인데 78점인 동(신림동)이 있는데, 서울 동의
+   * 상당수가 0개라 동점 평균 순위가 매겨진 결과다. 백분위가 없으면 이게
+   * 버그처럼 보인다.
+   *
+   * 객체가 아니라 **고정 순서 배열**로 저장한다. 키 이름을 427번 반복하면
+   * 약 85KB가 늘지만 배열이면 20KB 안쪽이다. 순서는 문서의 pctKeys 가 정한다.
+   */
+  const pctKeys = [...availableKeys];
+  for (const r of rows) {
+    scores[r.code].pct = pctKeys.map((k) => {
+      const v = pct.get(k)?.get(r.code);
+      return v == null ? null : Math.round(v * 10) / 10;
+    });
+  }
+
+  /* ---- 4. 원지표를 함께 실어 UI에서 근거로 보여준다 ---- */
   for (const r of rows) {
     const s = scores[r.code];
     s.raw = {
@@ -124,10 +143,31 @@ async function main() {
 
   verify(scores, rows);
 
-  /* ---- 4. 저장 ---- */
+  /* ---- 5. 저장 ---- */
+
+  /*
+   * 축 내부 구성을 그대로 내보낸다. UI가 "치안 78 = 유흥업소 78 × 1.00" 처럼
+   * 축 점수가 어떻게 합성됐는지 보여주려면 하위 지표의 가중치와 방향이 필요하다.
+   * 가중치는 사용 가능한 지표들로 재정규화한 값을 싣는다 — 결측 지표가 빠지면
+   * 나머지로 재분배되므로, 원래 상수를 그대로 보내면 UI 계산식이 안 맞는다.
+   */
+  const axisWeights = {};
+  for (const [axis, parts] of Object.entries(AXES)) {
+    const usable = parts.filter((p) => availableKeys.has(p.key));
+    const wSum = usable.reduce((s, p) => s + p.weight, 0) || 1;
+    axisWeights[axis] = usable.map((p) => ({
+      key: p.key,
+      label: p.label,
+      dir: p.dir,
+      w: Math.round((p.weight / wSum) * 1000) / 1000,
+    }));
+  }
+
   const scoreDoc = {
     version: new Date().toISOString().slice(0, 10),
     generatedAt: new Date().toISOString(),
+    pctKeys,
+    axisWeights,
     axes: Object.fromEntries(
       Object.entries(AXES).map(([axis, parts]) => [
         axis,
@@ -148,6 +188,9 @@ async function main() {
       availableMetrics: metrics.available,
       missingMetrics: metrics.missing,
     },
+    pctKeys,
+    axisWeights,
+    unavailableAxes,
     dongs: dongMeta.dongs,
     graph,
     scores,

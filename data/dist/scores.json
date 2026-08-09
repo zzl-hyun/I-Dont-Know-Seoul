@@ -1,6 +1,58 @@
 {
   "version": "2026-08-09",
-  "generatedAt": "2026-08-09T03:59:16.678Z",
+  "generatedAt": "2026-08-09T08:38:26.954Z",
+  "pctKeys": [
+    "nightlifePerKm2",
+    "monthlyRentMan",
+    "storePerKm2",
+    "foodPerKm2",
+    "medicalPerKm2",
+    "walkToStationMin"
+  ],
+  "axisWeights": {
+    "safety": [
+      {
+        "key": "nightlifePerKm2",
+        "label": "유흥업소 밀도",
+        "dir": -1,
+        "w": 1
+      }
+    ],
+    "price": [
+      {
+        "key": "monthlyRentMan",
+        "label": "원룸 환산월세",
+        "dir": -1,
+        "w": 1
+      }
+    ],
+    "convenience": [
+      {
+        "key": "storePerKm2",
+        "label": "편의점·마트 밀도",
+        "dir": 1,
+        "w": 0.3
+      },
+      {
+        "key": "foodPerKm2",
+        "label": "음식점 밀도",
+        "dir": 1,
+        "w": 0.25
+      },
+      {
+        "key": "medicalPerKm2",
+        "label": "병원·약국 밀도",
+        "dir": 1,
+        "w": 0.2
+      },
+      {
+        "key": "walkToStationMin",
+        "label": "최근접역 도보",
+        "dir": -1,
+        "w": 0.25
+      }
+    ]
+  },
   "axes": {
     "safety": [
       "유흥업소 밀도"
@@ -21,6 +73,14 @@
       "safety": 32,
       "price": 37.6,
       "convenience": 32.7,
+      "pct": [
+        32,
+        37.6,
+        22.5,
+        50.2,
+        53.3,
+        10.8
+      ],
       "raw": {
         "monthlyRentMan": 67.29,
         "rentSamples": 0,
@@ -38,6 +98,14 @@
       "safety": 7.5,
       "price": 0.2,
       "convenience": 76.6,
+      "pct": [
+        7.5,
+        0.2,
+        70,
+        86.9,
+        79.7,
+        71.9
+      ],
       "raw": {
         "monthlyRentMan": 114.83,
         "rentSamples": 21,
@@ -55,6 +123,14 @@
       "safety": 24.2,
       "price": 14.8,
       "convenience": 28.4,
+      "pct": [
+        24.2,
+        14.8,
+        15,
+        66.4,
+        31.2,
+        4.2
+      ],
       "raw": {
         "monthlyRentMan": 80.63,
         "rentSamples": 10,
@@ -72,6 +148,14 @@
       "safety": 77.6,
       "price": 48.8,
       "convenience": 13.2,
+      "pct": [
+        77.6,
+        48.8,
+        12.9,
+        27,
+        11.7,
+        0.9
+      ],
       "raw": {
         "monthlyRentMan": 62.08,
         "rentSamples": 36,
@@ -89,6 +173,14 @@
       "safety": 77.6,
       "price": 50.9,
       "convenience": 6.9,
+      "pct": [
+        77.6,
+        50.9,
+        0.7,
+        7.5,
+        23.9,
+        0
+      ],
       "raw": {
         "monthlyRentMan": 61.46,
         "rentSamples": 10,
@@ -106,6 +198,14 @@
       "safety": 31,
       "price": 37.6,
       "convenience": 64.8,
+      "pct": [
+        31,
+        37.6,
+        53.4,
+        57.3,
+        90.7,
+        65.3
+      ],
       "raw": {
         "monthlyRentMan": 67.29,
         "rentSamples": 0,
@@ -123,6 +223,14 @@
       "safety": 27.2,
       "price": 37.6,
       "convenience": 77.3,
+      "pct": [
+        27.2,
+        37.6,
+        92.7,
+        80.8,
+        99.8,
+        37.6
+      ],
       "raw": {
         "monthlyRentMan": 67.29,
         "rentSamples": 0,
@@ -140,6 +248,14 @@
       "safety": 8.5,
       "price": 37.6,
       "convenience": 67.8,
+      "pct": [
+        8.5,
+        37.6,
+        71.6,
+        90.1,
+        72.5,
+        37
+      ],
       "raw": {
         "monthlyRentMan": 67.29,
         "rentSamples": 0,
@@ -157,6 +273,14 @@
       "safety": 6.6,
       "price": 37.6,
       "convenience": 92.6,
+      "pct": [
+        6.6,
+        37.6,
+        90.1,
+        92.3,
+        95.5,
+        93.7
+      ],
       "raw": {
         "monthlyRentMan": 67.29,
         "rentSamples": 0,
@@ -174,6 +298,14 @@
       "safety": 13.4,
       "price": 37.6,
       "convenience": 83.8,
+      "pct": [
+        13.4,
+        37.6,
+        74.6,
+        80.3,
+        99.3,
+        85.9
+      ],
       "raw": {
         "monthlyRentMan": 67.29,
         "rentSamples": 0,
@@ -191,6 +323,14 @@
       "safety": 28.4,
       "price": 57.4,
       "convenience": 73.4,
+      "pct": [
+        28.4,
+        57.4,
+        70.4,
+        64.6,
+        78.2,
+        82.2
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 25,
@@ -208,6 +348,14 @@
       "safety": 26.1,
       "price": 15.3,
       "convenience": 45.4,
+      "pct": [
+        26.1,
+        15.3,
+        45.5,
+        59.9,
+        45.2,
+        30.8
+      ],
       "raw": {
         "monthlyRentMan": 79.58,
         "rentSamples": 162,
@@ -225,6 +373,14 @@
       "safety": 77.6,
       "price": 94.5,
       "convenience": 84.5,
+      "pct": [
+        77.6,
+        94.5,
+        96.7,
+        70,
+        77.7,
+        89.7
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 178,
@@ -242,6 +398,14 @@
       "safety": 5.4,
       "price": 94.5,
       "convenience": 80.7,
+      "pct": [
+        5.4,
+        94.5,
+        88,
+        72.8,
+        96.9,
+        66.8
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 178,
@@ -259,6 +423,14 @@
       "safety": 12.2,
       "price": 94.5,
       "convenience": 41.1,
+      "pct": [
+        12.2,
+        94.5,
+        24.5,
+        33.6,
+        11.7,
+        92.1
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 178,
@@ -276,6 +448,14 @@
       "safety": 77.6,
       "price": 25.5,
       "convenience": 43.7,
+      "pct": [
+        77.6,
+        25.5,
+        52.7,
+        25.1,
+        11.7,
+        76.9
+      ],
       "raw": {
         "monthlyRentMan": 70.58,
         "rentSamples": 958,
@@ -293,6 +473,14 @@
       "safety": 8.7,
       "price": 25.5,
       "convenience": 82.6,
+      "pct": [
+        8.7,
+        25.5,
+        98.1,
+        63.8,
+        87.2,
+        78.9
+      ],
       "raw": {
         "monthlyRentMan": 70.58,
         "rentSamples": 958,
@@ -310,6 +498,14 @@
       "safety": 4.2,
       "price": 11.3,
       "convenience": 95,
+      "pct": [
+        4.2,
+        11.3,
+        97.7,
+        98.8,
+        90.7,
+        91.3
+      ],
       "raw": {
         "monthlyRentMan": 82.92,
         "rentSamples": 0,
@@ -327,6 +523,14 @@
       "safety": 7.7,
       "price": 11.3,
       "convenience": 97.3,
+      "pct": [
+        7.7,
+        11.3,
+        99.5,
+        97.2,
+        95.3,
+        96.5
+      ],
       "raw": {
         "monthlyRentMan": 82.92,
         "rentSamples": 0,
@@ -344,6 +548,14 @@
       "safety": 2.8,
       "price": 11.3,
       "convenience": 99.2,
+      "pct": [
+        2.8,
+        11.3,
+        100,
+        100,
+        100,
+        96.9
+      ],
       "raw": {
         "monthlyRentMan": 82.92,
         "rentSamples": 0,
@@ -361,6 +573,14 @@
       "safety": 5.2,
       "price": 11.3,
       "convenience": 62.1,
+      "pct": [
+        5.2,
+        11.3,
+        54.7,
+        91.5,
+        48.2,
+        52.6
+      ],
       "raw": {
         "monthlyRentMan": 82.92,
         "rentSamples": 0,
@@ -378,6 +598,14 @@
       "safety": 16.8,
       "price": 11.3,
       "convenience": 53.7,
+      "pct": [
+        16.8,
+        11.3,
+        21.4,
+        81.5,
+        11.7,
+        98.4
+      ],
       "raw": {
         "monthlyRentMan": 82.92,
         "rentSamples": 0,
@@ -395,6 +623,14 @@
       "safety": 3.1,
       "price": 11.3,
       "convenience": 95,
+      "pct": [
+        3.1,
+        11.3,
+        98.6,
+        99.1,
+        86.9,
+        93
+      ],
       "raw": {
         "monthlyRentMan": 82.92,
         "rentSamples": 0,
@@ -412,6 +648,14 @@
       "safety": 0.2,
       "price": 11.3,
       "convenience": 93.9,
+      "pct": [
+        0.2,
+        11.3,
+        96,
+        99.8,
+        78.6,
+        97.9
+      ],
       "raw": {
         "monthlyRentMan": 82.92,
         "rentSamples": 0,
@@ -429,6 +673,14 @@
       "safety": 2.1,
       "price": 28.3,
       "convenience": 87.8,
+      "pct": [
+        2.1,
+        28.3,
+        98.4,
+        97.7,
+        62.9,
+        85.2
+      ],
       "raw": {
         "monthlyRentMan": 69.36,
         "rentSamples": 806,
@@ -446,6 +698,14 @@
       "safety": 5.6,
       "price": 11.3,
       "convenience": 69.6,
+      "pct": [
+        5.6,
+        11.3,
+        29.9,
+        91.3,
+        74.2,
+        91.8
+      ],
       "raw": {
         "monthlyRentMan": 82.92,
         "rentSamples": 0,
@@ -463,6 +723,14 @@
       "safety": 5.9,
       "price": 11.3,
       "convenience": 65,
+      "pct": [
+        5.9,
+        11.3,
+        54.5,
+        82.4,
+        47.2,
+        74.4
+      ],
       "raw": {
         "monthlyRentMan": 82.92,
         "rentSamples": 0,
@@ -480,6 +748,14 @@
       "safety": 7.3,
       "price": 11.3,
       "convenience": 65.8,
+      "pct": [
+        7.3,
+        11.3,
+        48.1,
+        86.2,
+        58.9,
+        72.3
+      ],
       "raw": {
         "monthlyRentMan": 82.92,
         "rentSamples": 0,
@@ -497,6 +773,14 @@
       "safety": 0.9,
       "price": 28.3,
       "convenience": 60.5,
+      "pct": [
+        0.9,
+        28.3,
+        69.5,
+        97.4,
+        11.7,
+        51.6
+      ],
       "raw": {
         "monthlyRentMan": 69.36,
         "rentSamples": 806,
@@ -514,6 +798,14 @@
       "safety": 6.1,
       "price": 11.3,
       "convenience": 70.9,
+      "pct": [
+        6.1,
+        11.3,
+        72.3,
+        88,
+        57.7,
+        62.6
+      ],
       "raw": {
         "monthlyRentMan": 82.92,
         "rentSamples": 0,
@@ -531,6 +823,14 @@
       "safety": 2.3,
       "price": 9.4,
       "convenience": 76.3,
+      "pct": [
+        2.3,
+        9.4,
+        99.1,
+        99.3,
+        11.7,
+        77.5
+      ],
       "raw": {
         "monthlyRentMan": 83.83,
         "rentSamples": 569,
@@ -548,6 +848,14 @@
       "safety": 4.9,
       "price": 0,
       "convenience": 73.2,
+      "pct": [
+        4.9,
+        0,
+        70.2,
+        93.2,
+        48.2,
+        76.9
+      ],
       "raw": {
         "monthlyRentMan": 119.58,
         "rentSamples": 163,
@@ -565,6 +873,14 @@
       "safety": 44.7,
       "price": 60.6,
       "convenience": 51.3,
+      "pct": [
+        44.7,
+        60.6,
+        72.5,
+        45.8,
+        70.2,
+        16.4
+      ],
       "raw": {
         "monthlyRentMan": 59.29,
         "rentSamples": 169,
@@ -582,6 +898,14 @@
       "safety": 32.4,
       "price": 17,
       "convenience": 21.8,
+      "pct": [
+        32.4,
+        17,
+        19,
+        33.1,
+        11.7,
+        21.8
+      ],
       "raw": {
         "monthlyRentMan": 76.58,
         "rentSamples": 0,
@@ -599,6 +923,14 @@
       "safety": 35.7,
       "price": 24.6,
       "convenience": 61.8,
+      "pct": [
+        35.7,
+        24.6,
+        49.3,
+        78.6,
+        61.2,
+        60.4
+      ],
       "raw": {
         "monthlyRentMan": 71.44,
         "rentSamples": 10,
@@ -616,6 +948,14 @@
       "safety": 30.8,
       "price": 17,
       "convenience": 57.9,
+      "pct": [
+        30.8,
+        17,
+        81,
+        40.6,
+        50.5,
+        53.5
+      ],
       "raw": {
         "monthlyRentMan": 76.58,
         "rentSamples": 0,
@@ -633,6 +973,14 @@
       "safety": 35,
       "price": 17,
       "convenience": 47.4,
+      "pct": [
+        35,
+        17,
+        79.8,
+        29.6,
+        11.7,
+        54.7
+      ],
       "raw": {
         "monthlyRentMan": 76.58,
         "rentSamples": 0,
@@ -650,6 +998,14 @@
       "safety": 77.6,
       "price": 17,
       "convenience": 28.6,
+      "pct": [
+        77.6,
+        17,
+        31.2,
+        12.9,
+        54.8,
+        20.1
+      ],
       "raw": {
         "monthlyRentMan": 76.58,
         "rentSamples": 0,
@@ -667,6 +1023,14 @@
       "safety": 77.6,
       "price": 23.5,
       "convenience": 43.9,
+      "pct": [
+        77.6,
+        23.5,
+        44.4,
+        17.4,
+        52.8,
+        62.6
+      ],
       "raw": {
         "monthlyRentMan": 72.75,
         "rentSamples": 38,
@@ -684,6 +1048,14 @@
       "safety": 77.6,
       "price": 20,
       "convenience": 52.7,
+      "pct": [
+        77.6,
+        20,
+        85,
+        17.6,
+        11.7,
+        81.8
+      ],
       "raw": {
         "monthlyRentMan": 74.58,
         "rentSamples": 45,
@@ -701,6 +1073,14 @@
       "safety": 35,
       "price": 17,
       "convenience": 51.7,
+      "pct": [
+        35,
+        17,
+        32,
+        61.3,
+        11.7,
+        97.7
+      ],
       "raw": {
         "monthlyRentMan": 76.58,
         "rentSamples": 0,
@@ -718,6 +1098,14 @@
       "safety": 77.6,
       "price": 17,
       "convenience": 15.2,
+      "pct": [
+        77.6,
+        17,
+        1.6,
+        12,
+        26.3,
+        25.8
+      ],
       "raw": {
         "monthlyRentMan": 76.58,
         "rentSamples": 0,
@@ -735,6 +1123,14 @@
       "safety": 77.6,
       "price": 17,
       "convenience": 11,
+      "pct": [
+        77.6,
+        17,
+        3.1,
+        13.1,
+        11.7,
+        17.6
+      ],
       "raw": {
         "monthlyRentMan": 76.58,
         "rentSamples": 0,
@@ -752,6 +1148,14 @@
       "safety": 1.2,
       "price": 23.1,
       "convenience": 84.6,
+      "pct": [
+        1.2,
+        23.1,
+        92.5,
+        94.6,
+        46.8,
+        95.2
+      ],
       "raw": {
         "monthlyRentMan": 73.06,
         "rentSamples": 238,
@@ -769,6 +1173,14 @@
       "safety": 4,
       "price": 23.1,
       "convenience": 45.5,
+      "pct": [
+        4,
+        23.1,
+        24.2,
+        79.6,
+        60.8,
+        24.9
+      ],
       "raw": {
         "monthlyRentMan": 73.06,
         "rentSamples": 238,
@@ -786,6 +1198,14 @@
       "safety": 21.8,
       "price": 23.7,
       "convenience": 42.7,
+      "pct": [
+        21.8,
+        23.7,
+        9.2,
+        55.2,
+        39.7,
+        73
+      ],
       "raw": {
         "monthlyRentMan": 71.88,
         "rentSamples": 72,
@@ -803,6 +1223,14 @@
       "safety": 53.2,
       "price": 71.8,
       "convenience": 29.4,
+      "pct": [
+        53.2,
+        71.8,
+        5,
+        12.4,
+        11.7,
+        89.9
+      ],
       "raw": {
         "monthlyRentMan": 55.21,
         "rentSamples": 6,
@@ -820,6 +1248,14 @@
       "safety": 77.6,
       "price": 79.5,
       "convenience": 14,
+      "pct": [
+        77.6,
+        79.5,
+        8.7,
+        14.6,
+        11.7,
+        21.6
+      ],
       "raw": {
         "monthlyRentMan": 52.29,
         "rentSamples": 47,
@@ -837,6 +1273,14 @@
       "safety": 77.6,
       "price": 32.2,
       "convenience": 61.8,
+      "pct": [
+        77.6,
+        32.2,
+        67.6,
+        69.7,
+        11.7,
+        87.1
+      ],
       "raw": {
         "monthlyRentMan": 68.33,
         "rentSamples": 0,
@@ -854,6 +1298,14 @@
       "safety": 77.6,
       "price": 32.2,
       "convenience": 83.2,
+      "pct": [
+        77.6,
+        32.2,
+        94.8,
+        81.2,
+        66.2,
+        85
+      ],
       "raw": {
         "monthlyRentMan": 68.33,
         "rentSamples": 0,
@@ -871,6 +1323,14 @@
       "safety": 48.1,
       "price": 45.8,
       "convenience": 63.8,
+      "pct": [
+        48.1,
+        45.8,
+        43.9,
+        65.3,
+        56.1,
+        92.5
+      ],
       "raw": {
         "monthlyRentMan": 63.75,
         "rentSamples": 593,
@@ -888,6 +1348,14 @@
       "safety": 77.6,
       "price": 66,
       "convenience": 83.8,
+      "pct": [
+        77.6,
+        66,
+        86.2,
+        78.2,
+        80.5,
+        89.4
+      ],
       "raw": {
         "monthlyRentMan": 57.29,
         "rentSamples": 293,
@@ -905,6 +1373,14 @@
       "safety": 35,
       "price": 45.8,
       "convenience": 88,
+      "pct": [
+        35,
+        45.8,
+        92,
+        85.2,
+        85.9,
+        87.7
+      ],
       "raw": {
         "monthlyRentMan": 63.75,
         "rentSamples": 686,
@@ -922,6 +1398,14 @@
       "safety": 31.5,
       "price": 45.8,
       "convenience": 58,
+      "pct": [
+        31.5,
+        45.8,
+        71.1,
+        42.7,
+        11.7,
+        94.6
+      ],
       "raw": {
         "monthlyRentMan": 63.75,
         "rentSamples": 686,
@@ -939,6 +1423,14 @@
       "safety": 77.6,
       "price": 91.5,
       "convenience": 46.9,
+      "pct": [
+        77.6,
+        91.5,
+        36.3,
+        36.6,
+        11.7,
+        98.1
+      ],
       "raw": {
         "monthlyRentMan": 47.58,
         "rentSamples": 7,
@@ -956,6 +1448,14 @@
       "safety": 77.6,
       "price": 32.2,
       "convenience": 33.7,
+      "pct": [
+        77.6,
+        32.2,
+        27.2,
+        51.4,
+        11.7,
+        41.4
+      ],
       "raw": {
         "monthlyRentMan": 68.33,
         "rentSamples": 0,
@@ -973,6 +1473,14 @@
       "safety": 77.6,
       "price": 32.2,
       "convenience": 54.5,
+      "pct": [
+        77.6,
+        32.2,
+        47.7,
+        71.1,
+        11.7,
+        80.2
+      ],
       "raw": {
         "monthlyRentMan": 68.33,
         "rentSamples": 0,
@@ -990,6 +1498,14 @@
       "safety": 42.7,
       "price": 32.2,
       "convenience": 35.8,
+      "pct": [
+        42.7,
+        32.2,
+        20,
+        44.8,
+        55.3,
+        30
+      ],
       "raw": {
         "monthlyRentMan": 68.33,
         "rentSamples": 0,
@@ -1007,6 +1523,14 @@
       "safety": 77.6,
       "price": 6.8,
       "convenience": 39.9,
+      "pct": [
+        77.6,
+        6.8,
+        10.2,
+        38.4,
+        11.7,
+        99.8
+      ],
       "raw": {
         "monthlyRentMan": 86.13,
         "rentSamples": 60,
@@ -1024,6 +1548,14 @@
       "safety": 38.3,
       "price": 32.2,
       "convenience": 38.6,
+      "pct": [
+        38.3,
+        32.2,
+        21.6,
+        49.1,
+        11.7,
+        69.8
+      ],
       "raw": {
         "monthlyRentMan": 68.33,
         "rentSamples": 0,
@@ -1041,6 +1573,14 @@
       "safety": 32,
       "price": 32.2,
       "convenience": 69.9,
+      "pct": [
+        32,
+        32.2,
+        78.2,
+        89.4,
+        35.6,
+        67.8
+      ],
       "raw": {
         "monthlyRentMan": 68.33,
         "rentSamples": 0,
@@ -1058,6 +1598,14 @@
       "safety": 22.2,
       "price": 32.2,
       "convenience": 52.3,
+      "pct": [
+        22.2,
+        32.2,
+        38.7,
+        85,
+        73.5,
+        18.8
+      ],
       "raw": {
         "monthlyRentMan": 68.33,
         "rentSamples": 0,
@@ -1075,6 +1623,14 @@
       "safety": 9.9,
       "price": 32.2,
       "convenience": 88.1,
+      "pct": [
+        9.9,
+        32.2,
+        89.7,
+        90.8,
+        75.6,
+        93.7
+      ],
       "raw": {
         "monthlyRentMan": 68.33,
         "rentSamples": 0,
@@ -1092,6 +1648,14 @@
       "safety": 77.6,
       "price": 73.1,
       "convenience": 35.8,
+      "pct": [
+        77.6,
+        73.1,
+        34,
+        67.8,
+        11.7,
+        25.1
+      ],
       "raw": {
         "monthlyRentMan": 54.58,
         "rentSamples": 416,
@@ -1109,6 +1673,14 @@
       "safety": 36.3,
       "price": 35.4,
       "convenience": 36.9,
+      "pct": [
+        36.3,
+        35.4,
+        17.4,
+        53.8,
+        58.3,
+        26.5
+      ],
       "raw": {
         "monthlyRentMan": 67.58,
         "rentSamples": 629,
@@ -1126,6 +1698,14 @@
       "safety": 0.7,
       "price": 35.4,
       "convenience": 82.4,
+      "pct": [
+        0.7,
+        35.4,
+        93.2,
+        97.9,
+        66.9,
+        66.3
+      ],
       "raw": {
         "monthlyRentMan": 67.58,
         "rentSamples": 2763,
@@ -1143,6 +1723,14 @@
       "safety": 1.6,
       "price": 42.1,
       "convenience": 75.6,
+      "pct": [
+        1.6,
+        42.1,
+        75.6,
+        96.7,
+        91.5,
+        41.8
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 1260,
@@ -1160,6 +1748,14 @@
       "safety": 1.9,
       "price": 47.8,
       "convenience": 80.3,
+      "pct": [
+        1.9,
+        47.8,
+        83.3,
+        96.2,
+        97.9,
+        46.8
+      ],
       "raw": {
         "monthlyRentMan": 62.27,
         "rentSamples": 1702,
@@ -1177,6 +1773,14 @@
       "safety": 3.3,
       "price": 47.8,
       "convenience": 80.6,
+      "pct": [
+        3.3,
+        47.8,
+        97.4,
+        94.8,
+        62.7,
+        60.4
+      ],
       "raw": {
         "monthlyRentMan": 62.27,
         "rentSamples": 1702,
@@ -1194,6 +1798,14 @@
       "safety": 2.6,
       "price": 47.8,
       "convenience": 79,
+      "pct": [
+        2.6,
+        47.8,
+        58.7,
+        92,
+        84.7,
+        85.7
+      ],
       "raw": {
         "monthlyRentMan": 62.27,
         "rentSamples": 1702,
@@ -1211,6 +1823,14 @@
       "safety": 10.3,
       "price": 47.8,
       "convenience": 39.3,
+      "pct": [
+        10.3,
+        47.8,
+        27.5,
+        65.5,
+        51.1,
+        17.8
+      ],
       "raw": {
         "monthlyRentMan": 62.27,
         "rentSamples": 1702,
@@ -1228,6 +1848,14 @@
       "safety": 10.6,
       "price": 42.1,
       "convenience": 43.1,
+      "pct": [
+        10.6,
+        42.1,
+        46.5,
+        76.1,
+        11.7,
+        31.2
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 537,
@@ -1245,6 +1873,14 @@
       "safety": 21.4,
       "price": 42.1,
       "convenience": 44.3,
+      "pct": [
+        21.4,
+        42.1,
+        16.7,
+        57,
+        26.5,
+        78.9
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 85,
@@ -1262,6 +1898,14 @@
       "safety": 0,
       "price": 42.1,
       "convenience": 83.7,
+      "pct": [
+        0,
+        42.1,
+        89.9,
+        99.5,
+        99.5,
+        47.7
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 2042,
@@ -1279,6 +1923,14 @@
       "safety": 11,
       "price": 42.1,
       "convenience": 36.3,
+      "pct": [
+        11,
+        42.1,
+        25.6,
+        65,
+        46.4,
+        12.2
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 2042,
@@ -1296,6 +1948,14 @@
       "safety": 9.2,
       "price": 42.1,
       "convenience": 73.2,
+      "pct": [
+        9.2,
+        42.1,
+        81.9,
+        86.6,
+        45.8,
+        71.1
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 2042,
@@ -1313,6 +1973,14 @@
       "safety": 3.8,
       "price": 42.1,
       "convenience": 74,
+      "pct": [
+        3.8,
+        42.1,
+        70.7,
+        93.4,
+        55.9,
+        73.2
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 2042,
@@ -1330,6 +1998,14 @@
       "safety": 0.5,
       "price": 27.1,
       "convenience": 82.5,
+      "pct": [
+        0.5,
+        27.1,
+        98.8,
+        98.4,
+        73.9,
+        53.9
+      ],
       "raw": {
         "monthlyRentMan": 69.58,
         "rentSamples": 1581,
@@ -1347,6 +2023,14 @@
       "safety": 6.3,
       "price": 27.1,
       "convenience": 61.8,
+      "pct": [
+        6.3,
+        27.1,
+        41.5,
+        81.7,
+        62.4,
+        65.8
+      ],
       "raw": {
         "monthlyRentMan": 69.58,
         "rentSamples": 1581,
@@ -1364,6 +2048,14 @@
       "safety": 9.4,
       "price": 27.1,
       "convenience": 70.6,
+      "pct": [
+        9.4,
+        27.1,
+        56.8,
+        82.6,
+        41.1,
+        98.6
+      ],
       "raw": {
         "monthlyRentMan": 69.58,
         "rentSamples": 1581,
@@ -1381,6 +2073,14 @@
       "safety": 21,
       "price": 13.4,
       "convenience": 83.1,
+      "pct": [
+        21,
+        13.4,
+        88.5,
+        94.1,
+        52.2,
+        90.1
+      ],
       "raw": {
         "monthlyRentMan": 81,
         "rentSamples": 459,
@@ -1398,6 +2098,14 @@
       "safety": 14.3,
       "price": 20,
       "convenience": 84.8,
+      "pct": [
+        14.3,
+        20,
+        72.8,
+        93.9,
+        79.7,
+        94.4
+      ],
       "raw": {
         "monthlyRentMan": 74.58,
         "rentSamples": 1200,
@@ -1415,6 +2123,14 @@
       "safety": 13.6,
       "price": 66,
       "convenience": 78.5,
+      "pct": [
+        13.6,
+        66,
+        84.7,
+        95.8,
+        89.4,
+        45.1
+      ],
       "raw": {
         "monthlyRentMan": 57.29,
         "rentSamples": 741,
@@ -1432,6 +2148,14 @@
       "safety": 19,
       "price": 29.5,
       "convenience": 78.2,
+      "pct": [
+        19,
+        29.5,
+        81.7,
+        93,
+        67.3,
+        68.2
+      ],
       "raw": {
         "monthlyRentMan": 69.17,
         "rentSamples": 774,
@@ -1449,6 +2173,14 @@
       "safety": 32.7,
       "price": 29.5,
       "convenience": 47.1,
+      "pct": [
+        32.7,
+        29.5,
+        39,
+        77,
+        64.8,
+        12.9
+      ],
       "raw": {
         "monthlyRentMan": 69.17,
         "rentSamples": 774,
@@ -1466,6 +2198,14 @@
       "safety": 43.2,
       "price": 27.1,
       "convenience": 74.1,
+      "pct": [
+        43.2,
+        27.1,
+        76.5,
+        89.9,
+        63.1,
+        64.1
+      ],
       "raw": {
         "monthlyRentMan": 69.58,
         "rentSamples": 853,
@@ -1483,6 +2223,14 @@
       "safety": 20.4,
       "price": 27.1,
       "convenience": 41.4,
+      "pct": [
+        20.4,
+        27.1,
+        39.9,
+        89.2,
+        11.7,
+        19.1
+      ],
       "raw": {
         "monthlyRentMan": 69.58,
         "rentSamples": 853,
@@ -1500,6 +2248,14 @@
       "safety": 6.8,
       "price": 66,
       "convenience": 82.3,
+      "pct": [
+        6.8,
+        66,
+        81.2,
+        96,
+        85.7,
+        67.3
+      ],
       "raw": {
         "monthlyRentMan": 57.29,
         "rentSamples": 1387,
@@ -1517,6 +2273,14 @@
       "safety": 10.8,
       "price": 66,
       "convenience": 73.3,
+      "pct": [
+        10.8,
+        66,
+        94.6,
+        96.5,
+        93.9,
+        8
+      ],
       "raw": {
         "monthlyRentMan": 57.29,
         "rentSamples": 1387,
@@ -1534,6 +2298,14 @@
       "safety": 14.6,
       "price": 3.5,
       "convenience": 61.9,
+      "pct": [
+        14.6,
+        3.5,
+        44.6,
+        91.1,
+        94.4,
+        27.7
+      ],
       "raw": {
         "monthlyRentMan": 95.67,
         "rentSamples": 379,
@@ -1551,6 +2323,14 @@
       "safety": 4.5,
       "price": 60.8,
       "convenience": 65,
+      "pct": [
+        4.5,
+        60.8,
+        82.2,
+        98.1,
+        39.4,
+        31.7
+      ],
       "raw": {
         "monthlyRentMan": 59.17,
         "rentSamples": 658,
@@ -1568,6 +2348,14 @@
       "safety": 17.6,
       "price": 57.4,
       "convenience": 84.5,
+      "pct": [
+        17.6,
+        57.4,
+        96.9,
+        94.4,
+        82.9,
+        61.2
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 2248,
@@ -1585,6 +2373,14 @@
       "safety": 36.9,
       "price": 57.4,
       "convenience": 59.3,
+      "pct": [
+        36.9,
+        57.4,
+        68.8,
+        77.5,
+        66.7,
+        23.9
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 2248,
@@ -1602,6 +2398,14 @@
       "safety": 8.2,
       "price": 61.7,
       "convenience": 87.6,
+      "pct": [
+        8.2,
+        61.7,
+        85.2,
+        95.5,
+        96.7,
+        75.1
+      ],
       "raw": {
         "monthlyRentMan": 58.58,
         "rentSamples": 1099,
@@ -1619,6 +2423,14 @@
       "safety": 23.9,
       "price": 61.7,
       "convenience": 63.3,
+      "pct": [
+        23.9,
+        61.7,
+        30.4,
+        73.9,
+        54,
+        99.5
+      ],
       "raw": {
         "monthlyRentMan": 58.58,
         "rentSamples": 1099,
@@ -1636,6 +2448,14 @@
       "safety": 12,
       "price": 84.3,
       "convenience": 66.4,
+      "pct": [
+        12,
+        84.3,
+        88.7,
+        53.1,
+        83.6,
+        39.2
+      ],
       "raw": {
         "monthlyRentMan": 50.29,
         "rentSamples": 1996,
@@ -1653,6 +2473,14 @@
       "safety": 24.5,
       "price": 84.3,
       "convenience": 53.5,
+      "pct": [
+        24.5,
+        84.3,
+        55.4,
+        16.7,
+        38.5,
+        100
+      ],
       "raw": {
         "monthlyRentMan": 50.29,
         "rentSamples": 1996,
@@ -1670,6 +2498,14 @@
       "safety": 36.3,
       "price": 84.3,
       "convenience": 52.7,
+      "pct": [
+        36.3,
+        84.3,
+        59.4,
+        58.2,
+        73.2,
+        22.8
+      ],
       "raw": {
         "monthlyRentMan": 50.29,
         "rentSamples": 1996,
@@ -1687,6 +2523,14 @@
       "safety": 29.3,
       "price": 75.1,
       "convenience": 82.8,
+      "pct": [
+        29.3,
+        75.1,
+        95.3,
+        47.4,
+        92.3,
+        95.5
+      ],
       "raw": {
         "monthlyRentMan": 53.75,
         "rentSamples": 0,
@@ -1704,6 +2548,14 @@
       "safety": 48.6,
       "price": 84.3,
       "convenience": 50.2,
+      "pct": [
+        48.6,
+        84.3,
+        40.6,
+        45.3,
+        97.2,
+        28.9
+      ],
       "raw": {
         "monthlyRentMan": 50.29,
         "rentSamples": 1996,
@@ -1721,6 +2573,14 @@
       "safety": 17.8,
       "price": 84.3,
       "convenience": 55.5,
+      "pct": [
+        17.8,
+        84.3,
+        56.3,
+        66,
+        93.2,
+        13.8
+      ],
       "raw": {
         "monthlyRentMan": 50.29,
         "rentSamples": 1996,
@@ -1738,6 +2598,14 @@
       "safety": 30.3,
       "price": 37.6,
       "convenience": 76,
+      "pct": [
+        30.3,
+        37.6,
+        69.2,
+        60.1,
+        84,
+        93.7
+      ],
       "raw": {
         "monthlyRentMan": 67.29,
         "rentSamples": 693,
@@ -1755,6 +2623,14 @@
       "safety": 4.7,
       "price": 37.6,
       "convenience": 87.3,
+      "pct": [
+        4.7,
+        37.6,
+        97.9,
+        80,
+        86.2,
+        82.6
+      ],
       "raw": {
         "monthlyRentMan": 67.29,
         "rentSamples": 693,
@@ -1772,6 +2648,14 @@
       "safety": 26.5,
       "price": 75.1,
       "convenience": 75.5,
+      "pct": [
+        26.5,
+        75.1,
+        89.2,
+        48.6,
+        81.9,
+        80.8
+      ],
       "raw": {
         "monthlyRentMan": 53.75,
         "rentSamples": 733,
@@ -1789,6 +2673,14 @@
       "safety": 26.3,
       "price": 75.1,
       "convenience": 58.7,
+      "pct": [
+        26.3,
+        75.1,
+        60.1,
+        34,
+        66.4,
+        75.6
+      ],
       "raw": {
         "monthlyRentMan": 53.75,
         "rentSamples": 733,
@@ -1806,6 +2698,14 @@
       "safety": 77.6,
       "price": 76.6,
       "convenience": 43.2,
+      "pct": [
+        77.6,
+        76.6,
+        58.2,
+        10.6,
+        44.2,
+        57
+      ],
       "raw": {
         "monthlyRentMan": 52.92,
         "rentSamples": 555,
@@ -1823,6 +2723,14 @@
       "safety": 39.2,
       "price": 76.6,
       "convenience": 47.6,
+      "pct": [
+        39.2,
+        76.6,
+        57,
+        25.6,
+        11.7,
+        86.9
+      ],
       "raw": {
         "monthlyRentMan": 52.92,
         "rentSamples": 555,
@@ -1840,6 +2748,14 @@
       "safety": 19.2,
       "price": 75.1,
       "convenience": 63.8,
+      "pct": [
+        19.2,
+        75.1,
+        60.9,
+        58.9,
+        95.9,
+        46.5
+      ],
       "raw": {
         "monthlyRentMan": 53.75,
         "rentSamples": 0,
@@ -1857,6 +2773,14 @@
       "safety": 46.4,
       "price": 77.5,
       "convenience": 41.6,
+      "pct": [
+        46.4,
+        77.5,
+        47.9,
+        40.4,
+        77,
+        7
+      ],
       "raw": {
         "monthlyRentMan": 52.42,
         "rentSamples": 683,
@@ -1874,6 +2798,14 @@
       "safety": 32.7,
       "price": 37.6,
       "convenience": 32.6,
+      "pct": [
+        32.7,
+        37.6,
+        23.5,
+        38,
+        38.7,
+        33.1
+      ],
       "raw": {
         "monthlyRentMan": 67.29,
         "rentSamples": 168,
@@ -1891,6 +2823,14 @@
       "safety": 77.6,
       "price": 37.6,
       "convenience": 33.3,
+      "pct": [
+        77.6,
+        37.6,
+        28.9,
+        26.3,
+        36.4,
+        43
+      ],
       "raw": {
         "monthlyRentMan": 67.29,
         "rentSamples": 168,
@@ -1908,6 +2848,14 @@
       "safety": 52.5,
       "price": 39.4,
       "convenience": 30.7,
+      "pct": [
+        52.5,
+        39.4,
+        9.9,
+        46.5,
+        73.7,
+        5.6
+      ],
       "raw": {
         "monthlyRentMan": 66.88,
         "rentSamples": 75,
@@ -1925,6 +2873,14 @@
       "safety": 77.6,
       "price": 64.4,
       "convenience": 72,
+      "pct": [
+        77.6,
+        64.4,
+        64.3,
+        74.9,
+        97.7,
+        57.6
+      ],
       "raw": {
         "monthlyRentMan": 57.58,
         "rentSamples": 0,
@@ -1942,6 +2898,14 @@
       "safety": 13.1,
       "price": 64.4,
       "convenience": 91.2,
+      "pct": [
+        13.1,
+        64.4,
+        95.5,
+        89.7,
+        99.1,
+        81.2
+      ],
       "raw": {
         "monthlyRentMan": 57.58,
         "rentSamples": 0,
@@ -1959,6 +2923,14 @@
       "safety": 77.6,
       "price": 76.6,
       "convenience": 48.2,
+      "pct": [
+        77.6,
+        76.6,
+        14.8,
+        40.8,
+        93.4,
+        59.6
+      ],
       "raw": {
         "monthlyRentMan": 52.92,
         "rentSamples": 32,
@@ -1976,6 +2948,14 @@
       "safety": 77.6,
       "price": 76.6,
       "convenience": 31.3,
+      "pct": [
+        77.6,
+        76.6,
+        5.9,
+        21.4,
+        75.4,
+        36.6
+      ],
       "raw": {
         "monthlyRentMan": 52.92,
         "rentSamples": 32,
@@ -1993,6 +2973,14 @@
       "safety": 29.8,
       "price": 64.4,
       "convenience": 77.5,
+      "pct": [
+        29.8,
+        64.4,
+        60.3,
+        75.8,
+        87.6,
+        91.5
+      ],
       "raw": {
         "monthlyRentMan": 57.58,
         "rentSamples": 0,
@@ -2010,6 +2998,14 @@
       "safety": 77.6,
       "price": 64.4,
       "convenience": 84.9,
+      "pct": [
+        77.6,
+        64.4,
+        91.5,
+        68.5,
+        96.2,
+        84.3
+      ],
       "raw": {
         "monthlyRentMan": 57.58,
         "rentSamples": 0,
@@ -2027,6 +3023,14 @@
       "safety": 11.7,
       "price": 73.1,
       "convenience": 90.1,
+      "pct": [
+        11.7,
+        73.1,
+        96.2,
+        77.2,
+        98.6,
+        88.7
+      ],
       "raw": {
         "monthlyRentMan": 54.58,
         "rentSamples": 685,
@@ -2044,6 +3048,14 @@
       "safety": 34.4,
       "price": 73.1,
       "convenience": 63.5,
+      "pct": [
+        34.4,
+        73.1,
+        59.6,
+        57.7,
+        90.4,
+        52.2
+      ],
       "raw": {
         "monthlyRentMan": 54.58,
         "rentSamples": 685,
@@ -2061,6 +3073,14 @@
       "safety": 53.9,
       "price": 73.1,
       "convenience": 20,
+      "pct": [
+        53.9,
+        73.1,
+        9.4,
+        37.6,
+        28.6,
+        8.2
+      ],
       "raw": {
         "monthlyRentMan": 54.58,
         "rentSamples": 685,
@@ -2078,6 +3098,14 @@
       "safety": 77.6,
       "price": 73.1,
       "convenience": 21.9,
+      "pct": [
+        77.6,
+        73.1,
+        7.5,
+        28.6,
+        60.3,
+        1.6
+      ],
       "raw": {
         "monthlyRentMan": 54.58,
         "rentSamples": 685,
@@ -2095,6 +3123,14 @@
       "safety": 20.2,
       "price": 94.5,
       "convenience": 61.8,
+      "pct": [
+        20.2,
+        94.5,
+        53.4,
+        72.3,
+        98.4,
+        32.2
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 77,
@@ -2112,6 +3148,14 @@
       "safety": 15.5,
       "price": 94.5,
       "convenience": 77.4,
+      "pct": [
+        15.5,
+        94.5,
+        89,
+        76.8,
+        98.8,
+        46.8
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 77,
@@ -2129,6 +3173,14 @@
       "safety": 77.6,
       "price": 79.5,
       "convenience": 51.3,
+      "pct": [
+        77.6,
+        79.5,
+        39.4,
+        61.5,
+        94.8,
+        20.4
+      ],
       "raw": {
         "monthlyRentMan": 52.29,
         "rentSamples": 369,
@@ -2146,6 +3198,14 @@
       "safety": 29.1,
       "price": 64.4,
       "convenience": 51.7,
+      "pct": [
+        29.1,
+        64.4,
+        32.9,
+        64.1,
+        93.7,
+        28.3
+      ],
       "raw": {
         "monthlyRentMan": 57.58,
         "rentSamples": 0,
@@ -2163,6 +3223,14 @@
       "safety": 77.6,
       "price": 64.4,
       "convenience": 69.3,
+      "pct": [
+        77.6,
+        64.4,
+        47.2,
+        70.2,
+        93,
+        76.1
+      ],
       "raw": {
         "monthlyRentMan": 57.58,
         "rentSamples": 0,
@@ -2180,6 +3248,14 @@
       "safety": 77.6,
       "price": 79.5,
       "convenience": 48.6,
+      "pct": [
+        77.6,
+        79.5,
+        35.9,
+        63.6,
+        92.7,
+        13.6
+      ],
       "raw": {
         "monthlyRentMan": 52.29,
         "rentSamples": 220,
@@ -2197,6 +3273,14 @@
       "safety": 77.6,
       "price": 79.5,
       "convenience": 57,
+      "pct": [
+        77.6,
+        79.5,
+        18.5,
+        67.1,
+        94.1,
+        63.5
+      ],
       "raw": {
         "monthlyRentMan": 52.29,
         "rentSamples": 220,
@@ -2214,6 +3298,14 @@
       "safety": 77.6,
       "price": 79.5,
       "convenience": 37.4,
+      "pct": [
+        77.6,
+        79.5,
+        27.7,
+        43.4,
+        68.5,
+        18.2
+      ],
       "raw": {
         "monthlyRentMan": 52.29,
         "rentSamples": 220,
@@ -2231,6 +3323,14 @@
       "safety": 25.2,
       "price": 83.3,
       "convenience": 65.1,
+      "pct": [
+        25.2,
+        83.3,
+        51.4,
+        71.4,
+        89.8,
+        55.4
+      ],
       "raw": {
         "monthlyRentMan": 50.44,
         "rentSamples": 556,
@@ -2248,6 +3348,14 @@
       "safety": 77.6,
       "price": 82.5,
       "convenience": 53.2,
+      "pct": [
+        77.6,
+        82.5,
+        41.1,
+        46.2,
+        59.6,
+        69.5
+      ],
       "raw": {
         "monthlyRentMan": 50.92,
         "rentSamples": 0,
@@ -2265,6 +3373,14 @@
       "safety": 44.4,
       "price": 86.4,
       "convenience": 78.8,
+      "pct": [
+        44.4,
+        86.4,
+        73.2,
+        85.7,
+        62,
+        92.1
+      ],
       "raw": {
         "monthlyRentMan": 49.38,
         "rentSamples": 1124,
@@ -2282,6 +3398,14 @@
       "safety": 18.2,
       "price": 82.5,
       "convenience": 52.2,
+      "pct": [
+        18.2,
+        82.5,
+        43.4,
+        84.7,
+        34.4,
+        44.4
+      ],
       "raw": {
         "monthlyRentMan": 50.92,
         "rentSamples": 0,
@@ -2299,6 +3423,14 @@
       "safety": 22.8,
       "price": 82.5,
       "convenience": 67.3,
+      "pct": [
+        22.8,
+        82.5,
+        68.1,
+        83.3,
+        67.3,
+        50.2
+      ],
       "raw": {
         "monthlyRentMan": 50.92,
         "rentSamples": 0,
@@ -2316,6 +3448,14 @@
       "safety": 77.6,
       "price": 82.5,
       "convenience": 63.2,
+      "pct": [
+        77.6,
+        82.5,
+        74.9,
+        63.1,
+        44.8,
+        64.1
+      ],
       "raw": {
         "monthlyRentMan": 50.92,
         "rentSamples": 0,
@@ -2333,6 +3473,14 @@
       "safety": 77.6,
       "price": 90.4,
       "convenience": 72.2,
+      "pct": [
+        77.6,
+        90.4,
+        64.6,
+        88.3,
+        73,
+        64.8
+      ],
       "raw": {
         "monthlyRentMan": 48.38,
         "rentSamples": 519,
@@ -2350,6 +3498,14 @@
       "safety": 77.6,
       "price": 90.4,
       "convenience": 29.5,
+      "pct": [
+        77.6,
+        90.4,
+        33.5,
+        33.8,
+        35,
+        16.2
+      ],
       "raw": {
         "monthlyRentMan": 48.38,
         "rentSamples": 519,
@@ -2367,6 +3523,14 @@
       "safety": 47.7,
       "price": 90.4,
       "convenience": 16.6,
+      "pct": [
+        47.7,
+        90.4,
+        11.3,
+        38.7,
+        11.7,
+        4.9
+      ],
       "raw": {
         "monthlyRentMan": 48.38,
         "rentSamples": 519,
@@ -2384,6 +3548,14 @@
       "safety": 77.6,
       "price": 77.9,
       "convenience": 26.6,
+      "pct": [
+        77.6,
+        77.9,
+        23,
+        50.5,
+        11.7,
+        19.1
+      ],
       "raw": {
         "monthlyRentMan": 52.38,
         "rentSamples": 1851,
@@ -2401,6 +3573,14 @@
       "safety": 37.3,
       "price": 77.9,
       "convenience": 71.8,
+      "pct": [
+        37.3,
+        77.9,
+        68.5,
+        84,
+        77.9,
+        58.7
+      ],
       "raw": {
         "monthlyRentMan": 52.38,
         "rentSamples": 1851,
@@ -2418,6 +3598,14 @@
       "safety": 27.9,
       "price": 77.9,
       "convenience": 78.9,
+      "pct": [
+        27.9,
+        77.9,
+        87.1,
+        93.7,
+        40.7,
+        84.7
+      ],
       "raw": {
         "monthlyRentMan": 52.38,
         "rentSamples": 1851,
@@ -2435,6 +3623,14 @@
       "safety": 54.2,
       "price": 97.9,
       "convenience": 14.7,
+      "pct": [
+        54.2,
+        97.9,
+        2.3,
+        27.2,
+        26.8,
+        7.3
+      ],
       "raw": {
         "monthlyRentMan": 44.38,
         "rentSamples": 112,
@@ -2452,6 +3648,14 @@
       "safety": 77.6,
       "price": 82.5,
       "convenience": 30.8,
+      "pct": [
+        77.6,
+        82.5,
+        19.7,
+        44.6,
+        35.9,
+        26.3
+      ],
       "raw": {
         "monthlyRentMan": 50.92,
         "rentSamples": 0,
@@ -2469,6 +3673,14 @@
       "safety": 47.7,
       "price": 42.1,
       "convenience": 42.5,
+      "pct": [
+        47.7,
+        42.1,
+        25.4,
+        56.3,
+        57.2,
+        37.3
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 891,
@@ -2486,6 +3698,14 @@
       "safety": 77.6,
       "price": 42.1,
       "convenience": 52.6,
+      "pct": [
+        77.6,
+        42.1,
+        73.5,
+        74.2,
+        11.7,
+        38.5
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 891,
@@ -2503,6 +3723,14 @@
       "safety": 77.6,
       "price": 42.1,
       "convenience": 30.5,
+      "pct": [
+        77.6,
+        42.1,
+        29.9,
+        68.1,
+        11.7,
+        8.7
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 891,
@@ -2520,6 +3748,14 @@
       "safety": 77.6,
       "price": 42.1,
       "convenience": 41.6,
+      "pct": [
+        77.6,
+        42.1,
+        40.4,
+        4.7,
+        33.9,
+        86.2
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 891,
@@ -2537,6 +3773,14 @@
       "safety": 40.4,
       "price": 42.1,
       "convenience": 59.5,
+      "pct": [
+        40.4,
+        42.1,
+        75.8,
+        36.4,
+        67.7,
+        56.3
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 891,
@@ -2554,6 +3798,14 @@
       "safety": 77.6,
       "price": 94.5,
       "convenience": 6.6,
+      "pct": [
+        77.6,
+        94.5,
+        1.2,
+        4.5,
+        24.3,
+        1.2
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 518,
@@ -2571,6 +3823,14 @@
       "safety": 77.6,
       "price": 94.5,
       "convenience": 44.1,
+      "pct": [
+        77.6,
+        94.5,
+        32.4,
+        21.1,
+        54.5,
+        72.7
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 518,
@@ -2588,6 +3848,14 @@
       "safety": 77.6,
       "price": 94.5,
       "convenience": 41,
+      "pct": [
+        77.6,
+        94.5,
+        20.5,
+        45.1,
+        45.2,
+        58.2
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 355,
@@ -2605,6 +3873,14 @@
       "safety": 77.6,
       "price": 94.5,
       "convenience": 49,
+      "pct": [
+        77.6,
+        94.5,
+        85.7,
+        43,
+        46.8,
+        12.7
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 355,
@@ -2622,6 +3898,14 @@
       "safety": 33.1,
       "price": 94.5,
       "convenience": 77.5,
+      "pct": [
+        33.1,
+        94.5,
+        91.8,
+        79.8,
+        64.6,
+        68.5
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 355,
@@ -2639,6 +3923,14 @@
       "safety": 25.2,
       "price": 94.5,
       "convenience": 35.5,
+      "pct": [
+        25.2,
+        94.5,
+        49.8,
+        27.5,
+        45.5,
+        18.5
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 355,
@@ -2656,6 +3948,14 @@
       "safety": 77.6,
       "price": 67.4,
       "convenience": 53.7,
+      "pct": [
+        77.6,
+        67.4,
+        74.4,
+        4.9,
+        34.4,
+        93.2
+      ],
       "raw": {
         "monthlyRentMan": 57.17,
         "rentSamples": 537,
@@ -2673,6 +3973,14 @@
       "safety": 77.6,
       "price": 67.4,
       "convenience": 20.7,
+      "pct": [
+        77.6,
+        67.4,
+        32.6,
+        3.3,
+        33.9,
+        13.1
+      ],
       "raw": {
         "monthlyRentMan": 57.17,
         "rentSamples": 537,
@@ -2690,6 +3998,14 @@
       "safety": 77.6,
       "price": 67.4,
       "convenience": 15.2,
+      "pct": [
+        77.6,
+        67.4,
+        9.6,
+        5.6,
+        36.7,
+        14.3
+      ],
       "raw": {
         "monthlyRentMan": 57.17,
         "rentSamples": 537,
@@ -2707,6 +4023,14 @@
       "safety": 23,
       "price": 94.5,
       "convenience": 71.6,
+      "pct": [
+        23,
+        94.5,
+        55.9,
+        77.9,
+        87.2,
+        71.6
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 420,
@@ -2724,6 +4048,14 @@
       "safety": 77.6,
       "price": 94.5,
       "convenience": 20,
+      "pct": [
+        77.6,
+        94.5,
+        4,
+        18.4,
+        27.7,
+        34.5
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 420,
@@ -2741,6 +4073,14 @@
       "safety": 77.6,
       "price": 94.5,
       "convenience": 48,
+      "pct": [
+        77.6,
+        94.5,
+        27.9,
+        40.1,
+        55.3,
+        74.2
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 420,
@@ -2758,6 +4098,14 @@
       "safety": 15.3,
       "price": 91.5,
       "convenience": 88.7,
+      "pct": [
+        15.3,
+        91.5,
+        84,
+        83.6,
+        91.3,
+        97.4
+      ],
       "raw": {
         "monthlyRentMan": 47.58,
         "rentSamples": 1793,
@@ -2775,6 +4123,14 @@
       "safety": 47.1,
       "price": 91.5,
       "convenience": 19.4,
+      "pct": [
+        47.1,
+        91.5,
+        8.2,
+        22.8,
+        48.8,
+        5.9
+      ],
       "raw": {
         "monthlyRentMan": 47.58,
         "rentSamples": 1793,
@@ -2792,6 +4148,14 @@
       "safety": 77.6,
       "price": 85.3,
       "convenience": 21.5,
+      "pct": [
+        77.6,
+        85.3,
+        16.9,
+        5.4,
+        30.2,
+        36.2
+      ],
       "raw": {
         "monthlyRentMan": 49.58,
         "rentSamples": 60,
@@ -2809,6 +4173,14 @@
       "safety": 77.6,
       "price": 85.3,
       "convenience": 33,
+      "pct": [
+        77.6,
+        85.3,
+        13.1,
+        23.7,
+        11.7,
+        83.2
+      ],
       "raw": {
         "monthlyRentMan": 49.58,
         "rentSamples": 60,
@@ -2826,6 +4198,14 @@
       "safety": 77.6,
       "price": 90.8,
       "convenience": 5.3,
+      "pct": [
+        77.6,
+        90.8,
+        6.1,
+        0.9,
+        11.7,
+        3.5
+      ],
       "raw": {
         "monthlyRentMan": 48.29,
         "rentSamples": 0,
@@ -2843,6 +4223,14 @@
       "safety": 77.6,
       "price": 62.9,
       "convenience": 22.9,
+      "pct": [
+        77.6,
+        62.9,
+        51.9,
+        4.2,
+        11.7,
+        15.6
+      ],
       "raw": {
         "monthlyRentMan": 58.17,
         "rentSamples": 78,
@@ -2860,6 +4248,14 @@
       "safety": 77.6,
       "price": 62.9,
       "convenience": 13.4,
+      "pct": [
+        77.6,
+        62.9,
+        11,
+        7.3,
+        11.7,
+        23.6
+      ],
       "raw": {
         "monthlyRentMan": 58.17,
         "rentSamples": 78,
@@ -2877,6 +4273,14 @@
       "safety": 77.6,
       "price": 62.9,
       "convenience": 35.8,
+      "pct": [
+        77.6,
+        62.9,
+        18.3,
+        8.7,
+        36.2,
+        83.6
+      ],
       "raw": {
         "monthlyRentMan": 58.17,
         "rentSamples": 78,
@@ -2894,6 +4298,14 @@
       "safety": 77.6,
       "price": 89.1,
       "convenience": 16.4,
+      "pct": [
+        77.6,
+        89.1,
+        8.9,
+        11.7,
+        35.2,
+        14.9
+      ],
       "raw": {
         "monthlyRentMan": 48.67,
         "rentSamples": 716,
@@ -2911,6 +4323,14 @@
       "safety": 77.6,
       "price": 89.1,
       "convenience": 49.8,
+      "pct": [
+        77.6,
+        89.1,
+        77.2,
+        23.5,
+        44.6,
+        47.4
+      ],
       "raw": {
         "monthlyRentMan": 48.67,
         "rentSamples": 716,
@@ -2928,6 +4348,14 @@
       "safety": 77.6,
       "price": 89.1,
       "convenience": 21.2,
+      "pct": [
+        77.6,
+        89.1,
+        0.5,
+        0.9,
+        25.1,
+        63.1
+      ],
       "raw": {
         "monthlyRentMan": 48.67,
         "rentSamples": 716,
@@ -2945,6 +4373,14 @@
       "safety": 77.6,
       "price": 89.1,
       "convenience": 41.4,
+      "pct": [
+        77.6,
+        89.1,
+        65.5,
+        18.8,
+        11.7,
+        58.9
+      ],
       "raw": {
         "monthlyRentMan": 48.67,
         "rentSamples": 716,
@@ -2962,6 +4398,14 @@
       "safety": 77.6,
       "price": 89.1,
       "convenience": 44.6,
+      "pct": [
+        77.6,
+        89.1,
+        46.2,
+        9.3,
+        91.8,
+        40.4
+      ],
       "raw": {
         "monthlyRentMan": 48.67,
         "rentSamples": 716,
@@ -2979,6 +4423,14 @@
       "safety": 77.6,
       "price": 89.1,
       "convenience": 30.3,
+      "pct": [
+        77.6,
+        89.1,
+        4.2,
+        4,
+        43,
+        77.7
+      ],
       "raw": {
         "monthlyRentMan": 48.67,
         "rentSamples": 716,
@@ -2996,6 +4448,14 @@
       "safety": 77.6,
       "price": 89.1,
       "convenience": 30.5,
+      "pct": [
+        77.6,
+        89.1,
+        44.1,
+        9.6,
+        11.7,
+        50
+      ],
       "raw": {
         "monthlyRentMan": 48.67,
         "rentSamples": 716,
@@ -3013,6 +4473,14 @@
       "safety": 77.6,
       "price": 89.1,
       "convenience": 22.9,
+      "pct": [
+        77.6,
+        89.1,
+        17.6,
+        6.8,
+        11.7,
+        54.3
+      ],
       "raw": {
         "monthlyRentMan": 48.67,
         "rentSamples": 716,
@@ -3030,6 +4498,14 @@
       "safety": 13.8,
       "price": 57.4,
       "convenience": 41,
+      "pct": [
+        13.8,
+        57.4,
+        26.5,
+        44.4,
+        43.4,
+        53.2
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 369,
@@ -3047,6 +4523,14 @@
       "safety": 53.9,
       "price": 80.9,
       "convenience": 19.8,
+      "pct": [
+        53.9,
+        80.9,
+        6.9,
+        20,
+        42.6,
+        16.7
+      ],
       "raw": {
         "monthlyRentMan": 52.17,
         "rentSamples": 436,
@@ -3064,6 +4548,14 @@
       "safety": 23.7,
       "price": 80.9,
       "convenience": 33.5,
+      "pct": [
+        23.7,
+        80.9,
+        23.9,
+        48.8,
+        42.6,
+        22.3
+      ],
       "raw": {
         "monthlyRentMan": 52.17,
         "rentSamples": 436,
@@ -3081,6 +4573,14 @@
       "safety": 16.2,
       "price": 76.6,
       "convenience": 52.6,
+      "pct": [
+        16.2,
+        76.6,
+        56.1,
+        56.8,
+        87.8,
+        16
+      ],
       "raw": {
         "monthlyRentMan": 52.92,
         "rentSamples": 257,
@@ -3098,6 +4598,14 @@
       "safety": 15,
       "price": 76.6,
       "convenience": 48.8,
+      "pct": [
+        15,
+        76.6,
+        57.5,
+        41.1,
+        70.9,
+        28.3
+      ],
       "raw": {
         "monthlyRentMan": 52.92,
         "rentSamples": 257,
@@ -3115,6 +4623,14 @@
       "safety": 77.6,
       "price": 91.1,
       "convenience": 42.5,
+      "pct": [
+        77.6,
+        91.1,
+        42.7,
+        30.3,
+        84.3,
+        21
+      ],
       "raw": {
         "monthlyRentMan": 48.04,
         "rentSamples": 73,
@@ -3132,6 +4648,14 @@
       "safety": 14.1,
       "price": 57.4,
       "convenience": 63.4,
+      "pct": [
+        14.1,
+        57.4,
+        67,
+        59.6,
+        80,
+        49.5
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 558,
@@ -3149,6 +4673,14 @@
       "safety": 16.4,
       "price": 61.7,
       "convenience": 35.1,
+      "pct": [
+        16.4,
+        61.7,
+        30.8,
+        46.7,
+        32.9,
+        30.5
+      ],
       "raw": {
         "monthlyRentMan": 58.58,
         "rentSamples": 871,
@@ -3166,6 +4698,14 @@
       "safety": 77.6,
       "price": 61.7,
       "convenience": 32,
+      "pct": [
+        77.6,
+        61.7,
+        34.5,
+        13.4,
+        56.7,
+        27.9
+      ],
       "raw": {
         "monthlyRentMan": 58.58,
         "rentSamples": 871,
@@ -3183,6 +4723,14 @@
       "safety": 77.6,
       "price": 61.7,
       "convenience": 47.5,
+      "pct": [
+        77.6,
+        61.7,
+        47.4,
+        30.8,
+        88.3,
+        31.9
+      ],
       "raw": {
         "monthlyRentMan": 58.58,
         "rentSamples": 871,
@@ -3200,6 +4748,14 @@
       "safety": 18.5,
       "price": 75.1,
       "convenience": 43.5,
+      "pct": [
+        18.5,
+        75.1,
+        41.8,
+        47.7,
+        46.4,
+        39
+      ],
       "raw": {
         "monthlyRentMan": 53.75,
         "rentSamples": 349,
@@ -3217,6 +4773,14 @@
       "safety": 9.6,
       "price": 73.1,
       "convenience": 66,
+      "pct": [
+        9.6,
+        73.1,
+        57.7,
+        69.5,
+        88.7,
+        54.3
+      ],
       "raw": {
         "monthlyRentMan": 54.58,
         "rentSamples": 340,
@@ -3234,6 +4798,14 @@
       "safety": 33.6,
       "price": 73.1,
       "convenience": 50,
+      "pct": [
+        33.6,
+        73.1,
+        67.8,
+        34.3,
+        63.6,
+        33.3
+      ],
       "raw": {
         "monthlyRentMan": 54.58,
         "rentSamples": 340,
@@ -3251,6 +4823,14 @@
       "safety": 22.2,
       "price": 94.5,
       "convenience": 52.3,
+      "pct": [
+        22.2,
+        94.5,
+        27,
+        47.9,
+        67.7,
+        74.8
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 25,
@@ -3268,6 +4848,14 @@
       "safety": 77.6,
       "price": 50.5,
       "convenience": 29.1,
+      "pct": [
+        77.6,
+        50.5,
+        21.1,
+        9.3,
+        33.2,
+        55.2
+      ],
       "raw": {
         "monthlyRentMan": 61.56,
         "rentSamples": 12,
@@ -3285,6 +4873,14 @@
       "safety": 37.8,
       "price": 37.6,
       "convenience": 13.8,
+      "pct": [
+        37.8,
+        37.6,
+        1.9,
+        30.5,
+        27.2,
+        0.7
+      ],
       "raw": {
         "monthlyRentMan": 67.29,
         "rentSamples": 1172,
@@ -3302,6 +4898,14 @@
       "safety": 45.1,
       "price": 57.4,
       "convenience": 70.4,
+      "pct": [
+        45.1,
+        57.4,
+        73.9,
+        67.6,
+        74.9,
+        65.3
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 44,
@@ -3319,6 +4923,14 @@
       "safety": 77.6,
       "price": 42.1,
       "convenience": 46.4,
+      "pct": [
+        77.6,
+        42.1,
+        15.7,
+        66.7,
+        11.7,
+        90.8
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 227,
@@ -3336,6 +4948,14 @@
       "safety": 21.6,
       "price": 44.6,
       "convenience": 40.1,
+      "pct": [
+        21.6,
+        44.6,
+        39.7,
+        80.5,
+        11.7,
+        23
+      ],
       "raw": {
         "monthlyRentMan": 64.17,
         "rentSamples": 0,
@@ -3353,6 +4973,14 @@
       "safety": 3.5,
       "price": 47.2,
       "convenience": 88,
+      "pct": [
+        3.5,
+        47.2,
+        86.9,
+        92.5,
+        94.6,
+        79.5
+      ],
       "raw": {
         "monthlyRentMan": 62.29,
         "rentSamples": 67,
@@ -3370,6 +4998,14 @@
       "safety": 24.5,
       "price": 46.9,
       "convenience": 48.5,
+      "pct": [
+        24.5,
+        46.9,
+        48.4,
+        66.9,
+        81.5,
+        3.8
+      ],
       "raw": {
         "monthlyRentMan": 62.58,
         "rentSamples": 1497,
@@ -3387,6 +5023,14 @@
       "safety": 50.2,
       "price": 66,
       "convenience": 57.2,
+      "pct": [
+        50.2,
+        66,
+        35.2,
+        52.8,
+        76.3,
+        72.7
+      ],
       "raw": {
         "monthlyRentMan": 57.29,
         "rentSamples": 302,
@@ -3404,6 +5048,14 @@
       "safety": 77.6,
       "price": 66,
       "convenience": 39.7,
+      "pct": [
+        77.6,
+        66,
+        28.6,
+        62.9,
+        34.7,
+        33.7
+      ],
       "raw": {
         "monthlyRentMan": 57.29,
         "rentSamples": 302,
@@ -3421,6 +5073,14 @@
       "safety": 41.2,
       "price": 66,
       "convenience": 43,
+      "pct": [
+        41.2,
+        66,
+        22.3,
+        55.9,
+        11.7,
+        79.8
+      ],
       "raw": {
         "monthlyRentMan": 57.29,
         "rentSamples": 302,
@@ -3438,6 +5098,14 @@
       "safety": 77.6,
       "price": 87.1,
       "convenience": 26.3,
+      "pct": [
+        77.6,
+        87.1,
+        17.1,
+        44.1,
+        29.1,
+        17.1
+      ],
       "raw": {
         "monthlyRentMan": 49.29,
         "rentSamples": 436,
@@ -3455,6 +5123,14 @@
       "safety": 46.7,
       "price": 87.1,
       "convenience": 30.3,
+      "pct": [
+        46.7,
+        87.1,
+        29.3,
+        57.5,
+        27.5,
+        6.3
+      ],
       "raw": {
         "monthlyRentMan": 49.29,
         "rentSamples": 436,
@@ -3472,6 +5148,14 @@
       "safety": 77.6,
       "price": 87.9,
       "convenience": 64,
+      "pct": [
+        77.6,
+        87.9,
+        40.1,
+        73.2,
+        68.9,
+        79.5
+      ],
       "raw": {
         "monthlyRentMan": 48.75,
         "rentSamples": 521,
@@ -3489,6 +5173,14 @@
       "safety": 43.8,
       "price": 87.9,
       "convenience": 53.7,
+      "pct": [
+        43.8,
+        87.9,
+        64,
+        84.3,
+        53.3,
+        11.3
+      ],
       "raw": {
         "monthlyRentMan": 48.75,
         "rentSamples": 521,
@@ -3506,6 +5198,14 @@
       "safety": 77.6,
       "price": 75.1,
       "convenience": 40.6,
+      "pct": [
+        77.6,
+        75.1,
+        34.3,
+        37.3,
+        61.2,
+        35
+      ],
       "raw": {
         "monthlyRentMan": 53.75,
         "rentSamples": 262,
@@ -3523,6 +5223,14 @@
       "safety": 43,
       "price": 75.1,
       "convenience": 64.1,
+      "pct": [
+        43,
+        75.1,
+        85.9,
+        82.9,
+        11.7,
+        61.2
+      ],
       "raw": {
         "monthlyRentMan": 53.75,
         "rentSamples": 262,
@@ -3540,6 +5248,14 @@
       "safety": 77.6,
       "price": 8.7,
       "convenience": 59.8,
+      "pct": [
+        77.6,
+        8.7,
+        62.4,
+        68.3,
+        11.7,
+        86.4
+      ],
       "raw": {
         "monthlyRentMan": 84.38,
         "rentSamples": 258,
@@ -3557,6 +5273,14 @@
       "safety": 19.7,
       "price": 5.9,
       "convenience": 71.1,
+      "pct": [
+        19.7,
+        5.9,
+        74.2,
+        87.8,
+        58.3,
+        60.8
+      ],
       "raw": {
         "monthlyRentMan": 87.71,
         "rentSamples": 524,
@@ -3574,6 +5298,14 @@
       "safety": 37.1,
       "price": 5.6,
       "convenience": 81.6,
+      "pct": [
+        37.1,
+        5.6,
+        72.1,
+        90.6,
+        89.2,
+        77.9
+      ],
       "raw": {
         "monthlyRentMan": 89.58,
         "rentSamples": 371,
@@ -3591,6 +5323,14 @@
       "safety": 42.4,
       "price": 39,
       "convenience": 68.2,
+      "pct": [
+        42.4,
+        39,
+        69,
+        79.1,
+        55.6,
+        66.3
+      ],
       "raw": {
         "monthlyRentMan": 66.94,
         "rentSamples": 12,
@@ -3608,6 +5348,14 @@
       "safety": 16.8,
       "price": 22.8,
       "convenience": 81.9,
+      "pct": [
+        16.8,
+        22.8,
+        90.8,
+        87.6,
+        97.4,
+        53.2
+      ],
       "raw": {
         "monthlyRentMan": 73.21,
         "rentSamples": 301,
@@ -3625,6 +5373,14 @@
       "safety": 33.8,
       "price": 33.3,
       "convenience": 53.1,
+      "pct": [
+        33.8,
+        33.3,
+        66,
+        73,
+        11.7,
+        50.7
+      ],
       "raw": {
         "monthlyRentMan": 67.92,
         "rentSamples": 229,
@@ -3642,6 +5398,14 @@
       "safety": 44.1,
       "price": 46.7,
       "convenience": 69.9,
+      "pct": [
+        44.1,
+        46.7,
+        62.9,
+        67.4,
+        81,
+        71.9
+      ],
       "raw": {
         "monthlyRentMan": 62.92,
         "rentSamples": 404,
@@ -3659,6 +5423,14 @@
       "safety": 14.8,
       "price": 16,
       "convenience": 61,
+      "pct": [
+        14.8,
+        16,
+        37.6,
+        73.5,
+        47.9,
+        87.3
+      ],
       "raw": {
         "monthlyRentMan": 77.58,
         "rentSamples": 0,
@@ -3676,6 +5448,14 @@
       "safety": 1.4,
       "price": 20,
       "convenience": 87.2,
+      "pct": [
+        1.4,
+        20,
+        99.8,
+        98.6,
+        92.5,
+        56.6
+      ],
       "raw": {
         "monthlyRentMan": 74.58,
         "rentSamples": 651,
@@ -3693,6 +5473,14 @@
       "safety": 12.4,
       "price": 4.2,
       "convenience": 55.3,
+      "pct": [
+        12.4,
+        4.2,
+        52.3,
+        81.9,
+        46,
+        39.7
+      ],
       "raw": {
         "monthlyRentMan": 93.75,
         "rentSamples": 311,
@@ -3710,6 +5498,14 @@
       "safety": 34,
       "price": 39.4,
       "convenience": 49.7,
+      "pct": [
+        34,
+        39.4,
+        46,
+        84.5,
+        57.2,
+        13.4
+      ],
       "raw": {
         "monthlyRentMan": 66.88,
         "rentSamples": 503,
@@ -3727,6 +5523,14 @@
       "safety": 38.5,
       "price": 39.4,
       "convenience": 56.5,
+      "pct": [
+        38.5,
+        39.4,
+        36.3,
+        77.7,
+        70.4,
+        48.4
+      ],
       "raw": {
         "monthlyRentMan": 66.88,
         "rentSamples": 503,
@@ -3744,6 +5548,14 @@
       "safety": 8,
       "price": 24.4,
       "convenience": 62,
+      "pct": [
+        8,
+        24.4,
+        92.3,
+        96.9,
+        11.7,
+        31
+      ],
       "raw": {
         "monthlyRentMan": 71.58,
         "rentSamples": 438,
@@ -3761,6 +5573,14 @@
       "safety": 77.6,
       "price": 13,
       "convenience": 65,
+      "pct": [
+        77.6,
+        13,
+        80,
+        74.4,
+        70,
+        33.7
+      ],
       "raw": {
         "monthlyRentMan": 82.58,
         "rentSamples": 2383,
@@ -3778,6 +5598,14 @@
       "safety": 77.6,
       "price": 13,
       "convenience": 68.6,
+      "pct": [
+        77.6,
+        13,
+        60.6,
+        46,
+        91.1,
+        82.9
+      ],
       "raw": {
         "monthlyRentMan": 82.58,
         "rentSamples": 2383,
@@ -3795,6 +5623,14 @@
       "safety": 53.2,
       "price": 17,
       "convenience": 16,
+      "pct": [
+        53.2,
+        17,
+        6.9,
+        34.7,
+        24.3,
+        1.4
+      ],
       "raw": {
         "monthlyRentMan": 76.58,
         "rentSamples": 1007,
@@ -3812,6 +5648,14 @@
       "safety": 77.6,
       "price": 35.4,
       "convenience": 56.5,
+      "pct": [
+        77.6,
+        35.4,
+        43,
+        31.2,
+        68.9,
+        88.3
+      ],
       "raw": {
         "monthlyRentMan": 67.58,
         "rentSamples": 844,
@@ -3829,6 +5673,14 @@
       "safety": 27.7,
       "price": 35.4,
       "convenience": 69.7,
+      "pct": [
+        27.7,
+        35.4,
+        79.6,
+        60.6,
+        88,
+        52.2
+      ],
       "raw": {
         "monthlyRentMan": 67.58,
         "rentSamples": 844,
@@ -3846,6 +5698,14 @@
       "safety": 23.5,
       "price": 35.4,
       "convenience": 59.7,
+      "pct": [
+        23.5,
+        35.4,
+        78.9,
+        35,
+        83.2,
+        42.7
+      ],
       "raw": {
         "monthlyRentMan": 67.58,
         "rentSamples": 844,
@@ -3863,6 +5723,14 @@
       "safety": 77.6,
       "price": 35.4,
       "convenience": 38.3,
+      "pct": [
+        77.6,
+        35.4,
+        63.1,
+        17.1,
+        62.2,
+        10.3
+      ],
       "raw": {
         "monthlyRentMan": 67.58,
         "rentSamples": 844,
@@ -3880,6 +5748,14 @@
       "safety": 77.6,
       "price": 35.4,
       "convenience": 30.4,
+      "pct": [
+        77.6,
+        35.4,
+        20.5,
+        42.3,
+        44.2,
+        19.5
+      ],
       "raw": {
         "monthlyRentMan": 67.58,
         "rentSamples": 844,
@@ -3897,6 +5773,14 @@
       "safety": 77.6,
       "price": 98.8,
       "convenience": 29.5,
+      "pct": [
+        77.6,
+        98.8,
+        67.4,
+        15.7,
+        11.7,
+        12.2
+      ],
       "raw": {
         "monthlyRentMan": 42.29,
         "rentSamples": 487,
@@ -3914,6 +5798,14 @@
       "safety": 37.8,
       "price": 98.8,
       "convenience": 46,
+      "pct": [
+        37.8,
+        98.8,
+        45.8,
+        39.1,
+        84.5,
+        22.5
+      ],
       "raw": {
         "monthlyRentMan": 42.29,
         "rentSamples": 487,
@@ -3931,6 +5823,14 @@
       "safety": 77.6,
       "price": 98.8,
       "convenience": 13.7,
+      "pct": [
+        77.6,
+        98.8,
+        29.6,
+        5.9,
+        11.7,
+        4
+      ],
       "raw": {
         "monthlyRentMan": 42.29,
         "rentSamples": 487,
@@ -3948,6 +5848,14 @@
       "safety": 77.6,
       "price": 98.8,
       "convenience": 23.9,
+      "pct": [
+        77.6,
+        98.8,
+        54.9,
+        11,
+        11.7,
+        9.2
+      ],
       "raw": {
         "monthlyRentMan": 42.29,
         "rentSamples": 487,
@@ -3965,6 +5873,14 @@
       "safety": 77.6,
       "price": 98.8,
       "convenience": 26.9,
+      "pct": [
+        77.6,
+        98.8,
+        59.9,
+        11.5,
+        11.7,
+        14.9
+      ],
       "raw": {
         "monthlyRentMan": 42.29,
         "rentSamples": 487,
@@ -3982,6 +5898,14 @@
       "safety": 77.6,
       "price": 98.8,
       "convenience": 24,
+      "pct": [
+        77.6,
+        98.8,
+        53.1,
+        10.8,
+        11.7,
+        12.2
+      ],
       "raw": {
         "monthlyRentMan": 42.29,
         "rentSamples": 487,
@@ -3999,6 +5923,14 @@
       "safety": 77.6,
       "price": 98.8,
       "convenience": 12.6,
+      "pct": [
+        77.6,
+        98.8,
+        31.7,
+        0.9,
+        11.7,
+        1.9
+      ],
       "raw": {
         "monthlyRentMan": 42.29,
         "rentSamples": 487,
@@ -4016,6 +5948,14 @@
       "safety": 77.6,
       "price": 69.4,
       "convenience": 26,
+      "pct": [
+        77.6,
+        69.4,
+        35,
+        10.3,
+        11.7,
+        42.3
+      ],
       "raw": {
         "monthlyRentMan": 56.48,
         "rentSamples": 840,
@@ -4033,6 +5973,14 @@
       "safety": 77.6,
       "price": 69.4,
       "convenience": 28.3,
+      "pct": [
+        77.6,
+        69.4,
+        42.4,
+        15.3,
+        11.7,
+        37.8
+      ],
       "raw": {
         "monthlyRentMan": 56.48,
         "rentSamples": 840,
@@ -4050,6 +5998,14 @@
       "safety": 77.6,
       "price": 69.4,
       "convenience": 7,
+      "pct": [
+        77.6,
+        69.4,
+        12,
+        0.9,
+        11.7,
+        3.3
+      ],
       "raw": {
         "monthlyRentMan": 56.48,
         "rentSamples": 840,
@@ -4067,6 +6023,14 @@
       "safety": 77.6,
       "price": 69.4,
       "convenience": 69.5,
+      "pct": [
+        77.6,
+        69.4,
+        83.1,
+        23.9,
+        72.8,
+        96.2
+      ],
       "raw": {
         "monthlyRentMan": 56.48,
         "rentSamples": 840,
@@ -4084,6 +6048,14 @@
       "safety": 77.6,
       "price": 69.4,
       "convenience": 33.2,
+      "pct": [
+        77.6,
+        69.4,
+        22.8,
+        8.9,
+        36.7,
+        67.3
+      ],
       "raw": {
         "monthlyRentMan": 56.48,
         "rentSamples": 840,
@@ -4101,6 +6073,14 @@
       "safety": 77.6,
       "price": 69.4,
       "convenience": 27.3,
+      "pct": [
+        77.6,
+        69.4,
+        20.9,
+        0.9,
+        11.7,
+        73.9
+      ],
       "raw": {
         "monthlyRentMan": 56.48,
         "rentSamples": 840,
@@ -4118,6 +6098,14 @@
       "safety": 50.7,
       "price": 0.9,
       "convenience": 51.2,
+      "pct": [
+        50.7,
+        0.9,
+        58.9,
+        53.5,
+        71.4,
+        23.6
+      ],
       "raw": {
         "monthlyRentMan": 105,
         "rentSamples": 439,
@@ -4135,6 +6123,14 @@
       "safety": 77.6,
       "price": 21.9,
       "convenience": 68.8,
+      "pct": [
+        77.6,
+        21.9,
+        83.8,
+        30,
+        69.7,
+        89
+      ],
       "raw": {
         "monthlyRentMan": 73.75,
         "rentSamples": 1456,
@@ -4152,6 +6148,14 @@
       "safety": 77.6,
       "price": 21.9,
       "convenience": 20.2,
+      "pct": [
+        77.6,
+        21.9,
+        23.7,
+        0.9,
+        37.6,
+        21.4
+      ],
       "raw": {
         "monthlyRentMan": 73.75,
         "rentSamples": 1456,
@@ -4169,6 +6173,14 @@
       "safety": 77.6,
       "price": 21.9,
       "convenience": 30.3,
+      "pct": [
+        77.6,
+        21.9,
+        58.5,
+        14.8,
+        11.7,
+        27
+      ],
       "raw": {
         "monthlyRentMan": 73.75,
         "rentSamples": 1456,
@@ -4186,6 +6198,14 @@
       "safety": 36.6,
       "price": 53.6,
       "convenience": 66.3,
+      "pct": [
+        36.6,
+        53.6,
+        93.9,
+        41.7,
+        78.9,
+        47.9
+      ],
       "raw": {
         "monthlyRentMan": 59.92,
         "rentSamples": 2811,
@@ -4203,6 +6223,14 @@
       "safety": 77.6,
       "price": 53.6,
       "convenience": 30,
+      "pct": [
+        77.6,
+        53.6,
+        64,
+        0.9,
+        11.7,
+        32.9
+      ],
       "raw": {
         "monthlyRentMan": 59.92,
         "rentSamples": 2811,
@@ -4220,6 +6248,14 @@
       "safety": 77.6,
       "price": 53.6,
       "convenience": 39.1,
+      "pct": [
+        77.6,
+        53.6,
+        62.2,
+        23,
+        11.7,
+        49.2
+      ],
       "raw": {
         "monthlyRentMan": 59.92,
         "rentSamples": 2811,
@@ -4237,6 +6273,14 @@
       "safety": 77.6,
       "price": 53.6,
       "convenience": 32.9,
+      "pct": [
+        77.6,
+        53.6,
+        51.6,
+        19,
+        51.8,
+        9.4
+      ],
       "raw": {
         "monthlyRentMan": 59.92,
         "rentSamples": 2811,
@@ -4254,6 +6298,14 @@
       "safety": 77.6,
       "price": 21.9,
       "convenience": 37.1,
+      "pct": [
+        77.6,
+        21.9,
+        84.5,
+        5.2,
+        11.7,
+        32.4
+      ],
       "raw": {
         "monthlyRentMan": 73.75,
         "rentSamples": 0,
@@ -4271,6 +6323,14 @@
       "safety": 77.6,
       "price": 53.6,
       "convenience": 25.7,
+      "pct": [
+        77.6,
+        53.6,
+        56.6,
+        14.3,
+        11.7,
+        11
+      ],
       "raw": {
         "monthlyRentMan": 59.92,
         "rentSamples": 2811,
@@ -4288,6 +6348,14 @@
       "safety": 35.4,
       "price": 53.6,
       "convenience": 66.1,
+      "pct": [
+        35.4,
+        53.6,
+        61.7,
+        35.7,
+        95.1,
+        78.4
+      ],
       "raw": {
         "monthlyRentMan": 59.92,
         "rentSamples": 2811,
@@ -4305,6 +6373,14 @@
       "safety": 46,
       "price": 29.5,
       "convenience": 22.8,
+      "pct": [
+        46,
+        29.5,
+        23.2,
+        19.7,
+        28.9,
+        20.7
+      ],
       "raw": {
         "monthlyRentMan": 69.17,
         "rentSamples": 486,
@@ -4322,6 +6398,14 @@
       "safety": 77.6,
       "price": 29.5,
       "convenience": 33.4,
+      "pct": [
+        77.6,
+        29.5,
+        38.3,
+        0.9,
+        57.5,
+        40.8
+      ],
       "raw": {
         "monthlyRentMan": 69.17,
         "rentSamples": 486,
@@ -4339,6 +6423,14 @@
       "safety": 77.6,
       "price": 29.5,
       "convenience": 37.1,
+      "pct": [
+        77.6,
+        29.5,
+        15.3,
+        22.3,
+        60.6,
+        59.3
+      ],
       "raw": {
         "monthlyRentMan": 69.17,
         "rentSamples": 486,
@@ -4356,6 +6448,14 @@
       "safety": 77.6,
       "price": 21.9,
       "convenience": 29.8,
+      "pct": [
+        77.6,
+        21.9,
+        38,
+        26.5,
+        29.8,
+        23.2
+      ],
       "raw": {
         "monthlyRentMan": 73.75,
         "rentSamples": 0,
@@ -4373,6 +6473,14 @@
       "safety": 77.6,
       "price": 21.9,
       "convenience": 44.9,
+      "pct": [
+        77.6,
+        21.9,
+        52.7,
+        18.4,
+        43.7,
+        62.9
+      ],
       "raw": {
         "monthlyRentMan": 73.75,
         "rentSamples": 0,
@@ -4390,6 +6498,14 @@
       "safety": 54.9,
       "price": 81.2,
       "convenience": 10,
+      "pct": [
+        54.9,
+        81.2,
+        2.6,
+        6.6,
+        25.4,
+        10.1
+      ],
       "raw": {
         "monthlyRentMan": 51.52,
         "rentSamples": 358,
@@ -4407,6 +6523,14 @@
       "safety": 49.9,
       "price": 85.9,
       "convenience": 56.6,
+      "pct": [
+        49.9,
+        85.9,
+        37.8,
+        32.2,
+        65.3,
+        96.7
+      ],
       "raw": {
         "monthlyRentMan": 49.52,
         "rentSamples": 712,
@@ -4424,6 +6548,14 @@
       "safety": 77.6,
       "price": 85.9,
       "convenience": 10.5,
+      "pct": [
+        77.6,
+        85.9,
+        4.5,
+        13.6,
+        24.9,
+        3.1
+      ],
       "raw": {
         "monthlyRentMan": 49.52,
         "rentSamples": 712,
@@ -4441,6 +6573,14 @@
       "safety": 77.6,
       "price": 85.9,
       "convenience": 7.2,
+      "pct": [
+        77.6,
+        85.9,
+        5.4,
+        3.1,
+        11.7,
+        9.9
+      ],
       "raw": {
         "monthlyRentMan": 49.52,
         "rentSamples": 712,
@@ -4458,6 +6598,14 @@
       "safety": 77.6,
       "price": 1.8,
       "convenience": 37.8,
+      "pct": [
+        77.6,
+        1.8,
+        45.1,
+        24.4,
+        30.9,
+        48.1
+      ],
       "raw": {
         "monthlyRentMan": 99.58,
         "rentSamples": 267,
@@ -4475,6 +6623,14 @@
       "safety": 47.7,
       "price": 51.9,
       "convenience": 37.5,
+      "pct": [
+        47.7,
+        51.9,
+        21.8,
+        9.9,
+        86.6,
+        44.8
+      ],
       "raw": {
         "monthlyRentMan": 60.29,
         "rentSamples": 2905,
@@ -4492,6 +6648,14 @@
       "safety": 77.6,
       "price": 51.9,
       "convenience": 22.6,
+      "pct": [
+        77.6,
+        51.9,
+        28.2,
+        12.7,
+        37.1,
+        14.1
+      ],
       "raw": {
         "monthlyRentMan": 60.29,
         "rentSamples": 2905,
@@ -4509,6 +6673,14 @@
       "safety": 47.1,
       "price": 51.9,
       "convenience": 69.3,
+      "pct": [
+        47.1,
+        51.9,
+        96.5,
+        50.7,
+        76.1,
+        49.8
+      ],
       "raw": {
         "monthlyRentMan": 60.29,
         "rentSamples": 2905,
@@ -4526,6 +6698,14 @@
       "safety": 77.6,
       "price": 51.9,
       "convenience": 63.3,
+      "pct": [
+        77.6,
+        51.9,
+        68.3,
+        21.9,
+        76.5,
+        88
+      ],
       "raw": {
         "monthlyRentMan": 60.29,
         "rentSamples": 2905,
@@ -4543,6 +6723,14 @@
       "safety": 77.6,
       "price": 51.9,
       "convenience": 39.8,
+      "pct": [
+        77.6,
+        51.9,
+        50,
+        15,
+        47.4,
+        46.1
+      ],
       "raw": {
         "monthlyRentMan": 60.29,
         "rentSamples": 2905,
@@ -4560,6 +6748,14 @@
       "safety": 20,
       "price": 79.5,
       "convenience": 49.4,
+      "pct": [
+        20,
+        79.5,
+        53.9,
+        7,
+        72.1,
+        68.2
+      ],
       "raw": {
         "monthlyRentMan": 52.29,
         "rentSamples": 596,
@@ -4577,6 +6773,14 @@
       "safety": 48.4,
       "price": 84.3,
       "convenience": 32.6,
+      "pct": [
+        48.4,
+        84.3,
+        43.2,
+        24.6,
+        33.2,
+        27.5
+      ],
       "raw": {
         "monthlyRentMan": 50.29,
         "rentSamples": 518,
@@ -4594,6 +6798,14 @@
       "safety": 77.6,
       "price": 84.3,
       "convenience": 21.4,
+      "pct": [
+        77.6,
+        84.3,
+        51.2,
+        8.2,
+        11.7,
+        6.6
+      ],
       "raw": {
         "monthlyRentMan": 50.29,
         "rentSamples": 518,
@@ -4611,6 +6823,14 @@
       "safety": 77.6,
       "price": 97.4,
       "convenience": 29.1,
+      "pct": [
+        77.6,
+        97.4,
+        50.7,
+        11.3,
+        33.6,
+        17.4
+      ],
       "raw": {
         "monthlyRentMan": 44.58,
         "rentSamples": 427,
@@ -4628,6 +6848,14 @@
       "safety": 77.6,
       "price": 97.4,
       "convenience": 53.4,
+      "pct": [
+        77.6,
+        97.4,
+        63.4,
+        12.2,
+        72.3,
+        67.6
+      ],
       "raw": {
         "monthlyRentMan": 44.58,
         "rentSamples": 427,
@@ -4645,6 +6873,14 @@
       "safety": 77.6,
       "price": 97.4,
       "convenience": 22.6,
+      "pct": [
+        77.6,
+        97.4,
+        33.1,
+        16.9,
+        11.7,
+        24.4
+      ],
       "raw": {
         "monthlyRentMan": 44.58,
         "rentSamples": 427,
@@ -4662,6 +6898,14 @@
       "safety": 41.8,
       "price": 50.9,
       "convenience": 58.5,
+      "pct": [
+        41.8,
+        50.9,
+        77.5,
+        25.4,
+        56.7,
+        70.2
+      ],
       "raw": {
         "monthlyRentMan": 61.46,
         "rentSamples": 1007,
@@ -4679,6 +6923,14 @@
       "safety": 53.5,
       "price": 50.9,
       "convenience": 36.3,
+      "pct": [
+        53.5,
+        50.9,
+        16.2,
+        7.7,
+        25.8,
+        97.2
+      ],
       "raw": {
         "monthlyRentMan": 61.46,
         "rentSamples": 1007,
@@ -4696,6 +6948,14 @@
       "safety": 77.6,
       "price": 63.5,
       "convenience": 16.8,
+      "pct": [
+        77.6,
+        63.5,
+        13.8,
+        2.1,
+        27,
+        27
+      ],
       "raw": {
         "monthlyRentMan": 57.75,
         "rentSamples": 0,
@@ -4713,6 +6973,14 @@
       "safety": 77.6,
       "price": 63.5,
       "convenience": 20.5,
+      "pct": [
+        77.6,
+        63.5,
+        22.1,
+        13.8,
+        41.4,
+        8.5
+      ],
       "raw": {
         "monthlyRentMan": 57.75,
         "rentSamples": 0,
@@ -4730,6 +6998,14 @@
       "safety": 34.4,
       "price": 45.8,
       "convenience": 50.4,
+      "pct": [
+        34.4,
+        45.8,
+        95.1,
+        26.8,
+        11.7,
+        51.3
+      ],
       "raw": {
         "monthlyRentMan": 63.75,
         "rentSamples": 2021,
@@ -4747,6 +7023,14 @@
       "safety": 77.6,
       "price": 48.8,
       "convenience": 48.5,
+      "pct": [
+        77.6,
+        48.8,
+        65.7,
+        17.8,
+        35.6,
+        69
+      ],
       "raw": {
         "monthlyRentMan": 62.08,
         "rentSamples": 2956,
@@ -4764,6 +7048,14 @@
       "safety": 77.6,
       "price": 48.8,
       "convenience": 34.2,
+      "pct": [
+        77.6,
+        48.8,
+        75.4,
+        28.1,
+        11.7,
+        8.9
+      ],
       "raw": {
         "monthlyRentMan": 62.08,
         "rentSamples": 2956,
@@ -4781,6 +7073,14 @@
       "safety": 77.6,
       "price": 48.8,
       "convenience": 39.2,
+      "pct": [
+        77.6,
+        48.8,
+        61.3,
+        32.4,
+        49.3,
+        11.5
+      ],
       "raw": {
         "monthlyRentMan": 62.08,
         "rentSamples": 2956,
@@ -4798,6 +7098,14 @@
       "safety": 77.6,
       "price": 48.8,
       "convenience": 26.2,
+      "pct": [
+        77.6,
+        48.8,
+        55.6,
+        21.9,
+        11.7,
+        6.8
+      ],
       "raw": {
         "monthlyRentMan": 62.08,
         "rentSamples": 2956,
@@ -4815,6 +7123,14 @@
       "safety": 49.9,
       "price": 94.5,
       "convenience": 49.4,
+      "pct": [
+        49.9,
+        94.5,
+        55.2,
+        43.2,
+        65.5,
+        35.9
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 950,
@@ -4832,6 +7148,14 @@
       "safety": 77.6,
       "price": 94.5,
       "convenience": 3.5,
+      "pct": [
+        77.6,
+        94.5,
+        2.8,
+        0.9,
+        11.7,
+        0.2
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 950,
@@ -4849,6 +7173,14 @@
       "safety": 77.6,
       "price": 94.5,
       "convenience": 23.6,
+      "pct": [
+        77.6,
+        94.5,
+        13.6,
+        16,
+        31.6,
+        37
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 950,
@@ -4866,6 +7198,14 @@
       "safety": 77.6,
       "price": 94.5,
       "convenience": 16.7,
+      "pct": [
+        77.6,
+        94.5,
+        24.5,
+        22.5,
+        11.7,
+        5.4
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 950,
@@ -4883,6 +7223,14 @@
       "safety": 77.6,
       "price": 94.5,
       "convenience": 14.4,
+      "pct": [
+        77.6,
+        94.5,
+        24.9,
+        14.1,
+        11.7,
+        4.5
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 950,
@@ -4900,6 +7248,14 @@
       "safety": 43.4,
       "price": 18.5,
       "convenience": 51.3,
+      "pct": [
+        43.4,
+        18.5,
+        35.4,
+        70.9,
+        53.8,
+        48.8
+      ],
       "raw": {
         "monthlyRentMan": 74.77,
         "rentSamples": 0,
@@ -4917,6 +7273,14 @@
       "safety": 18.2,
       "price": 82.5,
       "convenience": 84.1,
+      "pct": [
+        18.2,
+        82.5,
+        80.3,
+        88.5,
+        86.4,
+        82.4
+      ],
       "raw": {
         "monthlyRentMan": 50.92,
         "rentSamples": 177,
@@ -4934,6 +7298,14 @@
       "safety": 39.9,
       "price": 18.5,
       "convenience": 43.5,
+      "pct": [
+        39.9,
+        18.5,
+        14.6,
+        56.1,
+        39,
+        69.2
+      ],
       "raw": {
         "monthlyRentMan": 74.77,
         "rentSamples": 0,
@@ -4951,6 +7323,14 @@
       "safety": 28.2,
       "price": 24.1,
       "convenience": 87.8,
+      "pct": [
+        28.2,
+        24.1,
+        93,
+        88.7,
+        65,
+        98.8
+      ],
       "raw": {
         "monthlyRentMan": 71.63,
         "rentSamples": 564,
@@ -4968,6 +7348,14 @@
       "safety": 77.6,
       "price": 24.1,
       "convenience": 73.2,
+      "pct": [
+        77.6,
+        24.1,
+        64.8,
+        68.8,
+        59.2,
+        99.1
+      ],
       "raw": {
         "monthlyRentMan": 71.63,
         "rentSamples": 564,
@@ -4985,6 +7373,14 @@
       "safety": 18.8,
       "price": 45.8,
       "convenience": 43.2,
+      "pct": [
+        18.8,
+        45.8,
+        58,
+        58,
+        11.7,
+        35.7
+      ],
       "raw": {
         "monthlyRentMan": 63.75,
         "rentSamples": 539,
@@ -5002,6 +7398,14 @@
       "safety": 27.5,
       "price": 18.5,
       "convenience": 58.2,
+      "pct": [
+        27.5,
+        18.5,
+        52.1,
+        55.4,
+        51.4,
+        73.7
+      ],
       "raw": {
         "monthlyRentMan": 74.77,
         "rentSamples": 0,
@@ -5019,6 +7423,14 @@
       "safety": 44.7,
       "price": 18.5,
       "convenience": 68.2,
+      "pct": [
+        44.7,
+        18.5,
+        71.8,
+        61,
+        38.1,
+        95.2
+      ],
       "raw": {
         "monthlyRentMan": 74.77,
         "rentSamples": 0,
@@ -5036,6 +7448,14 @@
       "safety": 45.7,
       "price": 18.5,
       "convenience": 31.6,
+      "pct": [
+        45.7,
+        18.5,
+        17.8,
+        46.9,
+        30.2,
+        34
+      ],
       "raw": {
         "monthlyRentMan": 74.77,
         "rentSamples": 0,
@@ -5053,6 +7473,14 @@
       "safety": 77.6,
       "price": 70.9,
       "convenience": 51.7,
+      "pct": [
+        77.6,
+        70.9,
+        54.2,
+        64.8,
+        39.2,
+        45.8
+      ],
       "raw": {
         "monthlyRentMan": 55.29,
         "rentSamples": 1637,
@@ -5070,6 +7498,14 @@
       "safety": 77.6,
       "price": 70.9,
       "convenience": 57,
+      "pct": [
+        77.6,
+        70.9,
+        80.8,
+        62.4,
+        49.1,
+        29.6
+      ],
       "raw": {
         "monthlyRentMan": 55.29,
         "rentSamples": 1637,
@@ -5087,6 +7523,14 @@
       "safety": 77.6,
       "price": 70.9,
       "convenience": 38.9,
+      "pct": [
+        77.6,
+        70.9,
+        42.4,
+        75.1,
+        11.7,
+        20.1
+      ],
       "raw": {
         "monthlyRentMan": 55.29,
         "rentSamples": 1637,
@@ -5104,6 +7548,14 @@
       "safety": 77.6,
       "price": 70.9,
       "convenience": 38,
+      "pct": [
+        77.6,
+        70.9,
+        26.8,
+        28.9,
+        11.7,
+        81.8
+      ],
       "raw": {
         "monthlyRentMan": 55.29,
         "rentSamples": 1637,
@@ -5121,6 +7573,14 @@
       "safety": 26.8,
       "price": 70.9,
       "convenience": 43.7,
+      "pct": [
+        26.8,
+        70.9,
+        62,
+        31,
+        11.7,
+        60.1
+      ],
       "raw": {
         "monthlyRentMan": 55.29,
         "rentSamples": 1637,
@@ -5138,6 +7598,14 @@
       "safety": 77.6,
       "price": 70.9,
       "convenience": 34.3,
+      "pct": [
+        77.6,
+        70.9,
+        25.1,
+        31.7,
+        11.7,
+        65.8
+      ],
       "raw": {
         "monthlyRentMan": 55.29,
         "rentSamples": 1637,
@@ -5155,6 +7623,14 @@
       "safety": 77.6,
       "price": 87.1,
       "convenience": 40.6,
+      "pct": [
+        77.6,
+        87.1,
+        36.6,
+        36.9,
+        66,
+        28.6
+      ],
       "raw": {
         "monthlyRentMan": 49.29,
         "rentSamples": 1511,
@@ -5172,6 +7648,14 @@
       "safety": 25.8,
       "price": 87.1,
       "convenience": 55.5,
+      "pct": [
+        25.8,
+        87.1,
+        60.9,
+        26.1,
+        80.3,
+        58.5
+      ],
       "raw": {
         "monthlyRentMan": 49.29,
         "rentSamples": 1511,
@@ -5189,6 +7673,14 @@
       "safety": 77.6,
       "price": 87.1,
       "convenience": 53.4,
+      "pct": [
+        77.6,
+        87.1,
+        73.7,
+        34.5,
+        81.7,
+        25.4
+      ],
       "raw": {
         "monthlyRentMan": 49.29,
         "rentSamples": 1511,
@@ -5206,6 +7698,14 @@
       "safety": 43.8,
       "price": 81.6,
       "convenience": 65.8,
+      "pct": [
+        43.8,
+        81.6,
+        48.6,
+        70.7,
+        79.1,
+        70.9
+      ],
       "raw": {
         "monthlyRentMan": 51.38,
         "rentSamples": 1220,
@@ -5223,6 +7723,14 @@
       "safety": 38.7,
       "price": 81.6,
       "convenience": 61.7,
+      "pct": [
+        38.7,
+        81.6,
+        59.2,
+        83.8,
+        43.2,
+        57.6
+      ],
       "raw": {
         "monthlyRentMan": 51.38,
         "rentSamples": 1220,
@@ -5240,6 +7748,14 @@
       "safety": 41.2,
       "price": 61,
       "convenience": 62.9,
+      "pct": [
+        41.2,
+        61,
+        48.8,
+        65.7,
+        41.4,
+        94.1
+      ],
       "raw": {
         "monthlyRentMan": 58.75,
         "rentSamples": 2809,
@@ -5257,6 +7773,14 @@
       "safety": 42.4,
       "price": 68.3,
       "convenience": 67.5,
+      "pct": [
+        42.4,
+        68.3,
+        66.7,
+        63.4,
+        63.8,
+        75.4
+      ],
       "raw": {
         "monthlyRentMan": 56.71,
         "rentSamples": 2282,
@@ -5274,6 +7798,14 @@
       "safety": 39.4,
       "price": 68.3,
       "convenience": 69,
+      "pct": [
+        39.4,
+        68.3,
+        76.8,
+        76.3,
+        81.2,
+        42.5
+      ],
       "raw": {
         "monthlyRentMan": 56.71,
         "rentSamples": 2282,
@@ -5291,6 +7823,14 @@
       "safety": 31.7,
       "price": 68.3,
       "convenience": 46.4,
+      "pct": [
+        31.7,
+        68.3,
+        35.7,
+        62.7,
+        77.5,
+        18.2
+      ],
       "raw": {
         "monthlyRentMan": 56.71,
         "rentSamples": 2282,
@@ -5308,6 +7848,14 @@
       "safety": 50.9,
       "price": 52.8,
       "convenience": 48.7,
+      "pct": [
+        50.9,
+        52.8,
+        18.8,
+        61.7,
+        38.1,
+        80.2
+      ],
       "raw": {
         "monthlyRentMan": 59.96,
         "rentSamples": 538,
@@ -5325,6 +7873,14 @@
       "safety": 16,
       "price": 42.1,
       "convenience": 69.7,
+      "pct": [
+        16,
+        42.1,
+        85.4,
+        64.3,
+        60,
+        64.1
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 1982,
@@ -5342,6 +7898,14 @@
       "safety": 52.8,
       "price": 42.1,
       "convenience": 33.4,
+      "pct": [
+        52.8,
+        42.1,
+        10.8,
+        52.6,
+        30.9,
+        43.4
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 1982,
@@ -5359,6 +7923,14 @@
       "safety": 77.6,
       "price": 42.1,
       "convenience": 38.6,
+      "pct": [
+        77.6,
+        42.1,
+        30.4,
+        31.9,
+        37.6,
+        55.8
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 1982,
@@ -5376,6 +7948,14 @@
       "safety": 77.6,
       "price": 42.1,
       "convenience": 36.1,
+      "pct": [
+        77.6,
+        42.1,
+        26.3,
+        16.4,
+        51.8,
+        54.9
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 1982,
@@ -5393,6 +7973,14 @@
       "safety": 77.6,
       "price": 42.1,
       "convenience": 27.4,
+      "pct": [
+        77.6,
+        42.1,
+        28.4,
+        20.4,
+        11.7,
+        45.5
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 1982,
@@ -5410,6 +7998,14 @@
       "safety": 50.5,
       "price": 62.4,
       "convenience": 48.9,
+      "pct": [
+        50.5,
+        62.4,
+        44.8,
+        50.9,
+        54.8,
+        47.2
+      ],
       "raw": {
         "monthlyRentMan": 58.33,
         "rentSamples": 501,
@@ -5427,6 +8023,14 @@
       "safety": 39.9,
       "price": 79.5,
       "convenience": 50.3,
+      "pct": [
+        39.9,
+        79.5,
+        66.4,
+        27.7,
+        11.7,
+        84.5
+      ],
       "raw": {
         "monthlyRentMan": 52.29,
         "rentSamples": 1075,
@@ -5444,6 +8048,14 @@
       "safety": 27,
       "price": 79.5,
       "convenience": 63.5,
+      "pct": [
+        27,
+        79.5,
+        49.5,
+        49.5,
+        71.8,
+        87.7
+      ],
       "raw": {
         "monthlyRentMan": 52.29,
         "rentSamples": 1075,
@@ -5461,6 +8073,14 @@
       "safety": 77.6,
       "price": 57.4,
       "convenience": 50.5,
+      "pct": [
+        77.6,
+        57.4,
+        63.6,
+        31.5,
+        40.1,
+        62.2
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5478,6 +8098,14 @@
       "safety": 77.6,
       "price": 57.4,
       "convenience": 36.2,
+      "pct": [
+        77.6,
+        57.4,
+        37.1,
+        69,
+        11.7,
+        22.1
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5495,6 +8123,14 @@
       "safety": 77.6,
       "price": 57.4,
       "convenience": 32.5,
+      "pct": [
+        77.6,
+        57.4,
+        45.3,
+        39.1,
+        11.7,
+        27
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5512,6 +8148,14 @@
       "safety": 77.6,
       "price": 57.4,
       "convenience": 62.1,
+      "pct": [
+        77.6,
+        57.4,
+        87.6,
+        37.8,
+        74.4,
+        46.1
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5529,6 +8173,14 @@
       "safety": 35.9,
       "price": 57.4,
       "convenience": 23.2,
+      "pct": [
+        35.9,
+        57.4,
+        16.4,
+        28.1,
+        50,
+        5.2
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5546,6 +8198,14 @@
       "safety": 77.6,
       "price": 57.4,
       "convenience": 63,
+      "pct": [
+        77.6,
+        57.4,
+        86.4,
+        54.2,
+        65.7,
+        41.4
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5563,6 +8223,14 @@
       "safety": 77.6,
       "price": 57.4,
       "convenience": 46,
+      "pct": [
+        77.6,
+        57.4,
+        66.2,
+        35.9,
+        11.7,
+        59.3
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5580,6 +8248,14 @@
       "safety": 28.8,
       "price": 57.4,
       "convenience": 79.9,
+      "pct": [
+        28.8,
+        57.4,
+        94.1,
+        53.3,
+        96.5,
+        76.3
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5597,6 +8273,14 @@
       "safety": 77.6,
       "price": 57.4,
       "convenience": 50.1,
+      "pct": [
+        77.6,
+        57.4,
+        77.9,
+        35.2,
+        41.8,
+        38.1
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5614,6 +8298,14 @@
       "safety": 51.9,
       "price": 31,
       "convenience": 12,
+      "pct": [
+        51.9,
+        31,
+        7.3,
+        10.1,
+        11.7,
+        19.7
+      ],
       "raw": {
         "monthlyRentMan": 68.75,
         "rentSamples": 440,
@@ -5631,6 +8323,14 @@
       "safety": 21,
       "price": 57.4,
       "convenience": 69.1,
+      "pct": [
+        21,
+        57.4,
+        77,
+        49.8,
+        71.1,
+        77.2
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5648,6 +8348,14 @@
       "safety": 25.2,
       "price": 57.4,
       "convenience": 64.5,
+      "pct": [
+        25.2,
+        57.4,
+        79.1,
+        47.2,
+        89.8,
+        43.9
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5665,6 +8373,14 @@
       "safety": 77.6,
       "price": 57.4,
       "convenience": 61.2,
+      "pct": [
+        77.6,
+        57.4,
+        82.4,
+        45.5,
+        64.1,
+        49.2
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5682,6 +8398,14 @@
       "safety": 12.9,
       "price": 57.4,
       "convenience": 55.5,
+      "pct": [
+        12.9,
+        57.4,
+        90.6,
+        50,
+        11.7,
+        53.9
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5699,6 +8423,14 @@
       "safety": 77.6,
       "price": 70.9,
       "convenience": 77.2,
+      "pct": [
+        77.6,
+        70.9,
+        78.4,
+        60.3,
+        89,
+        83.2
+      ],
       "raw": {
         "monthlyRentMan": 55.29,
         "rentSamples": 6483,
@@ -5716,6 +8448,14 @@
       "safety": 77.6,
       "price": 57.4,
       "convenience": 19.7,
+      "pct": [
+        77.6,
+        57.4,
+        14.3,
+        15.5,
+        54.2,
+        2.6
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5733,6 +8473,14 @@
       "safety": 11.3,
       "price": 57.4,
       "convenience": 64.8,
+      "pct": [
+        11.3,
+        57.4,
+        82.9,
+        54,
+        77.2,
+        44.1
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5750,6 +8498,14 @@
       "safety": 54.7,
       "price": 57.4,
       "convenience": 12.4,
+      "pct": [
+        54.7,
+        57.4,
+        6.3,
+        20.9,
+        25.6,
+        0.5
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5767,6 +8523,14 @@
       "safety": 77.6,
       "price": 57.4,
       "convenience": 5.2,
+      "pct": [
+        77.6,
+        57.4,
+        3.3,
+        2.8,
+        11.7,
+        4.7
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5784,6 +8548,14 @@
       "safety": 77.6,
       "price": 57.4,
       "convenience": 32.6,
+      "pct": [
+        77.6,
+        57.4,
+        53.9,
+        29.8,
+        31.6,
+        10.6
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5801,6 +8573,14 @@
       "safety": 77.6,
       "price": 57.4,
       "convenience": 24.9,
+      "pct": [
+        77.6,
+        57.4,
+        50.2,
+        20.2,
+        11.7,
+        9.6
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 0,
@@ -5818,6 +8598,14 @@
       "safety": 39.9,
       "price": 2.9,
       "convenience": 62.8,
+      "pct": [
+        39.9,
+        2.9,
+        80.5,
+        51.9,
+        42.3,
+        68.8
+      ],
       "raw": {
         "monthlyRentMan": 96.58,
         "rentSamples": 1875,
@@ -5835,6 +8623,14 @@
       "safety": 23.2,
       "price": 2.9,
       "convenience": 55.2,
+      "pct": [
+        23.2,
+        2.9,
+        70.9,
+        81,
+        31.9,
+        29.2
+      ],
       "raw": {
         "monthlyRentMan": 96.58,
         "rentSamples": 1875,
@@ -5852,6 +8648,14 @@
       "safety": 30,
       "price": 2.9,
       "convenience": 46.5,
+      "pct": [
+        30,
+        2.9,
+        50.5,
+        58.7,
+        40.4,
+        34.3
+      ],
       "raw": {
         "monthlyRentMan": 96.58,
         "rentSamples": 1875,
@@ -5869,6 +8673,14 @@
       "safety": 7,
       "price": 2.9,
       "convenience": 76.4,
+      "pct": [
+        7,
+        2.9,
+        93.7,
+        75.4,
+        83.2,
+        51.3
+      ],
       "raw": {
         "monthlyRentMan": 96.58,
         "rentSamples": 1875,
@@ -5886,6 +8698,14 @@
       "safety": 37.8,
       "price": 20,
       "convenience": 46.7,
+      "pct": [
+        37.8,
+        20,
+        43.7,
+        54.9,
+        50.7,
+        38.7
+      ],
       "raw": {
         "monthlyRentMan": 74.58,
         "rentSamples": 162,
@@ -5903,6 +8723,14 @@
       "safety": 77.6,
       "price": 11.3,
       "convenience": 31.3,
+      "pct": [
+        77.6,
+        11.3,
+        1.4,
+        21.6,
+        11.7,
+        92.7
+      ],
       "raw": {
         "monthlyRentMan": 82.92,
         "rentSamples": 0,
@@ -5920,6 +8748,14 @@
       "safety": 17.1,
       "price": 33.9,
       "convenience": 75,
+      "pct": [
+        17.1,
+        33.9,
+        86.6,
+        62,
+        47.7,
+        96
+      ],
       "raw": {
         "monthlyRentMan": 67.75,
         "rentSamples": 604,
@@ -5937,6 +8773,14 @@
       "safety": 48.8,
       "price": 33.9,
       "convenience": 37.1,
+      "pct": [
+        48.8,
+        33.9,
+        19.5,
+        24.9,
+        11.7,
+        90.6
+      ],
       "raw": {
         "monthlyRentMan": 67.75,
         "rentSamples": 604,
@@ -5954,6 +8798,14 @@
       "safety": 49.1,
       "price": 33.9,
       "convenience": 24.1,
+      "pct": [
+        49.1,
+        33.9,
+        14.1,
+        39.9,
+        11.7,
+        30.3
+      ],
       "raw": {
         "monthlyRentMan": 67.75,
         "rentSamples": 604,
@@ -5971,6 +8823,14 @@
       "safety": 8.9,
       "price": 33.9,
       "convenience": 66.3,
+      "pct": [
+        8.9,
+        33.9,
+        76.1,
+        78.9,
+        79.3,
+        31.5
+      ],
       "raw": {
         "monthlyRentMan": 67.75,
         "rentSamples": 604,
@@ -5988,6 +8848,14 @@
       "safety": 39,
       "price": 11.3,
       "convenience": 64.4,
+      "pct": [
+        39,
+        11.3,
+        83.6,
+        69.2,
+        69.5,
+        32.6
+      ],
       "raw": {
         "monthlyRentMan": 82.92,
         "rentSamples": 0,
@@ -6005,6 +8873,14 @@
       "safety": 40.6,
       "price": 25.5,
       "convenience": 64.3,
+      "pct": [
+        40.6,
+        25.5,
+        78.6,
+        58.5,
+        42,
+        70.7
+      ],
       "raw": {
         "monthlyRentMan": 70.58,
         "rentSamples": 563,
@@ -6022,6 +8898,14 @@
       "safety": 51.4,
       "price": 25.5,
       "convenience": 37.3,
+      "pct": [
+        51.4,
+        25.5,
+        31.5,
+        43.9,
+        28.1,
+        45.3
+      ],
       "raw": {
         "monthlyRentMan": 70.58,
         "rentSamples": 563,
@@ -6039,6 +8923,14 @@
       "safety": 52.5,
       "price": 25.5,
       "convenience": 21.5,
+      "pct": [
+        52.5,
+        25.5,
+        8.5,
+        20.7,
+        32.4,
+        29.2
+      ],
       "raw": {
         "monthlyRentMan": 70.58,
         "rentSamples": 563,
@@ -6056,6 +8948,14 @@
       "safety": 31.2,
       "price": 25.5,
       "convenience": 57.6,
+      "pct": [
+        31.2,
+        25.5,
+        42,
+        59.2,
+        49.6,
+        81
+      ],
       "raw": {
         "monthlyRentMan": 70.58,
         "rentSamples": 563,
@@ -6073,6 +8973,14 @@
       "safety": 30.5,
       "price": 29.5,
       "convenience": 19.8,
+      "pct": [
+        30.5,
+        29.5,
+        12.4,
+        39.7,
+        28.1,
+        2.1
+      ],
       "raw": {
         "monthlyRentMan": 69.17,
         "rentSamples": 623,
@@ -6090,6 +8998,14 @@
       "safety": 54.5,
       "price": 29.5,
       "convenience": 22.4,
+      "pct": [
+        54.5,
+        29.5,
+        10.6,
+        32.9,
+        24.6,
+        24.2
+      ],
       "raw": {
         "monthlyRentMan": 69.17,
         "rentSamples": 623,
@@ -6107,6 +9023,14 @@
       "safety": 77.6,
       "price": 6.6,
       "convenience": 6.4,
+      "pct": [
+        77.6,
+        6.6,
+        0.2,
+        3.5,
+        23.7,
+        2.8
+      ],
       "raw": {
         "monthlyRentMan": 87.21,
         "rentSamples": 6,
@@ -6124,6 +9048,14 @@
       "safety": 11.5,
       "price": 20,
       "convenience": 72.4,
+      "pct": [
+        11.5,
+        20,
+        67,
+        92.7,
+        95.9,
+        39.9
+      ],
       "raw": {
         "monthlyRentMan": 74.58,
         "rentSamples": 227,
@@ -6141,6 +9073,14 @@
       "safety": 20.7,
       "price": 15.3,
       "convenience": 85.3,
+      "pct": [
+        20.7,
+        15.3,
+        93.4,
+        95.1,
+        90.1,
+        61.7
+      ],
       "raw": {
         "monthlyRentMan": 79.58,
         "rentSamples": 961,
@@ -6158,6 +9098,14 @@
       "safety": 25.2,
       "price": 15.3,
       "convenience": 76.1,
+      "pct": [
+        25.2,
+        15.3,
+        89.4,
+        91.8,
+        61.7,
+        55.8
+      ],
       "raw": {
         "monthlyRentMan": 79.58,
         "rentSamples": 961,
@@ -6175,6 +9123,14 @@
       "safety": 10.1,
       "price": 6.2,
       "convenience": 68.3,
+      "pct": [
+        10.1,
+        6.2,
+        57.3,
+        89,
+        92,
+        42
+      ],
       "raw": {
         "monthlyRentMan": 87.58,
         "rentSamples": 0,
@@ -6192,6 +9148,14 @@
       "safety": 19.5,
       "price": 15.7,
       "convenience": 66.6,
+      "pct": [
+        19.5,
+        15.7,
+        65,
+        87.3,
+        82.2,
+        35.4
+      ],
       "raw": {
         "monthlyRentMan": 78.33,
         "rentSamples": 212,
@@ -6209,6 +9173,14 @@
       "safety": 45.7,
       "price": 0.6,
       "convenience": 64.7,
+      "pct": [
+        45.7,
+        0.6,
+        65.3,
+        71.8,
+        11.7,
+        99.3
+      ],
       "raw": {
         "monthlyRentMan": 112.92,
         "rentSamples": 245,
@@ -6226,6 +9198,14 @@
       "safety": 29.6,
       "price": 0.6,
       "convenience": 66.7,
+      "pct": [
+        29.6,
+        0.6,
+        71.4,
+        79.3,
+        52.6,
+        59.9
+      ],
       "raw": {
         "monthlyRentMan": 112.92,
         "rentSamples": 245,
@@ -6243,6 +9223,14 @@
       "safety": 77.6,
       "price": 7.7,
       "convenience": 53.8,
+      "pct": [
+        77.6,
+        7.7,
+        69.7,
+        51.6,
+        11.7,
+        70.4
+      ],
       "raw": {
         "monthlyRentMan": 84.58,
         "rentSamples": 559,
@@ -6260,6 +9248,14 @@
       "safety": 51.6,
       "price": 7.7,
       "convenience": 40.1,
+      "pct": [
+        51.6,
+        7.7,
+        50.9,
+        39.4,
+        11.7,
+        50.5
+      ],
       "raw": {
         "monthlyRentMan": 84.58,
         "rentSamples": 559,
@@ -6277,6 +9273,14 @@
       "safety": 40.8,
       "price": 7.7,
       "convenience": 72.6,
+      "pct": [
+        40.8,
+        7.7,
+        99.3,
+        71.6,
+        75.1,
+        39.4
+      ],
       "raw": {
         "monthlyRentMan": 84.58,
         "rentSamples": 559,
@@ -6294,6 +9298,14 @@
       "safety": 17.4,
       "price": 2.2,
       "convenience": 83.1,
+      "pct": [
+        17.4,
+        2.2,
+        95.8,
+        95.3,
+        82.4,
+        56.1
+      ],
       "raw": {
         "monthlyRentMan": 97.29,
         "rentSamples": 2455,
@@ -6311,6 +9323,14 @@
       "safety": 77.6,
       "price": 2.2,
       "convenience": 60,
+      "pct": [
+        77.6,
+        2.2,
+        88.3,
+        59.4,
+        56.3,
+        29.8
+      ],
       "raw": {
         "monthlyRentMan": 97.29,
         "rentSamples": 2455,
@@ -6328,6 +9348,14 @@
       "safety": 77.6,
       "price": 30.6,
       "convenience": 47.5,
+      "pct": [
+        77.6,
+        30.6,
+        38.5,
+        52.1,
+        58.7,
+        44.6
+      ],
       "raw": {
         "monthlyRentMan": 68.96,
         "rentSamples": 158,
@@ -6345,6 +9373,14 @@
       "safety": 77.6,
       "price": 30.6,
       "convenience": 46.7,
+      "pct": [
+        77.6,
+        30.6,
+        40.8,
+        41.7,
+        11.7,
+        86.6
+      ],
       "raw": {
         "monthlyRentMan": 68.96,
         "rentSamples": 158,
@@ -6362,6 +9398,14 @@
       "safety": 77.6,
       "price": 7.7,
       "convenience": 5.4,
+      "pct": [
+        77.6,
+        7.7,
+        2.1,
+        2.3,
+        11.7,
+        7.5
+      ],
       "raw": {
         "monthlyRentMan": 84.58,
         "rentSamples": 310,
@@ -6379,6 +9423,14 @@
       "safety": 77.6,
       "price": 7.7,
       "convenience": 44.5,
+      "pct": [
+        77.6,
+        7.7,
+        19.2,
+        29.3,
+        63.4,
+        74.8
+      ],
       "raw": {
         "monthlyRentMan": 84.58,
         "rentSamples": 310,
@@ -6396,6 +9448,14 @@
       "safety": 77.6,
       "price": 7.7,
       "convenience": 33,
+      "pct": [
+        77.6,
+        7.7,
+        20.2,
+        28.4,
+        11.7,
+        69.8
+      ],
       "raw": {
         "monthlyRentMan": 84.58,
         "rentSamples": 310,
@@ -6413,6 +9473,14 @@
       "safety": 77.6,
       "price": 7.7,
       "convenience": 32.6,
+      "pct": [
+        77.6,
+        7.7,
+        29.1,
+        41.3,
+        60,
+        6.1
+      ],
       "raw": {
         "monthlyRentMan": 84.58,
         "rentSamples": 310,
@@ -6430,6 +9498,14 @@
       "safety": 77.6,
       "price": 1.8,
       "convenience": 11.4,
+      "pct": [
+        77.6,
+        1.8,
+        11.7,
+        8.5,
+        26.1,
+        2.3
+      ],
       "raw": {
         "monthlyRentMan": 99.58,
         "rentSamples": 88,
@@ -6447,6 +9523,14 @@
       "safety": 77.6,
       "price": 6.2,
       "convenience": 42.3,
+      "pct": [
+        77.6,
+        6.2,
+        12.7,
+        19.5,
+        48.6,
+        95.8
+      ],
       "raw": {
         "monthlyRentMan": 87.58,
         "rentSamples": 0,
@@ -6464,6 +9548,14 @@
       "safety": 77.6,
       "price": 52.6,
       "convenience": 47,
+      "pct": [
+        77.6,
+        52.6,
+        46.7,
+        38.4,
+        85.2,
+        25.6
+      ],
       "raw": {
         "monthlyRentMan": 60.18,
         "rentSamples": 289,
@@ -6481,6 +9573,14 @@
       "safety": 77.6,
       "price": 9.6,
       "convenience": 50.1,
+      "pct": [
+        77.6,
+        9.6,
+        16,
+        48.1,
+        53.3,
+        90.4
+      ],
       "raw": {
         "monthlyRentMan": 83.75,
         "rentSamples": 28,
@@ -6498,6 +9598,14 @@
       "safety": 77.6,
       "price": 79.5,
       "convenience": 20.7,
+      "pct": [
+        77.6,
+        79.5,
+        12.2,
+        32.6,
+        11.7,
+        26.1
+      ],
       "raw": {
         "monthlyRentMan": 52.29,
         "rentSamples": 308,
@@ -6515,6 +9623,14 @@
       "safety": 77.6,
       "price": 79.5,
       "convenience": 27.1,
+      "pct": [
+        77.6,
+        79.5,
+        5,
+        23.2,
+        80.8,
+        14.6
+      ],
       "raw": {
         "monthlyRentMan": 52.29,
         "rentSamples": 308,
@@ -6532,6 +9648,14 @@
       "safety": 33.3,
       "price": 9,
       "convenience": 60.3,
+      "pct": [
+        33.3,
+        9,
+        33.5,
+        54.7,
+        64.3,
+        94.8
+      ],
       "raw": {
         "monthlyRentMan": 84.29,
         "rentSamples": 383,
@@ -6549,6 +9673,14 @@
       "safety": 77.6,
       "price": 9,
       "convenience": 80,
+      "pct": [
+        77.6,
+        9,
+        82.6,
+        60.8,
+        98.1,
+        81.5
+      ],
       "raw": {
         "monthlyRentMan": 84.29,
         "rentSamples": 383,
@@ -6566,6 +9698,14 @@
       "safety": 77.6,
       "price": 99.9,
       "convenience": 66.2,
+      "pct": [
+        77.6,
+        99.9,
+        49.1,
+        55.6,
+        82.6,
+        84
+      ],
       "raw": {
         "monthlyRentMan": 41.1,
         "rentSamples": 224,
@@ -6583,6 +9723,14 @@
       "safety": 77.6,
       "price": 99.9,
       "convenience": 51,
+      "pct": [
+        77.6,
+        99.9,
+        36.9,
+        56.6,
+        85,
+        35.2
+      ],
       "raw": {
         "monthlyRentMan": 41.1,
         "rentSamples": 224,
@@ -6600,6 +9748,14 @@
       "safety": 77.6,
       "price": 3.9,
       "convenience": 51.9,
+      "pct": [
+        77.6,
+        3.9,
+        41.3,
+        70.4,
+        11.7,
+        78.2
+      ],
       "raw": {
         "monthlyRentMan": 94.58,
         "rentSamples": 1899,
@@ -6617,6 +9773,14 @@
       "safety": 42,
       "price": 3.9,
       "convenience": 76.3,
+      "pct": [
+        42,
+        3.9,
+        91.1,
+        75.6,
+        39.9,
+        88.5
+      ],
       "raw": {
         "monthlyRentMan": 94.58,
         "rentSamples": 1899,
@@ -6634,6 +9798,14 @@
       "safety": 77.6,
       "price": 4.9,
       "convenience": 27.3,
+      "pct": [
+        77.6,
+        4.9,
+        3.6,
+        6.2,
+        11.7,
+        89.2
+      ],
       "raw": {
         "monthlyRentMan": 92.92,
         "rentSamples": 0,
@@ -6651,6 +9823,14 @@
       "safety": 77.6,
       "price": 57.4,
       "convenience": 38.5,
+      "pct": [
+        77.6,
+        57.4,
+        34.7,
+        48.4,
+        28.4,
+        41.1
+      ],
       "raw": {
         "monthlyRentMan": 59.58,
         "rentSamples": 124,
@@ -6668,6 +9848,14 @@
       "safety": 22.5,
       "price": 20,
       "convenience": 80.7,
+      "pct": [
+        22.5,
+        20,
+        87.3,
+        85.9,
+        75.8,
+        71.4
+      ],
       "raw": {
         "monthlyRentMan": 74.58,
         "rentSamples": 322,
@@ -6685,6 +9873,14 @@
       "safety": 77.6,
       "price": 20,
       "convenience": 37,
+      "pct": [
+        77.6,
+        20,
+        32,
+        49.3,
+        11.7,
+        50.9
+      ],
       "raw": {
         "monthlyRentMan": 74.58,
         "rentSamples": 322,
@@ -6702,6 +9898,14 @@
       "safety": 45.3,
       "price": 29.5,
       "convenience": 71.2,
+      "pct": [
+        45.3,
+        29.5,
+        94.4,
+        74.6,
+        50.2,
+        56.8
+      ],
       "raw": {
         "monthlyRentMan": 69.17,
         "rentSamples": 513,
@@ -6719,6 +9923,14 @@
       "safety": 46.4,
       "price": 34.5,
       "convenience": 73.1,
+      "pct": [
+        46.4,
+        34.5,
+        84.3,
+        62.2,
+        83.8,
+        62
+      ],
       "raw": {
         "monthlyRentMan": 67.67,
         "rentSamples": 322,
@@ -6736,6 +9948,14 @@
       "safety": 77.6,
       "price": 4.9,
       "convenience": 69,
+      "pct": [
+        77.6,
+        4.9,
+        61.5,
+        66.2,
+        78.4,
+        73.5
+      ],
       "raw": {
         "monthlyRentMan": 92.92,
         "rentSamples": 0,
@@ -6753,6 +9973,14 @@
       "safety": 77.6,
       "price": 42.1,
       "convenience": 17.5,
+      "pct": [
+        77.6,
+        42.1,
+        7.7,
+        2.6,
+        11.7,
+        48.6
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 255,
@@ -6770,6 +9998,14 @@
       "safety": 77.6,
       "price": 42.1,
       "convenience": 54.3,
+      "pct": [
+        77.6,
+        42.1,
+        37.3,
+        51.2,
+        85.4,
+        52.8
+      ],
       "raw": {
         "monthlyRentMan": 64.58,
         "rentSamples": 255,
@@ -6787,6 +10023,14 @@
       "safety": 12.7,
       "price": 1.3,
       "convenience": 71.9,
+      "pct": [
+        12.7,
+        1.3,
+        77.7,
+        73.7,
+        69.2,
+        65.3
+      ],
       "raw": {
         "monthlyRentMan": 100.9,
         "rentSamples": 2920,
@@ -6804,6 +10048,14 @@
       "safety": 52.1,
       "price": 1.3,
       "convenience": 24.2,
+      "pct": [
+        52.1,
+        1.3,
+        11.5,
+        16.2,
+        32.6,
+        40.6
+      ],
       "raw": {
         "monthlyRentMan": 100.9,
         "rentSamples": 2920,
@@ -6821,6 +10073,14 @@
       "safety": 77.6,
       "price": 4.9,
       "convenience": 41.8,
+      "pct": [
+        77.6,
+        4.9,
+        39.2,
+        42,
+        43.9,
+        43.2
+      ],
       "raw": {
         "monthlyRentMan": 92.92,
         "rentSamples": 0,
@@ -6838,6 +10098,14 @@
       "safety": 77.6,
       "price": 4.9,
       "convenience": 34.4,
+      "pct": [
+        77.6,
+        4.9,
+        33.8,
+        36.2,
+        61.5,
+        11.7
+      ],
       "raw": {
         "monthlyRentMan": 92.92,
         "rentSamples": 0,
@@ -6855,6 +10123,14 @@
       "safety": 28.8,
       "price": 4.9,
       "convenience": 81,
+      "pct": [
+        28.8,
+        4.9,
+        97.2,
+        72.1,
+        68.3,
+        80.5
+      ],
       "raw": {
         "monthlyRentMan": 92.92,
         "rentSamples": 0,
@@ -6872,6 +10148,14 @@
       "safety": 49.5,
       "price": 14.1,
       "convenience": 16,
+      "pct": [
+        49.5,
+        14.1,
+        4.7,
+        24.2,
+        11.7,
+        24.6
+      ],
       "raw": {
         "monthlyRentMan": 80.88,
         "rentSamples": 676,
@@ -6889,6 +10173,14 @@
       "safety": 77.6,
       "price": 14.1,
       "convenience": 37.6,
+      "pct": [
+        77.6,
+        14.1,
+        25.8,
+        52.3,
+        29.5,
+        43.7
+      ],
       "raw": {
         "monthlyRentMan": 80.88,
         "rentSamples": 676,
@@ -6906,6 +10198,14 @@
       "safety": 77.6,
       "price": 14.1,
       "convenience": 28.5,
+      "pct": [
+        77.6,
+        14.1,
+        5.6,
+        3.8,
+        52.2,
+        61.5
+      ],
       "raw": {
         "monthlyRentMan": 80.88,
         "rentSamples": 676,
@@ -6923,6 +10223,14 @@
       "safety": 49.3,
       "price": 14.1,
       "convenience": 41.7,
+      "pct": [
+        49.3,
+        14.1,
+        26.1,
+        35.4,
+        30.5,
+        75.8
+      ],
       "raw": {
         "monthlyRentMan": 80.88,
         "rentSamples": 676,
@@ -6940,6 +10248,14 @@
       "safety": 77.6,
       "price": 14.1,
       "convenience": 20.2,
+      "pct": [
+        77.6,
+        14.1,
+        0,
+        8,
+        11.7,
+        63.5
+      ],
       "raw": {
         "monthlyRentMan": 80.88,
         "rentSamples": 676,
@@ -6957,6 +10273,14 @@
       "safety": 77.6,
       "price": 49.5,
       "convenience": 13.1,
+      "pct": [
+        77.6,
+        49.5,
+        13.4,
+        19.2,
+        11.7,
+        7.7
+      ],
       "raw": {
         "monthlyRentMan": 62.02,
         "rentSamples": 286,
@@ -6974,6 +10298,14 @@
       "safety": 77.6,
       "price": 45.8,
       "convenience": 31.8,
+      "pct": [
+        77.6,
+        45.8,
+        15.5,
+        43.7,
+        37.6,
+        34.7
+      ],
       "raw": {
         "monthlyRentMan": 63.75,
         "rentSamples": 0,
@@ -6991,6 +10323,14 @@
       "safety": 77.6,
       "price": 45.8,
       "convenience": 23.8,
+      "pct": [
+        77.6,
+        45.8,
+        18.1,
+        25.8,
+        11.7,
+        38.1
+      ],
       "raw": {
         "monthlyRentMan": 63.75,
         "rentSamples": 0,
@@ -7008,6 +10348,14 @@
       "safety": 77.6,
       "price": 21,
       "convenience": 75.7,
+      "pct": [
+        77.6,
+        21,
+        62.7,
+        86.4,
+        71.6,
+        83.8
+      ],
       "raw": {
         "monthlyRentMan": 74.23,
         "rentSamples": 362,
@@ -7025,6 +10373,14 @@
       "safety": 77.6,
       "price": 21,
       "convenience": 39.9,
+      "pct": [
+        77.6,
+        21,
+        46.9,
+        42.5,
+        49.6,
+        21
+      ],
       "raw": {
         "monthlyRentMan": 74.23,
         "rentSamples": 362,
@@ -7042,6 +10398,14 @@
       "safety": 77.6,
       "price": 94.5,
       "convenience": 21,
+      "pct": [
+        77.6,
+        94.5,
+        6.6,
+        37.1,
+        29.5,
+        15.3
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 223,
@@ -7059,6 +10423,14 @@
       "safety": 77.6,
       "price": 94.5,
       "convenience": 17.6,
+      "pct": [
+        77.6,
+        94.5,
+        10.2,
+        33.3,
+        11.7,
+        15.6
+      ],
       "raw": {
         "monthlyRentMan": 47.29,
         "rentSamples": 223,
@@ -7076,6 +10448,14 @@
       "safety": 41.5,
       "price": 73.1,
       "convenience": 65.8,
+      "pct": [
+        41.5,
+        73.1,
+        90.4,
+        82.2,
+        40.7,
+        40.1
+      ],
       "raw": {
         "monthlyRentMan": 54.58,
         "rentSamples": 609,
@@ -7093,6 +10473,14 @@
       "safety": 77.6,
       "price": 73.1,
       "convenience": 19,
+      "pct": [
+        77.6,
+        73.1,
+        3.6,
+        29.1,
+        32.2,
+        16.9
+      ],
       "raw": {
         "monthlyRentMan": 54.58,
         "rentSamples": 609,
@@ -7110,6 +10498,14 @@
       "safety": 77.6,
       "price": 73.1,
       "convenience": 21.5,
+      "pct": [
+        77.6,
+        73.1,
+        0.9,
+        18.1,
+        11.7,
+        57.3
+      ],
       "raw": {
         "monthlyRentMan": 54.58,
         "rentSamples": 609,
@@ -7127,6 +10523,14 @@
       "safety": 77.6,
       "price": 27.1,
       "convenience": 72.3,
+      "pct": [
+        77.6,
+        27.1,
+        73,
+        76.5,
+        58,
+        78.9
+      ],
       "raw": {
         "monthlyRentMan": 69.58,
         "rentSamples": 2355,
@@ -7144,6 +10548,14 @@
       "safety": 51.2,
       "price": 27.1,
       "convenience": 60,
+      "pct": [
+        51.2,
+        27.1,
+        75.1,
+        72.5,
+        51.1,
+        36.4
+      ],
       "raw": {
         "monthlyRentMan": 69.58,
         "rentSamples": 2355,
@@ -7161,6 +10573,14 @@
       "safety": 77.6,
       "price": 27.1,
       "convenience": 79.8,
+      "pct": [
+        77.6,
+        27.1,
+        91.3,
+        83.1,
+        74.6,
+        66.8
+      ],
       "raw": {
         "monthlyRentMan": 69.58,
         "rentSamples": 2355,
@@ -7178,6 +10598,14 @@
       "safety": 77.6,
       "price": 50,
       "convenience": 75.6,
+      "pct": [
+        77.6,
+        50,
+        81.5,
+        85.4,
+        76.8,
+        58
+      ],
       "raw": {
         "monthlyRentMan": 61.94,
         "rentSamples": 1164,
@@ -7195,6 +10623,14 @@
       "safety": 15.7,
       "price": 50,
       "convenience": 84.9,
+      "pct": [
+        15.7,
+        50,
+        87.8,
+        87.1,
+        88.5,
+        76.5
+      ],
       "raw": {
         "monthlyRentMan": 61.94,
         "rentSamples": 1164,
@@ -7212,6 +10648,14 @@
       "safety": 77.6,
       "price": 50,
       "convenience": 83.3,
+      "pct": [
+        77.6,
+        50,
+        79.3,
+        90.4,
+        70.7,
+        91.1
+      ],
       "raw": {
         "monthlyRentMan": 61.94,
         "rentSamples": 1164,
@@ -7229,6 +10673,14 @@
       "safety": 77.6,
       "price": 44.8,
       "convenience": 69.1,
+      "pct": [
+        77.6,
+        44.8,
+        76.3,
+        78.4,
+        68.1,
+        51.9
+      ],
       "raw": {
         "monthlyRentMan": 64,
         "rentSamples": 840,
@@ -7246,6 +10698,14 @@
       "safety": 77.6,
       "price": 67.4,
       "convenience": 22.4,
+      "pct": [
+        77.6,
+        67.4,
+        8,
+        6.2,
+        11.7,
+        64.6
+      ],
       "raw": {
         "monthlyRentMan": 57.17,
         "rentSamples": 159,
@@ -7263,6 +10723,14 @@
       "safety": 77.6,
       "price": 67.4,
       "convenience": 56.2,
+      "pct": [
+        77.6,
+        67.4,
+        31,
+        54.5,
+        59.4,
+        85.4
+      ],
       "raw": {
         "monthlyRentMan": 57.17,
         "rentSamples": 159,
