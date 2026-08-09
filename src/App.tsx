@@ -8,13 +8,12 @@ import { buildRoute, computeMultiCommute } from "./lib/commute";
 import { gradeAll, rebalanceWeights } from "./lib/score";
 import { buildDistributions, summarize } from "./lib/explain";
 import { buildSubwayLayers, LINE_COLOR, lineName } from "./lib/subwayLines";
+import { decodeShareState, encodeShareState } from "./lib/shareUrl";
 import {
   BUDGET_MIN,
   BUDGET_OFF,
   COMMUTE_BANDS,
   commuteBand,
-  DEFAULT_MAX_COMMUTE_MIN,
-  DEFAULT_WEIGHTS,
   GRADE_LABEL,
 } from "./lib/constants";
 import type { CommuteResult, Destination, Weights } from "./types";
@@ -51,16 +50,22 @@ export default function App() {
   const [data, setData] = useState<AppData | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const [destinations, setDestinations] = useState<Destination[]>([]);
-  const [maxCommute, setMaxCommute] = useState(DEFAULT_MAX_COMMUTE_MIN);
-  const [weights, setWeights] = useState<Weights>({ ...DEFAULT_WEIGHTS });
+  // 링크로 들어온 경우 그 상태에서 시작한다 (최초 1회만 읽는다)
+  const [initial] = useState(() => decodeShareState(window.location.search));
+
+  const [destinations, setDestinations] = useState<Destination[]>(initial.destinations);
+  const [maxCommute, setMaxCommute] = useState(initial.maxCommute);
+  const [weights, setWeights] = useState<Weights>(initial.weights);
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
-  const [showSubway, setShowSubway] = useState(true);
+  const [showSubway, setShowSubway] = useState(initial.showSubway);
   /** 꺼둔 노선. 비어 있으면 전부 표시 (기본값) */
-  const [hiddenLines, setHiddenLines] = useState<Set<string>>(new Set());
+  const [hiddenLines, setHiddenLines] = useState<Set<string>>(
+    () => new Set(initial.hiddenLines)
+  );
   /** 월세 상한(만원). BUDGET_OFF 면 제한 없음 */
-  const [budget, setBudget] = useState(BUDGET_OFF);
-  const [mapMode, setMapMode] = useState<MapMode>("grade");
+  const [budget, setBudget] = useState(initial.budget);
+  const [mapMode, setMapMode] = useState<MapMode>(initial.mapMode);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -181,6 +186,35 @@ export default function App() {
       c.route.flatMap((leg) => (leg.kind === "ride" ? [leg.path] : []))
     );
   }, [selected]);
+
+  /*
+   * 상태를 URL 에 반영한다. pushState 를 쓰면 슬라이더를 움직일 때마다 히스토리가
+   * 쌓여 뒤로가기가 망가지므로 replaceState 를 쓴다.
+   */
+  useEffect(() => {
+    const qs = encodeShareState({
+      destinations,
+      maxCommute,
+      weights,
+      budget,
+      mapMode,
+      showSubway,
+      hiddenLines: [...hiddenLines],
+    });
+    const url = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
+    window.history.replaceState(null, "", url);
+  }, [destinations, maxCommute, weights, budget, mapMode, showSubway, hiddenLines]);
+
+  const copyShareLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      // 클립보드 권한이 없으면 주소창에 이미 반영돼 있으니 그걸 복사하면 된다
+      setCopied(false);
+    }
+  };
 
   const setWeight = (key: keyof Weights, value: number) =>
     setWeights((w) => rebalanceWeights(w, key, value));
@@ -450,6 +484,15 @@ export default function App() {
                   </p>
                 </>
               )}
+            </div>
+
+            <div className="section share-row">
+              <button type="button" className="share-btn" onClick={copyShareLink}>
+                {copied ? "링크가 복사됐습니다" : "이 결과 링크 복사"}
+              </button>
+              <p className="metric-note">
+                목적지·조건·가중치가 주소에 담깁니다. 받은 사람은 같은 화면을 그대로 봅니다.
+              </p>
             </div>
 
             <TopPicks picks={picks} selectedCode={selectedCode} onSelect={setSelectedCode} />
