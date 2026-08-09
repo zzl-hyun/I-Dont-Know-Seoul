@@ -316,9 +316,9 @@ export default function MapView({
         // 등급 아이콘(3.5~9)보다 확실히 작아야 둘이 구분된다
         "circle-radius": [
           "interpolate", ["linear"], ["zoom"],
-          10, ["case", ["get", "isTransfer"], 2.4, 1.8],
-          13, ["case", ["get", "isTransfer"], 4, 2.8],
-          16, ["case", ["get", "isTransfer"], 6, 4.5],
+          10, ["case", ["get", "isTransfer"], 2, 1.4],
+          13, ["case", ["get", "isTransfer"], 3.2, 2.2],
+          16, ["case", ["get", "isTransfer"], 5, 3.6],
         ],
         "circle-stroke-color": MAP_THEME[themeRef.current].stationStroke,
         "circle-stroke-width": ["interpolate", ["linear"], ["zoom"], 10, 0.5, 14, 1.2],
@@ -341,7 +341,11 @@ export default function MapView({
       source: SRC_POINT,
       paint: {
         "circle-color": fillColorExpr("grade"),
-        "circle-radius": ["interpolate", ["linear"], ["zoom"], 10, 3.5, 13, 7, 15, 9],
+        /*
+         * 통근권 안에 동이 150개 넘게 들어오므로 점이 조금만 커도 지도를 덮는다.
+         * 아래 역 점보다는 확실히 커야 둘이 구분된다 (역 최대 2.0/3.2/5).
+         */
+        "circle-radius": ["interpolate", ["linear"], ["zoom"], 10, 2.4, 13, 4.5, 15, 6],
         "circle-opacity": reachableOpacityExpr(),
         "circle-stroke-color": MAP_THEME[themeRef.current].halo,
         "circle-stroke-width": 1.4,
