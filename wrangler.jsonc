@@ -1,0 +1,34 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "oneday",
+  "main": "worker/index.ts",
+  // 설치된 wrangler의 workerd 런타임이 지원하는 범위 안이어야 한다.
+  // 이 값을 올릴 때는 wrangler도 함께 올릴 것 (안 그러면 `wrangler dev`가 기동 실패).
+  "compatibility_date": "2026-05-01",
+  "compatibility_flags": ["nodejs_compat"],
+
+  // 정적 자산(React 빌드 + 행정동 경계)은 CDN에서 바로 서빙되고,
+  // /api/* 만 Worker를 거친다. 덕분에 Worker 호출량과 CPU 시간이 최소화된다.
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": ["/api/*"]
+  },
+
+  "kv_namespaces": [
+    {
+      "binding": "ONEDAY_KV",
+      // TODO(M6): `wrangler kv namespace create ONEDAY_KV` 실행 후 실제 id로 교체.
+      // 로컬 `wrangler dev` 는 이 값과 무관하게 자체 로컬 스토리지를 쓰므로 개발에는 지장 없음.
+      "id": "PLACEHOLDER_REPLACE_IN_M6"
+    }
+  ],
+
+  "observability": {
+    "enabled": true
+  }
+
+  // Secrets (wrangler secret put <NAME>) — 코드/설정에 절대 넣지 말 것:
+  //   KAKAO_REST_KEY  : 지오코딩용 Kakao Local REST 키
+}
