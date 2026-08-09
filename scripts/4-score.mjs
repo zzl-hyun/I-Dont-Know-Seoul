@@ -1,0 +1,222 @@
+/**
+ * 4-score.mjs — 원지표 → 축 점수(백분위) → 앱 번들
+ *
+ * 입력: data/dist/metrics.json, dong-meta.json, subway-graph.json
+ * 출력: data/dist/scores.json, public/data/bundle.json
+ *
+ * 정규화 방식:
+ *   각 원지표를 서울 427개 동 내 **백분위 순위**로 바꾼다 (0~100).
+ *   평균/표준편차 정규화는 강남 월세 같은 이상치 하나에 전체 분포가 끌려가고,
+ *   min-max 정규화도 마찬가지다. 백분위는 이상치에 영향받지 않고, 단위가
+ *   서로 다른 지표(대/km², 만원, 분)를 그대로 섞을 수 있다.
+ *
+ * 결측 처리:
+ *   수집 안 된 지표는 축 내부 가중치에서 빼고 나머지로 재분배한다.
+ *   축 전체에 데이터가 없으면 모든 동을 50점으로 채운다 — 그러면 그 축은
+ *   순위에 영향을 주지 않으므로, 사용자가 슬라이더를 올려도 결과가 왜곡되지 않는다.
+ */
+import { mkdir, readFile, writeFile, stat } from "node:fs/promises";
+import { fileURLToPath } from "node:url";
+import { dirname, join } from "node:path";
+
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+const OUT_SCORES = join(ROOT, "data/dist/scores.json");
+const OUT_BUNDLE = join(ROOT, "public/data/bundle.json");
+
+/**
+ * 축별 구성 지표와 방향.
+ *   dir: +1 = 높을수록 좋음, -1 = 높을수록 나쁨
+ */
+const AXES = {
+  safety: [
+    { key: "cctvPerKm2", weight: 0.35, dir: +1, label: "CCTV 밀도" },
+    { key: "nightlifePerKm2", weight: 0.35, dir: -1, label: "유흥업소 밀도" },
+    { key: "crimePer1k", weight: 0.3, dir: -1, label: "5대범죄" },
+  ],
+  price: [
+    { key: "monthlyRentMan", weight: 1.0, dir: -1, label: "원룸 환산월세" },
+  ],
+  convenience: [
+    { key: "storePerKm2", weight: 0.3, dir: +1, label: "편의점·마트 밀도" },
+    { key: "foodPerKm2", weight: 0.25, dir: +1, label: "음식점 밀도" },
+    { key: "medicalPerKm2", weight: 0.2, dir: +1, label: "병원·약국 밀도" },
+    { key: "walkToStationMin", weight: 0.25, dir: -1, label: "최근접역 도보" },
+  ],
+};
+
+/** 실거래 표본이 이보다 적으면 대체값으로 보고 dataQuality=low 로 표시한다. */
+const MIN_RENT_SAMPLES = 5;
+
+async function main() {
+  const metrics = JSON.parse(await readFile(join(ROOT, "data/dist/metrics.json"), "utf8"));
+  const dongMeta = JSON.parse(await readFile(join(ROOT, "data/dist/dong-meta.json"), "utf8"));
+  const graph = JSON.parse(await readFile(join(ROOT, "data/dist/subway-graph.json"), "utf8"));
+
+  const rows = metrics.dongs;
+  console.log(`행정동 ${rows.length}개`);
+
+  /* ---- 1. 지표별 백분위 계산 ---- */
+  const pct = new Map(); // metricKey → Map(code → 0~100)
+  const availableKeys = new Set();
+
+  for (const parts of Object.values(AXES)) {
+    for (const { key, dir } of parts) {
+      const values = rows
+        .map((r) => ({ code: r.code, v: r[key] }))
+        .filter((x) => typeof x.v === "number" && Number.isFinite(x.v));
+
+      if (values.length < rows.length * 0.5) {
+        console.log(`  ${key.padEnd(18)} 결측 (${values.length}/${rows.length}) → 제외`);
+        continue;
+      }
+      availableKeys.add(key);
+      pct.set(key, percentileRank(values, dir));
+      console.log(`  ${key.padEnd(18)} OK (${values.length}/${rows.length})`);
+    }
+  }
+
+  /* ---- 2. 축 점수 ---- */
+  const scores = {};
+  const unavailableAxes = [];
+
+  for (const [axis, parts] of Object.entries(AXES)) {
+    const usable = parts.filter((p) => availableKeys.has(p.key));
+    if (usable.length === 0) {
+      unavailableAxes.push(axis);
+      continue;
+    }
+    const wSum = usable.reduce((s, p) => s + p.weight, 0);
+    for (const r of rows) {
+      let v = 0;
+      for (const p of usable) v += (pct.get(p.key).get(r.code) ?? 50) * (p.weight / wSum);
+      (scores[r.code] ??= {})[axis] = Math.round(v * 10) / 10;
+    }
+    const dropped = parts.filter((p) => !availableKeys.has(p.key)).map((p) => p.label);
+    console.log(
+      `\n  ${axis}: ${usable.map((p) => p.label).join(" + ")}` +
+        (dropped.length ? `  (제외: ${dropped.join(", ")})` : "")
+    );
+  }
+
+  // 데이터가 전혀 없는 축은 전 동 50점 — 순위에 영향을 주지 않는다
+  for (const axis of unavailableAxes) {
+    for (const r of rows) (scores[r.code] ??= {})[axis] = 50;
+    console.log(`\n  ${axis}: 데이터 없음 → 전 동 50점 (순위에 영향 없음)`);
+  }
+
+  /* ---- 3. 원지표를 함께 실어 UI에서 근거로 보여준다 ---- */
+  for (const r of rows) {
+    const s = scores[r.code];
+    s.raw = {
+      monthlyRentMan: r.monthlyRentMan,
+      rentSamples: r.rentSamples ?? 0,
+      cctvPerKm2: r.cctvPerKm2,
+      nightlifePerKm2: r.nightlifePerKm2,
+      crimePer1k: r.crimePer1k,
+      storePerKm2: r.storePerKm2,
+      foodPerKm2: r.foodPerKm2,
+      medicalPerKm2: r.medicalPerKm2,
+      walkToStationMin: r.walkToStationMin,
+    };
+    s.dataQuality =
+      r.monthlyRentMan != null && (r.rentSamples ?? 0) < MIN_RENT_SAMPLES ? "low" : "ok";
+  }
+
+  verify(scores, rows);
+
+  /* ---- 4. 저장 ---- */
+  const scoreDoc = {
+    version: new Date().toISOString().slice(0, 10),
+    generatedAt: new Date().toISOString(),
+    axes: Object.fromEntries(
+      Object.entries(AXES).map(([axis, parts]) => [
+        axis,
+        parts.filter((p) => availableKeys.has(p.key)).map((p) => p.label),
+      ])
+    ),
+    unavailableAxes,
+    scores,
+  };
+  await mkdir(dirname(OUT_SCORES), { recursive: true });
+  await writeFile(OUT_SCORES, JSON.stringify(scoreDoc, null, 2) + "\n");
+
+  const bundle = {
+    meta: {
+      boundaryVersion: dongMeta.version,
+      graphVersion: graph.version,
+      scoreVersion: scoreDoc.version,
+      availableMetrics: metrics.available,
+      missingMetrics: metrics.missing,
+    },
+    dongs: dongMeta.dongs,
+    graph,
+    scores,
+  };
+  await mkdir(dirname(OUT_BUNDLE), { recursive: true });
+  await writeFile(OUT_BUNDLE, JSON.stringify(bundle));
+
+  const size = (await stat(OUT_BUNDLE)).size;
+  console.log(`\n✓ ${OUT_SCORES}`);
+  console.log(`✓ ${OUT_BUNDLE}  ${(size / 1024).toFixed(0)} KB`);
+  printDistribution(scores, rows);
+}
+
+/**
+ * 백분위 순위 (0~100).
+ * 동점은 평균 순위를 부여해 임의의 순서 때문에 점수가 갈리지 않게 한다.
+ */
+function percentileRank(values, dir) {
+  const sorted = [...values].sort((a, b) => a.v - b.v);
+  const n = sorted.length;
+  const out = new Map();
+
+  let i = 0;
+  while (i < n) {
+    let j = i;
+    while (j + 1 < n && sorted[j + 1].v === sorted[i].v) j++;
+    // i..j 가 동점 구간 → 평균 순위
+    const avgRank = (i + j) / 2;
+    const p = n === 1 ? 50 : (avgRank / (n - 1)) * 100;
+    for (let k = i; k <= j; k++) {
+      out.set(sorted[k].code, dir > 0 ? p : 100 - p);
+    }
+    i = j + 1;
+  }
+  return out;
+}
+
+function verify(scores, rows) {
+  const problems = [];
+  for (const r of rows) {
+    const s = scores[r.code];
+    if (!s) {
+      problems.push(`점수 누락: ${r.name}`);
+      continue;
+    }
+    for (const axis of Object.keys(AXES)) {
+      const v = s[axis];
+      if (typeof v !== "number" || !Number.isFinite(v) || v < 0 || v > 100) {
+        problems.push(`${r.name} ${axis} 값 이상: ${v}`);
+      }
+    }
+  }
+  if (problems.length) {
+    console.error("\n✗ 검증 실패:");
+    for (const p of problems.slice(0, 10)) console.error("  - " + p);
+    process.exit(1);
+  }
+}
+
+function printDistribution(scores, rows) {
+  const composite = rows.map((r) => ({
+    name: r.name,
+    v: scores[r.code].safety * 0.4 + scores[r.code].price * 0.35 + scores[r.code].convenience * 0.25,
+  }));
+  composite.sort((a, b) => b.v - a.v);
+  console.log("\n  기본 가중치(치안40/가격35/편의25) 기준 상위 5개:");
+  for (const c of composite.slice(0, 5)) console.log(`    ${c.v.toFixed(1)}  ${c.name}`);
+  console.log("  하위 5개:");
+  for (const c of composite.slice(-5)) console.log(`    ${c.v.toFixed(1)}  ${c.name}`);
+}
+
+await main();

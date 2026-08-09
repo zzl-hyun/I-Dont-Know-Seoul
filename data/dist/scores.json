@@ -1,0 +1,7280 @@
+{
+  "version": "2026-08-09",
+  "generatedAt": "2026-08-09T03:19:09.729Z",
+  "axes": {
+    "safety": [
+      "유흥업소 밀도"
+    ],
+    "price": [],
+    "convenience": [
+      "편의점·마트 밀도",
+      "음식점 밀도",
+      "병원·약국 밀도",
+      "최근접역 도보"
+    ]
+  },
+  "unavailableAxes": [
+    "price"
+  ],
+  "scores": {
+    "1111051500": {
+      "safety": 32,
+      "convenience": 32.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.05,
+        "crimePer1k": null,
+        "storePerKm2": 8.62,
+        "foodPerKm2": 46.79,
+        "medicalPerKm2": 2.46,
+        "walkToStationMin": 21.51
+      },
+      "dataQuality": "ok"
+    },
+    "1111053000": {
+      "safety": 7.5,
+      "convenience": 76.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 18.03,
+        "crimePer1k": null,
+        "storePerKm2": 22.32,
+        "foodPerKm2": 206.03,
+        "medicalPerKm2": 6.87,
+        "walkToStationMin": 7.38
+      },
+      "dataQuality": "ok"
+    },
+    "1111054000": {
+      "safety": 24.2,
+      "convenience": 28.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 3.68,
+        "crimePer1k": null,
+        "storePerKm2": 6.62,
+        "foodPerKm2": 91.88,
+        "medicalPerKm2": 0.74,
+        "walkToStationMin": 29.84
+      },
+      "dataQuality": "ok"
+    },
+    "1111055000": {
+      "safety": 77.6,
+      "convenience": 13.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 5.91,
+        "foodPerKm2": 15,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 36.07
+      },
+      "dataQuality": "ok"
+    },
+    "1111056000": {
+      "safety": 77.6,
+      "convenience": 6.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 1.55,
+        "foodPerKm2": 2.89,
+        "medicalPerKm2": 0.11,
+        "walkToStationMin": 61.52
+      },
+      "dataQuality": "ok"
+    },
+    "1111057000": {
+      "safety": 31,
+      "convenience": 64.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.14,
+        "crimePer1k": null,
+        "storePerKm2": 17.12,
+        "foodPerKm2": 59.93,
+        "medicalPerKm2": 10.7,
+        "walkToStationMin": 7.95
+      },
+      "dataQuality": "ok"
+    },
+    "1111058000": {
+      "safety": 27.2,
+      "convenience": 77.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.89,
+        "crimePer1k": null,
+        "storePerKm2": 37.6,
+        "foodPerKm2": 159.1,
+        "medicalPerKm2": 43.39,
+        "walkToStationMin": 12.41
+      },
+      "dataQuality": "ok"
+    },
+    "1111060000": {
+      "safety": 8.5,
+      "convenience": 67.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 16.53,
+        "crimePer1k": null,
+        "storePerKm2": 23.14,
+        "foodPerKm2": 264.51,
+        "medicalPerKm2": 4.96,
+        "walkToStationMin": 12.48
+      },
+      "dataQuality": "ok"
+    },
+    "1111061500": {
+      "safety": 6.6,
+      "convenience": 92.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 19.65,
+        "crimePer1k": null,
+        "storePerKm2": 33.86,
+        "foodPerKm2": 344.01,
+        "medicalPerKm2": 14.63,
+        "walkToStationMin": 3.56
+      },
+      "dataQuality": "ok"
+    },
+    "1111063000": {
+      "safety": 13.4,
+      "convenience": 83.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 7.9,
+        "crimePer1k": null,
+        "storePerKm2": 23.7,
+        "foodPerKm2": 157.98,
+        "medicalPerKm2": 31.6,
+        "walkToStationMin": 5.6
+      },
+      "dataQuality": "ok"
+    },
+    "1111064000": {
+      "safety": 28.4,
+      "convenience": 73.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.65,
+        "crimePer1k": null,
+        "storePerKm2": 22.51,
+        "foodPerKm2": 88.71,
+        "medicalPerKm2": 6.62,
+        "walkToStationMin": 6.13
+      },
+      "dataQuality": "ok"
+    },
+    "1111065000": {
+      "safety": 26.1,
+      "convenience": 45.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 3.44,
+        "crimePer1k": null,
+        "storePerKm2": 14.61,
+        "foodPerKm2": 73.9,
+        "medicalPerKm2": 1.72,
+        "walkToStationMin": 14.16
+      },
+      "dataQuality": "ok"
+    },
+    "1111067000": {
+      "safety": 77.6,
+      "convenience": 84.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 44.64,
+        "foodPerKm2": 105.23,
+        "medicalPerKm2": 6.38,
+        "walkToStationMin": 4.91
+      },
+      "dataQuality": "ok"
+    },
+    "1111068000": {
+      "safety": 5.4,
+      "convenience": 80.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 24.03,
+        "crimePer1k": null,
+        "storePerKm2": 32.04,
+        "foodPerKm2": 120.14,
+        "medicalPerKm2": 16.02,
+        "walkToStationMin": 7.85
+      },
+      "dataQuality": "ok"
+    },
+    "1111069000": {
+      "safety": 12.2,
+      "convenience": 41.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 9.08,
+        "crimePer1k": null,
+        "storePerKm2": 9.08,
+        "foodPerKm2": 22.71,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 4.08
+      },
+      "dataQuality": "ok"
+    },
+    "1111070000": {
+      "safety": 77.6,
+      "convenience": 43.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 16.88,
+        "foodPerKm2": 12.66,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 6.99
+      },
+      "dataQuality": "ok"
+    },
+    "1111071000": {
+      "safety": 8.7,
+      "convenience": 82.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 15.57,
+        "crimePer1k": null,
+        "storePerKm2": 49.81,
+        "foodPerKm2": 87.17,
+        "medicalPerKm2": 9.34,
+        "walkToStationMin": 6.78
+      },
+      "dataQuality": "ok"
+    },
+    "1114052000": {
+      "safety": 4.2,
+      "convenience": 95,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 26.74,
+        "crimePer1k": null,
+        "storePerKm2": 48.13,
+        "foodPerKm2": 831.02,
+        "medicalPerKm2": 10.7,
+        "walkToStationMin": 4.45
+      },
+      "dataQuality": "ok"
+    },
+    "1114054000": {
+      "safety": 7.7,
+      "convenience": 97.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 17.93,
+        "crimePer1k": null,
+        "storePerKm2": 65,
+        "foodPerKm2": 586.13,
+        "medicalPerKm2": 14.57,
+        "walkToStationMin": 2.82
+      },
+      "dataQuality": "ok"
+    },
+    "1114055000": {
+      "safety": 2.8,
+      "convenience": 99.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 44.73,
+        "crimePer1k": null,
+        "storePerKm2": 68.58,
+        "foodPerKm2": 1376.6,
+        "medicalPerKm2": 52.68,
+        "walkToStationMin": 2.68
+      },
+      "dataQuality": "ok"
+    },
+    "1114057000": {
+      "safety": 5.2,
+      "convenience": 62.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 24.37,
+        "crimePer1k": null,
+        "storePerKm2": 17.6,
+        "foodPerKm2": 299.17,
+        "medicalPerKm2": 2.03,
+        "walkToStationMin": 9.87
+      },
+      "dataQuality": "ok"
+    },
+    "1114058000": {
+      "safety": 16.8,
+      "convenience": 53.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 5.99,
+        "crimePer1k": null,
+        "storePerKm2": 7.98,
+        "foodPerKm2": 163.62,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 2.12
+      },
+      "dataQuality": "ok"
+    },
+    "1114059000": {
+      "safety": 3.1,
+      "convenience": 95,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 42.54,
+        "crimePer1k": null,
+        "storePerKm2": 57.17,
+        "foodPerKm2": 845.52,
+        "medicalPerKm2": 9.31,
+        "walkToStationMin": 3.85
+      },
+      "dataQuality": "ok"
+    },
+    "1114060500": {
+      "safety": 0.2,
+      "convenience": 93.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 121.85,
+        "crimePer1k": null,
+        "storePerKm2": 43.4,
+        "foodPerKm2": 1073.28,
+        "medicalPerKm2": 6.68,
+        "walkToStationMin": 2.4
+      },
+      "dataQuality": "ok"
+    },
+    "1114061500": {
+      "safety": 2.1,
+      "convenience": 87.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 53.61,
+        "crimePer1k": null,
+        "storePerKm2": 53.61,
+        "foodPerKm2": 589.76,
+        "medicalPerKm2": 3.7,
+        "walkToStationMin": 5.63
+      },
+      "dataQuality": "ok"
+    },
+    "1114062500": {
+      "safety": 5.6,
+      "convenience": 69.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 23.8,
+        "crimePer1k": null,
+        "storePerKm2": 10.98,
+        "foodPerKm2": 289.22,
+        "medicalPerKm2": 5.49,
+        "walkToStationMin": 4.33
+      },
+      "dataQuality": "ok"
+    },
+    "1114063500": {
+      "safety": 5.9,
+      "convenience": 65,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 23.46,
+        "crimePer1k": null,
+        "storePerKm2": 17.59,
+        "foodPerKm2": 170.05,
+        "medicalPerKm2": 1.95,
+        "walkToStationMin": 7.14
+      },
+      "dataQuality": "ok"
+    },
+    "1114064500": {
+      "safety": 7.3,
+      "convenience": 65.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 18.19,
+        "crimePer1k": null,
+        "storePerKm2": 15.16,
+        "foodPerKm2": 197.09,
+        "medicalPerKm2": 3.03,
+        "walkToStationMin": 7.37
+      },
+      "dataQuality": "ok"
+    },
+    "1114065000": {
+      "safety": 0.9,
+      "convenience": 60.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 95.12,
+        "crimePer1k": null,
+        "storePerKm2": 22.19,
+        "foodPerKm2": 589.73,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 10.03
+      },
+      "dataQuality": "ok"
+    },
+    "1114066500": {
+      "safety": 6.1,
+      "convenience": 70.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 23.21,
+        "crimePer1k": null,
+        "storePerKm2": 23.21,
+        "foodPerKm2": 223.38,
+        "medicalPerKm2": 2.9,
+        "walkToStationMin": 8.3
+      },
+      "dataQuality": "ok"
+    },
+    "1114067000": {
+      "safety": 2.3,
+      "convenience": 76.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 50.86,
+        "crimePer1k": null,
+        "storePerKm2": 60.39,
+        "foodPerKm2": 867.77,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 6.91
+      },
+      "dataQuality": "ok"
+    },
+    "1114068000": {
+      "safety": 4.9,
+      "convenience": 73.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 24.4,
+        "crimePer1k": null,
+        "storePerKm2": 22.36,
+        "foodPerKm2": 363.9,
+        "medicalPerKm2": 2.03,
+        "walkToStationMin": 6.99
+      },
+      "dataQuality": "ok"
+    },
+    "1117051000": {
+      "safety": 44.7,
+      "convenience": 51.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.16,
+        "crimePer1k": null,
+        "storePerKm2": 23.26,
+        "foodPerKm2": 39.53,
+        "medicalPerKm2": 4.65,
+        "walkToStationMin": 17.93
+      },
+      "dataQuality": "ok"
+    },
+    "1117052000": {
+      "safety": 32.4,
+      "convenience": 21.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.02,
+        "crimePer1k": null,
+        "storePerKm2": 7.56,
+        "foodPerKm2": 22.17,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 16.22
+      },
+      "dataQuality": "ok"
+    },
+    "1117053000": {
+      "safety": 35.7,
+      "convenience": 61.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.72,
+        "crimePer1k": null,
+        "storePerKm2": 15.47,
+        "foodPerKm2": 149.5,
+        "medicalPerKm2": 3.44,
+        "walkToStationMin": 8.58
+      },
+      "dataQuality": "ok"
+    },
+    "1117055500": {
+      "safety": 30.8,
+      "convenience": 57.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.17,
+        "crimePer1k": null,
+        "storePerKm2": 27.11,
+        "foodPerKm2": 30.37,
+        "medicalPerKm2": 2.17,
+        "walkToStationMin": 9.58
+      },
+      "dataQuality": "ok"
+    },
+    "1117056000": {
+      "safety": 35,
+      "convenience": 47.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.77,
+        "crimePer1k": null,
+        "storePerKm2": 26.62,
+        "foodPerKm2": 17.75,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 9.54
+      },
+      "dataQuality": "ok"
+    },
+    "1117057000": {
+      "safety": 77.6,
+      "convenience": 28.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 11.33,
+        "foodPerKm2": 5.03,
+        "medicalPerKm2": 2.52,
+        "walkToStationMin": 16.77
+      },
+      "dataQuality": "ok"
+    },
+    "1117058000": {
+      "safety": 77.6,
+      "convenience": 43.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 14.37,
+        "foodPerKm2": 7.19,
+        "medicalPerKm2": 2.4,
+        "walkToStationMin": 8.3
+      },
+      "dataQuality": "ok"
+    },
+    "1117059000": {
+      "safety": 77.6,
+      "convenience": 52.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 29.86,
+        "foodPerKm2": 7.47,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 6.18
+      },
+      "dataQuality": "ok"
+    },
+    "1117062500": {
+      "safety": 35,
+      "convenience": 51.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.77,
+        "crimePer1k": null,
+        "storePerKm2": 11.69,
+        "foodPerKm2": 75.46,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 2.46
+      },
+      "dataQuality": "ok"
+    },
+    "1117063000": {
+      "safety": 77.6,
+      "convenience": 15.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 2.08,
+        "foodPerKm2": 4.84,
+        "medicalPerKm2": 0.35,
+        "walkToStationMin": 15.24
+      },
+      "dataQuality": "ok"
+    },
+    "1117064000": {
+      "safety": 77.6,
+      "convenience": 11,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 2.55,
+        "foodPerKm2": 5.1,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 17.7
+      },
+      "dataQuality": "ok"
+    },
+    "1117065000": {
+      "safety": 1.2,
+      "convenience": 84.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 93.79,
+        "crimePer1k": null,
+        "storePerKm2": 37.52,
+        "foodPerKm2": 416.43,
+        "medicalPerKm2": 1.88,
+        "walkToStationMin": 3.3
+      },
+      "dataQuality": "ok"
+    },
+    "1117066000": {
+      "safety": 4,
+      "convenience": 45.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 26.94,
+        "crimePer1k": null,
+        "storePerKm2": 8.98,
+        "foodPerKm2": 153.76,
+        "medicalPerKm2": 3.37,
+        "walkToStationMin": 15.52
+      },
+      "dataQuality": "ok"
+    },
+    "1117068500": {
+      "safety": 21.8,
+      "convenience": 42.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 4.39,
+        "crimePer1k": null,
+        "storePerKm2": 4.7,
+        "foodPerKm2": 55.76,
+        "medicalPerKm2": 1.25,
+        "walkToStationMin": 7.33
+      },
+      "dataQuality": "ok"
+    },
+    "1117069000": {
+      "safety": 53.2,
+      "convenience": 29.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.35,
+        "crimePer1k": null,
+        "storePerKm2": 3.52,
+        "foodPerKm2": 4.93,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 4.78
+      },
+      "dataQuality": "ok"
+    },
+    "1117070000": {
+      "safety": 77.6,
+      "convenience": 14,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 4.59,
+        "foodPerKm2": 5.73,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 16.25
+      },
+      "dataQuality": "ok"
+    },
+    "1120052000": {
+      "safety": 77.6,
+      "convenience": 61.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 20.95,
+        "foodPerKm2": 104.76,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 5.43
+      },
+      "dataQuality": "ok"
+    },
+    "1120053500": {
+      "safety": 77.6,
+      "convenience": 83.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 40.21,
+        "foodPerKm2": 162.21,
+        "medicalPerKm2": 4.16,
+        "walkToStationMin": 5.65
+      },
+      "dataQuality": "ok"
+    },
+    "1120054000": {
+      "safety": 48.1,
+      "convenience": 63.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.89,
+        "crimePer1k": null,
+        "storePerKm2": 14.2,
+        "foodPerKm2": 89.67,
+        "medicalPerKm2": 2.66,
+        "walkToStationMin": 4.07
+      },
+      "dataQuality": "ok"
+    },
+    "1120055000": {
+      "safety": 77.6,
+      "convenience": 83.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 30.35,
+        "foodPerKm2": 148.27,
+        "medicalPerKm2": 6.94,
+        "walkToStationMin": 4.95
+      },
+      "dataQuality": "ok"
+    },
+    "1120056000": {
+      "safety": 35,
+      "convenience": 88,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.77,
+        "crimePer1k": null,
+        "storePerKm2": 37.09,
+        "foodPerKm2": 188.98,
+        "medicalPerKm2": 8.83,
+        "walkToStationMin": 5.38
+      },
+      "dataQuality": "ok"
+    },
+    "1120057000": {
+      "safety": 31.5,
+      "convenience": 58,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.09,
+        "crimePer1k": null,
+        "storePerKm2": 22.95,
+        "foodPerKm2": 35.48,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 3.38
+      },
+      "dataQuality": "ok"
+    },
+    "1120058000": {
+      "safety": 77.6,
+      "convenience": 46.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 12.44,
+        "foodPerKm2": 24.88,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 2.33
+      },
+      "dataQuality": "ok"
+    },
+    "1120059000": {
+      "safety": 77.6,
+      "convenience": 33.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 9.82,
+        "foodPerKm2": 49.1,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 11.64
+      },
+      "dataQuality": "ok"
+    },
+    "1120061500": {
+      "safety": 77.6,
+      "convenience": 54.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 15.03,
+        "foodPerKm2": 112.75,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 6.55
+      },
+      "dataQuality": "ok"
+    },
+    "1120062000": {
+      "safety": 42.7,
+      "convenience": 35.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.28,
+        "crimePer1k": null,
+        "storePerKm2": 7.71,
+        "foodPerKm2": 38.54,
+        "medicalPerKm2": 2.57,
+        "walkToStationMin": 14.45
+      },
+      "dataQuality": "ok"
+    },
+    "1120064500": {
+      "safety": 77.6,
+      "convenience": 39.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 5.19,
+        "foodPerKm2": 27.5,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 0.44
+      },
+      "dataQuality": "ok"
+    },
+    "1120065000": {
+      "safety": 38.3,
+      "convenience": 38.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.61,
+        "crimePer1k": null,
+        "storePerKm2": 8.05,
+        "foodPerKm2": 44.53,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 7.54
+      },
+      "dataQuality": "ok"
+    },
+    "1120066000": {
+      "safety": 32,
+      "convenience": 69.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.05,
+        "crimePer1k": null,
+        "storePerKm2": 25.61,
+        "foodPerKm2": 254.02,
+        "medicalPerKm2": 1.02,
+        "walkToStationMin": 7.78
+      },
+      "dataQuality": "ok"
+    },
+    "1120067000": {
+      "safety": 22.2,
+      "convenience": 52.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 4.35,
+        "crimePer1k": null,
+        "storePerKm2": 13.05,
+        "foodPerKm2": 186.15,
+        "medicalPerKm2": 5.22,
+        "walkToStationMin": 17.14
+      },
+      "dataQuality": "ok"
+    },
+    "1120069000": {
+      "safety": 9.9,
+      "convenience": 88.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 14.35,
+        "crimePer1k": null,
+        "storePerKm2": 33.48,
+        "foodPerKm2": 286.01,
+        "medicalPerKm2": 5.74,
+        "walkToStationMin": 3.56
+      },
+      "dataQuality": "ok"
+    },
+    "1120072000": {
+      "safety": 77.6,
+      "convenience": 35.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 11.92,
+        "foodPerKm2": 97.07,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 15.5
+      },
+      "dataQuality": "ok"
+    },
+    "1120079000": {
+      "safety": 36.3,
+      "convenience": 36.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.69,
+        "crimePer1k": null,
+        "storePerKm2": 7.17,
+        "foodPerKm2": 53.99,
+        "medicalPerKm2": 2.95,
+        "walkToStationMin": 15.03
+      },
+      "dataQuality": "ok"
+    },
+    "1121571000": {
+      "safety": 0.7,
+      "convenience": 82.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 100.25,
+        "crimePer1k": null,
+        "storePerKm2": 38.23,
+        "foodPerKm2": 603.18,
+        "medicalPerKm2": 4.25,
+        "walkToStationMin": 7.87
+      },
+      "dataQuality": "ok"
+    },
+    "1121573000": {
+      "safety": 1.6,
+      "convenience": 75.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 61.32,
+        "crimePer1k": null,
+        "storePerKm2": 24.53,
+        "foodPerKm2": 530.04,
+        "medicalPerKm2": 10.9,
+        "walkToStationMin": 11.63
+      },
+      "dataQuality": "ok"
+    },
+    "1121574000": {
+      "safety": 1.9,
+      "convenience": 80.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 55.89,
+        "crimePer1k": null,
+        "storePerKm2": 28.79,
+        "foodPerKm2": 497.97,
+        "medicalPerKm2": 20.33,
+        "walkToStationMin": 10.74
+      },
+      "dataQuality": "ok"
+    },
+    "1121575000": {
+      "safety": 3.3,
+      "convenience": 80.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 33.08,
+        "crimePer1k": null,
+        "storePerKm2": 45.95,
+        "foodPerKm2": 441.1,
+        "medicalPerKm2": 3.68,
+        "walkToStationMin": 8.58
+      },
+      "dataQuality": "ok"
+    },
+    "1121576000": {
+      "safety": 2.6,
+      "convenience": 79,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 49.81,
+        "crimePer1k": null,
+        "storePerKm2": 18.26,
+        "foodPerKm2": 342.02,
+        "medicalPerKm2": 8.3,
+        "walkToStationMin": 5.61
+      },
+      "dataQuality": "ok"
+    },
+    "1121577000": {
+      "safety": 10.3,
+      "convenience": 39.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 14.02,
+        "crimePer1k": null,
+        "storePerKm2": 10.07,
+        "foodPerKm2": 90.24,
+        "medicalPerKm2": 2.19,
+        "walkToStationMin": 17.47
+      },
+      "dataQuality": "ok"
+    },
+    "1121578000": {
+      "safety": 10.6,
+      "convenience": 43.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 13.86,
+        "crimePer1k": null,
+        "storePerKm2": 14.78,
+        "foodPerKm2": 134.87,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 14.03
+      },
+      "dataQuality": "ok"
+    },
+    "1121581000": {
+      "safety": 21.4,
+      "convenience": 44.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 4.72,
+        "crimePer1k": null,
+        "storePerKm2": 6.9,
+        "foodPerKm2": 59.92,
+        "medicalPerKm2": 0.36,
+        "walkToStationMin": 6.78
+      },
+      "dataQuality": "ok"
+    },
+    "1121582000": {
+      "safety": 0,
+      "convenience": 83.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 180.66,
+        "crimePer1k": null,
+        "storePerKm2": 33.65,
+        "foodPerKm2": 1068.01,
+        "medicalPerKm2": 31.88,
+        "walkToStationMin": 10.61
+      },
+      "dataQuality": "ok"
+    },
+    "1121583000": {
+      "safety": 11,
+      "convenience": 36.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 12.27,
+        "crimePer1k": null,
+        "storePerKm2": 9.2,
+        "foodPerKm2": 89.58,
+        "medicalPerKm2": 1.84,
+        "walkToStationMin": 20.51
+      },
+      "dataQuality": "ok"
+    },
+    "1121584000": {
+      "safety": 9.2,
+      "convenience": 73.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 14.99,
+        "crimePer1k": null,
+        "storePerKm2": 27.34,
+        "foodPerKm2": 205.49,
+        "medicalPerKm2": 1.76,
+        "walkToStationMin": 7.43
+      },
+      "dataQuality": "ok"
+    },
+    "1121584700": {
+      "safety": 3.8,
+      "convenience": 74,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 27.72,
+        "crimePer1k": null,
+        "storePerKm2": 22.52,
+        "foodPerKm2": 370.79,
+        "medicalPerKm2": 2.6,
+        "walkToStationMin": 7.31
+      },
+      "dataQuality": "ok"
+    },
+    "1121585000": {
+      "safety": 0.5,
+      "convenience": 82.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 115.96,
+        "crimePer1k": null,
+        "storePerKm2": 57.98,
+        "foodPerKm2": 674.04,
+        "medicalPerKm2": 5.44,
+        "walkToStationMin": 9.56
+      },
+      "dataQuality": "ok"
+    },
+    "1121586000": {
+      "safety": 6.3,
+      "convenience": 61.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 21.74,
+        "crimePer1k": null,
+        "storePerKm2": 13.77,
+        "foodPerKm2": 164.53,
+        "medicalPerKm2": 3.62,
+        "walkToStationMin": 7.93
+      },
+      "dataQuality": "ok"
+    },
+    "1121587000": {
+      "safety": 9.4,
+      "convenience": 70.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 14.49,
+        "crimePer1k": null,
+        "storePerKm2": 17.94,
+        "foodPerKm2": 171.8,
+        "medicalPerKm2": 1.38,
+        "walkToStationMin": 2.08
+      },
+      "dataQuality": "ok"
+    },
+    "1123051500": {
+      "safety": 21,
+      "convenience": 83.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 4.76,
+        "crimePer1k": null,
+        "storePerKm2": 32.15,
+        "foodPerKm2": 397.71,
+        "medicalPerKm2": 2.38,
+        "walkToStationMin": 4.68
+      },
+      "dataQuality": "ok"
+    },
+    "1123053300": {
+      "safety": 14.3,
+      "convenience": 84.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 6.87,
+        "crimePer1k": null,
+        "storePerKm2": 23.35,
+        "foodPerKm2": 374.95,
+        "medicalPerKm2": 6.87,
+        "walkToStationMin": 3.42
+      },
+      "dataQuality": "ok"
+    },
+    "1123054500": {
+      "safety": 13.6,
+      "convenience": 78.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 7.63,
+        "crimePer1k": null,
+        "storePerKm2": 29.65,
+        "foodPerKm2": 474.46,
+        "medicalPerKm2": 10.17,
+        "walkToStationMin": 11.03
+      },
+      "dataQuality": "ok"
+    },
+    "1123056000": {
+      "safety": 19,
+      "convenience": 78.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 5.11,
+        "crimePer1k": null,
+        "storePerKm2": 27.26,
+        "foodPerKm2": 358.66,
+        "medicalPerKm2": 4.26,
+        "walkToStationMin": 7.75
+      },
+      "dataQuality": "ok"
+    },
+    "1123057000": {
+      "safety": 32.7,
+      "convenience": 47.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.01,
+        "crimePer1k": null,
+        "storePerKm2": 13.07,
+        "foodPerKm2": 136.77,
+        "medicalPerKm2": 4.02,
+        "walkToStationMin": 20.37
+      },
+      "dataQuality": "ok"
+    },
+    "1123060000": {
+      "safety": 43.2,
+      "convenience": 74.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.25,
+        "crimePer1k": null,
+        "storePerKm2": 25.07,
+        "foodPerKm2": 260.68,
+        "medicalPerKm2": 3.76,
+        "walkToStationMin": 8.08
+      },
+      "dataQuality": "ok"
+    },
+    "1123061000": {
+      "safety": 20.4,
+      "convenience": 41.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 4.85,
+        "crimePer1k": null,
+        "storePerKm2": 13.34,
+        "foodPerKm2": 249.88,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 16.94
+      },
+      "dataQuality": "ok"
+    },
+    "1123065000": {
+      "safety": 6.8,
+      "convenience": 82.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 19.06,
+        "crimePer1k": null,
+        "storePerKm2": 27.12,
+        "foodPerKm2": 494.03,
+        "medicalPerKm2": 8.8,
+        "walkToStationMin": 7.81
+      },
+      "dataQuality": "ok"
+    },
+    "1123066000": {
+      "safety": 10.8,
+      "convenience": 73.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 12.37,
+        "crimePer1k": null,
+        "storePerKm2": 39.75,
+        "foodPerKm2": 499.96,
+        "medicalPerKm2": 13.25,
+        "walkToStationMin": 24.39
+      },
+      "dataQuality": "ok"
+    },
+    "1123070500": {
+      "safety": 14.6,
+      "convenience": 61.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 6.81,
+        "crimePer1k": null,
+        "storePerKm2": 14.46,
+        "foodPerKm2": 286.66,
+        "medicalPerKm2": 13.61,
+        "walkToStationMin": 14.9
+      },
+      "dataQuality": "ok"
+    },
+    "1123071000": {
+      "safety": 4.5,
+      "convenience": 65,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 26.14,
+        "crimePer1k": null,
+        "storePerKm2": 27.39,
+        "foodPerKm2": 668.49,
+        "medicalPerKm2": 1.24,
+        "walkToStationMin": 13.89
+      },
+      "dataQuality": "ok"
+    },
+    "1123072000": {
+      "safety": 17.6,
+      "convenience": 84.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 5.88,
+        "crimePer1k": null,
+        "storePerKm2": 45.1,
+        "foodPerKm2": 407.84,
+        "medicalPerKm2": 7.84,
+        "walkToStationMin": 8.54
+      },
+      "dataQuality": "ok"
+    },
+    "1123073000": {
+      "safety": 36.9,
+      "convenience": 59.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.67,
+        "crimePer1k": null,
+        "storePerKm2": 21.76,
+        "foodPerKm2": 141.47,
+        "medicalPerKm2": 4.19,
+        "walkToStationMin": 15.77
+      },
+      "dataQuality": "ok"
+    },
+    "1123074000": {
+      "safety": 8.2,
+      "convenience": 87.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 16.93,
+        "crimePer1k": null,
+        "storePerKm2": 29.87,
+        "foodPerKm2": 453.05,
+        "medicalPerKm2": 15.93,
+        "walkToStationMin": 7.09
+      },
+      "dataQuality": "ok"
+    },
+    "1123075000": {
+      "safety": 23.9,
+      "convenience": 63.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 3.73,
+        "crimePer1k": null,
+        "storePerKm2": 11.19,
+        "foodPerKm2": 123.04,
+        "medicalPerKm2": 2.49,
+        "walkToStationMin": 1.08
+      },
+      "dataQuality": "ok"
+    },
+    "1126052000": {
+      "safety": 12,
+      "convenience": 66.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 9.4,
+        "crimePer1k": null,
+        "storePerKm2": 32.24,
+        "foodPerKm2": 52.39,
+        "medicalPerKm2": 8.06,
+        "walkToStationMin": 12.18
+      },
+      "dataQuality": "ok"
+    },
+    "1126054000": {
+      "safety": 24.5,
+      "convenience": 53.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 3.54,
+        "crimePer1k": null,
+        "storePerKm2": 17.68,
+        "foodPerKm2": 7.07,
+        "medicalPerKm2": 1.18,
+        "walkToStationMin": 0.14
+      },
+      "dataQuality": "ok"
+    },
+    "1126055000": {
+      "safety": 36.3,
+      "convenience": 52.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.69,
+        "crimePer1k": null,
+        "storePerKm2": 18.63,
+        "foodPerKm2": 66.07,
+        "medicalPerKm2": 5.08,
+        "walkToStationMin": 15.94
+      },
+      "dataQuality": "ok"
+    },
+    "1126056500": {
+      "safety": 29.3,
+      "convenience": 82.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.42,
+        "crimePer1k": null,
+        "storePerKm2": 42.31,
+        "foodPerKm2": 42.31,
+        "medicalPerKm2": 12.09,
+        "walkToStationMin": 3.21
+      },
+      "dataQuality": "ok"
+    },
+    "1126057000": {
+      "safety": 48.6,
+      "convenience": 50.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.85,
+        "crimePer1k": null,
+        "storePerKm2": 13.56,
+        "foodPerKm2": 38.99,
+        "medicalPerKm2": 17.8,
+        "walkToStationMin": 14.72
+      },
+      "dataQuality": "ok"
+    },
+    "1126057500": {
+      "safety": 17.8,
+      "convenience": 55.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 5.71,
+        "crimePer1k": null,
+        "storePerKm2": 17.86,
+        "foodPerKm2": 91.44,
+        "medicalPerKm2": 12.86,
+        "walkToStationMin": 19.48
+      },
+      "dataQuality": "ok"
+    },
+    "1126058000": {
+      "safety": 30.3,
+      "convenience": 76,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.32,
+        "crimePer1k": null,
+        "storePerKm2": 22.06,
+        "foodPerKm2": 74.31,
+        "medicalPerKm2": 8.13,
+        "walkToStationMin": 3.56
+      },
+      "dataQuality": "ok"
+    },
+    "1126059000": {
+      "safety": 4.7,
+      "convenience": 87.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 24.42,
+        "crimePer1k": null,
+        "storePerKm2": 48.85,
+        "foodPerKm2": 157.23,
+        "medicalPerKm2": 9.16,
+        "walkToStationMin": 6.03
+      },
+      "dataQuality": "ok"
+    },
+    "1126060000": {
+      "safety": 26.5,
+      "convenience": 75.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.99,
+        "crimePer1k": null,
+        "storePerKm2": 32.89,
+        "foodPerKm2": 43.36,
+        "medicalPerKm2": 7.48,
+        "walkToStationMin": 6.46
+      },
+      "dataQuality": "ok"
+    },
+    "1126061000": {
+      "safety": 26.3,
+      "convenience": 58.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 3.13,
+        "crimePer1k": null,
+        "storePerKm2": 18.81,
+        "foodPerKm2": 22.99,
+        "medicalPerKm2": 4.18,
+        "walkToStationMin": 7.07
+      },
+      "dataQuality": "ok"
+    },
+    "1126062000": {
+      "safety": 77.6,
+      "convenience": 43.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 18.23,
+        "foodPerKm2": 4.14,
+        "medicalPerKm2": 1.66,
+        "walkToStationMin": 9.19
+      },
+      "dataQuality": "ok"
+    },
+    "1126063000": {
+      "safety": 39.2,
+      "convenience": 47.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.5,
+        "crimePer1k": null,
+        "storePerKm2": 17.97,
+        "foodPerKm2": 13.48,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 5.44
+      },
+      "dataQuality": "ok"
+    },
+    "1126065500": {
+      "safety": 19.2,
+      "convenience": 63.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 5.09,
+        "crimePer1k": null,
+        "storePerKm2": 19.01,
+        "foodPerKm2": 69.25,
+        "medicalPerKm2": 14.94,
+        "walkToStationMin": 10.78
+      },
+      "dataQuality": "ok"
+    },
+    "1126066000": {
+      "safety": 46.4,
+      "convenience": 41.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.01,
+        "crimePer1k": null,
+        "storePerKm2": 15.15,
+        "foodPerKm2": 30.29,
+        "medicalPerKm2": 6.06,
+        "walkToStationMin": 25.52
+      },
+      "dataQuality": "ok"
+    },
+    "1126068000": {
+      "safety": 32.7,
+      "convenience": 32.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.01,
+        "crimePer1k": null,
+        "storePerKm2": 8.84,
+        "foodPerKm2": 27.33,
+        "medicalPerKm2": 1.21,
+        "walkToStationMin": 13.41
+      },
+      "dataQuality": "ok"
+    },
+    "1126069000": {
+      "safety": 77.6,
+      "convenience": 33.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 10.7,
+        "foodPerKm2": 13.91,
+        "medicalPerKm2": 1.07,
+        "walkToStationMin": 11.51
+      },
+      "dataQuality": "ok"
+    },
+    "1129052500": {
+      "safety": 52.5,
+      "convenience": 30.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.41,
+        "crimePer1k": null,
+        "storePerKm2": 4.97,
+        "foodPerKm2": 40.59,
+        "medicalPerKm2": 5.38,
+        "walkToStationMin": 27.54
+      },
+      "dataQuality": "ok"
+    },
+    "1129055500": {
+      "safety": 77.6,
+      "convenience": 72,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 19.75,
+        "foodPerKm2": 127.28,
+        "medicalPerKm2": 19.75,
+        "walkToStationMin": 9.17
+      },
+      "dataQuality": "ok"
+    },
+    "1129057500": {
+      "safety": 13.1,
+      "convenience": 91.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 8.2,
+        "crimePer1k": null,
+        "storePerKm2": 42.39,
+        "foodPerKm2": 255.71,
+        "medicalPerKm2": 30.08,
+        "walkToStationMin": 6.42
+      },
+      "dataQuality": "ok"
+    },
+    "1129058000": {
+      "safety": 77.6,
+      "convenience": 48.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 6.51,
+        "foodPerKm2": 30.39,
+        "medicalPerKm2": 13.02,
+        "walkToStationMin": 8.7
+      },
+      "dataQuality": "ok"
+    },
+    "1129059000": {
+      "safety": 77.6,
+      "convenience": 31.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 3.82,
+        "foodPerKm2": 9.55,
+        "medicalPerKm2": 5.73,
+        "walkToStationMin": 12.54
+      },
+      "dataQuality": "ok"
+    },
+    "1129060000": {
+      "safety": 29.8,
+      "convenience": 77.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.36,
+        "crimePer1k": null,
+        "storePerKm2": 18.84,
+        "foodPerKm2": 130.34,
+        "medicalPerKm2": 9.42,
+        "walkToStationMin": 4.34
+      },
+      "dataQuality": "ok"
+    },
+    "1129061000": {
+      "safety": 77.6,
+      "convenience": 84.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 35.62,
+        "foodPerKm2": 100.08,
+        "medicalPerKm2": 15.27,
+        "walkToStationMin": 5.68
+      },
+      "dataQuality": "ok"
+    },
+    "1129062000": {
+      "safety": 11.7,
+      "convenience": 90.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 10.27,
+        "crimePer1k": null,
+        "storePerKm2": 43.66,
+        "foodPerKm2": 138.67,
+        "medicalPerKm2": 23.11,
+        "walkToStationMin": 5.07
+      },
+      "dataQuality": "ok"
+    },
+    "1129063000": {
+      "safety": 34.4,
+      "convenience": 63.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.78,
+        "crimePer1k": null,
+        "storePerKm2": 18.66,
+        "foodPerKm2": 64.88,
+        "medicalPerKm2": 10.66,
+        "walkToStationMin": 9.96
+      },
+      "dataQuality": "ok"
+    },
+    "1129064000": {
+      "safety": 53.9,
+      "convenience": 20,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.3,
+        "crimePer1k": null,
+        "storePerKm2": 4.77,
+        "foodPerKm2": 26.23,
+        "medicalPerKm2": 0.6,
+        "walkToStationMin": 24.26
+      },
+      "dataQuality": "ok"
+    },
+    "1129065000": {
+      "safety": 77.6,
+      "convenience": 21.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 4.31,
+        "foodPerKm2": 16.71,
+        "medicalPerKm2": 3.23,
+        "walkToStationMin": 35.66
+      },
+      "dataQuality": "ok"
+    },
+    "1129066000": {
+      "safety": 20.2,
+      "convenience": 61.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 4.89,
+        "crimePer1k": null,
+        "storePerKm2": 17.12,
+        "foodPerKm2": 117.39,
+        "medicalPerKm2": 22.01,
+        "walkToStationMin": 13.83
+      },
+      "dataQuality": "ok"
+    },
+    "1129068500": {
+      "safety": 15.5,
+      "convenience": 77.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 6.5,
+        "crimePer1k": null,
+        "storePerKm2": 32.48,
+        "foodPerKm2": 136.43,
+        "medicalPerKm2": 25.99,
+        "walkToStationMin": 10.74
+      },
+      "dataQuality": "ok"
+    },
+    "1129070500": {
+      "safety": 77.6,
+      "convenience": 51.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 13.17,
+        "foodPerKm2": 77.03,
+        "medicalPerKm2": 13.83,
+        "walkToStationMin": 16.7
+      },
+      "dataQuality": "ok"
+    },
+    "1129071500": {
+      "safety": 29.1,
+      "convenience": 51.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.62,
+        "crimePer1k": null,
+        "storePerKm2": 11.78,
+        "foodPerKm2": 87.67,
+        "medicalPerKm2": 13.09,
+        "walkToStationMin": 14.86
+      },
+      "dataQuality": "ok"
+    },
+    "1129072500": {
+      "safety": 77.6,
+      "convenience": 69.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 15,
+        "foodPerKm2": 105.76,
+        "medicalPerKm2": 12.75,
+        "walkToStationMin": 7.02
+      },
+      "dataQuality": "ok"
+    },
+    "1129076000": {
+      "safety": 77.6,
+      "convenience": 48.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 12.43,
+        "foodPerKm2": 87.04,
+        "medicalPerKm2": 12.43,
+        "walkToStationMin": 19.53
+      },
+      "dataQuality": "ok"
+    },
+    "1129077000": {
+      "safety": 77.6,
+      "convenience": 57,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 7.52,
+        "foodPerKm2": 94.69,
+        "medicalPerKm2": 13.53,
+        "walkToStationMin": 8.2
+      },
+      "dataQuality": "ok"
+    },
+    "1129078000": {
+      "safety": 77.6,
+      "convenience": 37.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 10.26,
+        "foodPerKm2": 36.64,
+        "medicalPerKm2": 4.4,
+        "walkToStationMin": 17.32
+      },
+      "dataQuality": "ok"
+    },
+    "1129081000": {
+      "safety": 25.2,
+      "convenience": 65.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 3.47,
+        "crimePer1k": null,
+        "storePerKm2": 16.19,
+        "foodPerKm2": 115.04,
+        "medicalPerKm2": 10.41,
+        "walkToStationMin": 9.28
+      },
+      "dataQuality": "ok"
+    },
+    "1130553400": {
+      "safety": 77.6,
+      "convenience": 53.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 13.67,
+        "foodPerKm2": 39.96,
+        "medicalPerKm2": 3.15,
+        "walkToStationMin": 7.58
+      },
+      "dataQuality": "ok"
+    },
+    "1130553500": {
+      "safety": 44.4,
+      "convenience": 78.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.17,
+        "crimePer1k": null,
+        "storePerKm2": 23.44,
+        "foodPerKm2": 193.39,
+        "medicalPerKm2": 3.52,
+        "walkToStationMin": 4.08
+      },
+      "dataQuality": "ok"
+    },
+    "1130554500": {
+      "safety": 18.2,
+      "convenience": 52.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 5.65,
+        "crimePer1k": null,
+        "storePerKm2": 14.14,
+        "foodPerKm2": 184.71,
+        "medicalPerKm2": 0.94,
+        "walkToStationMin": 11.1
+      },
+      "dataQuality": "ok"
+    },
+    "1130555500": {
+      "safety": 22.8,
+      "convenience": 67.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 4.26,
+        "crimePer1k": null,
+        "storePerKm2": 21.3,
+        "foodPerKm2": 173.63,
+        "medicalPerKm2": 4.26,
+        "walkToStationMin": 10.27
+      },
+      "dataQuality": "ok"
+    },
+    "1130557500": {
+      "safety": 77.6,
+      "convenience": 63.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 23.88,
+        "foodPerKm2": 85.28,
+        "medicalPerKm2": 1.71,
+        "walkToStationMin": 8.08
+      },
+      "dataQuality": "ok"
+    },
+    "1130559500": {
+      "safety": 77.6,
+      "convenience": 72.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 20.16,
+        "foodPerKm2": 226.81,
+        "medicalPerKm2": 5.04,
+        "walkToStationMin": 8.05
+      },
+      "dataQuality": "ok"
+    },
+    "1130560300": {
+      "safety": 77.6,
+      "convenience": 29.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 11.86,
+        "foodPerKm2": 22.74,
+        "medicalPerKm2": 0.99,
+        "walkToStationMin": 17.96
+      },
+      "dataQuality": "ok"
+    },
+    "1130560800": {
+      "safety": 47.7,
+      "convenience": 16.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.92,
+        "crimePer1k": null,
+        "storePerKm2": 5.5,
+        "foodPerKm2": 27.52,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 28.78
+      },
+      "dataQuality": "ok"
+    },
+    "1130561500": {
+      "safety": 77.6,
+      "convenience": 26.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 8.69,
+        "foodPerKm2": 46.9,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 16.94
+      },
+      "dataQuality": "ok"
+    },
+    "1130562500": {
+      "safety": 37.3,
+      "convenience": 71.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.65,
+        "crimePer1k": null,
+        "storePerKm2": 21.47,
+        "foodPerKm2": 179.99,
+        "medicalPerKm2": 6.61,
+        "walkToStationMin": 9.06
+      },
+      "dataQuality": "ok"
+    },
+    "1130563500": {
+      "safety": 27.9,
+      "convenience": 78.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.74,
+        "crimePer1k": null,
+        "storePerKm2": 31.5,
+        "foodPerKm2": 371.18,
+        "medicalPerKm2": 1.37,
+        "walkToStationMin": 5.66
+      },
+      "dataQuality": "ok"
+    },
+    "1130564500": {
+      "safety": 54.2,
+      "convenience": 14.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.28,
+        "crimePer1k": null,
+        "storePerKm2": 2.43,
+        "foodPerKm2": 15.16,
+        "medicalPerKm2": 0.37,
+        "walkToStationMin": 25.45
+      },
+      "dataQuality": "ok"
+    },
+    "1130566000": {
+      "safety": 77.6,
+      "convenience": 30.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 7.7,
+        "foodPerKm2": 38.49,
+        "medicalPerKm2": 1.05,
+        "walkToStationMin": 15.18
+      },
+      "dataQuality": "ok"
+    },
+    "1132051100": {
+      "safety": 47.7,
+      "convenience": 42.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.92,
+        "crimePer1k": null,
+        "storePerKm2": 9.16,
+        "foodPerKm2": 59.51,
+        "medicalPerKm2": 2.75,
+        "walkToStationMin": 12.42
+      },
+      "dataQuality": "ok"
+    },
+    "1132051200": {
+      "safety": 77.6,
+      "convenience": 52.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 23.45,
+        "foodPerKm2": 123.13,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 12.26
+      },
+      "dataQuality": "ok"
+    },
+    "1132051300": {
+      "safety": 77.6,
+      "convenience": 30.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 10.98,
+        "foodPerKm2": 97.29,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 23.73
+      },
+      "dataQuality": "ok"
+    },
+    "1132051400": {
+      "safety": 77.6,
+      "convenience": 41.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 13.47,
+        "foodPerKm2": 1.8,
+        "medicalPerKm2": 0.9,
+        "walkToStationMin": 5.59
+      },
+      "dataQuality": "ok"
+    },
+    "1132051500": {
+      "safety": 40.4,
+      "convenience": 59.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.45,
+        "crimePer1k": null,
+        "storePerKm2": 24.65,
+        "foodPerKm2": 24.65,
+        "medicalPerKm2": 4.35,
+        "walkToStationMin": 9.24
+      },
+      "dataQuality": "ok"
+    },
+    "1132052100": {
+      "safety": 77.6,
+      "convenience": 6.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 1.76,
+        "foodPerKm2": 1.76,
+        "medicalPerKm2": 0.12,
+        "walkToStationMin": 35.94
+      },
+      "dataQuality": "ok"
+    },
+    "1132052200": {
+      "safety": 77.6,
+      "convenience": 44.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 11.72,
+        "foodPerKm2": 9.21,
+        "medicalPerKm2": 2.51,
+        "walkToStationMin": 7.36
+      },
+      "dataQuality": "ok"
+    },
+    "1132066000": {
+      "safety": 77.6,
+      "convenience": 41,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 7.76,
+        "foodPerKm2": 38.79,
+        "medicalPerKm2": 1.72,
+        "walkToStationMin": 9.13
+      },
+      "dataQuality": "ok"
+    },
+    "1132067000": {
+      "safety": 77.6,
+      "convenience": 49,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 30.1,
+        "foodPerKm2": 35.74,
+        "medicalPerKm2": 1.88,
+        "walkToStationMin": 20.47
+      },
+      "dataQuality": "ok"
+    },
+    "1132068000": {
+      "safety": 33.1,
+      "convenience": 77.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2,
+        "crimePer1k": null,
+        "storePerKm2": 36.06,
+        "foodPerKm2": 156.28,
+        "medicalPerKm2": 4.01,
+        "walkToStationMin": 7.73
+      },
+      "dataQuality": "ok"
+    },
+    "1132068100": {
+      "safety": 25.2,
+      "convenience": 35.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 3.47,
+        "crimePer1k": null,
+        "storePerKm2": 15.61,
+        "foodPerKm2": 15.61,
+        "medicalPerKm2": 1.73,
+        "walkToStationMin": 17.23
+      },
+      "dataQuality": "ok"
+    },
+    "1132069000": {
+      "safety": 77.6,
+      "convenience": 53.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 23.59,
+        "foodPerKm2": 1.89,
+        "medicalPerKm2": 0.94,
+        "walkToStationMin": 3.67
+      },
+      "dataQuality": "ok"
+    },
+    "1132070000": {
+      "safety": 77.6,
+      "convenience": 20.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 11.73,
+        "foodPerKm2": 0.9,
+        "medicalPerKm2": 0.9,
+        "walkToStationMin": 19.98
+      },
+      "dataQuality": "ok"
+    },
+    "1132071000": {
+      "safety": 77.6,
+      "convenience": 15.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 4.84,
+        "foodPerKm2": 2.15,
+        "medicalPerKm2": 1.08,
+        "walkToStationMin": 18.68
+      },
+      "dataQuality": "ok"
+    },
+    "1135056000": {
+      "safety": 23,
+      "convenience": 71.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 4.24,
+        "crimePer1k": null,
+        "storePerKm2": 17.83,
+        "foodPerKm2": 146.02,
+        "medicalPerKm2": 9.34,
+        "walkToStationMin": 7.39
+      },
+      "dataQuality": "ok"
+    },
+    "1135057000": {
+      "safety": 77.6,
+      "convenience": 20,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 3.01,
+        "foodPerKm2": 8.04,
+        "medicalPerKm2": 0.5,
+        "walkToStationMin": 13
+      },
+      "dataQuality": "ok"
+    },
+    "1135058000": {
+      "safety": 77.6,
+      "convenience": 48,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 10.28,
+        "foodPerKm2": 29.99,
+        "medicalPerKm2": 2.57,
+        "walkToStationMin": 7.19
+      },
+      "dataQuality": "ok"
+    },
+    "1135059500": {
+      "safety": 15.3,
+      "convenience": 88.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 6.62,
+        "crimePer1k": null,
+        "storePerKm2": 28.98,
+        "foodPerKm2": 173.9,
+        "medicalPerKm2": 10.77,
+        "walkToStationMin": 2.48
+      },
+      "dataQuality": "ok"
+    },
+    "1135060000": {
+      "safety": 47.1,
+      "convenience": 19.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.96,
+        "crimePer1k": null,
+        "storePerKm2": 4.55,
+        "foodPerKm2": 11.16,
+        "medicalPerKm2": 2.07,
+        "walkToStationMin": 26.83
+      },
+      "dataQuality": "ok"
+    },
+    "1135061100": {
+      "safety": 77.6,
+      "convenience": 21.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 6.94,
+        "foodPerKm2": 2.08,
+        "medicalPerKm2": 0.69,
+        "walkToStationMin": 12.63
+      },
+      "dataQuality": "ok"
+    },
+    "1135061200": {
+      "safety": 77.6,
+      "convenience": 33,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 5.94,
+        "foodPerKm2": 11.87,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 5.97
+      },
+      "dataQuality": "ok"
+    },
+    "1135061900": {
+      "safety": 77.6,
+      "convenience": 5.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 3.88,
+        "foodPerKm2": 0,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 32.07
+      },
+      "dataQuality": "ok"
+    },
+    "1135062100": {
+      "safety": 77.6,
+      "convenience": 22.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 16.45,
+        "foodPerKm2": 1.64,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 18.02
+      },
+      "dataQuality": "ok"
+    },
+    "1135062400": {
+      "safety": 77.6,
+      "convenience": 13.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 5.49,
+        "foodPerKm2": 2.75,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 15.79
+      },
+      "dataQuality": "ok"
+    },
+    "1135062500": {
+      "safety": 77.6,
+      "convenience": 35.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 7.4,
+        "foodPerKm2": 3.17,
+        "medicalPerKm2": 1.06,
+        "walkToStationMin": 5.85
+      },
+      "dataQuality": "ok"
+    },
+    "1135063000": {
+      "safety": 77.6,
+      "convenience": 16.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 4.6,
+        "foodPerKm2": 4.8,
+        "medicalPerKm2": 1,
+        "walkToStationMin": 18.35
+      },
+      "dataQuality": "ok"
+    },
+    "1135064000": {
+      "safety": 77.6,
+      "convenience": 49.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 25.4,
+        "foodPerKm2": 11.85,
+        "medicalPerKm2": 1.69,
+        "walkToStationMin": 10.65
+      },
+      "dataQuality": "ok"
+    },
+    "1135066500": {
+      "safety": 77.6,
+      "convenience": 21.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 1.38,
+        "foodPerKm2": 0,
+        "medicalPerKm2": 0.17,
+        "walkToStationMin": 8.21
+      },
+      "dataQuality": "ok"
+    },
+    "1135067000": {
+      "safety": 77.6,
+      "convenience": 41.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 20.33,
+        "foodPerKm2": 8.13,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 8.78
+      },
+      "dataQuality": "ok"
+    },
+    "1135069500": {
+      "safety": 77.6,
+      "convenience": 44.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 14.74,
+        "foodPerKm2": 3.51,
+        "medicalPerKm2": 11.23,
+        "walkToStationMin": 11.9
+      },
+      "dataQuality": "ok"
+    },
+    "1135070000": {
+      "safety": 77.6,
+      "convenience": 30.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 3.02,
+        "foodPerKm2": 1.51,
+        "medicalPerKm2": 1.51,
+        "walkToStationMin": 6.89
+      },
+      "dataQuality": "ok"
+    },
+    "1135071000": {
+      "safety": 77.6,
+      "convenience": 30.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 14.34,
+        "foodPerKm2": 3.58,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 10.29
+      },
+      "dataQuality": "ok"
+    },
+    "1135072000": {
+      "safety": 77.6,
+      "convenience": 22.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 7.25,
+        "foodPerKm2": 2.42,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 9.55
+      },
+      "dataQuality": "ok"
+    },
+    "1138051000": {
+      "safety": 13.8,
+      "convenience": 41,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 7.32,
+        "crimePer1k": null,
+        "storePerKm2": 9.41,
+        "foodPerKm2": 38.14,
+        "medicalPerKm2": 1.57,
+        "walkToStationMin": 9.61
+      },
+      "dataQuality": "ok"
+    },
+    "1138052000": {
+      "safety": 53.9,
+      "convenience": 19.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.3,
+        "crimePer1k": null,
+        "storePerKm2": 4.19,
+        "foodPerKm2": 8.67,
+        "medicalPerKm2": 1.5,
+        "walkToStationMin": 17.89
+      },
+      "dataQuality": "ok"
+    },
+    "1138053000": {
+      "safety": 23.7,
+      "convenience": 33.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 3.74,
+        "crimePer1k": null,
+        "storePerKm2": 8.97,
+        "foodPerKm2": 43.37,
+        "medicalPerKm2": 1.5,
+        "walkToStationMin": 15.98
+      },
+      "dataQuality": "ok"
+    },
+    "1138055100": {
+      "safety": 16.2,
+      "convenience": 52.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 6.3,
+        "crimePer1k": null,
+        "storePerKm2": 17.84,
+        "foodPerKm2": 59.83,
+        "medicalPerKm2": 9.45,
+        "walkToStationMin": 18
+      },
+      "dataQuality": "ok"
+    },
+    "1138055200": {
+      "safety": 15,
+      "convenience": 48.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 6.65,
+        "crimePer1k": null,
+        "storePerKm2": 18.05,
+        "foodPerKm2": 30.4,
+        "medicalPerKm2": 4.75,
+        "walkToStationMin": 14.86
+      },
+      "dataQuality": "ok"
+    },
+    "1138056000": {
+      "safety": 77.6,
+      "convenience": 42.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 14.06,
+        "foodPerKm2": 18.5,
+        "medicalPerKm2": 8.14,
+        "walkToStationMin": 16.38
+      },
+      "dataQuality": "ok"
+    },
+    "1138057000": {
+      "safety": 14.1,
+      "convenience": 63.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 6.89,
+        "crimePer1k": null,
+        "storePerKm2": 20.68,
+        "foodPerKm2": 73.53,
+        "medicalPerKm2": 6.89,
+        "walkToStationMin": 10.33
+      },
+      "dataQuality": "ok"
+    },
+    "1138058000": {
+      "safety": 16.4,
+      "convenience": 35.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 6.04,
+        "crimePer1k": null,
+        "storePerKm2": 11.21,
+        "foodPerKm2": 41.4,
+        "medicalPerKm2": 0.86,
+        "walkToStationMin": 14.25
+      },
+      "dataQuality": "ok"
+    },
+    "1138059000": {
+      "safety": 77.6,
+      "convenience": 32,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 12.06,
+        "foodPerKm2": 5.36,
+        "medicalPerKm2": 2.68,
+        "walkToStationMin": 14.87
+      },
+      "dataQuality": "ok"
+    },
+    "1138060000": {
+      "safety": 77.6,
+      "convenience": 47.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 15.01,
+        "foodPerKm2": 19.1,
+        "medicalPerKm2": 9.55,
+        "walkToStationMin": 13.84
+      },
+      "dataQuality": "ok"
+    },
+    "1138062500": {
+      "safety": 18.5,
+      "convenience": 43.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 5.52,
+        "crimePer1k": null,
+        "storePerKm2": 13.81,
+        "foodPerKm2": 42.35,
+        "medicalPerKm2": 1.84,
+        "walkToStationMin": 12.2
+      },
+      "dataQuality": "ok"
+    },
+    "1138063100": {
+      "safety": 9.6,
+      "convenience": 66,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 14.46,
+        "crimePer1k": null,
+        "storePerKm2": 18.08,
+        "foodPerKm2": 103.65,
+        "medicalPerKm2": 9.64,
+        "walkToStationMin": 9.55
+      },
+      "dataQuality": "ok"
+    },
+    "1138063200": {
+      "safety": 33.6,
+      "convenience": 50,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.92,
+        "crimePer1k": null,
+        "storePerKm2": 21.15,
+        "foodPerKm2": 23.07,
+        "medicalPerKm2": 3.85,
+        "walkToStationMin": 13.37
+      },
+      "dataQuality": "ok"
+    },
+    "1138064000": {
+      "safety": 22.2,
+      "convenience": 52.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 4.35,
+        "crimePer1k": null,
+        "storePerKm2": 9.79,
+        "foodPerKm2": 42.43,
+        "medicalPerKm2": 4.35,
+        "walkToStationMin": 7.11
+      },
+      "dataQuality": "ok"
+    },
+    "1138065000": {
+      "safety": 77.6,
+      "convenience": 29.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 7.9,
+        "foodPerKm2": 3.51,
+        "medicalPerKm2": 0.88,
+        "walkToStationMin": 9.32
+      },
+      "dataQuality": "ok"
+    },
+    "1138069000": {
+      "safety": 37.8,
+      "convenience": 13.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.63,
+        "crimePer1k": null,
+        "storePerKm2": 2.17,
+        "foodPerKm2": 18.68,
+        "medicalPerKm2": 0.39,
+        "walkToStationMin": 38.22
+      },
+      "dataQuality": "ok"
+    },
+    "1141052000": {
+      "safety": 45.1,
+      "convenience": 70.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.12,
+        "crimePer1k": null,
+        "storePerKm2": 23.51,
+        "foodPerKm2": 95.16,
+        "medicalPerKm2": 5.6,
+        "walkToStationMin": 7.95
+      },
+      "dataQuality": "ok"
+    },
+    "1141055500": {
+      "safety": 77.6,
+      "convenience": 46.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 6.75,
+        "foodPerKm2": 94.51,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 4.49
+      },
+      "dataQuality": "ok"
+    },
+    "1141056500": {
+      "safety": 21.6,
+      "convenience": 40.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 4.4,
+        "crimePer1k": null,
+        "storePerKm2": 13.2,
+        "foodPerKm2": 158.45,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 15.89
+      },
+      "dataQuality": "ok"
+    },
+    "1141058500": {
+      "safety": 3.5,
+      "convenience": 88,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 29.63,
+        "crimePer1k": null,
+        "storePerKm2": 31.19,
+        "foodPerKm2": 344.26,
+        "medicalPerKm2": 13.65,
+        "walkToStationMin": 6.71
+      },
+      "dataQuality": "ok"
+    },
+    "1141061500": {
+      "safety": 24.5,
+      "convenience": 48.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 3.54,
+        "crimePer1k": null,
+        "storePerKm2": 15.23,
+        "foodPerKm2": 94.55,
+        "medicalPerKm2": 7.44,
+        "walkToStationMin": 31.32
+      },
+      "dataQuality": "ok"
+    },
+    "1141062000": {
+      "safety": 50.2,
+      "convenience": 57.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.64,
+        "crimePer1k": null,
+        "storePerKm2": 12.18,
+        "foodPerKm2": 51.92,
+        "medicalPerKm2": 5.77,
+        "walkToStationMin": 7.36
+      },
+      "dataQuality": "ok"
+    },
+    "1141064000": {
+      "safety": 77.6,
+      "convenience": 39.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 10.67,
+        "foodPerKm2": 84.4,
+        "medicalPerKm2": 0.97,
+        "walkToStationMin": 13.28
+      },
+      "dataQuality": "ok"
+    },
+    "1141065500": {
+      "safety": 41.2,
+      "convenience": 43,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.4,
+        "crimePer1k": null,
+        "storePerKm2": 8.43,
+        "foodPerKm2": 58.99,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 6.63
+      },
+      "dataQuality": "ok"
+    },
+    "1141066000": {
+      "safety": 77.6,
+      "convenience": 26.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 7.1,
+        "foodPerKm2": 38.08,
+        "medicalPerKm2": 0.65,
+        "walkToStationMin": 17.77
+      },
+      "dataQuality": "ok"
+    },
+    "1141068500": {
+      "safety": 46.7,
+      "convenience": 30.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.98,
+        "crimePer1k": null,
+        "storePerKm2": 10.75,
+        "foodPerKm2": 62.05,
+        "medicalPerKm2": 0.49,
+        "walkToStationMin": 26.45
+      },
+      "dataQuality": "ok"
+    },
+    "1141069000": {
+      "safety": 77.6,
+      "convenience": 64,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 13.43,
+        "foodPerKm2": 120.86,
+        "medicalPerKm2": 4.48,
+        "walkToStationMin": 6.71
+      },
+      "dataQuality": "ok"
+    },
+    "1141070000": {
+      "safety": 43.8,
+      "convenience": 53.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.23,
+        "crimePer1k": null,
+        "storePerKm2": 19.71,
+        "foodPerKm2": 182.29,
+        "medicalPerKm2": 2.46,
+        "walkToStationMin": 21.14
+      },
+      "dataQuality": "ok"
+    },
+    "1141071000": {
+      "safety": 77.6,
+      "convenience": 40.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 12.05,
+        "foodPerKm2": 25.83,
+        "medicalPerKm2": 3.44,
+        "walkToStationMin": 12.93
+      },
+      "dataQuality": "ok"
+    },
+    "1141072000": {
+      "safety": 43,
+      "convenience": 64.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.26,
+        "crimePer1k": null,
+        "storePerKm2": 30.2,
+        "foodPerKm2": 172.39,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 8.54
+      },
+      "dataQuality": "ok"
+    },
+    "1144055500": {
+      "safety": 77.6,
+      "convenience": 59.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 19.16,
+        "foodPerKm2": 99.9,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 5.57
+      },
+      "dataQuality": "ok"
+    },
+    "1144056500": {
+      "safety": 19.7,
+      "convenience": 71.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 4.91,
+        "crimePer1k": null,
+        "storePerKm2": 23.58,
+        "foodPerKm2": 219.06,
+        "medicalPerKm2": 2.95,
+        "walkToStationMin": 8.55
+      },
+      "dataQuality": "ok"
+    },
+    "1144058500": {
+      "safety": 37.1,
+      "convenience": 81.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.66,
+        "crimePer1k": null,
+        "storePerKm2": 23.17,
+        "foodPerKm2": 269.78,
+        "medicalPerKm2": 9.93,
+        "walkToStationMin": 6.86
+      },
+      "dataQuality": "ok"
+    },
+    "1144059000": {
+      "safety": 42.4,
+      "convenience": 68.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.29,
+        "crimePer1k": null,
+        "storePerKm2": 21.92,
+        "foodPerKm2": 150.89,
+        "medicalPerKm2": 2.58,
+        "walkToStationMin": 7.87
+      },
+      "dataQuality": "ok"
+    },
+    "1144060000": {
+      "safety": 16.8,
+      "convenience": 81.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 5.99,
+        "crimePer1k": null,
+        "storePerKm2": 34.71,
+        "foodPerKm2": 217.86,
+        "medicalPerKm2": 19.15,
+        "walkToStationMin": 9.61
+      },
+      "dataQuality": "ok"
+    },
+    "1144061000": {
+      "safety": 33.8,
+      "convenience": 53.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.85,
+        "crimePer1k": null,
+        "storePerKm2": 20.39,
+        "foodPerKm2": 120.48,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 10.2
+      },
+      "dataQuality": "ok"
+    },
+    "1144063000": {
+      "safety": 44.1,
+      "convenience": 69.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.22,
+        "crimePer1k": null,
+        "storePerKm2": 19.52,
+        "foodPerKm2": 95.15,
+        "medicalPerKm2": 7.32,
+        "walkToStationMin": 7.38
+      },
+      "dataQuality": "ok"
+    },
+    "1144065500": {
+      "safety": 14.8,
+      "convenience": 61,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 6.74,
+        "crimePer1k": null,
+        "storePerKm2": 12.8,
+        "foodPerKm2": 121.25,
+        "medicalPerKm2": 2.02,
+        "walkToStationMin": 5.42
+      },
+      "dataQuality": "ok"
+    },
+    "1144066000": {
+      "safety": 1.4,
+      "convenience": 87.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 64.99,
+        "crimePer1k": null,
+        "storePerKm2": 66.81,
+        "foodPerKm2": 812.68,
+        "medicalPerKm2": 12.15,
+        "walkToStationMin": 9.23
+      },
+      "dataQuality": "ok"
+    },
+    "1144068000": {
+      "safety": 12.4,
+      "convenience": 55.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 9,
+        "crimePer1k": null,
+        "storePerKm2": 16.81,
+        "foodPerKm2": 165.67,
+        "medicalPerKm2": 1.8,
+        "walkToStationMin": 12.03
+      },
+      "dataQuality": "ok"
+    },
+    "1144069000": {
+      "safety": 34,
+      "convenience": 49.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.84,
+        "crimePer1k": null,
+        "storePerKm2": 14.69,
+        "foodPerKm2": 183.64,
+        "medicalPerKm2": 2.75,
+        "walkToStationMin": 19.7
+      },
+      "dataQuality": "ok"
+    },
+    "1144070000": {
+      "safety": 38.5,
+      "convenience": 56.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.55,
+        "crimePer1k": null,
+        "storePerKm2": 12.44,
+        "foodPerKm2": 141.48,
+        "medicalPerKm2": 4.66,
+        "walkToStationMin": 10.48
+      },
+      "dataQuality": "ok"
+    },
+    "1144071000": {
+      "safety": 8,
+      "convenience": 62,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 17,
+        "crimePer1k": null,
+        "storePerKm2": 37.1,
+        "foodPerKm2": 553.41,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 14.04
+      },
+      "dataQuality": "ok"
+    },
+    "1144072000": {
+      "safety": 77.6,
+      "convenience": 65,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 26.64,
+        "foodPerKm2": 125.09,
+        "medicalPerKm2": 4.63,
+        "walkToStationMin": 13.28
+      },
+      "dataQuality": "ok"
+    },
+    "1144073000": {
+      "safety": 77.6,
+      "convenience": 68.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 18.86,
+        "foodPerKm2": 39.76,
+        "medicalPerKm2": 10.71,
+        "walkToStationMin": 5.98
+      },
+      "dataQuality": "ok"
+    },
+    "1144074000": {
+      "safety": 53.2,
+      "convenience": 16,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.35,
+        "crimePer1k": null,
+        "storePerKm2": 4.19,
+        "foodPerKm2": 23.49,
+        "medicalPerKm2": 0.12,
+        "walkToStationMin": 35.7
+      },
+      "dataQuality": "ok"
+    },
+    "1147051000": {
+      "safety": 77.6,
+      "convenience": 56.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 14.07,
+        "foodPerKm2": 19.19,
+        "medicalPerKm2": 4.48,
+        "walkToStationMin": 5.15
+      },
+      "dataQuality": "ok"
+    },
+    "1147052000": {
+      "safety": 27.7,
+      "convenience": 69.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.85,
+        "crimePer1k": null,
+        "storePerKm2": 26.58,
+        "foodPerKm2": 74.99,
+        "medicalPerKm2": 9.49,
+        "walkToStationMin": 9.96
+      },
+      "dataQuality": "ok"
+    },
+    "1147053000": {
+      "safety": 23.5,
+      "convenience": 59.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 4,
+        "crimePer1k": null,
+        "storePerKm2": 25.98,
+        "foodPerKm2": 23.98,
+        "medicalPerKm2": 7.99,
+        "walkToStationMin": 11.52
+      },
+      "dataQuality": "ok"
+    },
+    "1147054000": {
+      "safety": 77.6,
+      "convenience": 38.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 19.6,
+        "foodPerKm2": 7.13,
+        "medicalPerKm2": 3.56,
+        "walkToStationMin": 21.54
+      },
+      "dataQuality": "ok"
+    },
+    "1147055000": {
+      "safety": 77.6,
+      "convenience": 30.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 7.76,
+        "foodPerKm2": 33.26,
+        "medicalPerKm2": 1.66,
+        "walkToStationMin": 16.87
+      },
+      "dataQuality": "ok"
+    },
+    "1147056000": {
+      "safety": 77.6,
+      "convenience": 29.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 20.7,
+        "foodPerKm2": 6.37,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 20.51
+      },
+      "dataQuality": "ok"
+    },
+    "1147057000": {
+      "safety": 37.8,
+      "convenience": 46,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.63,
+        "crimePer1k": null,
+        "storePerKm2": 14.66,
+        "foodPerKm2": 27.7,
+        "medicalPerKm2": 8.15,
+        "walkToStationMin": 15.97
+      },
+      "dataQuality": "ok"
+    },
+    "1147058000": {
+      "safety": 77.6,
+      "convenience": 13.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 10.78,
+        "foodPerKm2": 2.16,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 30.39
+      },
+      "dataQuality": "ok"
+    },
+    "1147059000": {
+      "safety": 77.6,
+      "convenience": 23.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 17.61,
+        "foodPerKm2": 4.4,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 23.07
+      },
+      "dataQuality": "ok"
+    },
+    "1147060000": {
+      "safety": 77.6,
+      "convenience": 26.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 18.77,
+        "foodPerKm2": 4.69,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 18.35
+      },
+      "dataQuality": "ok"
+    },
+    "1147061000": {
+      "safety": 77.6,
+      "convenience": 24,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 16.91,
+        "foodPerKm2": 4.23,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 20.51
+      },
+      "dataQuality": "ok"
+    },
+    "1147061100": {
+      "safety": 77.6,
+      "convenience": 12.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 11.43,
+        "foodPerKm2": 0,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 35.18
+      },
+      "dataQuality": "ok"
+    },
+    "1147062000": {
+      "safety": 77.6,
+      "convenience": 26,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 12.17,
+        "foodPerKm2": 4.06,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 11.57
+      },
+      "dataQuality": "ok"
+    },
+    "1147063000": {
+      "safety": 77.6,
+      "convenience": 28.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 13.88,
+        "foodPerKm2": 6.17,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 12.33
+      },
+      "dataQuality": "ok"
+    },
+    "1147064000": {
+      "safety": 77.6,
+      "convenience": 7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 5.65,
+        "foodPerKm2": 0,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 32.9
+      },
+      "dataQuality": "ok"
+    },
+    "1147065000": {
+      "safety": 77.6,
+      "convenience": 69.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 28.13,
+        "foodPerKm2": 12.05,
+        "medicalPerKm2": 5.02,
+        "walkToStationMin": 2.84
+      },
+      "dataQuality": "ok"
+    },
+    "1147067000": {
+      "safety": 77.6,
+      "convenience": 33.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 8.64,
+        "foodPerKm2": 3.24,
+        "medicalPerKm2": 1.08,
+        "walkToStationMin": 7.81
+      },
+      "dataQuality": "ok"
+    },
+    "1147068000": {
+      "safety": 77.6,
+      "convenience": 27.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 7.87,
+        "foodPerKm2": 0,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 7.2
+      },
+      "dataQuality": "ok"
+    },
+    "1150051000": {
+      "safety": 50.7,
+      "convenience": 51.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.6,
+        "crimePer1k": null,
+        "storePerKm2": 18.48,
+        "foodPerKm2": 53.64,
+        "medicalPerKm2": 4.77,
+        "walkToStationMin": 15.79
+      },
+      "dataQuality": "ok"
+    },
+    "1150052000": {
+      "safety": 77.6,
+      "convenience": 68.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 28.85,
+        "foodPerKm2": 18.22,
+        "medicalPerKm2": 4.56,
+        "walkToStationMin": 5.05
+      },
+      "dataQuality": "ok"
+    },
+    "1150053000": {
+      "safety": 77.6,
+      "convenience": 20.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 8.94,
+        "foodPerKm2": 0,
+        "medicalPerKm2": 1.12,
+        "walkToStationMin": 16.26
+      },
+      "dataQuality": "ok"
+    },
+    "1150053500": {
+      "safety": 77.6,
+      "convenience": 30.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 18.24,
+        "foodPerKm2": 5.76,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 14.95
+      },
+      "dataQuality": "ok"
+    },
+    "1150054000": {
+      "safety": 36.6,
+      "convenience": 66.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.68,
+        "crimePer1k": null,
+        "storePerKm2": 39.44,
+        "foodPerKm2": 31.05,
+        "medicalPerKm2": 6.71,
+        "walkToStationMin": 10.54
+      },
+      "dataQuality": "ok"
+    },
+    "1150055000": {
+      "safety": 77.6,
+      "convenience": 30,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 19.71,
+        "foodPerKm2": 0,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 13.48
+      },
+      "dataQuality": "ok"
+    },
+    "1150056000": {
+      "safety": 77.6,
+      "convenience": 39.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 19.15,
+        "foodPerKm2": 11.49,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 10.36
+      },
+      "dataQuality": "ok"
+    },
+    "1150057000": {
+      "safety": 77.6,
+      "convenience": 32.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 16.37,
+        "foodPerKm2": 8.18,
+        "medicalPerKm2": 2.34,
+        "walkToStationMin": 22.33
+      },
+      "dataQuality": "ok"
+    },
+    "1150059000": {
+      "safety": 77.6,
+      "convenience": 37.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 29.55,
+        "foodPerKm2": 2.04,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 13.68
+      },
+      "dataQuality": "ok"
+    },
+    "1150059100": {
+      "safety": 77.6,
+      "convenience": 25.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 17.89,
+        "foodPerKm2": 5.65,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 21.19
+      },
+      "dataQuality": "ok"
+    },
+    "1150059300": {
+      "safety": 35.4,
+      "convenience": 66.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.74,
+        "crimePer1k": null,
+        "storePerKm2": 19.13,
+        "foodPerKm2": 24.34,
+        "medicalPerKm2": 13.91,
+        "walkToStationMin": 6.8
+      },
+      "dataQuality": "ok"
+    },
+    "1150060300": {
+      "safety": 46,
+      "convenience": 22.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.02,
+        "crimePer1k": null,
+        "storePerKm2": 8.81,
+        "foodPerKm2": 8.4,
+        "medicalPerKm2": 0.61,
+        "walkToStationMin": 16.44
+      },
+      "dataQuality": "ok"
+    },
+    "1150060400": {
+      "safety": 77.6,
+      "convenience": 33.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 12.87,
+        "foodPerKm2": 0,
+        "medicalPerKm2": 2.86,
+        "walkToStationMin": 11.74
+      },
+      "dataQuality": "ok"
+    },
+    "1150060500": {
+      "safety": 77.6,
+      "convenience": 37.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 6.65,
+        "foodPerKm2": 9.98,
+        "medicalPerKm2": 3.33,
+        "walkToStationMin": 8.72
+      },
+      "dataQuality": "ok"
+    },
+    "1150061100": {
+      "safety": 77.6,
+      "convenience": 29.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 12.85,
+        "foodPerKm2": 14.2,
+        "medicalPerKm2": 0.68,
+        "walkToStationMin": 15.87
+      },
+      "dataQuality": "ok"
+    },
+    "1150061500": {
+      "safety": 77.6,
+      "convenience": 44.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 16.88,
+        "foodPerKm2": 8.04,
+        "medicalPerKm2": 1.61,
+        "walkToStationMin": 8.25
+      },
+      "dataQuality": "ok"
+    },
+    "1150062000": {
+      "safety": 54.9,
+      "convenience": 10,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.09,
+        "crimePer1k": null,
+        "storePerKm2": 2.47,
+        "foodPerKm2": 2.38,
+        "medicalPerKm2": 0.18,
+        "walkToStationMin": 21.66
+      },
+      "dataQuality": "ok"
+    },
+    "1150063000": {
+      "safety": 49.9,
+      "convenience": 56.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.68,
+        "crimePer1k": null,
+        "storePerKm2": 12.84,
+        "foodPerKm2": 20.28,
+        "medicalPerKm2": 4.06,
+        "walkToStationMin": 2.71
+      },
+      "dataQuality": "ok"
+    },
+    "1150064000": {
+      "safety": 77.6,
+      "convenience": 10.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 3.07,
+        "foodPerKm2": 5.5,
+        "medicalPerKm2": 0.16,
+        "walkToStationMin": 32.91
+      },
+      "dataQuality": "ok"
+    },
+    "1150064100": {
+      "safety": 77.6,
+      "convenience": 7.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 3.53,
+        "foodPerKm2": 0.78,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 22.02
+      },
+      "dataQuality": "ok"
+    },
+    "1153051000": {
+      "safety": 77.6,
+      "convenience": 37.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 14.54,
+        "foodPerKm2": 12.36,
+        "medicalPerKm2": 0.73,
+        "walkToStationMin": 10.49
+      },
+      "dataQuality": "ok"
+    },
+    "1153052000": {
+      "safety": 47.7,
+      "convenience": 37.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.92,
+        "crimePer1k": null,
+        "storePerKm2": 8.31,
+        "foodPerKm2": 3.7,
+        "medicalPerKm2": 9.24,
+        "walkToStationMin": 11.05
+      },
+      "dataQuality": "ok"
+    },
+    "1153053000": {
+      "safety": 77.6,
+      "convenience": 22.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 10.51,
+        "foodPerKm2": 4.98,
+        "medicalPerKm2": 1.11,
+        "walkToStationMin": 19.11
+      },
+      "dataQuality": "ok"
+    },
+    "1153054000": {
+      "safety": 47.1,
+      "convenience": 69.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.96,
+        "crimePer1k": null,
+        "storePerKm2": 44.13,
+        "foodPerKm2": 47.01,
+        "medicalPerKm2": 5.76,
+        "walkToStationMin": 10.3
+      },
+      "dataQuality": "ok"
+    },
+    "1153055000": {
+      "safety": 77.6,
+      "convenience": 63.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 21.31,
+        "foodPerKm2": 9.69,
+        "medicalPerKm2": 5.81,
+        "walkToStationMin": 5.16
+      },
+      "dataQuality": "ok"
+    },
+    "1153056000": {
+      "safety": 77.6,
+      "convenience": 39.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 15.65,
+        "foodPerKm2": 5.87,
+        "medicalPerKm2": 1.96,
+        "walkToStationMin": 10.79
+      },
+      "dataQuality": "ok"
+    },
+    "1153059500": {
+      "safety": 20,
+      "convenience": 49.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 4.9,
+        "crimePer1k": null,
+        "storePerKm2": 17.16,
+        "foodPerKm2": 2.45,
+        "medicalPerKm2": 4.9,
+        "walkToStationMin": 7.75
+      },
+      "dataQuality": "ok"
+    },
+    "1153072000": {
+      "safety": 48.4,
+      "convenience": 32.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.88,
+        "crimePer1k": null,
+        "storePerKm2": 14.13,
+        "foodPerKm2": 12.37,
+        "medicalPerKm2": 0.88,
+        "walkToStationMin": 14.92
+      },
+      "dataQuality": "ok"
+    },
+    "1153073000": {
+      "safety": 77.6,
+      "convenience": 21.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 16.06,
+        "foodPerKm2": 3.01,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 26.06
+      },
+      "dataQuality": "ok"
+    },
+    "1153074000": {
+      "safety": 77.6,
+      "convenience": 29.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 15.98,
+        "foodPerKm2": 4.44,
+        "medicalPerKm2": 0.89,
+        "walkToStationMin": 17.71
+      },
+      "dataQuality": "ok"
+    },
+    "1153075000": {
+      "safety": 77.6,
+      "convenience": 53.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 19.63,
+        "foodPerKm2": 4.91,
+        "medicalPerKm2": 4.91,
+        "walkToStationMin": 7.79
+      },
+      "dataQuality": "ok"
+    },
+    "1153076000": {
+      "safety": 77.6,
+      "convenience": 22.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 11.79,
+        "foodPerKm2": 7.08,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 15.65
+      },
+      "dataQuality": "ok"
+    },
+    "1153077000": {
+      "safety": 41.8,
+      "convenience": 58.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.34,
+        "crimePer1k": null,
+        "storePerKm2": 25.45,
+        "foodPerKm2": 13.39,
+        "medicalPerKm2": 2.68,
+        "walkToStationMin": 7.53
+      },
+      "dataQuality": "ok"
+    },
+    "1153078000": {
+      "safety": 53.5,
+      "convenience": 36.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.33,
+        "crimePer1k": null,
+        "storePerKm2": 6.83,
+        "foodPerKm2": 2.93,
+        "medicalPerKm2": 0.33,
+        "walkToStationMin": 2.63
+      },
+      "dataQuality": "ok"
+    },
+    "1153079000": {
+      "safety": 77.6,
+      "convenience": 16.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 6.03,
+        "foodPerKm2": 0.38,
+        "medicalPerKm2": 0.38,
+        "walkToStationMin": 14.95
+      },
+      "dataQuality": "ok"
+    },
+    "1153080000": {
+      "safety": 77.6,
+      "convenience": 20.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 8.37,
+        "foodPerKm2": 5.58,
+        "medicalPerKm2": 1.4,
+        "walkToStationMin": 23.86
+      },
+      "dataQuality": "ok"
+    },
+    "1154551000": {
+      "safety": 34.4,
+      "convenience": 50.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.78,
+        "crimePer1k": null,
+        "storePerKm2": 40.58,
+        "foodPerKm2": 14.27,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 10.07
+      },
+      "dataQuality": "ok"
+    },
+    "1154561000": {
+      "safety": 77.6,
+      "convenience": 48.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 20.38,
+        "foodPerKm2": 7.64,
+        "medicalPerKm2": 1.02,
+        "walkToStationMin": 7.63
+      },
+      "dataQuality": "ok"
+    },
+    "1154562000": {
+      "safety": 77.6,
+      "convenience": 34.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 24.36,
+        "foodPerKm2": 16.24,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 23.49
+      },
+      "dataQuality": "ok"
+    },
+    "1154563000": {
+      "safety": 77.6,
+      "convenience": 39.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 19.04,
+        "foodPerKm2": 21.16,
+        "medicalPerKm2": 2.12,
+        "walkToStationMin": 20.59
+      },
+      "dataQuality": "ok"
+    },
+    "1154564000": {
+      "safety": 77.6,
+      "convenience": 26.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 17.77,
+        "foodPerKm2": 9.69,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 25.79
+      },
+      "dataQuality": "ok"
+    },
+    "1154567000": {
+      "safety": 49.9,
+      "convenience": 49.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.68,
+        "crimePer1k": null,
+        "storePerKm2": 17.62,
+        "foodPerKm2": 36.59,
+        "medicalPerKm2": 4.07,
+        "walkToStationMin": 12.65
+      },
+      "dataQuality": "ok"
+    },
+    "1154568000": {
+      "safety": 77.6,
+      "convenience": 3.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 2.54,
+        "foodPerKm2": 0,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 44.46
+      },
+      "dataQuality": "ok"
+    },
+    "1154569000": {
+      "safety": 77.6,
+      "convenience": 23.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 5.99,
+        "foodPerKm2": 6.74,
+        "medicalPerKm2": 0.75,
+        "walkToStationMin": 12.48
+      },
+      "dataQuality": "ok"
+    },
+    "1154570000": {
+      "safety": 77.6,
+      "convenience": 16.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 9.08,
+        "foodPerKm2": 10.38,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 27.76
+      },
+      "dataQuality": "ok"
+    },
+    "1154571000": {
+      "safety": 77.6,
+      "convenience": 14.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 9.12,
+        "foodPerKm2": 5.61,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 29.66
+      },
+      "dataQuality": "ok"
+    },
+    "1156051500": {
+      "safety": 43.4,
+      "convenience": 51.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.24,
+        "crimePer1k": null,
+        "storePerKm2": 12.38,
+        "foodPerKm2": 110.2,
+        "medicalPerKm2": 2.48,
+        "walkToStationMin": 10.37
+      },
+      "dataQuality": "ok"
+    },
+    "1156053500": {
+      "safety": 18.2,
+      "convenience": 84.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 5.65,
+        "crimePer1k": null,
+        "storePerKm2": 26.86,
+        "foodPerKm2": 229.01,
+        "medicalPerKm2": 9.19,
+        "walkToStationMin": 6.11
+      },
+      "dataQuality": "ok"
+    },
+    "1156054000": {
+      "safety": 39.9,
+      "convenience": 43.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.46,
+        "crimePer1k": null,
+        "storePerKm2": 6.34,
+        "foodPerKm2": 59.25,
+        "medicalPerKm2": 1.22,
+        "walkToStationMin": 7.6
+      },
+      "dataQuality": "ok"
+    },
+    "1156055000": {
+      "safety": 28.2,
+      "convenience": 87.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.69,
+        "crimePer1k": null,
+        "storePerKm2": 37.69,
+        "foodPerKm2": 238.22,
+        "medicalPerKm2": 4.04,
+        "walkToStationMin": 1.66
+      },
+      "dataQuality": "ok"
+    },
+    "1156056000": {
+      "safety": 77.6,
+      "convenience": 73.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 20.2,
+        "foodPerKm2": 100.38,
+        "medicalPerKm2": 3.06,
+        "walkToStationMin": 1.19
+      },
+      "dataQuality": "ok"
+    },
+    "1156058500": {
+      "safety": 18.8,
+      "convenience": 43.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 5.46,
+        "crimePer1k": null,
+        "storePerKm2": 18.2,
+        "foodPerKm2": 65.53,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 12.74
+      },
+      "dataQuality": "ok"
+    },
+    "1156060500": {
+      "safety": 27.5,
+      "convenience": 58.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.87,
+        "crimePer1k": null,
+        "storePerKm2": 16.65,
+        "foodPerKm2": 56.27,
+        "medicalPerKm2": 2.3,
+        "walkToStationMin": 7.25
+      },
+      "dataQuality": "ok"
+    },
+    "1156061000": {
+      "safety": 44.7,
+      "convenience": 68.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.16,
+        "crimePer1k": null,
+        "storePerKm2": 23.15,
+        "foodPerKm2": 75.22,
+        "medicalPerKm2": 1.16,
+        "walkToStationMin": 3.3
+      },
+      "dataQuality": "ok"
+    },
+    "1156062000": {
+      "safety": 45.7,
+      "convenience": 31.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.04,
+        "crimePer1k": null,
+        "storePerKm2": 7.26,
+        "foodPerKm2": 41.5,
+        "medicalPerKm2": 0.69,
+        "walkToStationMin": 13.2
+      },
+      "dataQuality": "ok"
+    },
+    "1156063000": {
+      "safety": 77.6,
+      "convenience": 51.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 17.26,
+        "foodPerKm2": 88.76,
+        "medicalPerKm2": 1.23,
+        "walkToStationMin": 10.8
+      },
+      "dataQuality": "ok"
+    },
+    "1156065000": {
+      "safety": 77.6,
+      "convenience": 57,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 27.08,
+        "foodPerKm2": 81.23,
+        "medicalPerKm2": 2.08,
+        "walkToStationMin": 14.49
+      },
+      "dataQuality": "ok"
+    },
+    "1156066000": {
+      "safety": 77.6,
+      "convenience": 38.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 13.88,
+        "foodPerKm2": 128.43,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 16.77
+      },
+      "dataQuality": "ok"
+    },
+    "1156067000": {
+      "safety": 77.6,
+      "convenience": 38,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 9.43,
+        "foodPerKm2": 16.97,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 6.18
+      },
+      "dataQuality": "ok"
+    },
+    "1156068000": {
+      "safety": 26.8,
+      "convenience": 43.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.94,
+        "crimePer1k": null,
+        "storePerKm2": 19.14,
+        "foodPerKm2": 19.14,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 8.62
+      },
+      "dataQuality": "ok"
+    },
+    "1156069000": {
+      "safety": 77.6,
+      "convenience": 34.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 9.13,
+        "foodPerKm2": 20.08,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 7.93
+      },
+      "dataQuality": "ok"
+    },
+    "1156070000": {
+      "safety": 77.6,
+      "convenience": 40.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 12.46,
+        "foodPerKm2": 24.93,
+        "medicalPerKm2": 4.15,
+        "walkToStationMin": 14.8
+      },
+      "dataQuality": "ok"
+    },
+    "1156071000": {
+      "safety": 25.8,
+      "convenience": 55.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 3.46,
+        "crimePer1k": null,
+        "storePerKm2": 19.01,
+        "foodPerKm2": 13.83,
+        "medicalPerKm2": 6.91,
+        "walkToStationMin": 9.12
+      },
+      "dataQuality": "ok"
+    },
+    "1156072000": {
+      "safety": 77.6,
+      "convenience": 53.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 23.48,
+        "foodPerKm2": 23.48,
+        "medicalPerKm2": 7.47,
+        "walkToStationMin": 15.44
+      },
+      "dataQuality": "ok"
+    },
+    "1159051000": {
+      "safety": 43.8,
+      "convenience": 65.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.23,
+        "crimePer1k": null,
+        "storePerKm2": 15.37,
+        "foodPerKm2": 106.36,
+        "medicalPerKm2": 6.76,
+        "walkToStationMin": 7.46
+      },
+      "dataQuality": "ok"
+    },
+    "1159052000": {
+      "safety": 38.7,
+      "convenience": 61.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.54,
+        "crimePer1k": null,
+        "storePerKm2": 18.5,
+        "foodPerKm2": 177.33,
+        "medicalPerKm2": 1.54,
+        "walkToStationMin": 9.17
+      },
+      "dataQuality": "ok"
+    },
+    "1159053000": {
+      "safety": 41.2,
+      "convenience": 62.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.4,
+        "crimePer1k": null,
+        "storePerKm2": 15.38,
+        "foodPerKm2": 90.9,
+        "medicalPerKm2": 1.4,
+        "walkToStationMin": 3.52
+      },
+      "dataQuality": "ok"
+    },
+    "1159054000": {
+      "safety": 42.4,
+      "convenience": 67.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.29,
+        "crimePer1k": null,
+        "storePerKm2": 20.61,
+        "foodPerKm2": 86.3,
+        "medicalPerKm2": 3.86,
+        "walkToStationMin": 7.08
+      },
+      "dataQuality": "ok"
+    },
+    "1159055000": {
+      "safety": 39.4,
+      "convenience": 69,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.49,
+        "crimePer1k": null,
+        "storePerKm2": 25.27,
+        "foodPerKm2": 135.28,
+        "medicalPerKm2": 7.43,
+        "walkToStationMin": 11.56
+      },
+      "dataQuality": "ok"
+    },
+    "1159056000": {
+      "safety": 31.7,
+      "convenience": 46.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.07,
+        "crimePer1k": null,
+        "storePerKm2": 12.4,
+        "foodPerKm2": 81.63,
+        "medicalPerKm2": 6.2,
+        "walkToStationMin": 17.32
+      },
+      "dataQuality": "ok"
+    },
+    "1159060500": {
+      "safety": 50.9,
+      "convenience": 48.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.58,
+        "crimePer1k": null,
+        "storePerKm2": 7.54,
+        "foodPerKm2": 77.15,
+        "medicalPerKm2": 1.16,
+        "walkToStationMin": 6.55
+      },
+      "dataQuality": "ok"
+    },
+    "1159062000": {
+      "safety": 16,
+      "convenience": 69.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 6.33,
+        "crimePer1k": null,
+        "storePerKm2": 30.05,
+        "foodPerKm2": 88.57,
+        "medicalPerKm2": 3.16,
+        "walkToStationMin": 8.08
+      },
+      "dataQuality": "ok"
+    },
+    "1159063000": {
+      "safety": 52.8,
+      "convenience": 33.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.36,
+        "crimePer1k": null,
+        "storePerKm2": 5.47,
+        "foodPerKm2": 51.02,
+        "medicalPerKm2": 0.73,
+        "walkToStationMin": 11.44
+      },
+      "dataQuality": "ok"
+    },
+    "1159064000": {
+      "safety": 77.6,
+      "convenience": 38.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 11.19,
+        "foodPerKm2": 20.14,
+        "medicalPerKm2": 1.12,
+        "walkToStationMin": 9.27
+      },
+      "dataQuality": "ok"
+    },
+    "1159065000": {
+      "safety": 77.6,
+      "convenience": 36.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 9.37,
+        "foodPerKm2": 7.03,
+        "medicalPerKm2": 2.34,
+        "walkToStationMin": 9.51
+      },
+      "dataQuality": "ok"
+    },
+    "1159065100": {
+      "safety": 77.6,
+      "convenience": 27.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 10.59,
+        "foodPerKm2": 9.07,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 10.83
+      },
+      "dataQuality": "ok"
+    },
+    "1159066000": {
+      "safety": 50.5,
+      "convenience": 48.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.63,
+        "crimePer1k": null,
+        "storePerKm2": 14.5,
+        "foodPerKm2": 47.27,
+        "medicalPerKm2": 2.52,
+        "walkToStationMin": 10.66
+      },
+      "dataQuality": "ok"
+    },
+    "1159067000": {
+      "safety": 39.9,
+      "convenience": 50.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.46,
+        "crimePer1k": null,
+        "storePerKm2": 20.48,
+        "foodPerKm2": 16.09,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 5.67
+      },
+      "dataQuality": "ok"
+    },
+    "1159068000": {
+      "safety": 27,
+      "convenience": 63.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.91,
+        "crimePer1k": null,
+        "storePerKm2": 15.5,
+        "foodPerKm2": 45.52,
+        "medicalPerKm2": 4.84,
+        "walkToStationMin": 5.38
+      },
+      "dataQuality": "ok"
+    },
+    "1162052500": {
+      "safety": 77.6,
+      "convenience": 50.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 19.7,
+        "foodPerKm2": 19.7,
+        "medicalPerKm2": 1.31,
+        "walkToStationMin": 8.31
+      },
+      "dataQuality": "ok"
+    },
+    "1162054500": {
+      "safety": 77.6,
+      "convenience": 36.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 12.65,
+        "foodPerKm2": 101.17,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 16.15
+      },
+      "dataQuality": "ok"
+    },
+    "1162056500": {
+      "safety": 77.6,
+      "convenience": 32.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 14.58,
+        "foodPerKm2": 27.7,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 14.95
+      },
+      "dataQuality": "ok"
+    },
+    "1162057500": {
+      "safety": 77.6,
+      "convenience": 62.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 31.8,
+        "foodPerKm2": 26.27,
+        "medicalPerKm2": 5.53,
+        "walkToStationMin": 10.79
+      },
+      "dataQuality": "ok"
+    },
+    "1162058500": {
+      "safety": 35.9,
+      "convenience": 23.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.71,
+        "crimePer1k": null,
+        "storePerKm2": 6.84,
+        "foodPerKm2": 16.24,
+        "medicalPerKm2": 2.14,
+        "walkToStationMin": 28.67
+      },
+      "dataQuality": "ok"
+    },
+    "1162059500": {
+      "safety": 77.6,
+      "convenience": 63,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 30.4,
+        "foodPerKm2": 54.23,
+        "medicalPerKm2": 4.11,
+        "walkToStationMin": 11.64
+      },
+      "dataQuality": "ok"
+    },
+    "1162060500": {
+      "safety": 77.6,
+      "convenience": 46,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 20.43,
+        "foodPerKm2": 24.52,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 8.72
+      },
+      "dataQuality": "ok"
+    },
+    "1162061500": {
+      "safety": 28.8,
+      "convenience": 79.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.63,
+        "crimePer1k": null,
+        "storePerKm2": 39.5,
+        "foodPerKm2": 52.67,
+        "medicalPerKm2": 15.8,
+        "walkToStationMin": 7.01
+      },
+      "dataQuality": "ok"
+    },
+    "1162062500": {
+      "safety": 77.6,
+      "convenience": 50.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 25.51,
+        "foodPerKm2": 24.09,
+        "medicalPerKm2": 1.42,
+        "walkToStationMin": 12.28
+      },
+      "dataQuality": "ok"
+    },
+    "1162063000": {
+      "safety": 51.9,
+      "convenience": 12,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.47,
+        "crimePer1k": null,
+        "storePerKm2": 4.25,
+        "foodPerKm2": 3.78,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 16.85
+      },
+      "dataQuality": "ok"
+    },
+    "1162064500": {
+      "safety": 21,
+      "convenience": 69.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 4.76,
+        "crimePer1k": null,
+        "storePerKm2": 25.37,
+        "foodPerKm2": 45.99,
+        "medicalPerKm2": 4.76,
+        "walkToStationMin": 6.94
+      },
+      "dataQuality": "ok"
+    },
+    "1162065500": {
+      "safety": 25.2,
+      "convenience": 64.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 3.47,
+        "crimePer1k": null,
+        "storePerKm2": 26.03,
+        "foodPerKm2": 41.65,
+        "medicalPerKm2": 10.41,
+        "walkToStationMin": 11.3
+      },
+      "dataQuality": "ok"
+    },
+    "1162066500": {
+      "safety": 77.6,
+      "convenience": 61.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 27.56,
+        "foodPerKm2": 39.36,
+        "medicalPerKm2": 3.94,
+        "walkToStationMin": 10.36
+      },
+      "dataQuality": "ok"
+    },
+    "1162068500": {
+      "safety": 12.9,
+      "convenience": 55.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 8.26,
+        "crimePer1k": null,
+        "storePerKm2": 34.69,
+        "foodPerKm2": 46.25,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 9.56
+      },
+      "dataQuality": "ok"
+    },
+    "1162069500": {
+      "safety": 77.6,
+      "convenience": 77.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 25.63,
+        "foodPerKm2": 74.91,
+        "medicalPerKm2": 9.86,
+        "walkToStationMin": 5.97
+      },
+      "dataQuality": "ok"
+    },
+    "1162071500": {
+      "safety": 77.6,
+      "convenience": 19.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 6.25,
+        "foodPerKm2": 6.25,
+        "medicalPerKm2": 2.5,
+        "walkToStationMin": 34.59
+      },
+      "dataQuality": "ok"
+    },
+    "1162072500": {
+      "safety": 11.3,
+      "convenience": 64.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 10.81,
+        "crimePer1k": null,
+        "storePerKm2": 27.79,
+        "foodPerKm2": 54.03,
+        "medicalPerKm2": 6.17,
+        "walkToStationMin": 11.23
+      },
+      "dataQuality": "ok"
+    },
+    "1162073500": {
+      "safety": 54.7,
+      "convenience": 12.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.24,
+        "crimePer1k": null,
+        "storePerKm2": 3.89,
+        "foodPerKm2": 9.19,
+        "medicalPerKm2": 0.24,
+        "walkToStationMin": 40.82
+      },
+      "dataQuality": "ok"
+    },
+    "1162074500": {
+      "safety": 77.6,
+      "convenience": 5.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 2.71,
+        "foodPerKm2": 0.77,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 28.99
+      },
+      "dataQuality": "ok"
+    },
+    "1162076500": {
+      "safety": 77.6,
+      "convenience": 32.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 17.16,
+        "foodPerKm2": 17.91,
+        "medicalPerKm2": 0.75,
+        "walkToStationMin": 21.53
+      },
+      "dataQuality": "ok"
+    },
+    "1162077500": {
+      "safety": 77.6,
+      "convenience": 24.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 15.78,
+        "foodPerKm2": 8.87,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 22.08
+      },
+      "dataQuality": "ok"
+    },
+    "1165051000": {
+      "safety": 39.9,
+      "convenience": 62.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.46,
+        "crimePer1k": null,
+        "storePerKm2": 26.99,
+        "foodPerKm2": 50.34,
+        "medicalPerKm2": 1.46,
+        "walkToStationMin": 7.67
+      },
+      "dataQuality": "ok"
+    },
+    "1165052000": {
+      "safety": 23.2,
+      "convenience": 55.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 4.05,
+        "crimePer1k": null,
+        "storePerKm2": 22.69,
+        "foodPerKm2": 161.26,
+        "medicalPerKm2": 0.81,
+        "walkToStationMin": 14.67
+      },
+      "dataQuality": "ok"
+    },
+    "1165053000": {
+      "safety": 30,
+      "convenience": 46.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.33,
+        "crimePer1k": null,
+        "storePerKm2": 15.95,
+        "foodPerKm2": 69.14,
+        "medicalPerKm2": 1.33,
+        "walkToStationMin": 13.14
+      },
+      "dataQuality": "ok"
+    },
+    "1165053100": {
+      "safety": 7,
+      "convenience": 76.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 18.27,
+        "crimePer1k": null,
+        "storePerKm2": 38.83,
+        "foodPerKm2": 129.04,
+        "medicalPerKm2": 7.99,
+        "walkToStationMin": 10.07
+      },
+      "dataQuality": "ok"
+    },
+    "1165054000": {
+      "safety": 37.8,
+      "convenience": 46.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.63,
+        "crimePer1k": null,
+        "storePerKm2": 14.16,
+        "foodPerKm2": 55.54,
+        "medicalPerKm2": 2.18,
+        "walkToStationMin": 12.25
+      },
+      "dataQuality": "ok"
+    },
+    "1165055000": {
+      "safety": 77.6,
+      "convenience": 31.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 1.91,
+        "foodPerKm2": 9.56,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 4.06
+      },
+      "dataQuality": "ok"
+    },
+    "1165056000": {
+      "safety": 17.1,
+      "convenience": 75,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 5.95,
+        "crimePer1k": null,
+        "storePerKm2": 30.72,
+        "foodPerKm2": 78.3,
+        "medicalPerKm2": 1.98,
+        "walkToStationMin": 2.88
+      },
+      "dataQuality": "ok"
+    },
+    "1165057000": {
+      "safety": 48.8,
+      "convenience": 37.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.84,
+        "crimePer1k": null,
+        "storePerKm2": 7.58,
+        "foodPerKm2": 12.63,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 4.51
+      },
+      "dataQuality": "ok"
+    },
+    "1165058000": {
+      "safety": 49.1,
+      "convenience": 24.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.76,
+        "crimePer1k": null,
+        "storePerKm2": 6.12,
+        "foodPerKm2": 29.05,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 14.33
+      },
+      "dataQuality": "ok"
+    },
+    "1165058100": {
+      "safety": 8.9,
+      "convenience": 66.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 15.1,
+        "crimePer1k": null,
+        "storePerKm2": 24.7,
+        "foodPerKm2": 150.27,
+        "medicalPerKm2": 6.86,
+        "walkToStationMin": 13.92
+      },
+      "dataQuality": "ok"
+    },
+    "1165059000": {
+      "safety": 39,
+      "convenience": 64.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.52,
+        "crimePer1k": null,
+        "storePerKm2": 28.82,
+        "foodPerKm2": 103.16,
+        "medicalPerKm2": 4.55,
+        "walkToStationMin": 13.66
+      },
+      "dataQuality": "ok"
+    },
+    "1165060000": {
+      "safety": 40.6,
+      "convenience": 64.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.43,
+        "crimePer1k": null,
+        "storePerKm2": 25.81,
+        "foodPerKm2": 67.38,
+        "medicalPerKm2": 1.43,
+        "walkToStationMin": 7.49
+      },
+      "dataQuality": "ok"
+    },
+    "1165061000": {
+      "safety": 51.4,
+      "convenience": 37.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.52,
+        "crimePer1k": null,
+        "storePerKm2": 11.38,
+        "foodPerKm2": 37.77,
+        "medicalPerKm2": 0.52,
+        "walkToStationMin": 10.89
+      },
+      "dataQuality": "ok"
+    },
+    "1165062000": {
+      "safety": 52.5,
+      "convenience": 21.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.41,
+        "crimePer1k": null,
+        "storePerKm2": 4.56,
+        "foodPerKm2": 9.13,
+        "medicalPerKm2": 0.83,
+        "walkToStationMin": 14.67
+      },
+      "dataQuality": "ok"
+    },
+    "1165062100": {
+      "safety": 31.2,
+      "convenience": 57.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.13,
+        "crimePer1k": null,
+        "storePerKm2": 13.82,
+        "foodPerKm2": 71.22,
+        "medicalPerKm2": 2.13,
+        "walkToStationMin": 6.44
+      },
+      "dataQuality": "ok"
+    },
+    "1165065100": {
+      "safety": 30.5,
+      "convenience": 19.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.27,
+        "crimePer1k": null,
+        "storePerKm2": 5.75,
+        "foodPerKm2": 28.25,
+        "medicalPerKm2": 0.52,
+        "walkToStationMin": 34.75
+      },
+      "dataQuality": "ok"
+    },
+    "1165065200": {
+      "safety": 54.5,
+      "convenience": 22.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.27,
+        "crimePer1k": null,
+        "storePerKm2": 5.25,
+        "foodPerKm2": 21.81,
+        "medicalPerKm2": 0.13,
+        "walkToStationMin": 15.67
+      },
+      "dataQuality": "ok"
+    },
+    "1165066000": {
+      "safety": 77.6,
+      "convenience": 6.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 0.84,
+        "foodPerKm2": 0.91,
+        "medicalPerKm2": 0.08,
+        "walkToStationMin": 33.43
+      },
+      "dataQuality": "ok"
+    },
+    "1168051000": {
+      "safety": 11.5,
+      "convenience": 72.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 10.34,
+        "crimePer1k": null,
+        "storePerKm2": 20.68,
+        "foodPerKm2": 351.05,
+        "medicalPerKm2": 14.94,
+        "walkToStationMin": 11.93
+      },
+      "dataQuality": "ok"
+    },
+    "1168052100": {
+      "safety": 20.7,
+      "convenience": 85.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 4.82,
+        "crimePer1k": null,
+        "storePerKm2": 38.55,
+        "foodPerKm2": 450.53,
+        "medicalPerKm2": 10.44,
+        "walkToStationMin": 8.43
+      },
+      "dataQuality": "ok"
+    },
+    "1168053100": {
+      "safety": 25.2,
+      "convenience": 76.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 3.47,
+        "crimePer1k": null,
+        "storePerKm2": 33.34,
+        "foodPerKm2": 329.28,
+        "medicalPerKm2": 3.47,
+        "walkToStationMin": 9.27
+      },
+      "dataQuality": "ok"
+    },
+    "1168054500": {
+      "safety": 10.1,
+      "convenience": 68.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 14.12,
+        "crimePer1k": null,
+        "storePerKm2": 17.98,
+        "foodPerKm2": 243.55,
+        "medicalPerKm2": 11.98,
+        "walkToStationMin": 11.58
+      },
+      "dataQuality": "ok"
+    },
+    "1168056500": {
+      "safety": 19.5,
+      "convenience": 66.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 5.05,
+        "crimePer1k": null,
+        "storePerKm2": 20.22,
+        "foodPerKm2": 216.1,
+        "medicalPerKm2": 7.58,
+        "walkToStationMin": 12.77
+      },
+      "dataQuality": "ok"
+    },
+    "1168058000": {
+      "safety": 45.7,
+      "convenience": 64.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.04,
+        "crimePer1k": null,
+        "storePerKm2": 20.27,
+        "foodPerKm2": 116.45,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 1.1
+      },
+      "dataQuality": "ok"
+    },
+    "1168059000": {
+      "safety": 29.6,
+      "convenience": 66.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.39,
+        "crimePer1k": null,
+        "storePerKm2": 23.06,
+        "foodPerKm2": 151.88,
+        "medicalPerKm2": 2.39,
+        "walkToStationMin": 8.64
+      },
+      "dataQuality": "ok"
+    },
+    "1168060000": {
+      "safety": 77.6,
+      "convenience": 53.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 22.3,
+        "foodPerKm2": 49.55,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 7.5
+      },
+      "dataQuality": "ok"
+    },
+    "1168061000": {
+      "safety": 51.6,
+      "convenience": 40.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.49,
+        "crimePer1k": null,
+        "storePerKm2": 16.03,
+        "foodPerKm2": 28.17,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 10.26
+      },
+      "dataQuality": "ok"
+    },
+    "1168063000": {
+      "safety": 40.8,
+      "convenience": 72.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.42,
+        "crimePer1k": null,
+        "storePerKm2": 64.05,
+        "foodPerKm2": 115.29,
+        "medicalPerKm2": 5.69,
+        "walkToStationMin": 12.15
+      },
+      "dataQuality": "ok"
+    },
+    "1168064000": {
+      "safety": 17.4,
+      "convenience": 83.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 5.92,
+        "crimePer1k": null,
+        "storePerKm2": 43.13,
+        "foodPerKm2": 450.72,
+        "medicalPerKm2": 7.61,
+        "walkToStationMin": 9.25
+      },
+      "dataQuality": "ok"
+    },
+    "1168065000": {
+      "safety": 77.6,
+      "convenience": 60,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 32.07,
+        "foodPerKm2": 71.27,
+        "medicalPerKm2": 2.67,
+        "walkToStationMin": 14.46
+      },
+      "dataQuality": "ok"
+    },
+    "1168065500": {
+      "safety": 77.6,
+      "convenience": 47.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 12.88,
+        "foodPerKm2": 50.52,
+        "medicalPerKm2": 2.97,
+        "walkToStationMin": 11.07
+      },
+      "dataQuality": "ok"
+    },
+    "1168065600": {
+      "safety": 77.6,
+      "convenience": 46.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 13.58,
+        "foodPerKm2": 31.05,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 5.5
+      },
+      "dataQuality": "ok"
+    },
+    "1168066000": {
+      "safety": 77.6,
+      "convenience": 5.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 2.3,
+        "foodPerKm2": 0.57,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 24.84
+      },
+      "dataQuality": "ok"
+    },
+    "1168067000": {
+      "safety": 77.6,
+      "convenience": 44.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 7.57,
+        "foodPerKm2": 17.66,
+        "medicalPerKm2": 3.78,
+        "walkToStationMin": 7.11
+      },
+      "dataQuality": "ok"
+    },
+    "1168067500": {
+      "safety": 77.6,
+      "convenience": 33,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 7.74,
+        "foodPerKm2": 16.45,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 7.54
+      },
+      "dataQuality": "ok"
+    },
+    "1168069000": {
+      "safety": 77.6,
+      "convenience": 32.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 10.74,
+        "foodPerKm2": 30.97,
+        "medicalPerKm2": 3.16,
+        "walkToStationMin": 26.79
+      },
+      "dataQuality": "ok"
+    },
+    "1168070000": {
+      "safety": 77.6,
+      "convenience": 11.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 5.59,
+        "foodPerKm2": 3.05,
+        "medicalPerKm2": 0.34,
+        "walkToStationMin": 34.67
+      },
+      "dataQuality": "ok"
+    },
+    "1168072000": {
+      "safety": 77.6,
+      "convenience": 42.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 5.78,
+        "foodPerKm2": 8.25,
+        "medicalPerKm2": 2.06,
+        "walkToStationMin": 3.05
+      },
+      "dataQuality": "ok"
+    },
+    "1168073000": {
+      "safety": 77.6,
+      "convenience": 47,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 14.81,
+        "foodPerKm2": 27.5,
+        "medicalPerKm2": 8.46,
+        "walkToStationMin": 15.31
+      },
+      "dataQuality": "ok"
+    },
+    "1168075000": {
+      "safety": 77.6,
+      "convenience": 50.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 6.78,
+        "foodPerKm2": 42.52,
+        "medicalPerKm2": 2.46,
+        "walkToStationMin": 4.6
+      },
+      "dataQuality": "ok"
+    },
+    "1171051000": {
+      "safety": 77.6,
+      "convenience": 20.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 5.68,
+        "foodPerKm2": 21.76,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 15.2
+      },
+      "dataQuality": "ok"
+    },
+    "1171052000": {
+      "safety": 77.6,
+      "convenience": 27.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 3.52,
+        "foodPerKm2": 11.55,
+        "medicalPerKm2": 7.03,
+        "walkToStationMin": 18.38
+      },
+      "dataQuality": "ok"
+    },
+    "1171053100": {
+      "safety": 33.3,
+      "convenience": 60.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.98,
+        "crimePer1k": null,
+        "storePerKm2": 11.86,
+        "foodPerKm2": 55.35,
+        "medicalPerKm2": 3.95,
+        "walkToStationMin": 3.33
+      },
+      "dataQuality": "ok"
+    },
+    "1171053200": {
+      "safety": 77.6,
+      "convenience": 80,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 27.69,
+        "foodPerKm2": 75.16,
+        "medicalPerKm2": 21.76,
+        "walkToStationMin": 6.39
+      },
+      "dataQuality": "ok"
+    },
+    "1171054000": {
+      "safety": 77.6,
+      "convenience": 66.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 15.41,
+        "foodPerKm2": 57.78,
+        "medicalPerKm2": 7.7,
+        "walkToStationMin": 5.72
+      },
+      "dataQuality": "ok"
+    },
+    "1171055000": {
+      "safety": 77.6,
+      "convenience": 51,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 12.54,
+        "foodPerKm2": 59.54,
+        "medicalPerKm2": 8.36,
+        "walkToStationMin": 12.8
+      },
+      "dataQuality": "ok"
+    },
+    "1171056100": {
+      "safety": 77.6,
+      "convenience": 51.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 13.68,
+        "foodPerKm2": 105.98,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 6.81
+      },
+      "dataQuality": "ok"
+    },
+    "1171056200": {
+      "safety": 42,
+      "convenience": 76.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.3,
+        "crimePer1k": null,
+        "storePerKm2": 35.2,
+        "foodPerKm2": 129.07,
+        "medicalPerKm2": 1.3,
+        "walkToStationMin": 5.08
+      },
+      "dataQuality": "ok"
+    },
+    "1171056600": {
+      "safety": 77.6,
+      "convenience": 27.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 2.87,
+        "foodPerKm2": 2.23,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 4.97
+      },
+      "dataQuality": "ok"
+    },
+    "1171057000": {
+      "safety": 77.6,
+      "convenience": 38.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 12.12,
+        "foodPerKm2": 42.72,
+        "medicalPerKm2": 0.58,
+        "walkToStationMin": 11.72
+      },
+      "dataQuality": "ok"
+    },
+    "1171058000": {
+      "safety": 22.5,
+      "convenience": 80.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 4.31,
+        "crimePer1k": null,
+        "storePerKm2": 31.6,
+        "foodPerKm2": 195.35,
+        "medicalPerKm2": 5.75,
+        "walkToStationMin": 7.41
+      },
+      "dataQuality": "ok"
+    },
+    "1171059000": {
+      "safety": 77.6,
+      "convenience": 37,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 11.69,
+        "foodPerKm2": 45.09,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 10.17
+      },
+      "dataQuality": "ok"
+    },
+    "1171060000": {
+      "safety": 45.3,
+      "convenience": 71.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.07,
+        "crimePer1k": null,
+        "storePerKm2": 39.71,
+        "foodPerKm2": 125.58,
+        "medicalPerKm2": 2.15,
+        "walkToStationMin": 9.22
+      },
+      "dataQuality": "ok"
+    },
+    "1171061000": {
+      "safety": 46.4,
+      "convenience": 73.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.01,
+        "crimePer1k": null,
+        "storePerKm2": 29.3,
+        "foodPerKm2": 79.81,
+        "medicalPerKm2": 8.08,
+        "walkToStationMin": 8.38
+      },
+      "dataQuality": "ok"
+    },
+    "1171062000": {
+      "safety": 77.6,
+      "convenience": 69,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 19.07,
+        "foodPerKm2": 91.52,
+        "medicalPerKm2": 6.67,
+        "walkToStationMin": 7.29
+      },
+      "dataQuality": "ok"
+    },
+    "1171063100": {
+      "safety": 77.6,
+      "convenience": 17.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 4.39,
+        "foodPerKm2": 0.73,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 10.41
+      },
+      "dataQuality": "ok"
+    },
+    "1171063200": {
+      "safety": 77.6,
+      "convenience": 54.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 12.75,
+        "foodPerKm2": 47.82,
+        "medicalPerKm2": 8.5,
+        "walkToStationMin": 9.79
+      },
+      "dataQuality": "ok"
+    },
+    "1171064100": {
+      "safety": 12.7,
+      "convenience": 71.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 8.99,
+        "crimePer1k": null,
+        "storePerKm2": 25.48,
+        "foodPerKm2": 121.38,
+        "medicalPerKm2": 4.5,
+        "walkToStationMin": 7.95
+      },
+      "dataQuality": "ok"
+    },
+    "1171064200": {
+      "safety": 52.1,
+      "convenience": 24.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.42,
+        "crimePer1k": null,
+        "storePerKm2": 5.52,
+        "foodPerKm2": 6.79,
+        "medicalPerKm2": 0.85,
+        "walkToStationMin": 11.83
+      },
+      "dataQuality": "ok"
+    },
+    "1171064600": {
+      "safety": 77.6,
+      "convenience": 41.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 13.11,
+        "foodPerKm2": 31.13,
+        "medicalPerKm2": 1.64,
+        "walkToStationMin": 11.46
+      },
+      "dataQuality": "ok"
+    },
+    "1171064700": {
+      "safety": 77.6,
+      "convenience": 34.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 11.9,
+        "foodPerKm2": 24.56,
+        "medicalPerKm2": 3.45,
+        "walkToStationMin": 20.53
+      },
+      "dataQuality": "ok"
+    },
+    "1171065000": {
+      "safety": 28.8,
+      "convenience": 81,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 2.63,
+        "crimePer1k": null,
+        "storePerKm2": 45.64,
+        "foodPerKm2": 116.74,
+        "medicalPerKm2": 4.39,
+        "walkToStationMin": 6.49
+      },
+      "dataQuality": "ok"
+    },
+    "1171067000": {
+      "safety": 49.5,
+      "convenience": 16,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.7,
+        "crimePer1k": null,
+        "storePerKm2": 3.13,
+        "foodPerKm2": 12.17,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 15.53
+      },
+      "dataQuality": "ok"
+    },
+    "1171068000": {
+      "safety": 77.6,
+      "convenience": 37.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 9.25,
+        "foodPerKm2": 50.88,
+        "medicalPerKm2": 0.66,
+        "walkToStationMin": 11.35
+      },
+      "dataQuality": "ok"
+    },
+    "1171069000": {
+      "safety": 77.6,
+      "convenience": 28.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 3.57,
+        "foodPerKm2": 1.19,
+        "medicalPerKm2": 2.38,
+        "walkToStationMin": 8.47
+      },
+      "dataQuality": "ok"
+    },
+    "1171071000": {
+      "safety": 49.3,
+      "convenience": 41.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.72,
+        "crimePer1k": null,
+        "storePerKm2": 9.3,
+        "foodPerKm2": 24.33,
+        "medicalPerKm2": 0.72,
+        "walkToStationMin": 7.06
+      },
+      "dataQuality": "ok"
+    },
+    "1171072000": {
+      "safety": 77.6,
+      "convenience": 20.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 0,
+        "foodPerKm2": 2.94,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 8.2
+      },
+      "dataQuality": "ok"
+    },
+    "1174051500": {
+      "safety": 77.6,
+      "convenience": 13.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 5.95,
+        "foodPerKm2": 8.23,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 24.7
+      },
+      "dataQuality": "ok"
+    },
+    "1174052500": {
+      "safety": 77.6,
+      "convenience": 31.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 6.74,
+        "foodPerKm2": 37.08,
+        "medicalPerKm2": 1.12,
+        "walkToStationMin": 12.94
+      },
+      "dataQuality": "ok"
+    },
+    "1174052600": {
+      "safety": 77.6,
+      "convenience": 23.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 7.37,
+        "foodPerKm2": 13.82,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 12.28
+      },
+      "dataQuality": "ok"
+    },
+    "1174053000": {
+      "safety": 77.6,
+      "convenience": 75.7,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 19.33,
+        "foodPerKm2": 203,
+        "medicalPerKm2": 4.83,
+        "walkToStationMin": 5.8
+      },
+      "dataQuality": "ok"
+    },
+    "1174054000": {
+      "safety": 77.6,
+      "convenience": 39.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 14.94,
+        "foodPerKm2": 34.16,
+        "medicalPerKm2": 2.13,
+        "walkToStationMin": 16.38
+      },
+      "dataQuality": "ok"
+    },
+    "1174055000": {
+      "safety": 77.6,
+      "convenience": 21,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 3.94,
+        "foodPerKm2": 25.58,
+        "medicalPerKm2": 0.66,
+        "walkToStationMin": 18.25
+      },
+      "dataQuality": "ok"
+    },
+    "1174056000": {
+      "safety": 77.6,
+      "convenience": 17.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 5.19,
+        "foodPerKm2": 22.34,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 18.02
+      },
+      "dataQuality": "ok"
+    },
+    "1174057000": {
+      "safety": 41.5,
+      "convenience": 65.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 1.37,
+        "crimePer1k": null,
+        "storePerKm2": 34.26,
+        "foodPerKm2": 165.82,
+        "medicalPerKm2": 1.37,
+        "walkToStationMin": 11.92
+      },
+      "dataQuality": "ok"
+    },
+    "1174058000": {
+      "safety": 77.6,
+      "convenience": 19,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 2.87,
+        "foodPerKm2": 17.21,
+        "medicalPerKm2": 0.82,
+        "walkToStationMin": 17.83
+      },
+      "dataQuality": "ok"
+    },
+    "1174059000": {
+      "safety": 77.6,
+      "convenience": 21.5,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 1.67,
+        "foodPerKm2": 7.79,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 9.18
+      },
+      "dataQuality": "ok"
+    },
+    "1174060000": {
+      "safety": 77.6,
+      "convenience": 72.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 23.36,
+        "foodPerKm2": 135.79,
+        "medicalPerKm2": 2.92,
+        "walkToStationMin": 6.78
+      },
+      "dataQuality": "ok"
+    },
+    "1174061000": {
+      "safety": 51.2,
+      "convenience": 60,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0.55,
+        "crimePer1k": null,
+        "storePerKm2": 24.08,
+        "foodPerKm2": 118.76,
+        "medicalPerKm2": 2.19,
+        "walkToStationMin": 12.59
+      },
+      "dataQuality": "ok"
+    },
+    "1174062000": {
+      "safety": 77.6,
+      "convenience": 79.8,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 35.29,
+        "foodPerKm2": 172.73,
+        "medicalPerKm2": 5.57,
+        "walkToStationMin": 7.85
+      },
+      "dataQuality": "ok"
+    },
+    "1174064000": {
+      "safety": 77.6,
+      "convenience": 75.6,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 27.23,
+        "foodPerKm2": 190.59,
+        "medicalPerKm2": 6.05,
+        "walkToStationMin": 9.14
+      },
+      "dataQuality": "ok"
+    },
+    "1174065000": {
+      "safety": 15.7,
+      "convenience": 84.9,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 6.39,
+        "crimePer1k": null,
+        "storePerKm2": 31.94,
+        "foodPerKm2": 209.23,
+        "medicalPerKm2": 9.58,
+        "walkToStationMin": 7
+      },
+      "dataQuality": "ok"
+    },
+    "1174066000": {
+      "safety": 77.6,
+      "convenience": 83.3,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 26.5,
+        "foodPerKm2": 268.08,
+        "medicalPerKm2": 4.68,
+        "walkToStationMin": 4.48
+      },
+      "dataQuality": "ok"
+    },
+    "1174068500": {
+      "safety": 77.6,
+      "convenience": 69.1,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 25,
+        "foodPerKm2": 148.76,
+        "medicalPerKm2": 4.38,
+        "walkToStationMin": 10
+      },
+      "dataQuality": "ok"
+    },
+    "1174069000": {
+      "safety": 77.6,
+      "convenience": 22.4,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 4.47,
+        "foodPerKm2": 2.23,
+        "medicalPerKm2": 0,
+        "walkToStationMin": 8.06
+      },
+      "dataQuality": "ok"
+    },
+    "1174070000": {
+      "safety": 77.6,
+      "convenience": 56.2,
+      "price": 50,
+      "raw": {
+        "monthlyRentMan": null,
+        "rentSamples": 0,
+        "cctvPerKm2": null,
+        "nightlifePerKm2": 0,
+        "crimePer1k": null,
+        "storePerKm2": 11.3,
+        "foodPerKm2": 55.25,
+        "medicalPerKm2": 3.14,
+        "walkToStationMin": 5.62
+      },
+      "dataQuality": "ok"
+    }
+  }
+}
