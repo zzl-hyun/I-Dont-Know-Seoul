@@ -24,6 +24,28 @@ import { dirname, join } from "node:path";
 import { haversineM, pointInGeometry, bbox } from "./lib/geo.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+/**
+ * .env 에서 API 키를 읽어 process.env 에 넣는다.
+ * 이미 셸에 설정된 값이 있으면 그쪽을 우선한다.
+ * (.env 는 .gitignore 로 제외되어 있다 — 저장소가 공개라 반드시 유지할 것)
+ */
+async function loadEnv() {
+  let text;
+  try {
+    text = await readFile(join(ROOT, ".env"), "utf8");
+  } catch {
+    return;
+  }
+  for (const line of text.split("\n")) {
+    const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
+    if (!m) continue;
+    const [, key, rawValue] = m;
+    if (process.env[key]) continue;
+    process.env[key] = rawValue.replace(/^["']|["']$/g, "");
+  }
+}
+await loadEnv();
 const OUT = join(ROOT, "data/dist/metrics.json");
 const POI_CACHE = join(ROOT, "data/raw/osm-poi.json");
 
@@ -125,25 +147,21 @@ async function main() {
   const walkVals = [...walkMin.values()].sort((a, b) => a - b);
   console.log(`  중앙값 ${walkVals[Math.floor(walkVals.length / 2)].toFixed(1)}분 · 최대 ${walkVals.at(-1).toFixed(1)}분`);
 
-  /* ---- 3. CCTV (서울 열린데이터, 키 필요) ---- */
+  /* ---- 3. CCTV — 데이터 출처가 없어졌다 ---- */
   console.log("\n[3/4] CCTV 밀도...");
-  const seoulKey = process.env.SEOUL_OPEN_DATA_KEY;
-  let cctvOk = false;
-  if (seoulKey) {
-    try {
-      const points = await fetchSeoulCctv(seoulKey);
-      for (const { lat, lng } of points) {
-        const code = index.lookup(lng, lat);
-        if (code) counts.get(code).cctv++;
-      }
-      cctvOk = true;
-      console.log(`  CCTV ${points.length.toLocaleString()}대 배정`);
-    } catch (err) {
-      console.log(`  건너뜀 — ${err.message}`);
-    }
-  } else {
-    console.log("  건너뜀 — SEOUL_OPEN_DATA_KEY 없음");
-  }
+  /*
+   * 서울 열린데이터광장의 "안심이 CCTV 연계 현황"(OA-20923)은 2026-02-10 자로
+   * 폐기됐다("안심주소에 IP 노출로 국정원 지적"). 현재 API는 ERROR-500 을 준다.
+   *
+   * 대안을 검토했으나 쓸 만한 게 없다:
+   *   - OSM man_made=surveillance: 서울 875개. 실제 공공 CCTV 약 8만대의 1% —
+   *     밀도 비교에 쓰면 지역 간 차이가 매핑 활동 편차를 반영할 뿐이다.
+   *
+   * 따라서 치안 축은 유흥업소 밀도만으로 계산한다. 새 출처가 생기면
+   * counts.get(code).cctv 를 채우고 cctvOk 를 true 로 만들면 된다.
+   */
+  const cctvOk = false;
+  console.log("  건너뜀 — 원 데이터셋(안심이 CCTV)이 2026-02-10 폐기됨");
 
   /* ---- 4. 원룸 환산월세 (국토부, 키 필요) ---- */
   console.log("\n[4/4] 원룸 환산월세...");
@@ -330,123 +348,203 @@ async function overpass(query) {
   throw new Error(`Overpass 실패: ${lastError?.message}`);
 }
 
-/* ---- 서울 열린데이터광장: 안심이 CCTV ---- */
-
-async function fetchSeoulCctv(key) {
-  const points = [];
-  const PAGE = 1000;
-  for (let start = 1; start <= 20000; start += PAGE) {
-    const url = `http://openapi.seoul.go.kr:8088/${key}/json/safeOpenCCTV/${start}/${start + PAGE - 1}/`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error(`서울 열린데이터 HTTP ${res.status}`);
-    const data = await res.json();
-    const body = data.safeOpenCCTV;
-    if (!body?.row?.length) break;
-    for (const row of body.row) {
-      const lat = Number(row.WGSXPT ?? row.LATITUDE ?? row.Y_COORD);
-      const lng = Number(row.WGSYPT ?? row.LONGITUDE ?? row.X_COORD);
-      // 서울 범위 안의 값만 받는다 (컬럼명이 데이터셋 개정마다 바뀐다)
-      if (lat > 37.4 && lat < 37.72 && lng > 126.7 && lng < 127.25) {
-        points.push({ lat, lng });
-      } else if (lng > 37.4 && lng < 37.72 && lat > 126.7 && lat < 127.25) {
-        points.push({ lat: lng, lng: lat }); // 위경도가 뒤바뀐 경우
-      }
-    }
-    if (body.row.length < PAGE) break;
-  }
-  if (points.length === 0) throw new Error("좌표를 해석하지 못했습니다 (컬럼명 변경 가능성)");
-  return points;
-}
-
 /* ---- 국토교통부: 단독/다가구 + 오피스텔 전월세 실거래가 ---- */
 
 /**
  * 전월세 → 환산월세.
  * 보증금을 전월세전환율로 월세 환산해 더한다. 서울 기준 약 5.5%.
+ * 이렇게 해야 "보증금 5000/월 53" 과 "보증금 1000/월 75" 를 같은 축에서 비교할 수 있다.
  */
 const CONVERSION_RATE = 0.055;
 const toMonthly = (depositMan, monthlyMan) =>
   monthlyMan + (depositMan * CONVERSION_RATE) / 12;
 
+/**
+ * 원룸으로 볼 전용면적 범위(㎡).
+ * 실제 데이터를 보면 오피스텔 원룸이 16㎡대에 몰려 있다. 하한을 20㎡로 잡으면
+ * 정작 1인 가구가 사는 방이 통째로 빠진다. 상한 40㎡ 위로는 투룸이 섞인다.
+ */
+const AREA_MIN = 10;
+const AREA_MAX = 40;
+
+/** 이 미만이면 표본 부족으로 보고 상위 단위 값으로 대체한다. */
+const MIN_SAMPLES = 5;
+
+/** 최근 몇 개월치를 볼 것인가. 짧으면 표본이 부족하고 길면 시세가 흐려진다. */
+const MONTHS_BACK = 12;
+
+/**
+ * 동시 요청 수.
+ * 6으로 돌렸더니 약 110건째부터 600건 끝까지 전부 실패했다(속도 제한).
+ * 2로 낮추고 요청 사이에 간격을 두면 안정적으로 통과한다.
+ */
+const CONCURRENCY = 2;
+
+/** 요청 간 최소 간격(ms). 속도 제한 회피용. */
+const REQUEST_GAP_MS = 120;
+
+/** 실패한 요청 재시도 횟수 (지수 백오프). */
+const MAX_RETRY = 4;
+
+const ENDPOINTS = [
+  "https://apis.data.go.kr/1613000/RTMSDataSvcSHRent/getRTMSDataSvcSHRent",
+  "https://apis.data.go.kr/1613000/RTMSDataSvcOffiRent/getRTMSDataSvcOffiRent",
+];
+
+/**
+ * 행정동 이름에서 대응 가능한 법정동 이름 후보를 만든다.
+ *
+ * 실거래가 API는 **법정동**(umdNm) 기준이라 행정동에 바로 못 붙는다.
+ * 다행히 서울 행정동 상당수는 법정동명에 번호를 붙인 형태다.
+ *   "구로4동"   → 법정동 "구로동"
+ *   "성내3동"   → 법정동 "성내동"
+ *   "상계6·7동" → 법정동 "상계동"
+ * 반면 이름이 아예 다른 경우(법정동 봉천동 → 행정동 은천동·청룡동…)는
+ * 이 규칙으로 못 붙고 자치구 중앙값으로 대체된다.
+ */
+function legalDongCandidates(dongName) {
+  const out = new Set([dongName]);
+  // 숫자/중점이 붙은 형태를 벗겨 기본 법정동명을 만든다
+  const stripped = dongName.replace(/[\d·・．.]+(?=동$)/, "");
+  if (stripped !== dongName && stripped.length > 1) out.add(stripped);
+  // "종로1·2·3·4가동" → "종로1가" 처럼 '가' 로 끝나는 법정동은 규칙이 달라 제외
+  return [...out];
+}
+
 async function fetchRent(key, dongs) {
-  // 국토부 API는 **법정동** 기준이라 행정동으로 바로 못 붙인다.
-  // 자치구(5자리 코드) 단위로 받아 동 이름으로 매칭하고, 못 붙인 건은
-  // 자치구 중앙값으로 대체한다 (4-score.mjs 에서 dataQuality=low 로 표시).
   const guCodes = [...new Set(dongs.map((d) => d.guCode))];
   const now = new Date();
   const months = [];
-  for (let i = 1; i <= 12; i++) {
+  for (let i = 1; i <= MONTHS_BACK; i++) {
     const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
     months.push(`${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}`);
   }
 
-  const ENDPOINTS = [
-    "https://apis.data.go.kr/1613000/RTMSDataSvcSHRent/getRTMSDataSvcSHRent",
-    "https://apis.data.go.kr/1613000/RTMSDataSvcOffiRent/getRTMSDataSvcOffiRent",
-  ];
-
-  /** guCode → 법정동명 → 환산월세 배열 */
-  const byGuDong = new Map();
-  let calls = 0;
-
+  // 요청 목록을 미리 펼쳐놓고 제한된 동시성으로 소화한다
+  const jobs = [];
   for (const gu of guCodes) {
     for (const ym of months) {
-      for (const ep of ENDPOINTS) {
-        const url = `${ep}?serviceKey=${encodeURIComponent(key)}&LAWD_CD=${gu}&DEAL_YMD=${ym}&numOfRows=1000&pageNo=1&_type=json`;
+      for (const ep of ENDPOINTS) jobs.push({ gu, ym, ep });
+    }
+  }
+
+  /** `${guCode}|${법정동명}` → 환산월세 배열 */
+  const byLegal = new Map();
+  let done = 0;
+  let failed = 0;
+  let records = 0;
+
+  const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+  /** 한 요청을 처리한다. 실패하면 지수 백오프로 재시도한다. */
+  const runJob = async ({ gu, ym, ep }) => {
+    const url =
+      `${ep}?serviceKey=${encodeURIComponent(key)}` +
+      `&LAWD_CD=${gu}&DEAL_YMD=${ym}&numOfRows=1000&pageNo=1&_type=json`;
+
+    for (let attempt = 0; attempt <= MAX_RETRY; attempt++) {
+      if (attempt > 0) await sleep(500 * 2 ** attempt); // 1s, 2s, 4s, 8s
+      try {
         const res = await fetch(url);
-        calls++;
-        if (!res.ok) continue;
         const text = await res.text();
-        let items;
+        let body;
         try {
-          items = JSON.parse(text)?.response?.body?.items?.item ?? [];
+          body = JSON.parse(text)?.response;
         } catch {
-          continue; // XML 오류 응답 (키 미승인 등)
+          continue; // 인증 실패·속도 제한은 XML 로 온다 → 재시도
         }
-        for (const it of [].concat(items)) {
+        if (body?.header?.resultCode !== "000") continue;
+
+        const items = [].concat(body?.body?.items?.item ?? []);
+        for (const it of items) {
           const area = Number(String(it.excluUseAr ?? it.totalFloorAr ?? 0));
-          // 원룸/1.5룸 범위만 (전용 20~40㎡)
-          if (!(area >= 20 && area <= 40)) continue;
+          if (!(area >= AREA_MIN && area <= AREA_MAX)) continue;
           const deposit = Number(String(it.deposit ?? "0").replace(/,/g, ""));
           const monthly = Number(String(it.monthlyRent ?? "0").replace(/,/g, ""));
-          if (monthly <= 0) continue; // 순수 전세는 제외
-          const dongName = String(it.umdNm ?? "").trim();
-          if (!dongName) continue;
-          const k = `${gu}|${dongName}`;
-          if (!byGuDong.has(k)) byGuDong.set(k, []);
-          byGuDong.get(k).push(toMonthly(deposit, monthly));
+          if (!(monthly > 0)) continue; // 순수 전세 제외 (월세 시세가 아니다)
+          const legal = String(it.umdNm ?? "").trim();
+          if (!legal) continue;
+          const k = `${gu}|${legal}`;
+          if (!byLegal.has(k)) byLegal.set(k, []);
+          byLegal.get(k).push(toMonthly(deposit, monthly));
+          records++;
         }
+        return true;
+      } catch {
+        /* 네트워크 오류 → 재시도 */
       }
     }
-    process.stdout.write(`\r  실거래 조회 ${gu} (${calls} calls)   `);
-  }
+    failed++;
+    return false;
+  };
+
+  // 제한된 동시성 + 요청 간 간격으로 실행
+  let cursor = 0;
+  const startedAt = Date.now();
+  await Promise.all(
+    Array.from({ length: CONCURRENCY }, async () => {
+      while (cursor < jobs.length) {
+        const job = jobs[cursor++];
+        await runJob(job);
+        done++;
+        if (done % 20 === 0 || done === jobs.length) {
+          const el = Math.round((Date.now() - startedAt) / 1000);
+          process.stdout.write(
+            `\r  실거래 조회 ${done}/${jobs.length} · 표본 ${records.toLocaleString()}건 · 실패 ${failed} · ${el}초   `
+          );
+        }
+        await sleep(REQUEST_GAP_MS);
+      }
+    })
+  );
   process.stdout.write("\n");
 
-  // 법정동명 → 행정동 매칭. 행정동명이 법정동명으로 시작하면 같은 계열로 본다
-  // (예: 법정동 "신림동" → 행정동 "신림동","서원동"... 은 못 붙지만
-  //  법정동 "봉천동" → 행정동 "은천동" 등도 마찬가지. 이름이 일치하는 것만 붙인다)
+  if (records === 0) {
+    throw new Error(
+      `표본을 하나도 받지 못했습니다 (요청 ${jobs.length}건 중 ${failed}건 실패). ` +
+        `DATA_GO_KR_KEY 가 "일반 인증키(Decoding)" 값인지 확인하세요 — ` +
+        `%2B, %3D 가 들어간 인코딩 값을 넣으면 이중 인코딩되어 인증에 실패합니다.`
+    );
+  }
+
+  /* --- 법정동 → 행정동 배분 --- */
   const out = new Map();
+  let matched = 0;
+
   for (const d of dongs) {
-    const exact = byGuDong.get(`${d.guCode}|${d.dong}`);
-    if (exact && exact.length >= 5) {
-      out.set(d.code, { median: round2(median(exact)), samples: exact.length });
+    const pool = [];
+    for (const cand of legalDongCandidates(d.dong)) {
+      const arr = byLegal.get(`${d.guCode}|${cand}`);
+      if (arr) pool.push(...arr);
+    }
+    if (pool.length >= MIN_SAMPLES) {
+      out.set(d.code, { median: round2(median(pool)), samples: pool.length });
+      matched++;
     }
   }
 
-  // 못 붙은 동은 자치구 중앙값으로 채운다
+  // 못 붙은 동은 자치구 중앙값으로 채우고 samples=0 으로 표시한다
+  // (4-score.mjs 가 이를 dataQuality="low" 로 UI에 노출한다)
   const byGu = new Map();
-  for (const [k, arr] of byGuDong) {
+  for (const [k, arr] of byLegal) {
     const gu = k.split("|")[0];
     if (!byGu.has(gu)) byGu.set(gu, []);
     byGu.get(gu).push(...arr);
   }
+  let filled = 0;
   for (const d of dongs) {
     if (out.has(d.code)) continue;
     const arr = byGu.get(d.guCode);
-    if (arr?.length >= 5) {
-      out.set(d.code, { median: round2(median(arr)), samples: 0 }); // samples 0 = 대체값
+    if (arr?.length >= MIN_SAMPLES) {
+      out.set(d.code, { median: round2(median(arr)), samples: 0 });
+      filled++;
     }
   }
+
+  console.log(
+    `  실거래 ${records.toLocaleString()}건 · 법정동 직접 매칭 ${matched}개 동 · 자치구 중앙값 대체 ${filled}개 동`
+  );
+  if (failed) console.log(`  (요청 ${jobs.length}건 중 ${failed}건 실패 — 해당 월/구는 표본에서 빠짐)`);
 
   return out;
 }

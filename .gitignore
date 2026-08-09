@@ -1,7 +1,13 @@
 node_modules/
 .wrangler/
-.dev.vars
 *.local
+
+# API 키. 저장소가 공개되어 있으므로 절대 커밋하지 말 것.
+# 파이프라인 키는 .env, Worker 키는 `wrangler secret put` 으로 관리한다.
+.env
+.env.*
+!.env.example
+.dev.vars
 
 # 빌드 산출물. 앞의 "/"가 없으면 data/dist/ 까지 함께 무시되어,
 # 파이프라인 산출물이 빠지고 클론한 저장소에서 테스트가 깨진다.
