@@ -24,6 +24,8 @@ export interface DongView {
   score: number;
   commute: CommuteResult;
   reachable: boolean;
+  /** 툴팁에 띄울 한 줄 이유 — 지도만 훑어도 왜 그 등급인지 알 수 있게 */
+  reason: string;
 }
 
 interface Props {
@@ -34,11 +36,14 @@ interface Props {
   onSelect: (code: string | null) => void;
   /** 목적지가 아직 없으면 등급 대신 안내만 보여준다 */
   hasDestination: boolean;
+  /** 선택된 동의 통근 경로 (역 좌표를 이은 선) */
+  routePath: Array<Array<[number, number]>>;
 }
 
 const SRC_DONG = "dong";
 const SRC_POINT = "dong-point";
 const SRC_DEST = "dest";
+const SRC_ROUTE = "route";
 
 export default function MapView({
   dongs,
@@ -47,6 +52,7 @@ export default function MapView({
   selectedCode,
   onSelect,
   hasDestination,
+  routePath,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
@@ -115,6 +121,7 @@ export default function MapView({
       });
 
       map.addSource(SRC_DEST, { type: "geojson", data: emptyFC() });
+      map.addSource(SRC_ROUTE, { type: "geojson", data: emptyFC() });
 
       /*
        * 색은 전부 feature-state 기반 표현식으로 계산한다.
@@ -195,6 +202,26 @@ export default function MapView({
           "text-halo-color": "#12141a",
           "text-halo-width": 1.3,
           "text-opacity": reachableOpacityExpr(),
+        },
+      });
+
+      /*
+       * 통근 경로.
+       *
+       * 역 좌표를 직선으로 이은 것이지 실제 선로 모양이 아니다. 실선으로 그리면
+       * 실제 노선처럼 보여 정확도를 오해하므로 점선으로 그리고, 사이드바에도
+       * 추정치임을 적어둔다.
+       */
+      map.addLayer({
+        id: "route-line",
+        type: "line",
+        source: SRC_ROUTE,
+        layout: { "line-cap": "round", "line-join": "round" },
+        paint: {
+          "line-color": "#7fb0ff",
+          "line-width": ["interpolate", ["linear"], ["zoom"], 10, 2, 14, 4],
+          "line-dasharray": [2, 1.6],
+          "line-opacity": 0.9,
         },
       });
 
@@ -332,6 +359,30 @@ export default function MapView({
     else map.once("oneday.ready", apply);
   }, [destination]);
 
+  /* ---------------- 통근 경로선 ---------------- */
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    const apply = () => {
+      const src = map.getSource(SRC_ROUTE) as maplibregl.GeoJSONSource | undefined;
+      if (!src) return;
+      src.setData({
+        type: "FeatureCollection",
+        features: routePath
+          .filter((coords) => coords.length >= 2)
+          .map((coords) => ({
+            type: "Feature",
+            geometry: { type: "LineString", coordinates: coords },
+            properties: {},
+          })),
+      });
+    };
+
+    if (readyRef.current) apply();
+    else map.once("oneday.ready", apply);
+  }, [routePath]);
+
   return <div className="map" ref={containerRef} />;
 }
 
@@ -380,16 +431,32 @@ const emptyFC = (): FeatureCollection => ({
   features: [],
 });
 
+/**
+ * 툴팁. 지도를 훑기만 해도 "왜 이 등급인지"가 보이도록 한 줄 이유를 붙인다.
+ * 다만 세 줄을 넘기면 지도를 가려서 방해가 되므로 이유는 잘라 쓴다.
+ */
 function tooltipHtml(name: string, view: DongView | undefined): string {
-  const esc = (s: string) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]!);
+  const esc = (s: string) =>
+    s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]!);
+
   if (!view || !view.reachable) {
     return `<b>${esc(name)}</b><br><span style="color:#9aa1ae">통근 가능 시간 밖</span>`;
   }
   const min = view.commute.totalMin;
-  return (
-    `<b>${esc(name)}</b> <span style="color:${GRADE_COLOR[view.grade]}">● ${GRADE_LABEL[view.grade]}</span>` +
-    (min !== null
-      ? `<br><span style="color:#9aa1ae">통근 약 ${Math.round(min)}분 · ${view.commute.viaStation}역</span>`
-      : "")
-  );
+  const lines = [
+    `<b>${esc(name)}</b> <span style="color:${GRADE_COLOR[view.grade]}">● ${GRADE_LABEL[view.grade]}</span>`,
+  ];
+  if (min !== null) {
+    lines.push(
+      `<span style="color:#9aa1ae">통근 약 ${Math.round(min)}분 · ${esc(view.commute.viaStation ?? "")}역</span>`
+    );
+  }
+  if (view.reason) {
+    lines.push(`<span style="color:#c7cbd4">${esc(trim(view.reason, 46))}</span>`);
+  }
+  return lines.join("<br>");
+}
+
+function trim(s: string, max: number): string {
+  return s.length <= max ? s : s.slice(0, max - 1).replace(/[\s,]+$/, "") + "…";
 }

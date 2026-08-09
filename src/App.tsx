@@ -1,17 +1,27 @@
 import { useEffect, useMemo, useState } from "react";
 import MapView, { type DongView } from "./components/MapView";
 import DestinationSearch from "./components/DestinationSearch";
-import DongDetail from "./components/DongDetail";
+import DongDetail, { type ExplainContext } from "./components/DongDetail";
 import TopPicks, { type Pick } from "./components/TopPicks";
 import { loadAppData, type AppData } from "./lib/data";
-import { computeCommute } from "./lib/commute";
+import { buildRoute, computeCommute } from "./lib/commute";
 import { gradeAll, rebalanceWeights } from "./lib/score";
+import { buildDistributions, summarize } from "./lib/explain";
 import {
   DEFAULT_MAX_COMMUTE_MIN,
   DEFAULT_WEIGHTS,
   GRADE_LABEL,
 } from "./lib/constants";
-import type { Destination, Weights } from "./types";
+import type { CommuteResult, Destination, Weights } from "./types";
+
+const NO_COMMUTE: CommuteResult = {
+  totalMin: null,
+  viaStation: null,
+  walkMin: 0,
+  transfers: 0,
+  hasEstimatedLeg: false,
+  viaNodeId: -1,
+};
 
 export default function App() {
   const [data, setData] = useState<AppData | null>(null);
@@ -42,66 +52,83 @@ export default function App() {
   }, [data, destination]);
 
   /* 등급은 가중치가 바뀔 때만 다시 매긴다 (427회 곱셈 — 사실상 즉시). */
-  const grades = useMemo(() => {
+  const graded = useMemo(() => {
     if (!data) return null;
     return gradeAll(data.scores, weights);
   }, [data, weights]);
 
-  /* 지도에 넘길 뷰 — 등급 + 통근 가능 여부 */
+  /* 지표별 서울 분포 — 데이터가 바뀔 때 한 번만 만든다 */
+  const dists = useMemo(() => {
+    if (!data) return null;
+    return buildDistributions(data.scores, data.pctKeys);
+  }, [data]);
+
+  const explainCtx = useMemo<ExplainContext | null>(() => {
+    if (!data || !graded || !dists) return null;
+    return {
+      pctKeys: data.pctKeys,
+      axisWeights: data.axisWeights,
+      dists,
+      weights,
+      cuts: graded.cuts,
+    };
+  }, [data, graded, dists, weights]);
+
+  /* 지도에 넘길 뷰 — 등급 + 통근 가능 여부 + 한 줄 이유 */
   const views = useMemo(() => {
     const map = new Map<string, DongView>();
-    if (!data || !grades) return map;
+    if (!data || !graded) return map;
     for (const dong of data.dongs) {
-      const g = grades.get(dong.code);
-      if (!g) continue;
-      const c = commute?.get(dong.code);
+      const g = graded.byDong.get(dong.code);
+      const s = data.scores.get(dong.code);
+      if (!g || !s) continue;
+      const c = commute?.byDong.get(dong.code);
       const reachable = c?.totalMin != null && c.totalMin <= maxCommute;
       map.set(dong.code, {
         grade: g.grade,
         score: g.score,
-        commute: c ?? {
-          totalMin: null,
-          viaStation: null,
-          walkMin: 0,
-          transfers: 0,
-          hasEstimatedLeg: false,
-        },
+        commute: c ?? NO_COMMUTE,
         reachable,
+        // 툴팁용이라 통근권 안인 동만 만든다 (427개 전부 만들 필요 없다)
+        reason: reachable
+          ? summarize(s, data.pctKeys, g.grade, weights, data.axisWeights)
+          : "",
       });
     }
     return map;
-  }, [data, grades, commute, maxCommute]);
+  }, [data, graded, commute, maxCommute, weights]);
 
   /* 통근권 안에서 종합 점수가 높은 순 */
   const picks = useMemo<Pick[]>(() => {
-    if (!data || !grades || !commute) return [];
+    if (!data || !graded || !commute) return [];
     const out: Pick[] = [];
     for (const dong of data.dongs) {
-      const c = commute.get(dong.code);
-      const g = grades.get(dong.code);
+      const c = commute.byDong.get(dong.code);
+      const g = graded.byDong.get(dong.code);
       if (!g || c?.totalMin == null || c.totalMin > maxCommute) continue;
       out.push({ dong, grade: g.grade, score: g.score, commuteMin: c.totalMin });
     }
     out.sort((a, b) => b.score - a.score);
     return out;
-  }, [data, grades, commute, maxCommute]);
+  }, [data, graded, commute, maxCommute]);
 
   const selected = useMemo(() => {
-    if (!data || !grades || !selectedCode) return null;
+    if (!data || !graded || !selectedCode) return null;
     const dong = data.dongs.find((d) => d.code === selectedCode);
     const score = data.scores.get(selectedCode);
-    const g = grades.get(selectedCode);
+    const g = graded.byDong.get(selectedCode);
     if (!dong || !score || !g) return null;
-    // g 에도 score(종합 점수)가 있어 이름이 겹친다. 축 점수와 구분해서 꺼낸다.
-    return {
-      dong,
-      score,
-      grade: g.grade,
-      rank: g.rank,
-      total: g.total,
-      commute: commute?.get(selectedCode),
-    };
-  }, [data, grades, commute, selectedCode]);
+    const c = commute?.byDong.get(selectedCode);
+    // 경로는 선택된 동 하나만 되짚는다
+    const route = commute && c ? buildRoute(data.graph, commute, c) : [];
+    return { dong, score, grade: g.grade, rank: g.rank, total: g.total, commute: c, route };
+  }, [data, graded, commute, selectedCode]);
+
+  /** 선택된 동의 경로를 지도에 그릴 좌표열 */
+  const routePath = useMemo(() => {
+    if (!selected) return [];
+    return selected.route.flatMap((leg) => (leg.kind === "ride" ? [leg.path] : []));
+  }, [selected]);
 
   const setWeight = (key: keyof Weights, value: number) =>
     setWeights((w) => rebalanceWeights(w, key, value));
@@ -117,6 +144,7 @@ export default function App() {
             selectedCode={selectedCode}
             onSelect={setSelectedCode}
             hasDestination={!!destination}
+            routePath={routePath}
           />
         ) : (
           <div className="loading">
@@ -127,7 +155,7 @@ export default function App() {
 
       <aside className="sidebar">
         <div className="brand">
-          <h1>Oneday</h1>
+          <h1>I Don&rsquo;t Know Seoul</h1>
           <p>
             회사나 학교를 검색하면, 통근 가능한 동네를 치안·월세·생활편의 등급으로
             한눈에 보여줍니다.
@@ -192,6 +220,10 @@ export default function App() {
                   </span>
                 ))}
               </div>
+              <p className="metric-note" style={{ marginTop: 8 }}>
+                등급은 서울 전체 분포 기준 상대 평가입니다 — 상위 30%가 Best,
+                하위 30%가 Bad입니다.
+              </p>
             </div>
 
             <TopPicks picks={picks} selectedCode={selectedCode} onSelect={setSelectedCode} />
@@ -208,7 +240,7 @@ export default function App() {
           </div>
         )}
 
-        {selected && (
+        {selected && explainCtx && (
           <DongDetail
             dong={selected.dong}
             score={selected.score}
@@ -216,6 +248,8 @@ export default function App() {
             rank={selected.rank}
             total={selected.total}
             commute={selected.commute}
+            route={selected.route}
+            ctx={explainCtx}
           />
         )}
 

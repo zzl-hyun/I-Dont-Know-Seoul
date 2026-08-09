@@ -461,3 +461,233 @@ input[type="range"] {
 .maplibregl-ctrl-attrib {
   font-size: 10px;
 }
+
+/* ---------------- 등급 근거 ---------------- */
+
+.rank-line {
+  margin: -6px 0 12px;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+/* 왜 이 등급인지 한 줄 — 패널에서 가장 먼저 읽히는 자리 */
+.summary {
+  margin: 0 0 14px;
+  padding: 11px 13px;
+  background: var(--panel-2);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+/* ---------------- 통근 경로 ---------------- */
+
+.route {
+  margin-bottom: 16px;
+}
+
+.route-total {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  margin-bottom: 9px;
+}
+
+.route-total b {
+  font-size: 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+.route-total span {
+  font-size: 12px;
+  color: var(--text-faint);
+}
+
+.route-legs {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 3px;
+  border-left: 1px dashed var(--border);
+}
+
+.leg {
+  position: relative;
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 9px;
+  padding: 5px 0 5px 13px;
+  font-size: 12.5px;
+}
+
+.leg::before {
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 11px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.leg-ride::before {
+  background: var(--accent);
+}
+
+.leg-transfer::before {
+  background: var(--normal);
+}
+
+.leg-time {
+  color: var(--text-faint);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  font-size: 12px;
+}
+
+.leg-text {
+  color: var(--text-dim);
+}
+
+.leg-ride .leg-text {
+  color: var(--text);
+}
+
+/* ---------------- 계산 과정 (접이식) ---------------- */
+
+.why {
+  margin-top: 7px;
+}
+
+.why > summary {
+  cursor: pointer;
+  font-size: 11.5px;
+  color: var(--text-faint);
+  list-style: none;
+  user-select: none;
+  padding: 2px 0;
+}
+
+.why > summary::-webkit-details-marker {
+  display: none;
+}
+
+.why > summary::before {
+  content: "▸ ";
+  display: inline-block;
+  transition: transform 0.15s;
+}
+
+.why[open] > summary::before {
+  content: "▾ ";
+}
+
+.why > summary:hover {
+  color: var(--text-dim);
+}
+
+.metric-row {
+  padding: 7px 0 7px 11px;
+  border-left: 2px solid var(--border);
+  margin-top: 6px;
+}
+
+.metric-row-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  font-size: 12.5px;
+}
+
+.metric-row-head span {
+  color: var(--text-dim);
+}
+
+.metric-row-head b {
+  font-variant-numeric: tabular-nums;
+  font-size: 12px;
+}
+
+.metric-row-note {
+  margin-top: 3px;
+  font-size: 11px;
+  color: var(--text-faint);
+  line-height: 1.5;
+}
+
+/* 동점 때문에 백분위가 뭉친 경우 — 계산이 틀린 것처럼 보이는 걸 막는다 */
+.metric-row-note.tied {
+  color: var(--normal);
+  opacity: 0.85;
+}
+
+.formula {
+  margin-top: 9px;
+  padding: 7px 9px;
+  background: var(--panel-2);
+  border-radius: 6px;
+  font-size: 11.5px;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+  word-break: keep-all;
+  line-height: 1.6;
+}
+
+/* ---------------- 종합 ---------------- */
+
+.composite {
+  margin-top: 16px;
+  padding-top: 13px;
+  border-top: 1px solid var(--border);
+}
+
+.composite .metric-head b {
+  font-size: 15px;
+}
+
+.contrib {
+  margin-top: 9px;
+}
+
+.contrib-row {
+  display: grid;
+  grid-template-columns: 52px 1fr 44px;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+  font-size: 11.5px;
+  color: var(--text-dim);
+}
+
+.contrib-bar {
+  height: 4px;
+  background: var(--panel-2);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.contrib-bar > div {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+.contrib-val {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.cutline {
+  margin-top: 9px;
+  font-size: 11.5px;
+  color: var(--text-faint);
+  line-height: 1.5;
+}
+
+.metric-note.warn {
+  color: var(--normal);
+  margin-top: 12px;
+}
