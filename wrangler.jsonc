@@ -1,6 +1,8 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "oneday",
+  // 이 이름이 곧 workers.dev 서브도메인이 된다.
+  // (소문자·숫자·하이픈만 허용)
+  "name": "i-dont-know-seoul",
   "main": "worker/index.ts",
   // 설치된 wrangler의 workerd 런타임이 지원하는 범위 안이어야 한다.
   // 이 값을 올릴 때는 wrangler도 함께 올릴 것 (안 그러면 `wrangler dev`가 기동 실패).
