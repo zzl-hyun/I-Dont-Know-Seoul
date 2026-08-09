@@ -65,11 +65,41 @@ export interface DongScore {
   safety: number;
   price: number;
   convenience: number;
+  /**
+   * 지표별 백분위. 순서는 번들의 `pctKeys` 가 정한다. 결측이면 null.
+   *
+   * 축 점수만으로는 "치안 78" 이 어디서 왔는지 설명할 수 없다. 실제로 유흥업소가
+   * 0개인데 78점인 동이 있는데(서울 동 다수가 0개라 동점 평균 순위), 이 배열이
+   * 있어야 그 계산을 화면에서 되짚을 수 있다.
+   */
+  pct: (number | null)[];
   /** UI에 "왜 이 등급인지" 근거로 보여줄 실제 수치 */
   raw: DongRawMetrics;
   /** 표본이 부족해 대체값을 쓴 경우 */
   dataQuality: "ok" | "low";
 }
+
+/** 원지표 키 — `pctKeys` 와 `axisWeights[].key` 가 쓰는 이름 */
+export type MetricKey =
+  | "monthlyRentMan"
+  | "nightlifePerKm2"
+  | "cctvPerKm2"
+  | "crimePer1k"
+  | "storePerKm2"
+  | "foodPerKm2"
+  | "medicalPerKm2"
+  | "walkToStationMin";
+
+/** 축을 구성하는 하위 지표와 그 가중치 (결측 지표를 뺀 뒤 재정규화된 값) */
+export interface AxisWeight {
+  key: MetricKey;
+  label: string;
+  /** +1 = 높을수록 좋음, -1 = 높을수록 나쁨 */
+  dir: 1 | -1;
+  w: number;
+}
+
+export type AxisName = "safety" | "price" | "convenience";
 
 export interface DongRawMetrics {
   /** 원룸 환산월세 중앙값 (만원) */
@@ -121,4 +151,26 @@ export interface CommuteResult {
   transfers: number;
   /** 경로에 추정 구간이 포함되었는지 (UI에 "추정" 표기) */
   hasEstimatedLeg: boolean;
+  /**
+   * 이 동이 실제로 이용한 그래프 노드. 경로를 되짚는 출발점이다.
+   * 427개 동의 경로를 미리 만들지 않고, 사용자가 선택한 동만 이 값으로 복원한다.
+   */
+  viaNodeId: number;
 }
+
+/** 통근 경로의 한 구간 */
+export type RouteLeg =
+  | { kind: "walk"; minutes: number; to: string }
+  /** 최초 승차 대기 — 이걸 빼면 구간 합이 총 통근시간과 안 맞아 보인다 */
+  | { kind: "wait"; minutes: number; at: string }
+  | {
+      kind: "ride";
+      minutes: number;
+      line: string;
+      stops: number;
+      from: string;
+      to: string;
+      /** 역 좌표 순서 (지도에 선으로 그릴 때 사용) */
+      path: Array<[lng: number, lat: number]>;
+    }
+  | { kind: "transfer"; minutes: number; at: string; fromLine: string; toLine: string };

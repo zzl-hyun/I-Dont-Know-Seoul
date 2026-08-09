@@ -1,9 +1,20 @@
-import type { DongMeta, DongScore, SubwayGraph } from "../types";
+import type {
+  AxisName,
+  AxisWeight,
+  DongMeta,
+  DongScore,
+  MetricKey,
+  SubwayGraph,
+} from "../types";
 
 export interface AppData {
   dongs: DongMeta[];
   graph: SubwayGraph;
   scores: Map<string, DongScore>;
+  /** `DongScore.pct` 배열의 순서를 정하는 지표 키 목록 */
+  pctKeys: MetricKey[];
+  /** 축을 구성하는 하위 지표와 가중치 — 계산 과정을 화면에 보여주는 데 쓴다 */
+  axisWeights: Record<AxisName, AxisWeight[]>;
   meta: {
     boundaryVersion: string;
     graphVersion: string;
@@ -16,6 +27,8 @@ export interface AppData {
 
 interface RawBundle {
   meta: AppData["meta"];
+  pctKeys: MetricKey[];
+  axisWeights: Record<AxisName, AxisWeight[]>;
   dongs: DongMeta[];
   graph: SubwayGraph;
   scores: Record<string, DongScore>;
@@ -37,6 +50,8 @@ export async function loadAppData(signal?: AbortSignal): Promise<AppData> {
     dongs: raw.dongs,
     graph: raw.graph,
     scores: new Map(Object.entries(raw.scores)),
+    pctKeys: raw.pctKeys ?? [],
+    axisWeights: raw.axisWeights ?? { safety: [], price: [], convenience: [] },
     meta: raw.meta,
   };
 }

@@ -25,10 +25,24 @@ export function compositeScore(score: DongScore, w: Weights): number {
  *
  * @param scores 전체 동의 점수 (분포 기준을 잡기 위해 필요)
  */
-export function gradeAll(
-  scores: Map<string, DongScore>,
-  w: Weights
-): Map<string, { score: number; grade: Grade; rank: number; total: number }> {
+export interface GradeInfo {
+  score: number;
+  grade: Grade;
+  rank: number;
+  total: number;
+}
+
+export interface GradeResult {
+  byDong: Map<string, GradeInfo>;
+  /**
+   * 등급을 가르는 **종합 점수**. 가중치를 바꾸면 점수 분포가 통째로 이동하므로
+   * 이 값도 함께 움직인다. "68.4점 이상이면 Best" 처럼 컷을 화면에 보여주려면
+   * 순위가 아니라 이 점수가 필요하다.
+   */
+  cuts: { best: number; normal: number };
+}
+
+export function gradeAll(scores: Map<string, DongScore>, w: Weights): GradeResult {
   const entries = [...scores.entries()].map(([code, s]) => ({
     code,
     score: compositeScore(s, w),
@@ -41,15 +55,19 @@ export function gradeAll(
   const bestCut = Math.round(total * GRADE_CUT.best);
   const normalCut = Math.round(total * GRADE_CUT.normal);
 
-  const out = new Map<
-    string,
-    { score: number; grade: Grade; rank: number; total: number }
-  >();
+  const byDong = new Map<string, GradeInfo>();
   entries.forEach((e, i) => {
     const grade: Grade = i < bestCut ? "best" : i < normalCut ? "normal" : "bad";
-    out.set(e.code, { score: e.score, grade, rank: i + 1, total });
+    byDong.set(e.code, { score: e.score, grade, rank: i + 1, total });
   });
-  return out;
+
+  return {
+    byDong,
+    cuts: {
+      best: entries[Math.min(total - 1, bestCut)]?.score ?? 0,
+      normal: entries[Math.min(total - 1, normalCut)]?.score ?? 0,
+    },
+  };
 }
 
 /** 가중치 하나를 바꿀 때 나머지를 비례 조정해 합을 1로 유지한다. */
