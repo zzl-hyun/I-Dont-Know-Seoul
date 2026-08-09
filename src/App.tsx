@@ -7,12 +7,19 @@ import { loadAppData, type AppData } from "./lib/data";
 import { buildRoute, computeCommute } from "./lib/commute";
 import { gradeAll, rebalanceWeights } from "./lib/score";
 import { buildDistributions, summarize } from "./lib/explain";
+import { buildSubwayLayers, LINE_COLOR, lineName } from "./lib/subwayLines";
 import {
   DEFAULT_MAX_COMMUTE_MIN,
   DEFAULT_WEIGHTS,
   GRADE_LABEL,
 } from "./lib/constants";
 import type { CommuteResult, Destination, Weights } from "./types";
+
+/**
+ * 범례에 넣을 노선. 그래프에는 21개 노선이 있지만 전부 나열하면 지도를 덮는다.
+ * 서울 안에서 자취 후보지를 가르는 주요 노선만 고른다.
+ */
+const MAIN_LINES = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "신분당", "경의·중앙", "수인·분당"];
 
 const NO_COMMUTE: CommuteResult = {
   totalMin: null,
@@ -31,6 +38,7 @@ export default function App() {
   const [maxCommute, setMaxCommute] = useState(DEFAULT_MAX_COMMUTE_MIN);
   const [weights, setWeights] = useState<Weights>({ ...DEFAULT_WEIGHTS });
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
+  const [showSubway, setShowSubway] = useState(true);
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -61,6 +69,12 @@ export default function App() {
   const dists = useMemo(() => {
     if (!data) return null;
     return buildDistributions(data.scores, data.pctKeys);
+  }, [data]);
+
+  /* 지하철 노선도 — 그래프는 세션 내내 불변이라 한 번만 만든다 */
+  const subway = useMemo(() => {
+    if (!data) return null;
+    return buildSubwayLayers(data.graph);
   }, [data]);
 
   const explainCtx = useMemo<ExplainContext | null>(() => {
@@ -136,16 +150,43 @@ export default function App() {
   return (
     <div className="app">
       <div className="map-wrap">
-        {data ? (
-          <MapView
-            dongs={data.dongs}
-            views={views}
-            destination={destination}
-            selectedCode={selectedCode}
-            onSelect={setSelectedCode}
-            hasDestination={!!destination}
-            routePath={routePath}
-          />
+        {data && subway ? (
+          <>
+            <MapView
+              dongs={data.dongs}
+              views={views}
+              destination={destination}
+              selectedCode={selectedCode}
+              onSelect={setSelectedCode}
+              hasDestination={!!destination}
+              routePath={routePath}
+              subway={subway}
+              showSubway={showSubway}
+            />
+            <div className="map-controls">
+              <label className="map-toggle">
+                <input
+                  type="checkbox"
+                  checked={showSubway}
+                  onChange={(e) => setShowSubway(e.target.checked)}
+                />
+                지하철 노선도
+              </label>
+              {showSubway && (
+                <details className="line-legend">
+                  <summary>노선 색</summary>
+                  <div className="line-legend-body">
+                    {MAIN_LINES.map((l) => (
+                      <span key={l}>
+                        <i style={{ background: LINE_COLOR[l] }} />
+                        {lineName(l)}
+                      </span>
+                    ))}
+                  </div>
+                </details>
+              )}
+            </div>
+          </>
         ) : (
           <div className="loading">
             {error ? `오류: ${error}` : "지도를 불러오는 중..."}

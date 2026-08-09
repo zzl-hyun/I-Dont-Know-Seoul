@@ -3,6 +3,7 @@ import maplibregl, { type MapGeoJSONFeature } from "maplibre-gl";
 import type { FeatureCollection } from "geojson";
 import type { CommuteResult, DongMeta, Destination, Grade } from "../types";
 import { GRADE_COLOR, GRADE_LABEL, OUT_OF_RANGE_COLOR } from "../lib/constants";
+import type { SubwayLayers } from "../lib/subwayLines";
 
 /**
  * 배경 지도 스타일.
@@ -38,12 +39,20 @@ interface Props {
   hasDestination: boolean;
   /** 선택된 동의 통근 경로 (역 좌표를 이은 선) */
   routePath: Array<Array<[number, number]>>;
+  /** 지하철 노선도 (노선별 MultiLineString + 역 Point) */
+  subway: SubwayLayers;
+  showSubway: boolean;
 }
 
 const SRC_DONG = "dong";
 const SRC_POINT = "dong-point";
 const SRC_DEST = "dest";
 const SRC_ROUTE = "route";
+const SRC_SUBWAY_LINE = "subway-line-src";
+const SRC_SUBWAY_STATION = "subway-station-src";
+
+/** 토글로 함께 켜고 끄는 지하철 레이어들 */
+const SUBWAY_LAYERS = ["subway-line", "subway-station", "subway-label"];
 
 export default function MapView({
   dongs,
@@ -53,6 +62,8 @@ export default function MapView({
   onSelect,
   hasDestination,
   routePath,
+  subway,
+  showSubway,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
@@ -62,6 +73,10 @@ export default function MapView({
   // 최신 props를 이벤트 핸들러에서 읽기 위한 ref (핸들러를 재등록하지 않기 위함)
   const stateRef = useRef({ dongs, views, onSelect });
   stateRef.current = { dongs, views, onSelect };
+
+  // 지하철 노선도는 불변이므로 지도 생성 시점에 한 번만 읽는다
+  const subwayRef = useRef(subway);
+  subwayRef.current = subway;
 
   /* ---------------- 지도 생성 (1회) ---------------- */
   useEffect(() => {
@@ -123,6 +138,13 @@ export default function MapView({
       map.addSource(SRC_DEST, { type: "geojson", data: emptyFC() });
       map.addSource(SRC_ROUTE, { type: "geojson", data: emptyFC() });
 
+      // 지하철 노선도는 세션 내내 불변이라 한 번만 넣는다
+      map.addSource(SRC_SUBWAY_LINE, { type: "geojson", data: subwayRef.current.lines });
+      map.addSource(SRC_SUBWAY_STATION, {
+        type: "geojson",
+        data: subwayRef.current.stations,
+      });
+
       /*
        * 색은 전부 feature-state 기반 표현식으로 계산한다.
        * 이렇게 하면 가중치·통근시간 슬라이더를 움직일 때 지오메트리를 다시
@@ -158,6 +180,44 @@ export default function MapView({
             ["boolean", ["feature-state", "selected"], false], 2.2,
             0.5,
           ],
+        },
+      });
+
+      /*
+       * 지하철 노선도.
+       *
+       * 등급 아이콘보다 **아래**에 깐다. 이 앱의 주인공은 등급이고 지하철은
+       * 그걸 설명하는 배경이라, 역 점이 등급 아이콘을 가리면 주 기능이 손상된다.
+       * 선은 등급 색을 덮지 않을 만큼 얇고 반투명하게 둔다.
+       */
+      map.addLayer({
+        id: "subway-line",
+        type: "line",
+        source: SRC_SUBWAY_LINE,
+        layout: { "line-cap": "round", "line-join": "round" },
+        paint: {
+          "line-color": ["get", "color"],
+          "line-width": ["interpolate", ["linear"], ["zoom"], 10, 1.2, 13, 2.2, 16, 4],
+          "line-opacity": 0.55,
+        },
+      });
+
+      map.addLayer({
+        id: "subway-station",
+        type: "circle",
+        source: SRC_SUBWAY_STATION,
+        paint: {
+          "circle-color": ["get", "color"],
+          // 등급 아이콘(3.5~9)보다 확실히 작아야 둘이 구분된다
+          "circle-radius": [
+            "interpolate", ["linear"], ["zoom"],
+            10, ["case", ["get", "isTransfer"], 2.4, 1.8],
+            13, ["case", ["get", "isTransfer"], 4, 2.8],
+            16, ["case", ["get", "isTransfer"], 6, 4.5],
+          ],
+          "circle-stroke-color": "#12141a",
+          "circle-stroke-width": ["interpolate", ["linear"], ["zoom"], 10, 0.5, 14, 1.2],
+          "circle-opacity": 0.95,
         },
       });
 
@@ -222,6 +282,30 @@ export default function MapView({
           "line-width": ["interpolate", ["linear"], ["zoom"], 10, 2, 14, 4],
           "line-dasharray": [2, 1.6],
           "line-opacity": 0.9,
+        },
+      });
+
+      /*
+       * 역 이름. dong-label(minzoom 12.2)이 먼저 선언되어 있어 충돌 시 동 이름이
+       * 우선한다 — 이 앱에서 더 중요한 건 동네 이름이므로 의도한 순서다.
+       */
+      map.addLayer({
+        id: "subway-label",
+        type: "symbol",
+        source: SRC_SUBWAY_STATION,
+        minzoom: 13,
+        layout: {
+          "text-field": ["get", "name"],
+          "text-size": 10.5,
+          "text-offset": [0, -1.2],
+          "text-anchor": "bottom",
+          "text-allow-overlap": false,
+          "text-optional": true,
+        },
+        paint: {
+          "text-color": "#b9c0cc",
+          "text-halo-color": "#12141a",
+          "text-halo-width": 1.4,
         },
       });
 
@@ -358,6 +442,24 @@ export default function MapView({
     if (readyRef.current) apply();
     else map.once("oneday.ready", apply);
   }, [destination]);
+
+  /* ---------------- 지하철 표시/숨김 ---------------- */
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    const apply = () => {
+      // 소스와 레이어는 그대로 두고 visibility 만 바꾼다 — 껐다 켜도 재생성 비용이 없다
+      for (const id of SUBWAY_LAYERS) {
+        if (map.getLayer(id)) {
+          map.setLayoutProperty(id, "visibility", showSubway ? "visible" : "none");
+        }
+      }
+    };
+
+    if (readyRef.current) apply();
+    else map.once("oneday.ready", apply);
+  }, [showSubway]);
 
   /* ---------------- 통근 경로선 ---------------- */
   useEffect(() => {
