@@ -768,11 +768,48 @@ input[type="range"] {
   color: var(--text-dim);
 }
 
-.line-legend-body span {
+.line-legend-body button {
   display: inline-flex;
   align-items: center;
   gap: 5px;
   white-space: nowrap;
+  background: none;
+  border: none;
+  padding: 2px 0;
+  font-size: 11px;
+  color: var(--text-dim);
+  text-align: left;
+}
+
+.line-legend-body button:hover {
+  color: var(--text);
+}
+
+/* 꺼진 노선 — 색만 빼지 않고 취소선까지 넣어야 한눈에 구분된다 */
+.line-legend-body button[data-off="true"] {
+  color: var(--text-faint);
+  text-decoration: line-through;
+}
+
+.line-legend-body button[data-off="true"] i {
+  filter: grayscale(1);
+  opacity: 0.45;
+}
+
+.legend-reset {
+  display: block;
+  width: calc(100% - 22px);
+  margin: 0 11px 9px;
+  padding: 4px;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  font-size: 10.5px;
+  color: var(--text-dim);
+}
+
+.legend-reset:hover {
+  color: var(--text);
 }
 
 .line-legend-body i {

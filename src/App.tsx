@@ -39,6 +39,8 @@ export default function App() {
   const [weights, setWeights] = useState<Weights>({ ...DEFAULT_WEIGHTS });
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
   const [showSubway, setShowSubway] = useState(true);
+  /** 꺼둔 노선. 비어 있으면 전부 표시 (기본값) */
+  const [hiddenLines, setHiddenLines] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -147,6 +149,28 @@ export default function App() {
   const setWeight = (key: keyof Weights, value: number) =>
     setWeights((w) => rebalanceWeights(w, key, value));
 
+  /**
+   * 표시할 노선 목록. 아무것도 안 껐으면 null 을 넘겨 필터 자체를 걸지 않는다
+   * (범례에 없는 비주요 노선까지 상태로 들고 있지 않기 위함).
+   */
+  const visibleLines = useMemo(() => {
+    if (!data || hiddenLines.size === 0) return null;
+    const all = new Set(data.graph.nodes.map((n) => n.line));
+    return [...all].filter((l) => !hiddenLines.has(l));
+  }, [data, hiddenLines]);
+
+  const toggleLine = (line: string) =>
+    setHiddenLines((prev) => {
+      const next = new Set(prev);
+      if (next.has(line)) next.delete(line);
+      else next.add(line);
+      return next;
+    });
+
+  /** 지도의 역을 클릭 → 목적지로 지정 */
+  const pickStation = (s: { name: string; lat: number; lng: number }) =>
+    setDestination({ name: s.name, address: "지하철역", lat: s.lat, lng: s.lng });
+
   return (
     <div className="app">
       <div className="map-wrap">
@@ -162,6 +186,8 @@ export default function App() {
               routePath={routePath}
               subway={subway}
               showSubway={showSubway}
+              visibleLines={visibleLines}
+              onPickStation={pickStation}
             />
             <div className="map-controls">
               <label className="map-toggle">
@@ -174,15 +200,33 @@ export default function App() {
               </label>
               {showSubway && (
                 <details className="line-legend">
-                  <summary>노선 색</summary>
+                  <summary>
+                    노선 {hiddenLines.size > 0 && `· ${hiddenLines.size}개 숨김`}
+                  </summary>
                   <div className="line-legend-body">
+                    {/* 범례를 그대로 토글로 쓴다 — 별도 UI를 만들 필요가 없다 */}
                     {MAIN_LINES.map((l) => (
-                      <span key={l}>
+                      <button
+                        key={l}
+                        type="button"
+                        data-off={hiddenLines.has(l)}
+                        onClick={() => toggleLine(l)}
+                        title={hiddenLines.has(l) ? "켜기" : "끄기"}
+                      >
                         <i style={{ background: LINE_COLOR[l] }} />
                         {lineName(l)}
-                      </span>
+                      </button>
                     ))}
                   </div>
+                  {hiddenLines.size > 0 && (
+                    <button
+                      type="button"
+                      className="legend-reset"
+                      onClick={() => setHiddenLines(new Set())}
+                    >
+                      전부 다시 켜기
+                    </button>
+                  )}
                 </details>
               )}
             </div>

@@ -88,6 +88,32 @@ describe("역", () => {
     expect(gangnam.properties.lineCount).toBe(2);
   });
 
+  it("단일 노선 역은 primaryLine 을 갖고, 환승역은 노선 필터에서 살아남는다", () => {
+    // 노선별 on/off 가 이 두 속성으로 동작한다. 환승역을 primaryLine 으로만
+    // 거르면 다른 노선이 살아 있는데도 역이 사라진다.
+    const single = layers.stations.features.filter((f) => !f.properties.isTransfer);
+    for (const f of single) {
+      expect(f.properties.primaryLine, `${f.properties.name} primaryLine`).not.toBe("");
+      expect(LINE_COLOR[f.properties.primaryLine]).toBeDefined();
+    }
+
+    // 2호선만 껐을 때 강남역(2호선+신분당선)은 남아야 한다
+    const visible = [...new Set(graph.nodes.map((n) => n.line))].filter((l) => l !== "2");
+    const survives = (f: (typeof layers.stations.features)[number]) =>
+      f.properties.isTransfer || visible.includes(f.properties.primaryLine);
+
+    const gangnam = layers.stations.features.find(
+      (f) => f.properties.name === "강남" && f.properties.isTransfer
+    )!;
+    expect(survives(gangnam), "강남역이 사라지면 안 된다").toBe(true);
+
+    // 2호선 전용 역은 함께 사라져야 한다
+    const only2 = layers.stations.features.find(
+      (f) => !f.properties.isTransfer && f.properties.primaryLine === "2"
+    )!;
+    expect(survives(only2)).toBe(false);
+  });
+
   it("좌표가 [경도, 위도] 순서다", () => {
     /*
      * 뒤바뀌면 지도에 아무것도 안 보이는데 오류는 나지 않는다.

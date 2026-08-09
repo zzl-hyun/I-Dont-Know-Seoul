@@ -57,14 +57,24 @@ export function lineName(line: string): string {
   return alias[line] ?? `${line}선`.replace(/선선$/, "선");
 }
 
+export interface StationProps {
+  name: string;
+  isTransfer: boolean;
+  color: string;
+  lineCount: number;
+  /**
+   * 단일 노선 역이 속한 노선. 노선별 on/off 필터에 쓴다.
+   * 환승역은 노선이 여럿이라 하나로 정할 수 없으므로 `isTransfer` 로 걸러
+   * 항상 남긴다 — 다른 노선이 살아 있는 한 그 역은 지도에 있어야 한다.
+   */
+  primaryLine: string;
+}
+
 export interface SubwayLayers {
   /** 노선별 MultiLineString — 노선 수만큼의 피처 */
   lines: FeatureCollection<MultiLineString, { line: string; color: string }>;
   /** 역 Point */
-  stations: FeatureCollection<
-    Point,
-    { name: string; isTransfer: boolean; color: string; lineCount: number }
-  >;
+  stations: FeatureCollection<Point, StationProps>;
   /** 그래프에 있었지만 LINE_COLOR 에 없는 노선 — 테스트가 여기를 검사한다 */
   missingColors: string[];
 }
@@ -109,23 +119,22 @@ export function buildSubwayLayers(graph: SubwayGraph): SubwayLayers {
   }
 
   /* ---- 역 ---- */
-  const stationFeatures = graph.stations.map(
-    (s): Feature<Point, { name: string; isTransfer: boolean; color: string; lineCount: number }> => {
-      const isTransfer = s.lines.length > 1;
-      return {
-        type: "Feature",
-        geometry: { type: "Point", coordinates: [s.lng, s.lat] },
-        properties: {
-          name: s.name,
-          isTransfer,
-          // 환승역은 노선이 여럿이라 색을 하나로 정할 수 없다. 실제 노선도 관례대로
-          // 흰 점으로 그려 구분하고, 단일 노선 역만 노선색을 쓴다.
-          color: isTransfer ? "#ffffff" : (LINE_COLOR[s.lines[0]] ?? UNKNOWN_LINE_COLOR),
-          lineCount: s.lines.length,
-        },
-      };
-    }
-  );
+  const stationFeatures = graph.stations.map((s): Feature<Point, StationProps> => {
+    const isTransfer = s.lines.length > 1;
+    return {
+      type: "Feature",
+      geometry: { type: "Point", coordinates: [s.lng, s.lat] },
+      properties: {
+        name: s.name,
+        isTransfer,
+        // 환승역은 노선이 여럿이라 색을 하나로 정할 수 없다. 실제 노선도 관례대로
+        // 흰 점으로 그려 구분하고, 단일 노선 역만 노선색을 쓴다.
+        color: isTransfer ? "#ffffff" : (LINE_COLOR[s.lines[0]] ?? UNKNOWN_LINE_COLOR),
+        lineCount: s.lines.length,
+        primaryLine: s.lines[0] ?? "",
+      },
+    };
+  });
 
   return {
     lines: { type: "FeatureCollection", features: lineFeatures },

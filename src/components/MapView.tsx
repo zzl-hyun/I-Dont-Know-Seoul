@@ -3,7 +3,7 @@ import maplibregl, { type MapGeoJSONFeature } from "maplibre-gl";
 import type { FeatureCollection } from "geojson";
 import type { CommuteResult, DongMeta, Destination, Grade } from "../types";
 import { GRADE_COLOR, GRADE_LABEL, OUT_OF_RANGE_COLOR } from "../lib/constants";
-import type { SubwayLayers } from "../lib/subwayLines";
+import { LINE_COLOR, lineName, type SubwayLayers } from "../lib/subwayLines";
 
 /**
  * 배경 지도 스타일.
@@ -42,6 +42,13 @@ interface Props {
   /** 지하철 노선도 (노선별 MultiLineString + 역 Point) */
   subway: SubwayLayers;
   showSubway: boolean;
+  /**
+   * 표시할 노선. null 이면 전부 표시한다.
+   * (범례에 없는 비주요 노선까지 일일이 상태로 들고 있지 않기 위한 구분)
+   */
+  visibleLines: string[] | null;
+  /** 지도의 역을 클릭했을 때 — 목적지로 추가한다 */
+  onPickStation: (station: { name: string; lat: number; lng: number }) => void;
 }
 
 const SRC_DONG = "dong";
@@ -52,7 +59,7 @@ const SRC_SUBWAY_LINE = "subway-line-src";
 const SRC_SUBWAY_STATION = "subway-station-src";
 
 /** 토글로 함께 켜고 끄는 지하철 레이어들 */
-const SUBWAY_LAYERS = ["subway-line", "subway-station", "subway-label"];
+const SUBWAY_LAYERS = ["subway-line", "subway-hit", "subway-station", "subway-label"];
 
 export default function MapView({
   dongs,
@@ -64,6 +71,8 @@ export default function MapView({
   routePath,
   subway,
   showSubway,
+  visibleLines,
+  onPickStation,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
@@ -71,8 +80,8 @@ export default function MapView({
   const popupRef = useRef<maplibregl.Popup | null>(null);
 
   // 최신 props를 이벤트 핸들러에서 읽기 위한 ref (핸들러를 재등록하지 않기 위함)
-  const stateRef = useRef({ dongs, views, onSelect });
-  stateRef.current = { dongs, views, onSelect };
+  const stateRef = useRef({ dongs, views, onSelect, onPickStation });
+  stateRef.current = { dongs, views, onSelect, onPickStation };
 
   // 지하철 노선도는 불변이므로 지도 생성 시점에 한 번만 읽는다
   const subwayRef = useRef(subway);
@@ -200,6 +209,19 @@ export default function MapView({
           "line-width": ["interpolate", ["linear"], ["zoom"], 10, 1.2, 13, 2.2, 16, 4],
           "line-opacity": 0.85,
         },
+      });
+
+      /*
+       * hover 판정용 히트박스.
+       *
+       * 실제 노선은 줌 10에서 1.2px 라 커서로 맞히는 게 사실상 불가능하다.
+       * 투명한 두꺼운 선을 같은 소스로 하나 더 깔아 여기서 hover 를 받는다.
+       */
+      map.addLayer({
+        id: "subway-hit",
+        type: "line",
+        source: SRC_SUBWAY_LINE,
+        paint: { "line-color": "#000000", "line-width": 12, "line-opacity": 0 },
       });
 
       map.addLayer({
@@ -345,9 +367,56 @@ export default function MapView({
       stateRef.current.onSelect(f ? String(f.id ?? "") : null);
     };
 
+    /* 노선 hover → 노선명 */
+    const onLineMove = (
+      e: maplibregl.MapMouseEvent & { features?: MapGeoJSONFeature[] }
+    ) => {
+      const line = e.features?.[0]?.properties?.line;
+      if (!line) return;
+      map.getCanvas().style.cursor = "pointer";
+      popup
+        .setLngLat(e.lngLat)
+        .setHTML(
+          `<b style="color:${LINE_COLOR[line] ?? "#fff"}">●</b> ${escapeHtml(lineName(line))}`
+        )
+        .addTo(map);
+    };
+
+    /* 역 hover / 클릭 → 목적지 지정 */
+    const onStationMove = (
+      e: maplibregl.MapMouseEvent & { features?: MapGeoJSONFeature[] }
+    ) => {
+      const p = e.features?.[0]?.properties;
+      if (!p) return;
+      map.getCanvas().style.cursor = "pointer";
+      popup
+        .setLngLat(e.lngLat)
+        .setHTML(
+          `<b>${escapeHtml(String(p.name))}역</b>` +
+            `<br><span style="color:#9aa1ae">클릭하면 목적지로 추가</span>`
+        )
+        .addTo(map);
+    };
+    const onStationClick = (
+      e: maplibregl.MapMouseEvent & { features?: MapGeoJSONFeature[] }
+    ) => {
+      const f = e.features?.[0];
+      if (!f || f.geometry.type !== "Point") return;
+      const [lng, lat] = f.geometry.coordinates as [number, number];
+      // 역 클릭이 아래 동 폴리곤 클릭까지 발동시키면 선택이 덮어써진다
+      e.preventDefault();
+      stateRef.current.onPickStation({ name: `${f.properties.name}역`, lat, lng });
+    };
+
     map.on("mousemove", "dong-fill", onMove);
     map.on("mouseleave", "dong-fill", onLeave);
     map.on("click", "dong-fill", onClick);
+    map.on("mousemove", "subway-hit", onLineMove);
+    map.on("mouseleave", "subway-hit", onLeave);
+    // 역이 노선보다 위에 있어야 겹칠 때 역 팝업이 이긴다
+    map.on("mousemove", "subway-station", onStationMove);
+    map.on("mouseleave", "subway-station", onLeave);
+    map.on("click", "subway-station", onStationClick);
 
     /*
      * 컨테이너 크기 변화에 맞춰 리사이즈한다.
@@ -461,6 +530,45 @@ export default function MapView({
     else map.once("oneday.ready", apply);
   }, [showSubway]);
 
+  /* ---------------- 노선별 표시/숨김 ---------------- */
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    const apply = () => {
+      if (!map.getLayer("subway-line")) return;
+
+      if (visibleLines === null) {
+        for (const id of ["subway-line", "subway-hit"]) map.setFilter(id, null);
+        for (const id of ["subway-station", "subway-label"]) map.setFilter(id, null);
+        return;
+      }
+
+      const lineFilter: maplibregl.FilterSpecification = [
+        "in",
+        ["get", "line"],
+        ["literal", visibleLines],
+      ];
+      for (const id of ["subway-line", "subway-hit"]) map.setFilter(id, lineFilter);
+
+      /*
+       * 역은 환승역이면 무조건 남긴다. 다른 노선이 살아 있는 한 그 역은 지도에
+       * 있어야 하고, 환승역은 노선이 여럿이라 하나로 필터할 수도 없다.
+       */
+      const stationFilter: maplibregl.FilterSpecification = [
+        "any",
+        ["boolean", ["get", "isTransfer"], false],
+        ["in", ["get", "primaryLine"], ["literal", visibleLines]],
+      ];
+      for (const id of ["subway-station", "subway-label"]) {
+        map.setFilter(id, stationFilter);
+      }
+    };
+
+    if (readyRef.current) apply();
+    else map.once("oneday.ready", apply);
+  }, [visibleLines]);
+
   /* ---------------- 통근 경로선 ---------------- */
   useEffect(() => {
     const map = mapRef.current;
@@ -538,8 +646,7 @@ const emptyFC = (): FeatureCollection => ({
  * 다만 세 줄을 넘기면 지도를 가려서 방해가 되므로 이유는 잘라 쓴다.
  */
 function tooltipHtml(name: string, view: DongView | undefined): string {
-  const esc = (s: string) =>
-    s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]!);
+  const esc = escapeHtml;
 
   if (!view || !view.reachable) {
     return `<b>${esc(name)}</b><br><span style="color:#9aa1ae">통근 가능 시간 밖</span>`;
@@ -557,6 +664,10 @@ function tooltipHtml(name: string, view: DongView | undefined): string {
     lines.push(`<span style="color:#c7cbd4">${esc(trim(view.reason, 46))}</span>`);
   }
   return lines.join("<br>");
+}
+
+function escapeHtml(s: string): string {
+  return s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]!);
 }
 
 function trim(s: string, max: number): string {
