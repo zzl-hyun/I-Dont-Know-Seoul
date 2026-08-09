@@ -1,11 +1,13 @@
 {
   "version": "2026-08-09",
-  "generatedAt": "2026-08-09T03:19:09.729Z",
+  "generatedAt": "2026-08-09T03:59:16.678Z",
   "axes": {
     "safety": [
       "유흥업소 밀도"
     ],
-    "price": [],
+    "price": [
+      "원룸 환산월세"
+    ],
     "convenience": [
       "편의점·마트 밀도",
       "음식점 밀도",
@@ -13,16 +15,14 @@
       "최근접역 도보"
     ]
   },
-  "unavailableAxes": [
-    "price"
-  ],
+  "unavailableAxes": [],
   "scores": {
     "1111051500": {
       "safety": 32,
+      "price": 37.6,
       "convenience": 32.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 67.29,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.05,
@@ -32,15 +32,15 @@
         "medicalPerKm2": 2.46,
         "walkToStationMin": 21.51
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1111053000": {
       "safety": 7.5,
+      "price": 0.2,
       "convenience": 76.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 114.83,
+        "rentSamples": 21,
         "cctvPerKm2": null,
         "nightlifePerKm2": 18.03,
         "crimePer1k": null,
@@ -53,11 +53,11 @@
     },
     "1111054000": {
       "safety": 24.2,
+      "price": 14.8,
       "convenience": 28.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 80.63,
+        "rentSamples": 10,
         "cctvPerKm2": null,
         "nightlifePerKm2": 3.68,
         "crimePer1k": null,
@@ -70,11 +70,11 @@
     },
     "1111055000": {
       "safety": 77.6,
+      "price": 48.8,
       "convenience": 13.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 62.08,
+        "rentSamples": 36,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -87,11 +87,11 @@
     },
     "1111056000": {
       "safety": 77.6,
+      "price": 50.9,
       "convenience": 6.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 61.46,
+        "rentSamples": 10,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -104,10 +104,10 @@
     },
     "1111057000": {
       "safety": 31,
+      "price": 37.6,
       "convenience": 64.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 67.29,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.14,
@@ -117,14 +117,14 @@
         "medicalPerKm2": 10.7,
         "walkToStationMin": 7.95
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1111058000": {
       "safety": 27.2,
+      "price": 37.6,
       "convenience": 77.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 67.29,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.89,
@@ -134,14 +134,14 @@
         "medicalPerKm2": 43.39,
         "walkToStationMin": 12.41
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1111060000": {
       "safety": 8.5,
+      "price": 37.6,
       "convenience": 67.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 67.29,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 16.53,
@@ -151,14 +151,14 @@
         "medicalPerKm2": 4.96,
         "walkToStationMin": 12.48
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1111061500": {
       "safety": 6.6,
+      "price": 37.6,
       "convenience": 92.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 67.29,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 19.65,
@@ -168,14 +168,14 @@
         "medicalPerKm2": 14.63,
         "walkToStationMin": 3.56
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1111063000": {
       "safety": 13.4,
+      "price": 37.6,
       "convenience": 83.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 67.29,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 7.9,
@@ -185,15 +185,15 @@
         "medicalPerKm2": 31.6,
         "walkToStationMin": 5.6
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1111064000": {
       "safety": 28.4,
+      "price": 57.4,
       "convenience": 73.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 59.58,
+        "rentSamples": 25,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.65,
         "crimePer1k": null,
@@ -206,11 +206,11 @@
     },
     "1111065000": {
       "safety": 26.1,
+      "price": 15.3,
       "convenience": 45.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 79.58,
+        "rentSamples": 162,
         "cctvPerKm2": null,
         "nightlifePerKm2": 3.44,
         "crimePer1k": null,
@@ -223,11 +223,11 @@
     },
     "1111067000": {
       "safety": 77.6,
+      "price": 94.5,
       "convenience": 84.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 178,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -240,11 +240,11 @@
     },
     "1111068000": {
       "safety": 5.4,
+      "price": 94.5,
       "convenience": 80.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 178,
         "cctvPerKm2": null,
         "nightlifePerKm2": 24.03,
         "crimePer1k": null,
@@ -257,11 +257,11 @@
     },
     "1111069000": {
       "safety": 12.2,
+      "price": 94.5,
       "convenience": 41.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 178,
         "cctvPerKm2": null,
         "nightlifePerKm2": 9.08,
         "crimePer1k": null,
@@ -274,11 +274,11 @@
     },
     "1111070000": {
       "safety": 77.6,
+      "price": 25.5,
       "convenience": 43.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 70.58,
+        "rentSamples": 958,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -291,11 +291,11 @@
     },
     "1111071000": {
       "safety": 8.7,
+      "price": 25.5,
       "convenience": 82.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 70.58,
+        "rentSamples": 958,
         "cctvPerKm2": null,
         "nightlifePerKm2": 15.57,
         "crimePer1k": null,
@@ -308,10 +308,10 @@
     },
     "1114052000": {
       "safety": 4.2,
+      "price": 11.3,
       "convenience": 95,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 82.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 26.74,
@@ -321,14 +321,14 @@
         "medicalPerKm2": 10.7,
         "walkToStationMin": 4.45
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1114054000": {
       "safety": 7.7,
+      "price": 11.3,
       "convenience": 97.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 82.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 17.93,
@@ -338,14 +338,14 @@
         "medicalPerKm2": 14.57,
         "walkToStationMin": 2.82
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1114055000": {
       "safety": 2.8,
+      "price": 11.3,
       "convenience": 99.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 82.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 44.73,
@@ -355,14 +355,14 @@
         "medicalPerKm2": 52.68,
         "walkToStationMin": 2.68
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1114057000": {
       "safety": 5.2,
+      "price": 11.3,
       "convenience": 62.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 82.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 24.37,
@@ -372,14 +372,14 @@
         "medicalPerKm2": 2.03,
         "walkToStationMin": 9.87
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1114058000": {
       "safety": 16.8,
+      "price": 11.3,
       "convenience": 53.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 82.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 5.99,
@@ -389,14 +389,14 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 2.12
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1114059000": {
       "safety": 3.1,
+      "price": 11.3,
       "convenience": 95,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 82.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 42.54,
@@ -406,14 +406,14 @@
         "medicalPerKm2": 9.31,
         "walkToStationMin": 3.85
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1114060500": {
       "safety": 0.2,
+      "price": 11.3,
       "convenience": 93.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 82.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 121.85,
@@ -423,15 +423,15 @@
         "medicalPerKm2": 6.68,
         "walkToStationMin": 2.4
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1114061500": {
       "safety": 2.1,
+      "price": 28.3,
       "convenience": 87.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.36,
+        "rentSamples": 806,
         "cctvPerKm2": null,
         "nightlifePerKm2": 53.61,
         "crimePer1k": null,
@@ -444,10 +444,10 @@
     },
     "1114062500": {
       "safety": 5.6,
+      "price": 11.3,
       "convenience": 69.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 82.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 23.8,
@@ -457,14 +457,14 @@
         "medicalPerKm2": 5.49,
         "walkToStationMin": 4.33
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1114063500": {
       "safety": 5.9,
+      "price": 11.3,
       "convenience": 65,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 82.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 23.46,
@@ -474,14 +474,14 @@
         "medicalPerKm2": 1.95,
         "walkToStationMin": 7.14
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1114064500": {
       "safety": 7.3,
+      "price": 11.3,
       "convenience": 65.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 82.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 18.19,
@@ -491,15 +491,15 @@
         "medicalPerKm2": 3.03,
         "walkToStationMin": 7.37
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1114065000": {
       "safety": 0.9,
+      "price": 28.3,
       "convenience": 60.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.36,
+        "rentSamples": 806,
         "cctvPerKm2": null,
         "nightlifePerKm2": 95.12,
         "crimePer1k": null,
@@ -512,10 +512,10 @@
     },
     "1114066500": {
       "safety": 6.1,
+      "price": 11.3,
       "convenience": 70.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 82.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 23.21,
@@ -525,15 +525,15 @@
         "medicalPerKm2": 2.9,
         "walkToStationMin": 8.3
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1114067000": {
       "safety": 2.3,
+      "price": 9.4,
       "convenience": 76.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 83.83,
+        "rentSamples": 569,
         "cctvPerKm2": null,
         "nightlifePerKm2": 50.86,
         "crimePer1k": null,
@@ -546,11 +546,11 @@
     },
     "1114068000": {
       "safety": 4.9,
+      "price": 0,
       "convenience": 73.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 119.58,
+        "rentSamples": 163,
         "cctvPerKm2": null,
         "nightlifePerKm2": 24.4,
         "crimePer1k": null,
@@ -563,11 +563,11 @@
     },
     "1117051000": {
       "safety": 44.7,
+      "price": 60.6,
       "convenience": 51.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 59.29,
+        "rentSamples": 169,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.16,
         "crimePer1k": null,
@@ -580,10 +580,10 @@
     },
     "1117052000": {
       "safety": 32.4,
+      "price": 17,
       "convenience": 21.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 76.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.02,
@@ -593,15 +593,15 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 16.22
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1117053000": {
       "safety": 35.7,
+      "price": 24.6,
       "convenience": 61.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 71.44,
+        "rentSamples": 10,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.72,
         "crimePer1k": null,
@@ -614,10 +614,10 @@
     },
     "1117055500": {
       "safety": 30.8,
+      "price": 17,
       "convenience": 57.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 76.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.17,
@@ -627,14 +627,14 @@
         "medicalPerKm2": 2.17,
         "walkToStationMin": 9.58
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1117056000": {
       "safety": 35,
+      "price": 17,
       "convenience": 47.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 76.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.77,
@@ -644,14 +644,14 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 9.54
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1117057000": {
       "safety": 77.6,
+      "price": 17,
       "convenience": 28.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 76.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -661,15 +661,15 @@
         "medicalPerKm2": 2.52,
         "walkToStationMin": 16.77
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1117058000": {
       "safety": 77.6,
+      "price": 23.5,
       "convenience": 43.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 72.75,
+        "rentSamples": 38,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -682,11 +682,11 @@
     },
     "1117059000": {
       "safety": 77.6,
+      "price": 20,
       "convenience": 52.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 74.58,
+        "rentSamples": 45,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -699,10 +699,10 @@
     },
     "1117062500": {
       "safety": 35,
+      "price": 17,
       "convenience": 51.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 76.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.77,
@@ -712,14 +712,14 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 2.46
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1117063000": {
       "safety": 77.6,
+      "price": 17,
       "convenience": 15.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 76.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -729,14 +729,14 @@
         "medicalPerKm2": 0.35,
         "walkToStationMin": 15.24
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1117064000": {
       "safety": 77.6,
+      "price": 17,
       "convenience": 11,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 76.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -746,15 +746,15 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 17.7
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1117065000": {
       "safety": 1.2,
+      "price": 23.1,
       "convenience": 84.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 73.06,
+        "rentSamples": 238,
         "cctvPerKm2": null,
         "nightlifePerKm2": 93.79,
         "crimePer1k": null,
@@ -767,11 +767,11 @@
     },
     "1117066000": {
       "safety": 4,
+      "price": 23.1,
       "convenience": 45.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 73.06,
+        "rentSamples": 238,
         "cctvPerKm2": null,
         "nightlifePerKm2": 26.94,
         "crimePer1k": null,
@@ -784,11 +784,11 @@
     },
     "1117068500": {
       "safety": 21.8,
+      "price": 23.7,
       "convenience": 42.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 71.88,
+        "rentSamples": 72,
         "cctvPerKm2": null,
         "nightlifePerKm2": 4.39,
         "crimePer1k": null,
@@ -801,11 +801,11 @@
     },
     "1117069000": {
       "safety": 53.2,
+      "price": 71.8,
       "convenience": 29.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 55.21,
+        "rentSamples": 6,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.35,
         "crimePer1k": null,
@@ -818,11 +818,11 @@
     },
     "1117070000": {
       "safety": 77.6,
+      "price": 79.5,
       "convenience": 14,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.29,
+        "rentSamples": 47,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -835,10 +835,10 @@
     },
     "1120052000": {
       "safety": 77.6,
+      "price": 32.2,
       "convenience": 61.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 68.33,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -848,14 +848,14 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 5.43
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1120053500": {
       "safety": 77.6,
+      "price": 32.2,
       "convenience": 83.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 68.33,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -865,15 +865,15 @@
         "medicalPerKm2": 4.16,
         "walkToStationMin": 5.65
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1120054000": {
       "safety": 48.1,
+      "price": 45.8,
       "convenience": 63.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 63.75,
+        "rentSamples": 593,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.89,
         "crimePer1k": null,
@@ -886,11 +886,11 @@
     },
     "1120055000": {
       "safety": 77.6,
+      "price": 66,
       "convenience": 83.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 57.29,
+        "rentSamples": 293,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -903,11 +903,11 @@
     },
     "1120056000": {
       "safety": 35,
+      "price": 45.8,
       "convenience": 88,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 63.75,
+        "rentSamples": 686,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.77,
         "crimePer1k": null,
@@ -920,11 +920,11 @@
     },
     "1120057000": {
       "safety": 31.5,
+      "price": 45.8,
       "convenience": 58,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 63.75,
+        "rentSamples": 686,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.09,
         "crimePer1k": null,
@@ -937,11 +937,11 @@
     },
     "1120058000": {
       "safety": 77.6,
+      "price": 91.5,
       "convenience": 46.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.58,
+        "rentSamples": 7,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -954,10 +954,10 @@
     },
     "1120059000": {
       "safety": 77.6,
+      "price": 32.2,
       "convenience": 33.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 68.33,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -967,14 +967,14 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 11.64
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1120061500": {
       "safety": 77.6,
+      "price": 32.2,
       "convenience": 54.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 68.33,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -984,14 +984,14 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 6.55
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1120062000": {
       "safety": 42.7,
+      "price": 32.2,
       "convenience": 35.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 68.33,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.28,
@@ -1001,15 +1001,15 @@
         "medicalPerKm2": 2.57,
         "walkToStationMin": 14.45
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1120064500": {
       "safety": 77.6,
+      "price": 6.8,
       "convenience": 39.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 86.13,
+        "rentSamples": 60,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -1022,10 +1022,10 @@
     },
     "1120065000": {
       "safety": 38.3,
+      "price": 32.2,
       "convenience": 38.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 68.33,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.61,
@@ -1035,14 +1035,14 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 7.54
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1120066000": {
       "safety": 32,
+      "price": 32.2,
       "convenience": 69.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 68.33,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.05,
@@ -1052,14 +1052,14 @@
         "medicalPerKm2": 1.02,
         "walkToStationMin": 7.78
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1120067000": {
       "safety": 22.2,
+      "price": 32.2,
       "convenience": 52.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 68.33,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 4.35,
@@ -1069,14 +1069,14 @@
         "medicalPerKm2": 5.22,
         "walkToStationMin": 17.14
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1120069000": {
       "safety": 9.9,
+      "price": 32.2,
       "convenience": 88.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 68.33,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 14.35,
@@ -1086,15 +1086,15 @@
         "medicalPerKm2": 5.74,
         "walkToStationMin": 3.56
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1120072000": {
       "safety": 77.6,
+      "price": 73.1,
       "convenience": 35.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 54.58,
+        "rentSamples": 416,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -1107,11 +1107,11 @@
     },
     "1120079000": {
       "safety": 36.3,
+      "price": 35.4,
       "convenience": 36.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.58,
+        "rentSamples": 629,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.69,
         "crimePer1k": null,
@@ -1124,11 +1124,11 @@
     },
     "1121571000": {
       "safety": 0.7,
+      "price": 35.4,
       "convenience": 82.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.58,
+        "rentSamples": 2763,
         "cctvPerKm2": null,
         "nightlifePerKm2": 100.25,
         "crimePer1k": null,
@@ -1141,11 +1141,11 @@
     },
     "1121573000": {
       "safety": 1.6,
+      "price": 42.1,
       "convenience": 75.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 1260,
         "cctvPerKm2": null,
         "nightlifePerKm2": 61.32,
         "crimePer1k": null,
@@ -1158,11 +1158,11 @@
     },
     "1121574000": {
       "safety": 1.9,
+      "price": 47.8,
       "convenience": 80.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 62.27,
+        "rentSamples": 1702,
         "cctvPerKm2": null,
         "nightlifePerKm2": 55.89,
         "crimePer1k": null,
@@ -1175,11 +1175,11 @@
     },
     "1121575000": {
       "safety": 3.3,
+      "price": 47.8,
       "convenience": 80.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 62.27,
+        "rentSamples": 1702,
         "cctvPerKm2": null,
         "nightlifePerKm2": 33.08,
         "crimePer1k": null,
@@ -1192,11 +1192,11 @@
     },
     "1121576000": {
       "safety": 2.6,
+      "price": 47.8,
       "convenience": 79,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 62.27,
+        "rentSamples": 1702,
         "cctvPerKm2": null,
         "nightlifePerKm2": 49.81,
         "crimePer1k": null,
@@ -1209,11 +1209,11 @@
     },
     "1121577000": {
       "safety": 10.3,
+      "price": 47.8,
       "convenience": 39.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 62.27,
+        "rentSamples": 1702,
         "cctvPerKm2": null,
         "nightlifePerKm2": 14.02,
         "crimePer1k": null,
@@ -1226,11 +1226,11 @@
     },
     "1121578000": {
       "safety": 10.6,
+      "price": 42.1,
       "convenience": 43.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 537,
         "cctvPerKm2": null,
         "nightlifePerKm2": 13.86,
         "crimePer1k": null,
@@ -1243,11 +1243,11 @@
     },
     "1121581000": {
       "safety": 21.4,
+      "price": 42.1,
       "convenience": 44.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 85,
         "cctvPerKm2": null,
         "nightlifePerKm2": 4.72,
         "crimePer1k": null,
@@ -1260,11 +1260,11 @@
     },
     "1121582000": {
       "safety": 0,
+      "price": 42.1,
       "convenience": 83.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 2042,
         "cctvPerKm2": null,
         "nightlifePerKm2": 180.66,
         "crimePer1k": null,
@@ -1277,11 +1277,11 @@
     },
     "1121583000": {
       "safety": 11,
+      "price": 42.1,
       "convenience": 36.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 2042,
         "cctvPerKm2": null,
         "nightlifePerKm2": 12.27,
         "crimePer1k": null,
@@ -1294,11 +1294,11 @@
     },
     "1121584000": {
       "safety": 9.2,
+      "price": 42.1,
       "convenience": 73.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 2042,
         "cctvPerKm2": null,
         "nightlifePerKm2": 14.99,
         "crimePer1k": null,
@@ -1311,11 +1311,11 @@
     },
     "1121584700": {
       "safety": 3.8,
+      "price": 42.1,
       "convenience": 74,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 2042,
         "cctvPerKm2": null,
         "nightlifePerKm2": 27.72,
         "crimePer1k": null,
@@ -1328,11 +1328,11 @@
     },
     "1121585000": {
       "safety": 0.5,
+      "price": 27.1,
       "convenience": 82.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.58,
+        "rentSamples": 1581,
         "cctvPerKm2": null,
         "nightlifePerKm2": 115.96,
         "crimePer1k": null,
@@ -1345,11 +1345,11 @@
     },
     "1121586000": {
       "safety": 6.3,
+      "price": 27.1,
       "convenience": 61.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.58,
+        "rentSamples": 1581,
         "cctvPerKm2": null,
         "nightlifePerKm2": 21.74,
         "crimePer1k": null,
@@ -1362,11 +1362,11 @@
     },
     "1121587000": {
       "safety": 9.4,
+      "price": 27.1,
       "convenience": 70.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.58,
+        "rentSamples": 1581,
         "cctvPerKm2": null,
         "nightlifePerKm2": 14.49,
         "crimePer1k": null,
@@ -1379,11 +1379,11 @@
     },
     "1123051500": {
       "safety": 21,
+      "price": 13.4,
       "convenience": 83.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 81,
+        "rentSamples": 459,
         "cctvPerKm2": null,
         "nightlifePerKm2": 4.76,
         "crimePer1k": null,
@@ -1396,11 +1396,11 @@
     },
     "1123053300": {
       "safety": 14.3,
+      "price": 20,
       "convenience": 84.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 74.58,
+        "rentSamples": 1200,
         "cctvPerKm2": null,
         "nightlifePerKm2": 6.87,
         "crimePer1k": null,
@@ -1413,11 +1413,11 @@
     },
     "1123054500": {
       "safety": 13.6,
+      "price": 66,
       "convenience": 78.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 57.29,
+        "rentSamples": 741,
         "cctvPerKm2": null,
         "nightlifePerKm2": 7.63,
         "crimePer1k": null,
@@ -1430,11 +1430,11 @@
     },
     "1123056000": {
       "safety": 19,
+      "price": 29.5,
       "convenience": 78.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.17,
+        "rentSamples": 774,
         "cctvPerKm2": null,
         "nightlifePerKm2": 5.11,
         "crimePer1k": null,
@@ -1447,11 +1447,11 @@
     },
     "1123057000": {
       "safety": 32.7,
+      "price": 29.5,
       "convenience": 47.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.17,
+        "rentSamples": 774,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.01,
         "crimePer1k": null,
@@ -1464,11 +1464,11 @@
     },
     "1123060000": {
       "safety": 43.2,
+      "price": 27.1,
       "convenience": 74.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.58,
+        "rentSamples": 853,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.25,
         "crimePer1k": null,
@@ -1481,11 +1481,11 @@
     },
     "1123061000": {
       "safety": 20.4,
+      "price": 27.1,
       "convenience": 41.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.58,
+        "rentSamples": 853,
         "cctvPerKm2": null,
         "nightlifePerKm2": 4.85,
         "crimePer1k": null,
@@ -1498,11 +1498,11 @@
     },
     "1123065000": {
       "safety": 6.8,
+      "price": 66,
       "convenience": 82.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 57.29,
+        "rentSamples": 1387,
         "cctvPerKm2": null,
         "nightlifePerKm2": 19.06,
         "crimePer1k": null,
@@ -1515,11 +1515,11 @@
     },
     "1123066000": {
       "safety": 10.8,
+      "price": 66,
       "convenience": 73.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 57.29,
+        "rentSamples": 1387,
         "cctvPerKm2": null,
         "nightlifePerKm2": 12.37,
         "crimePer1k": null,
@@ -1532,11 +1532,11 @@
     },
     "1123070500": {
       "safety": 14.6,
+      "price": 3.5,
       "convenience": 61.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 95.67,
+        "rentSamples": 379,
         "cctvPerKm2": null,
         "nightlifePerKm2": 6.81,
         "crimePer1k": null,
@@ -1549,11 +1549,11 @@
     },
     "1123071000": {
       "safety": 4.5,
+      "price": 60.8,
       "convenience": 65,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 59.17,
+        "rentSamples": 658,
         "cctvPerKm2": null,
         "nightlifePerKm2": 26.14,
         "crimePer1k": null,
@@ -1566,11 +1566,11 @@
     },
     "1123072000": {
       "safety": 17.6,
+      "price": 57.4,
       "convenience": 84.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 59.58,
+        "rentSamples": 2248,
         "cctvPerKm2": null,
         "nightlifePerKm2": 5.88,
         "crimePer1k": null,
@@ -1583,11 +1583,11 @@
     },
     "1123073000": {
       "safety": 36.9,
+      "price": 57.4,
       "convenience": 59.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 59.58,
+        "rentSamples": 2248,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.67,
         "crimePer1k": null,
@@ -1600,11 +1600,11 @@
     },
     "1123074000": {
       "safety": 8.2,
+      "price": 61.7,
       "convenience": 87.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 58.58,
+        "rentSamples": 1099,
         "cctvPerKm2": null,
         "nightlifePerKm2": 16.93,
         "crimePer1k": null,
@@ -1617,11 +1617,11 @@
     },
     "1123075000": {
       "safety": 23.9,
+      "price": 61.7,
       "convenience": 63.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 58.58,
+        "rentSamples": 1099,
         "cctvPerKm2": null,
         "nightlifePerKm2": 3.73,
         "crimePer1k": null,
@@ -1634,11 +1634,11 @@
     },
     "1126052000": {
       "safety": 12,
+      "price": 84.3,
       "convenience": 66.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 50.29,
+        "rentSamples": 1996,
         "cctvPerKm2": null,
         "nightlifePerKm2": 9.4,
         "crimePer1k": null,
@@ -1651,11 +1651,11 @@
     },
     "1126054000": {
       "safety": 24.5,
+      "price": 84.3,
       "convenience": 53.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 50.29,
+        "rentSamples": 1996,
         "cctvPerKm2": null,
         "nightlifePerKm2": 3.54,
         "crimePer1k": null,
@@ -1668,11 +1668,11 @@
     },
     "1126055000": {
       "safety": 36.3,
+      "price": 84.3,
       "convenience": 52.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 50.29,
+        "rentSamples": 1996,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.69,
         "crimePer1k": null,
@@ -1685,10 +1685,10 @@
     },
     "1126056500": {
       "safety": 29.3,
+      "price": 75.1,
       "convenience": 82.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 53.75,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.42,
@@ -1698,15 +1698,15 @@
         "medicalPerKm2": 12.09,
         "walkToStationMin": 3.21
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1126057000": {
       "safety": 48.6,
+      "price": 84.3,
       "convenience": 50.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 50.29,
+        "rentSamples": 1996,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.85,
         "crimePer1k": null,
@@ -1719,11 +1719,11 @@
     },
     "1126057500": {
       "safety": 17.8,
+      "price": 84.3,
       "convenience": 55.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 50.29,
+        "rentSamples": 1996,
         "cctvPerKm2": null,
         "nightlifePerKm2": 5.71,
         "crimePer1k": null,
@@ -1736,11 +1736,11 @@
     },
     "1126058000": {
       "safety": 30.3,
+      "price": 37.6,
       "convenience": 76,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.29,
+        "rentSamples": 693,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.32,
         "crimePer1k": null,
@@ -1753,11 +1753,11 @@
     },
     "1126059000": {
       "safety": 4.7,
+      "price": 37.6,
       "convenience": 87.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.29,
+        "rentSamples": 693,
         "cctvPerKm2": null,
         "nightlifePerKm2": 24.42,
         "crimePer1k": null,
@@ -1770,11 +1770,11 @@
     },
     "1126060000": {
       "safety": 26.5,
+      "price": 75.1,
       "convenience": 75.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 53.75,
+        "rentSamples": 733,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.99,
         "crimePer1k": null,
@@ -1787,11 +1787,11 @@
     },
     "1126061000": {
       "safety": 26.3,
+      "price": 75.1,
       "convenience": 58.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 53.75,
+        "rentSamples": 733,
         "cctvPerKm2": null,
         "nightlifePerKm2": 3.13,
         "crimePer1k": null,
@@ -1804,11 +1804,11 @@
     },
     "1126062000": {
       "safety": 77.6,
+      "price": 76.6,
       "convenience": 43.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.92,
+        "rentSamples": 555,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -1821,11 +1821,11 @@
     },
     "1126063000": {
       "safety": 39.2,
+      "price": 76.6,
       "convenience": 47.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.92,
+        "rentSamples": 555,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.5,
         "crimePer1k": null,
@@ -1838,10 +1838,10 @@
     },
     "1126065500": {
       "safety": 19.2,
+      "price": 75.1,
       "convenience": 63.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 53.75,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 5.09,
@@ -1851,15 +1851,15 @@
         "medicalPerKm2": 14.94,
         "walkToStationMin": 10.78
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1126066000": {
       "safety": 46.4,
+      "price": 77.5,
       "convenience": 41.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.42,
+        "rentSamples": 683,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.01,
         "crimePer1k": null,
@@ -1872,11 +1872,11 @@
     },
     "1126068000": {
       "safety": 32.7,
+      "price": 37.6,
       "convenience": 32.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.29,
+        "rentSamples": 168,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.01,
         "crimePer1k": null,
@@ -1889,11 +1889,11 @@
     },
     "1126069000": {
       "safety": 77.6,
+      "price": 37.6,
       "convenience": 33.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.29,
+        "rentSamples": 168,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -1906,11 +1906,11 @@
     },
     "1129052500": {
       "safety": 52.5,
+      "price": 39.4,
       "convenience": 30.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 66.88,
+        "rentSamples": 75,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.41,
         "crimePer1k": null,
@@ -1923,10 +1923,10 @@
     },
     "1129055500": {
       "safety": 77.6,
+      "price": 64.4,
       "convenience": 72,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 57.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -1936,14 +1936,14 @@
         "medicalPerKm2": 19.75,
         "walkToStationMin": 9.17
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1129057500": {
       "safety": 13.1,
+      "price": 64.4,
       "convenience": 91.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 57.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 8.2,
@@ -1953,15 +1953,15 @@
         "medicalPerKm2": 30.08,
         "walkToStationMin": 6.42
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1129058000": {
       "safety": 77.6,
+      "price": 76.6,
       "convenience": 48.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.92,
+        "rentSamples": 32,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -1974,11 +1974,11 @@
     },
     "1129059000": {
       "safety": 77.6,
+      "price": 76.6,
       "convenience": 31.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.92,
+        "rentSamples": 32,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -1991,10 +1991,10 @@
     },
     "1129060000": {
       "safety": 29.8,
+      "price": 64.4,
       "convenience": 77.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 57.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.36,
@@ -2004,14 +2004,14 @@
         "medicalPerKm2": 9.42,
         "walkToStationMin": 4.34
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1129061000": {
       "safety": 77.6,
+      "price": 64.4,
       "convenience": 84.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 57.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -2021,15 +2021,15 @@
         "medicalPerKm2": 15.27,
         "walkToStationMin": 5.68
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1129062000": {
       "safety": 11.7,
+      "price": 73.1,
       "convenience": 90.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 54.58,
+        "rentSamples": 685,
         "cctvPerKm2": null,
         "nightlifePerKm2": 10.27,
         "crimePer1k": null,
@@ -2042,11 +2042,11 @@
     },
     "1129063000": {
       "safety": 34.4,
+      "price": 73.1,
       "convenience": 63.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 54.58,
+        "rentSamples": 685,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.78,
         "crimePer1k": null,
@@ -2059,11 +2059,11 @@
     },
     "1129064000": {
       "safety": 53.9,
+      "price": 73.1,
       "convenience": 20,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 54.58,
+        "rentSamples": 685,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.3,
         "crimePer1k": null,
@@ -2076,11 +2076,11 @@
     },
     "1129065000": {
       "safety": 77.6,
+      "price": 73.1,
       "convenience": 21.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 54.58,
+        "rentSamples": 685,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2093,11 +2093,11 @@
     },
     "1129066000": {
       "safety": 20.2,
+      "price": 94.5,
       "convenience": 61.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 77,
         "cctvPerKm2": null,
         "nightlifePerKm2": 4.89,
         "crimePer1k": null,
@@ -2110,11 +2110,11 @@
     },
     "1129068500": {
       "safety": 15.5,
+      "price": 94.5,
       "convenience": 77.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 77,
         "cctvPerKm2": null,
         "nightlifePerKm2": 6.5,
         "crimePer1k": null,
@@ -2127,11 +2127,11 @@
     },
     "1129070500": {
       "safety": 77.6,
+      "price": 79.5,
       "convenience": 51.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.29,
+        "rentSamples": 369,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2144,10 +2144,10 @@
     },
     "1129071500": {
       "safety": 29.1,
+      "price": 64.4,
       "convenience": 51.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 57.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.62,
@@ -2157,14 +2157,14 @@
         "medicalPerKm2": 13.09,
         "walkToStationMin": 14.86
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1129072500": {
       "safety": 77.6,
+      "price": 64.4,
       "convenience": 69.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 57.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -2174,15 +2174,15 @@
         "medicalPerKm2": 12.75,
         "walkToStationMin": 7.02
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1129076000": {
       "safety": 77.6,
+      "price": 79.5,
       "convenience": 48.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.29,
+        "rentSamples": 220,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2195,11 +2195,11 @@
     },
     "1129077000": {
       "safety": 77.6,
+      "price": 79.5,
       "convenience": 57,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.29,
+        "rentSamples": 220,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2212,11 +2212,11 @@
     },
     "1129078000": {
       "safety": 77.6,
+      "price": 79.5,
       "convenience": 37.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.29,
+        "rentSamples": 220,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2229,11 +2229,11 @@
     },
     "1129081000": {
       "safety": 25.2,
+      "price": 83.3,
       "convenience": 65.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 50.44,
+        "rentSamples": 556,
         "cctvPerKm2": null,
         "nightlifePerKm2": 3.47,
         "crimePer1k": null,
@@ -2246,10 +2246,10 @@
     },
     "1130553400": {
       "safety": 77.6,
+      "price": 82.5,
       "convenience": 53.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 50.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -2259,15 +2259,15 @@
         "medicalPerKm2": 3.15,
         "walkToStationMin": 7.58
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1130553500": {
       "safety": 44.4,
+      "price": 86.4,
       "convenience": 78.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 49.38,
+        "rentSamples": 1124,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.17,
         "crimePer1k": null,
@@ -2280,10 +2280,10 @@
     },
     "1130554500": {
       "safety": 18.2,
+      "price": 82.5,
       "convenience": 52.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 50.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 5.65,
@@ -2293,14 +2293,14 @@
         "medicalPerKm2": 0.94,
         "walkToStationMin": 11.1
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1130555500": {
       "safety": 22.8,
+      "price": 82.5,
       "convenience": 67.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 50.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 4.26,
@@ -2310,14 +2310,14 @@
         "medicalPerKm2": 4.26,
         "walkToStationMin": 10.27
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1130557500": {
       "safety": 77.6,
+      "price": 82.5,
       "convenience": 63.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 50.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -2327,15 +2327,15 @@
         "medicalPerKm2": 1.71,
         "walkToStationMin": 8.08
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1130559500": {
       "safety": 77.6,
+      "price": 90.4,
       "convenience": 72.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 48.38,
+        "rentSamples": 519,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2348,11 +2348,11 @@
     },
     "1130560300": {
       "safety": 77.6,
+      "price": 90.4,
       "convenience": 29.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 48.38,
+        "rentSamples": 519,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2365,11 +2365,11 @@
     },
     "1130560800": {
       "safety": 47.7,
+      "price": 90.4,
       "convenience": 16.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 48.38,
+        "rentSamples": 519,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.92,
         "crimePer1k": null,
@@ -2382,11 +2382,11 @@
     },
     "1130561500": {
       "safety": 77.6,
+      "price": 77.9,
       "convenience": 26.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.38,
+        "rentSamples": 1851,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2399,11 +2399,11 @@
     },
     "1130562500": {
       "safety": 37.3,
+      "price": 77.9,
       "convenience": 71.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.38,
+        "rentSamples": 1851,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.65,
         "crimePer1k": null,
@@ -2416,11 +2416,11 @@
     },
     "1130563500": {
       "safety": 27.9,
+      "price": 77.9,
       "convenience": 78.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.38,
+        "rentSamples": 1851,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.74,
         "crimePer1k": null,
@@ -2433,11 +2433,11 @@
     },
     "1130564500": {
       "safety": 54.2,
+      "price": 97.9,
       "convenience": 14.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 44.38,
+        "rentSamples": 112,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.28,
         "crimePer1k": null,
@@ -2450,10 +2450,10 @@
     },
     "1130566000": {
       "safety": 77.6,
+      "price": 82.5,
       "convenience": 30.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 50.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -2463,15 +2463,15 @@
         "medicalPerKm2": 1.05,
         "walkToStationMin": 15.18
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1132051100": {
       "safety": 47.7,
+      "price": 42.1,
       "convenience": 42.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 891,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.92,
         "crimePer1k": null,
@@ -2484,11 +2484,11 @@
     },
     "1132051200": {
       "safety": 77.6,
+      "price": 42.1,
       "convenience": 52.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 891,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2501,11 +2501,11 @@
     },
     "1132051300": {
       "safety": 77.6,
+      "price": 42.1,
       "convenience": 30.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 891,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2518,11 +2518,11 @@
     },
     "1132051400": {
       "safety": 77.6,
+      "price": 42.1,
       "convenience": 41.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 891,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2535,11 +2535,11 @@
     },
     "1132051500": {
       "safety": 40.4,
+      "price": 42.1,
       "convenience": 59.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 891,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.45,
         "crimePer1k": null,
@@ -2552,11 +2552,11 @@
     },
     "1132052100": {
       "safety": 77.6,
+      "price": 94.5,
       "convenience": 6.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 518,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2569,11 +2569,11 @@
     },
     "1132052200": {
       "safety": 77.6,
+      "price": 94.5,
       "convenience": 44.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 518,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2586,11 +2586,11 @@
     },
     "1132066000": {
       "safety": 77.6,
+      "price": 94.5,
       "convenience": 41,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 355,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2603,11 +2603,11 @@
     },
     "1132067000": {
       "safety": 77.6,
+      "price": 94.5,
       "convenience": 49,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 355,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2620,11 +2620,11 @@
     },
     "1132068000": {
       "safety": 33.1,
+      "price": 94.5,
       "convenience": 77.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 355,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2,
         "crimePer1k": null,
@@ -2637,11 +2637,11 @@
     },
     "1132068100": {
       "safety": 25.2,
+      "price": 94.5,
       "convenience": 35.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 355,
         "cctvPerKm2": null,
         "nightlifePerKm2": 3.47,
         "crimePer1k": null,
@@ -2654,11 +2654,11 @@
     },
     "1132069000": {
       "safety": 77.6,
+      "price": 67.4,
       "convenience": 53.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 57.17,
+        "rentSamples": 537,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2671,11 +2671,11 @@
     },
     "1132070000": {
       "safety": 77.6,
+      "price": 67.4,
       "convenience": 20.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 57.17,
+        "rentSamples": 537,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2688,11 +2688,11 @@
     },
     "1132071000": {
       "safety": 77.6,
+      "price": 67.4,
       "convenience": 15.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 57.17,
+        "rentSamples": 537,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2705,11 +2705,11 @@
     },
     "1135056000": {
       "safety": 23,
+      "price": 94.5,
       "convenience": 71.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 420,
         "cctvPerKm2": null,
         "nightlifePerKm2": 4.24,
         "crimePer1k": null,
@@ -2722,11 +2722,11 @@
     },
     "1135057000": {
       "safety": 77.6,
+      "price": 94.5,
       "convenience": 20,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 420,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2739,11 +2739,11 @@
     },
     "1135058000": {
       "safety": 77.6,
+      "price": 94.5,
       "convenience": 48,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 420,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2756,11 +2756,11 @@
     },
     "1135059500": {
       "safety": 15.3,
+      "price": 91.5,
       "convenience": 88.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.58,
+        "rentSamples": 1793,
         "cctvPerKm2": null,
         "nightlifePerKm2": 6.62,
         "crimePer1k": null,
@@ -2773,11 +2773,11 @@
     },
     "1135060000": {
       "safety": 47.1,
+      "price": 91.5,
       "convenience": 19.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.58,
+        "rentSamples": 1793,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.96,
         "crimePer1k": null,
@@ -2790,11 +2790,11 @@
     },
     "1135061100": {
       "safety": 77.6,
+      "price": 85.3,
       "convenience": 21.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 49.58,
+        "rentSamples": 60,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2807,11 +2807,11 @@
     },
     "1135061200": {
       "safety": 77.6,
+      "price": 85.3,
       "convenience": 33,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 49.58,
+        "rentSamples": 60,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2824,10 +2824,10 @@
     },
     "1135061900": {
       "safety": 77.6,
+      "price": 90.8,
       "convenience": 5.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 48.29,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -2837,15 +2837,15 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 32.07
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1135062100": {
       "safety": 77.6,
+      "price": 62.9,
       "convenience": 22.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 58.17,
+        "rentSamples": 78,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2858,11 +2858,11 @@
     },
     "1135062400": {
       "safety": 77.6,
+      "price": 62.9,
       "convenience": 13.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 58.17,
+        "rentSamples": 78,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2875,11 +2875,11 @@
     },
     "1135062500": {
       "safety": 77.6,
+      "price": 62.9,
       "convenience": 35.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 58.17,
+        "rentSamples": 78,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2892,11 +2892,11 @@
     },
     "1135063000": {
       "safety": 77.6,
+      "price": 89.1,
       "convenience": 16.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 48.67,
+        "rentSamples": 716,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2909,11 +2909,11 @@
     },
     "1135064000": {
       "safety": 77.6,
+      "price": 89.1,
       "convenience": 49.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 48.67,
+        "rentSamples": 716,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2926,11 +2926,11 @@
     },
     "1135066500": {
       "safety": 77.6,
+      "price": 89.1,
       "convenience": 21.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 48.67,
+        "rentSamples": 716,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2943,11 +2943,11 @@
     },
     "1135067000": {
       "safety": 77.6,
+      "price": 89.1,
       "convenience": 41.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 48.67,
+        "rentSamples": 716,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2960,11 +2960,11 @@
     },
     "1135069500": {
       "safety": 77.6,
+      "price": 89.1,
       "convenience": 44.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 48.67,
+        "rentSamples": 716,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2977,11 +2977,11 @@
     },
     "1135070000": {
       "safety": 77.6,
+      "price": 89.1,
       "convenience": 30.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 48.67,
+        "rentSamples": 716,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -2994,11 +2994,11 @@
     },
     "1135071000": {
       "safety": 77.6,
+      "price": 89.1,
       "convenience": 30.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 48.67,
+        "rentSamples": 716,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3011,11 +3011,11 @@
     },
     "1135072000": {
       "safety": 77.6,
+      "price": 89.1,
       "convenience": 22.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 48.67,
+        "rentSamples": 716,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3028,11 +3028,11 @@
     },
     "1138051000": {
       "safety": 13.8,
+      "price": 57.4,
       "convenience": 41,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 59.58,
+        "rentSamples": 369,
         "cctvPerKm2": null,
         "nightlifePerKm2": 7.32,
         "crimePer1k": null,
@@ -3045,11 +3045,11 @@
     },
     "1138052000": {
       "safety": 53.9,
+      "price": 80.9,
       "convenience": 19.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.17,
+        "rentSamples": 436,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.3,
         "crimePer1k": null,
@@ -3062,11 +3062,11 @@
     },
     "1138053000": {
       "safety": 23.7,
+      "price": 80.9,
       "convenience": 33.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.17,
+        "rentSamples": 436,
         "cctvPerKm2": null,
         "nightlifePerKm2": 3.74,
         "crimePer1k": null,
@@ -3079,11 +3079,11 @@
     },
     "1138055100": {
       "safety": 16.2,
+      "price": 76.6,
       "convenience": 52.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.92,
+        "rentSamples": 257,
         "cctvPerKm2": null,
         "nightlifePerKm2": 6.3,
         "crimePer1k": null,
@@ -3096,11 +3096,11 @@
     },
     "1138055200": {
       "safety": 15,
+      "price": 76.6,
       "convenience": 48.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.92,
+        "rentSamples": 257,
         "cctvPerKm2": null,
         "nightlifePerKm2": 6.65,
         "crimePer1k": null,
@@ -3113,11 +3113,11 @@
     },
     "1138056000": {
       "safety": 77.6,
+      "price": 91.1,
       "convenience": 42.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 48.04,
+        "rentSamples": 73,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3130,11 +3130,11 @@
     },
     "1138057000": {
       "safety": 14.1,
+      "price": 57.4,
       "convenience": 63.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 59.58,
+        "rentSamples": 558,
         "cctvPerKm2": null,
         "nightlifePerKm2": 6.89,
         "crimePer1k": null,
@@ -3147,11 +3147,11 @@
     },
     "1138058000": {
       "safety": 16.4,
+      "price": 61.7,
       "convenience": 35.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 58.58,
+        "rentSamples": 871,
         "cctvPerKm2": null,
         "nightlifePerKm2": 6.04,
         "crimePer1k": null,
@@ -3164,11 +3164,11 @@
     },
     "1138059000": {
       "safety": 77.6,
+      "price": 61.7,
       "convenience": 32,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 58.58,
+        "rentSamples": 871,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3181,11 +3181,11 @@
     },
     "1138060000": {
       "safety": 77.6,
+      "price": 61.7,
       "convenience": 47.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 58.58,
+        "rentSamples": 871,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3198,11 +3198,11 @@
     },
     "1138062500": {
       "safety": 18.5,
+      "price": 75.1,
       "convenience": 43.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 53.75,
+        "rentSamples": 349,
         "cctvPerKm2": null,
         "nightlifePerKm2": 5.52,
         "crimePer1k": null,
@@ -3215,11 +3215,11 @@
     },
     "1138063100": {
       "safety": 9.6,
+      "price": 73.1,
       "convenience": 66,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 54.58,
+        "rentSamples": 340,
         "cctvPerKm2": null,
         "nightlifePerKm2": 14.46,
         "crimePer1k": null,
@@ -3232,11 +3232,11 @@
     },
     "1138063200": {
       "safety": 33.6,
+      "price": 73.1,
       "convenience": 50,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 54.58,
+        "rentSamples": 340,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.92,
         "crimePer1k": null,
@@ -3249,11 +3249,11 @@
     },
     "1138064000": {
       "safety": 22.2,
+      "price": 94.5,
       "convenience": 52.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 25,
         "cctvPerKm2": null,
         "nightlifePerKm2": 4.35,
         "crimePer1k": null,
@@ -3266,11 +3266,11 @@
     },
     "1138065000": {
       "safety": 77.6,
+      "price": 50.5,
       "convenience": 29.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 61.56,
+        "rentSamples": 12,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3283,11 +3283,11 @@
     },
     "1138069000": {
       "safety": 37.8,
+      "price": 37.6,
       "convenience": 13.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.29,
+        "rentSamples": 1172,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.63,
         "crimePer1k": null,
@@ -3300,11 +3300,11 @@
     },
     "1141052000": {
       "safety": 45.1,
+      "price": 57.4,
       "convenience": 70.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 59.58,
+        "rentSamples": 44,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.12,
         "crimePer1k": null,
@@ -3317,11 +3317,11 @@
     },
     "1141055500": {
       "safety": 77.6,
+      "price": 42.1,
       "convenience": 46.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 227,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3334,10 +3334,10 @@
     },
     "1141056500": {
       "safety": 21.6,
+      "price": 44.6,
       "convenience": 40.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 64.17,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 4.4,
@@ -3347,15 +3347,15 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 15.89
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1141058500": {
       "safety": 3.5,
+      "price": 47.2,
       "convenience": 88,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 62.29,
+        "rentSamples": 67,
         "cctvPerKm2": null,
         "nightlifePerKm2": 29.63,
         "crimePer1k": null,
@@ -3368,11 +3368,11 @@
     },
     "1141061500": {
       "safety": 24.5,
+      "price": 46.9,
       "convenience": 48.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 62.58,
+        "rentSamples": 1497,
         "cctvPerKm2": null,
         "nightlifePerKm2": 3.54,
         "crimePer1k": null,
@@ -3385,11 +3385,11 @@
     },
     "1141062000": {
       "safety": 50.2,
+      "price": 66,
       "convenience": 57.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 57.29,
+        "rentSamples": 302,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.64,
         "crimePer1k": null,
@@ -3402,11 +3402,11 @@
     },
     "1141064000": {
       "safety": 77.6,
+      "price": 66,
       "convenience": 39.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 57.29,
+        "rentSamples": 302,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3419,11 +3419,11 @@
     },
     "1141065500": {
       "safety": 41.2,
+      "price": 66,
       "convenience": 43,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 57.29,
+        "rentSamples": 302,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.4,
         "crimePer1k": null,
@@ -3436,11 +3436,11 @@
     },
     "1141066000": {
       "safety": 77.6,
+      "price": 87.1,
       "convenience": 26.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 49.29,
+        "rentSamples": 436,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3453,11 +3453,11 @@
     },
     "1141068500": {
       "safety": 46.7,
+      "price": 87.1,
       "convenience": 30.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 49.29,
+        "rentSamples": 436,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.98,
         "crimePer1k": null,
@@ -3470,11 +3470,11 @@
     },
     "1141069000": {
       "safety": 77.6,
+      "price": 87.9,
       "convenience": 64,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 48.75,
+        "rentSamples": 521,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3487,11 +3487,11 @@
     },
     "1141070000": {
       "safety": 43.8,
+      "price": 87.9,
       "convenience": 53.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 48.75,
+        "rentSamples": 521,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.23,
         "crimePer1k": null,
@@ -3504,11 +3504,11 @@
     },
     "1141071000": {
       "safety": 77.6,
+      "price": 75.1,
       "convenience": 40.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 53.75,
+        "rentSamples": 262,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3521,11 +3521,11 @@
     },
     "1141072000": {
       "safety": 43,
+      "price": 75.1,
       "convenience": 64.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 53.75,
+        "rentSamples": 262,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.26,
         "crimePer1k": null,
@@ -3538,11 +3538,11 @@
     },
     "1144055500": {
       "safety": 77.6,
+      "price": 8.7,
       "convenience": 59.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 84.38,
+        "rentSamples": 258,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3555,11 +3555,11 @@
     },
     "1144056500": {
       "safety": 19.7,
+      "price": 5.9,
       "convenience": 71.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 87.71,
+        "rentSamples": 524,
         "cctvPerKm2": null,
         "nightlifePerKm2": 4.91,
         "crimePer1k": null,
@@ -3572,11 +3572,11 @@
     },
     "1144058500": {
       "safety": 37.1,
+      "price": 5.6,
       "convenience": 81.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 89.58,
+        "rentSamples": 371,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.66,
         "crimePer1k": null,
@@ -3589,11 +3589,11 @@
     },
     "1144059000": {
       "safety": 42.4,
+      "price": 39,
       "convenience": 68.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 66.94,
+        "rentSamples": 12,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.29,
         "crimePer1k": null,
@@ -3606,11 +3606,11 @@
     },
     "1144060000": {
       "safety": 16.8,
+      "price": 22.8,
       "convenience": 81.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 73.21,
+        "rentSamples": 301,
         "cctvPerKm2": null,
         "nightlifePerKm2": 5.99,
         "crimePer1k": null,
@@ -3623,11 +3623,11 @@
     },
     "1144061000": {
       "safety": 33.8,
+      "price": 33.3,
       "convenience": 53.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.92,
+        "rentSamples": 229,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.85,
         "crimePer1k": null,
@@ -3640,11 +3640,11 @@
     },
     "1144063000": {
       "safety": 44.1,
+      "price": 46.7,
       "convenience": 69.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 62.92,
+        "rentSamples": 404,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.22,
         "crimePer1k": null,
@@ -3657,10 +3657,10 @@
     },
     "1144065500": {
       "safety": 14.8,
+      "price": 16,
       "convenience": 61,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 77.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 6.74,
@@ -3670,15 +3670,15 @@
         "medicalPerKm2": 2.02,
         "walkToStationMin": 5.42
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1144066000": {
       "safety": 1.4,
+      "price": 20,
       "convenience": 87.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 74.58,
+        "rentSamples": 651,
         "cctvPerKm2": null,
         "nightlifePerKm2": 64.99,
         "crimePer1k": null,
@@ -3691,11 +3691,11 @@
     },
     "1144068000": {
       "safety": 12.4,
+      "price": 4.2,
       "convenience": 55.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 93.75,
+        "rentSamples": 311,
         "cctvPerKm2": null,
         "nightlifePerKm2": 9,
         "crimePer1k": null,
@@ -3708,11 +3708,11 @@
     },
     "1144069000": {
       "safety": 34,
+      "price": 39.4,
       "convenience": 49.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 66.88,
+        "rentSamples": 503,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.84,
         "crimePer1k": null,
@@ -3725,11 +3725,11 @@
     },
     "1144070000": {
       "safety": 38.5,
+      "price": 39.4,
       "convenience": 56.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 66.88,
+        "rentSamples": 503,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.55,
         "crimePer1k": null,
@@ -3742,11 +3742,11 @@
     },
     "1144071000": {
       "safety": 8,
+      "price": 24.4,
       "convenience": 62,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 71.58,
+        "rentSamples": 438,
         "cctvPerKm2": null,
         "nightlifePerKm2": 17,
         "crimePer1k": null,
@@ -3759,11 +3759,11 @@
     },
     "1144072000": {
       "safety": 77.6,
+      "price": 13,
       "convenience": 65,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 82.58,
+        "rentSamples": 2383,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3776,11 +3776,11 @@
     },
     "1144073000": {
       "safety": 77.6,
+      "price": 13,
       "convenience": 68.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 82.58,
+        "rentSamples": 2383,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3793,11 +3793,11 @@
     },
     "1144074000": {
       "safety": 53.2,
+      "price": 17,
       "convenience": 16,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 76.58,
+        "rentSamples": 1007,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.35,
         "crimePer1k": null,
@@ -3810,11 +3810,11 @@
     },
     "1147051000": {
       "safety": 77.6,
+      "price": 35.4,
       "convenience": 56.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.58,
+        "rentSamples": 844,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3827,11 +3827,11 @@
     },
     "1147052000": {
       "safety": 27.7,
+      "price": 35.4,
       "convenience": 69.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.58,
+        "rentSamples": 844,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.85,
         "crimePer1k": null,
@@ -3844,11 +3844,11 @@
     },
     "1147053000": {
       "safety": 23.5,
+      "price": 35.4,
       "convenience": 59.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.58,
+        "rentSamples": 844,
         "cctvPerKm2": null,
         "nightlifePerKm2": 4,
         "crimePer1k": null,
@@ -3861,11 +3861,11 @@
     },
     "1147054000": {
       "safety": 77.6,
+      "price": 35.4,
       "convenience": 38.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.58,
+        "rentSamples": 844,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3878,11 +3878,11 @@
     },
     "1147055000": {
       "safety": 77.6,
+      "price": 35.4,
       "convenience": 30.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.58,
+        "rentSamples": 844,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3895,11 +3895,11 @@
     },
     "1147056000": {
       "safety": 77.6,
+      "price": 98.8,
       "convenience": 29.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 42.29,
+        "rentSamples": 487,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3912,11 +3912,11 @@
     },
     "1147057000": {
       "safety": 37.8,
+      "price": 98.8,
       "convenience": 46,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 42.29,
+        "rentSamples": 487,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.63,
         "crimePer1k": null,
@@ -3929,11 +3929,11 @@
     },
     "1147058000": {
       "safety": 77.6,
+      "price": 98.8,
       "convenience": 13.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 42.29,
+        "rentSamples": 487,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3946,11 +3946,11 @@
     },
     "1147059000": {
       "safety": 77.6,
+      "price": 98.8,
       "convenience": 23.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 42.29,
+        "rentSamples": 487,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3963,11 +3963,11 @@
     },
     "1147060000": {
       "safety": 77.6,
+      "price": 98.8,
       "convenience": 26.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 42.29,
+        "rentSamples": 487,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3980,11 +3980,11 @@
     },
     "1147061000": {
       "safety": 77.6,
+      "price": 98.8,
       "convenience": 24,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 42.29,
+        "rentSamples": 487,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -3997,11 +3997,11 @@
     },
     "1147061100": {
       "safety": 77.6,
+      "price": 98.8,
       "convenience": 12.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 42.29,
+        "rentSamples": 487,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4014,11 +4014,11 @@
     },
     "1147062000": {
       "safety": 77.6,
+      "price": 69.4,
       "convenience": 26,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 56.48,
+        "rentSamples": 840,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4031,11 +4031,11 @@
     },
     "1147063000": {
       "safety": 77.6,
+      "price": 69.4,
       "convenience": 28.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 56.48,
+        "rentSamples": 840,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4048,11 +4048,11 @@
     },
     "1147064000": {
       "safety": 77.6,
+      "price": 69.4,
       "convenience": 7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 56.48,
+        "rentSamples": 840,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4065,11 +4065,11 @@
     },
     "1147065000": {
       "safety": 77.6,
+      "price": 69.4,
       "convenience": 69.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 56.48,
+        "rentSamples": 840,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4082,11 +4082,11 @@
     },
     "1147067000": {
       "safety": 77.6,
+      "price": 69.4,
       "convenience": 33.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 56.48,
+        "rentSamples": 840,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4099,11 +4099,11 @@
     },
     "1147068000": {
       "safety": 77.6,
+      "price": 69.4,
       "convenience": 27.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 56.48,
+        "rentSamples": 840,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4116,11 +4116,11 @@
     },
     "1150051000": {
       "safety": 50.7,
+      "price": 0.9,
       "convenience": 51.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 105,
+        "rentSamples": 439,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.6,
         "crimePer1k": null,
@@ -4133,11 +4133,11 @@
     },
     "1150052000": {
       "safety": 77.6,
+      "price": 21.9,
       "convenience": 68.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 73.75,
+        "rentSamples": 1456,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4150,11 +4150,11 @@
     },
     "1150053000": {
       "safety": 77.6,
+      "price": 21.9,
       "convenience": 20.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 73.75,
+        "rentSamples": 1456,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4167,11 +4167,11 @@
     },
     "1150053500": {
       "safety": 77.6,
+      "price": 21.9,
       "convenience": 30.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 73.75,
+        "rentSamples": 1456,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4184,11 +4184,11 @@
     },
     "1150054000": {
       "safety": 36.6,
+      "price": 53.6,
       "convenience": 66.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 59.92,
+        "rentSamples": 2811,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.68,
         "crimePer1k": null,
@@ -4201,11 +4201,11 @@
     },
     "1150055000": {
       "safety": 77.6,
+      "price": 53.6,
       "convenience": 30,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 59.92,
+        "rentSamples": 2811,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4218,11 +4218,11 @@
     },
     "1150056000": {
       "safety": 77.6,
+      "price": 53.6,
       "convenience": 39.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 59.92,
+        "rentSamples": 2811,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4235,11 +4235,11 @@
     },
     "1150057000": {
       "safety": 77.6,
+      "price": 53.6,
       "convenience": 32.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 59.92,
+        "rentSamples": 2811,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4252,10 +4252,10 @@
     },
     "1150059000": {
       "safety": 77.6,
+      "price": 21.9,
       "convenience": 37.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 73.75,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -4265,15 +4265,15 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 13.68
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1150059100": {
       "safety": 77.6,
+      "price": 53.6,
       "convenience": 25.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 59.92,
+        "rentSamples": 2811,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4286,11 +4286,11 @@
     },
     "1150059300": {
       "safety": 35.4,
+      "price": 53.6,
       "convenience": 66.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 59.92,
+        "rentSamples": 2811,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.74,
         "crimePer1k": null,
@@ -4303,11 +4303,11 @@
     },
     "1150060300": {
       "safety": 46,
+      "price": 29.5,
       "convenience": 22.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.17,
+        "rentSamples": 486,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.02,
         "crimePer1k": null,
@@ -4320,11 +4320,11 @@
     },
     "1150060400": {
       "safety": 77.6,
+      "price": 29.5,
       "convenience": 33.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.17,
+        "rentSamples": 486,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4337,11 +4337,11 @@
     },
     "1150060500": {
       "safety": 77.6,
+      "price": 29.5,
       "convenience": 37.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.17,
+        "rentSamples": 486,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4354,10 +4354,10 @@
     },
     "1150061100": {
       "safety": 77.6,
+      "price": 21.9,
       "convenience": 29.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 73.75,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -4367,14 +4367,14 @@
         "medicalPerKm2": 0.68,
         "walkToStationMin": 15.87
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1150061500": {
       "safety": 77.6,
+      "price": 21.9,
       "convenience": 44.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 73.75,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -4384,15 +4384,15 @@
         "medicalPerKm2": 1.61,
         "walkToStationMin": 8.25
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1150062000": {
       "safety": 54.9,
+      "price": 81.2,
       "convenience": 10,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 51.52,
+        "rentSamples": 358,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.09,
         "crimePer1k": null,
@@ -4405,11 +4405,11 @@
     },
     "1150063000": {
       "safety": 49.9,
+      "price": 85.9,
       "convenience": 56.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 49.52,
+        "rentSamples": 712,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.68,
         "crimePer1k": null,
@@ -4422,11 +4422,11 @@
     },
     "1150064000": {
       "safety": 77.6,
+      "price": 85.9,
       "convenience": 10.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 49.52,
+        "rentSamples": 712,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4439,11 +4439,11 @@
     },
     "1150064100": {
       "safety": 77.6,
+      "price": 85.9,
       "convenience": 7.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 49.52,
+        "rentSamples": 712,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4456,11 +4456,11 @@
     },
     "1153051000": {
       "safety": 77.6,
+      "price": 1.8,
       "convenience": 37.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 99.58,
+        "rentSamples": 267,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4473,11 +4473,11 @@
     },
     "1153052000": {
       "safety": 47.7,
+      "price": 51.9,
       "convenience": 37.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 60.29,
+        "rentSamples": 2905,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.92,
         "crimePer1k": null,
@@ -4490,11 +4490,11 @@
     },
     "1153053000": {
       "safety": 77.6,
+      "price": 51.9,
       "convenience": 22.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 60.29,
+        "rentSamples": 2905,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4507,11 +4507,11 @@
     },
     "1153054000": {
       "safety": 47.1,
+      "price": 51.9,
       "convenience": 69.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 60.29,
+        "rentSamples": 2905,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.96,
         "crimePer1k": null,
@@ -4524,11 +4524,11 @@
     },
     "1153055000": {
       "safety": 77.6,
+      "price": 51.9,
       "convenience": 63.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 60.29,
+        "rentSamples": 2905,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4541,11 +4541,11 @@
     },
     "1153056000": {
       "safety": 77.6,
+      "price": 51.9,
       "convenience": 39.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 60.29,
+        "rentSamples": 2905,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4558,11 +4558,11 @@
     },
     "1153059500": {
       "safety": 20,
+      "price": 79.5,
       "convenience": 49.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.29,
+        "rentSamples": 596,
         "cctvPerKm2": null,
         "nightlifePerKm2": 4.9,
         "crimePer1k": null,
@@ -4575,11 +4575,11 @@
     },
     "1153072000": {
       "safety": 48.4,
+      "price": 84.3,
       "convenience": 32.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 50.29,
+        "rentSamples": 518,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.88,
         "crimePer1k": null,
@@ -4592,11 +4592,11 @@
     },
     "1153073000": {
       "safety": 77.6,
+      "price": 84.3,
       "convenience": 21.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 50.29,
+        "rentSamples": 518,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4609,11 +4609,11 @@
     },
     "1153074000": {
       "safety": 77.6,
+      "price": 97.4,
       "convenience": 29.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 44.58,
+        "rentSamples": 427,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4626,11 +4626,11 @@
     },
     "1153075000": {
       "safety": 77.6,
+      "price": 97.4,
       "convenience": 53.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 44.58,
+        "rentSamples": 427,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4643,11 +4643,11 @@
     },
     "1153076000": {
       "safety": 77.6,
+      "price": 97.4,
       "convenience": 22.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 44.58,
+        "rentSamples": 427,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4660,11 +4660,11 @@
     },
     "1153077000": {
       "safety": 41.8,
+      "price": 50.9,
       "convenience": 58.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 61.46,
+        "rentSamples": 1007,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.34,
         "crimePer1k": null,
@@ -4677,11 +4677,11 @@
     },
     "1153078000": {
       "safety": 53.5,
+      "price": 50.9,
       "convenience": 36.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 61.46,
+        "rentSamples": 1007,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.33,
         "crimePer1k": null,
@@ -4694,10 +4694,10 @@
     },
     "1153079000": {
       "safety": 77.6,
+      "price": 63.5,
       "convenience": 16.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 57.75,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -4707,14 +4707,14 @@
         "medicalPerKm2": 0.38,
         "walkToStationMin": 14.95
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1153080000": {
       "safety": 77.6,
+      "price": 63.5,
       "convenience": 20.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 57.75,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -4724,15 +4724,15 @@
         "medicalPerKm2": 1.4,
         "walkToStationMin": 23.86
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1154551000": {
       "safety": 34.4,
+      "price": 45.8,
       "convenience": 50.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 63.75,
+        "rentSamples": 2021,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.78,
         "crimePer1k": null,
@@ -4745,11 +4745,11 @@
     },
     "1154561000": {
       "safety": 77.6,
+      "price": 48.8,
       "convenience": 48.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 62.08,
+        "rentSamples": 2956,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4762,11 +4762,11 @@
     },
     "1154562000": {
       "safety": 77.6,
+      "price": 48.8,
       "convenience": 34.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 62.08,
+        "rentSamples": 2956,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4779,11 +4779,11 @@
     },
     "1154563000": {
       "safety": 77.6,
+      "price": 48.8,
       "convenience": 39.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 62.08,
+        "rentSamples": 2956,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4796,11 +4796,11 @@
     },
     "1154564000": {
       "safety": 77.6,
+      "price": 48.8,
       "convenience": 26.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 62.08,
+        "rentSamples": 2956,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4813,11 +4813,11 @@
     },
     "1154567000": {
       "safety": 49.9,
+      "price": 94.5,
       "convenience": 49.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 950,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.68,
         "crimePer1k": null,
@@ -4830,11 +4830,11 @@
     },
     "1154568000": {
       "safety": 77.6,
+      "price": 94.5,
       "convenience": 3.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 950,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4847,11 +4847,11 @@
     },
     "1154569000": {
       "safety": 77.6,
+      "price": 94.5,
       "convenience": 23.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 950,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4864,11 +4864,11 @@
     },
     "1154570000": {
       "safety": 77.6,
+      "price": 94.5,
       "convenience": 16.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 950,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4881,11 +4881,11 @@
     },
     "1154571000": {
       "safety": 77.6,
+      "price": 94.5,
       "convenience": 14.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 950,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4898,10 +4898,10 @@
     },
     "1156051500": {
       "safety": 43.4,
+      "price": 18.5,
       "convenience": 51.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 74.77,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.24,
@@ -4911,15 +4911,15 @@
         "medicalPerKm2": 2.48,
         "walkToStationMin": 10.37
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1156053500": {
       "safety": 18.2,
+      "price": 82.5,
       "convenience": 84.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 50.92,
+        "rentSamples": 177,
         "cctvPerKm2": null,
         "nightlifePerKm2": 5.65,
         "crimePer1k": null,
@@ -4932,10 +4932,10 @@
     },
     "1156054000": {
       "safety": 39.9,
+      "price": 18.5,
       "convenience": 43.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 74.77,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.46,
@@ -4945,15 +4945,15 @@
         "medicalPerKm2": 1.22,
         "walkToStationMin": 7.6
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1156055000": {
       "safety": 28.2,
+      "price": 24.1,
       "convenience": 87.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 71.63,
+        "rentSamples": 564,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.69,
         "crimePer1k": null,
@@ -4966,11 +4966,11 @@
     },
     "1156056000": {
       "safety": 77.6,
+      "price": 24.1,
       "convenience": 73.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 71.63,
+        "rentSamples": 564,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -4983,11 +4983,11 @@
     },
     "1156058500": {
       "safety": 18.8,
+      "price": 45.8,
       "convenience": 43.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 63.75,
+        "rentSamples": 539,
         "cctvPerKm2": null,
         "nightlifePerKm2": 5.46,
         "crimePer1k": null,
@@ -5000,10 +5000,10 @@
     },
     "1156060500": {
       "safety": 27.5,
+      "price": 18.5,
       "convenience": 58.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 74.77,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.87,
@@ -5013,14 +5013,14 @@
         "medicalPerKm2": 2.3,
         "walkToStationMin": 7.25
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1156061000": {
       "safety": 44.7,
+      "price": 18.5,
       "convenience": 68.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 74.77,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.16,
@@ -5030,14 +5030,14 @@
         "medicalPerKm2": 1.16,
         "walkToStationMin": 3.3
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1156062000": {
       "safety": 45.7,
+      "price": 18.5,
       "convenience": 31.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 74.77,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.04,
@@ -5047,15 +5047,15 @@
         "medicalPerKm2": 0.69,
         "walkToStationMin": 13.2
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1156063000": {
       "safety": 77.6,
+      "price": 70.9,
       "convenience": 51.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 55.29,
+        "rentSamples": 1637,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -5068,11 +5068,11 @@
     },
     "1156065000": {
       "safety": 77.6,
+      "price": 70.9,
       "convenience": 57,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 55.29,
+        "rentSamples": 1637,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -5085,11 +5085,11 @@
     },
     "1156066000": {
       "safety": 77.6,
+      "price": 70.9,
       "convenience": 38.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 55.29,
+        "rentSamples": 1637,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -5102,11 +5102,11 @@
     },
     "1156067000": {
       "safety": 77.6,
+      "price": 70.9,
       "convenience": 38,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 55.29,
+        "rentSamples": 1637,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -5119,11 +5119,11 @@
     },
     "1156068000": {
       "safety": 26.8,
+      "price": 70.9,
       "convenience": 43.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 55.29,
+        "rentSamples": 1637,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.94,
         "crimePer1k": null,
@@ -5136,11 +5136,11 @@
     },
     "1156069000": {
       "safety": 77.6,
+      "price": 70.9,
       "convenience": 34.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 55.29,
+        "rentSamples": 1637,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -5153,11 +5153,11 @@
     },
     "1156070000": {
       "safety": 77.6,
+      "price": 87.1,
       "convenience": 40.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 49.29,
+        "rentSamples": 1511,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -5170,11 +5170,11 @@
     },
     "1156071000": {
       "safety": 25.8,
+      "price": 87.1,
       "convenience": 55.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 49.29,
+        "rentSamples": 1511,
         "cctvPerKm2": null,
         "nightlifePerKm2": 3.46,
         "crimePer1k": null,
@@ -5187,11 +5187,11 @@
     },
     "1156072000": {
       "safety": 77.6,
+      "price": 87.1,
       "convenience": 53.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 49.29,
+        "rentSamples": 1511,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -5204,11 +5204,11 @@
     },
     "1159051000": {
       "safety": 43.8,
+      "price": 81.6,
       "convenience": 65.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 51.38,
+        "rentSamples": 1220,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.23,
         "crimePer1k": null,
@@ -5221,11 +5221,11 @@
     },
     "1159052000": {
       "safety": 38.7,
+      "price": 81.6,
       "convenience": 61.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 51.38,
+        "rentSamples": 1220,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.54,
         "crimePer1k": null,
@@ -5238,11 +5238,11 @@
     },
     "1159053000": {
       "safety": 41.2,
+      "price": 61,
       "convenience": 62.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 58.75,
+        "rentSamples": 2809,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.4,
         "crimePer1k": null,
@@ -5255,11 +5255,11 @@
     },
     "1159054000": {
       "safety": 42.4,
+      "price": 68.3,
       "convenience": 67.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 56.71,
+        "rentSamples": 2282,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.29,
         "crimePer1k": null,
@@ -5272,11 +5272,11 @@
     },
     "1159055000": {
       "safety": 39.4,
+      "price": 68.3,
       "convenience": 69,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 56.71,
+        "rentSamples": 2282,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.49,
         "crimePer1k": null,
@@ -5289,11 +5289,11 @@
     },
     "1159056000": {
       "safety": 31.7,
+      "price": 68.3,
       "convenience": 46.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 56.71,
+        "rentSamples": 2282,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.07,
         "crimePer1k": null,
@@ -5306,11 +5306,11 @@
     },
     "1159060500": {
       "safety": 50.9,
+      "price": 52.8,
       "convenience": 48.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 59.96,
+        "rentSamples": 538,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.58,
         "crimePer1k": null,
@@ -5323,11 +5323,11 @@
     },
     "1159062000": {
       "safety": 16,
+      "price": 42.1,
       "convenience": 69.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 1982,
         "cctvPerKm2": null,
         "nightlifePerKm2": 6.33,
         "crimePer1k": null,
@@ -5340,11 +5340,11 @@
     },
     "1159063000": {
       "safety": 52.8,
+      "price": 42.1,
       "convenience": 33.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 1982,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.36,
         "crimePer1k": null,
@@ -5357,11 +5357,11 @@
     },
     "1159064000": {
       "safety": 77.6,
+      "price": 42.1,
       "convenience": 38.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 1982,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -5374,11 +5374,11 @@
     },
     "1159065000": {
       "safety": 77.6,
+      "price": 42.1,
       "convenience": 36.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 1982,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -5391,11 +5391,11 @@
     },
     "1159065100": {
       "safety": 77.6,
+      "price": 42.1,
       "convenience": 27.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 1982,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -5408,11 +5408,11 @@
     },
     "1159066000": {
       "safety": 50.5,
+      "price": 62.4,
       "convenience": 48.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 58.33,
+        "rentSamples": 501,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.63,
         "crimePer1k": null,
@@ -5425,11 +5425,11 @@
     },
     "1159067000": {
       "safety": 39.9,
+      "price": 79.5,
       "convenience": 50.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.29,
+        "rentSamples": 1075,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.46,
         "crimePer1k": null,
@@ -5442,11 +5442,11 @@
     },
     "1159068000": {
       "safety": 27,
+      "price": 79.5,
       "convenience": 63.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.29,
+        "rentSamples": 1075,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.91,
         "crimePer1k": null,
@@ -5459,10 +5459,10 @@
     },
     "1162052500": {
       "safety": 77.6,
+      "price": 57.4,
       "convenience": 50.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -5472,14 +5472,14 @@
         "medicalPerKm2": 1.31,
         "walkToStationMin": 8.31
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162054500": {
       "safety": 77.6,
+      "price": 57.4,
       "convenience": 36.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -5489,14 +5489,14 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 16.15
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162056500": {
       "safety": 77.6,
+      "price": 57.4,
       "convenience": 32.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -5506,14 +5506,14 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 14.95
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162057500": {
       "safety": 77.6,
+      "price": 57.4,
       "convenience": 62.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -5523,14 +5523,14 @@
         "medicalPerKm2": 5.53,
         "walkToStationMin": 10.79
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162058500": {
       "safety": 35.9,
+      "price": 57.4,
       "convenience": 23.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.71,
@@ -5540,14 +5540,14 @@
         "medicalPerKm2": 2.14,
         "walkToStationMin": 28.67
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162059500": {
       "safety": 77.6,
+      "price": 57.4,
       "convenience": 63,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -5557,14 +5557,14 @@
         "medicalPerKm2": 4.11,
         "walkToStationMin": 11.64
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162060500": {
       "safety": 77.6,
+      "price": 57.4,
       "convenience": 46,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -5574,14 +5574,14 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 8.72
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162061500": {
       "safety": 28.8,
+      "price": 57.4,
       "convenience": 79.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.63,
@@ -5591,14 +5591,14 @@
         "medicalPerKm2": 15.8,
         "walkToStationMin": 7.01
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162062500": {
       "safety": 77.6,
+      "price": 57.4,
       "convenience": 50.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -5608,15 +5608,15 @@
         "medicalPerKm2": 1.42,
         "walkToStationMin": 12.28
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162063000": {
       "safety": 51.9,
+      "price": 31,
       "convenience": 12,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 68.75,
+        "rentSamples": 440,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.47,
         "crimePer1k": null,
@@ -5629,10 +5629,10 @@
     },
     "1162064500": {
       "safety": 21,
+      "price": 57.4,
       "convenience": 69.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 4.76,
@@ -5642,14 +5642,14 @@
         "medicalPerKm2": 4.76,
         "walkToStationMin": 6.94
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162065500": {
       "safety": 25.2,
+      "price": 57.4,
       "convenience": 64.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 3.47,
@@ -5659,14 +5659,14 @@
         "medicalPerKm2": 10.41,
         "walkToStationMin": 11.3
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162066500": {
       "safety": 77.6,
+      "price": 57.4,
       "convenience": 61.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -5676,14 +5676,14 @@
         "medicalPerKm2": 3.94,
         "walkToStationMin": 10.36
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162068500": {
       "safety": 12.9,
+      "price": 57.4,
       "convenience": 55.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 8.26,
@@ -5693,15 +5693,15 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 9.56
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162069500": {
       "safety": 77.6,
+      "price": 70.9,
       "convenience": 77.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 55.29,
+        "rentSamples": 6483,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -5714,10 +5714,10 @@
     },
     "1162071500": {
       "safety": 77.6,
+      "price": 57.4,
       "convenience": 19.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -5727,14 +5727,14 @@
         "medicalPerKm2": 2.5,
         "walkToStationMin": 34.59
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162072500": {
       "safety": 11.3,
+      "price": 57.4,
       "convenience": 64.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 10.81,
@@ -5744,14 +5744,14 @@
         "medicalPerKm2": 6.17,
         "walkToStationMin": 11.23
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162073500": {
       "safety": 54.7,
+      "price": 57.4,
       "convenience": 12.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.24,
@@ -5761,14 +5761,14 @@
         "medicalPerKm2": 0.24,
         "walkToStationMin": 40.82
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162074500": {
       "safety": 77.6,
+      "price": 57.4,
       "convenience": 5.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -5778,14 +5778,14 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 28.99
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162076500": {
       "safety": 77.6,
+      "price": 57.4,
       "convenience": 32.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -5795,14 +5795,14 @@
         "medicalPerKm2": 0.75,
         "walkToStationMin": 21.53
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1162077500": {
       "safety": 77.6,
+      "price": 57.4,
       "convenience": 24.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 59.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -5812,15 +5812,15 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 22.08
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1165051000": {
       "safety": 39.9,
+      "price": 2.9,
       "convenience": 62.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 96.58,
+        "rentSamples": 1875,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.46,
         "crimePer1k": null,
@@ -5833,11 +5833,11 @@
     },
     "1165052000": {
       "safety": 23.2,
+      "price": 2.9,
       "convenience": 55.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 96.58,
+        "rentSamples": 1875,
         "cctvPerKm2": null,
         "nightlifePerKm2": 4.05,
         "crimePer1k": null,
@@ -5850,11 +5850,11 @@
     },
     "1165053000": {
       "safety": 30,
+      "price": 2.9,
       "convenience": 46.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 96.58,
+        "rentSamples": 1875,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.33,
         "crimePer1k": null,
@@ -5867,11 +5867,11 @@
     },
     "1165053100": {
       "safety": 7,
+      "price": 2.9,
       "convenience": 76.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 96.58,
+        "rentSamples": 1875,
         "cctvPerKm2": null,
         "nightlifePerKm2": 18.27,
         "crimePer1k": null,
@@ -5884,11 +5884,11 @@
     },
     "1165054000": {
       "safety": 37.8,
+      "price": 20,
       "convenience": 46.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 74.58,
+        "rentSamples": 162,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.63,
         "crimePer1k": null,
@@ -5901,10 +5901,10 @@
     },
     "1165055000": {
       "safety": 77.6,
+      "price": 11.3,
       "convenience": 31.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 82.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -5914,15 +5914,15 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 4.06
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1165056000": {
       "safety": 17.1,
+      "price": 33.9,
       "convenience": 75,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.75,
+        "rentSamples": 604,
         "cctvPerKm2": null,
         "nightlifePerKm2": 5.95,
         "crimePer1k": null,
@@ -5935,11 +5935,11 @@
     },
     "1165057000": {
       "safety": 48.8,
+      "price": 33.9,
       "convenience": 37.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.75,
+        "rentSamples": 604,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.84,
         "crimePer1k": null,
@@ -5952,11 +5952,11 @@
     },
     "1165058000": {
       "safety": 49.1,
+      "price": 33.9,
       "convenience": 24.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.75,
+        "rentSamples": 604,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.76,
         "crimePer1k": null,
@@ -5969,11 +5969,11 @@
     },
     "1165058100": {
       "safety": 8.9,
+      "price": 33.9,
       "convenience": 66.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.75,
+        "rentSamples": 604,
         "cctvPerKm2": null,
         "nightlifePerKm2": 15.1,
         "crimePer1k": null,
@@ -5986,10 +5986,10 @@
     },
     "1165059000": {
       "safety": 39,
+      "price": 11.3,
       "convenience": 64.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 82.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.52,
@@ -5999,15 +5999,15 @@
         "medicalPerKm2": 4.55,
         "walkToStationMin": 13.66
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1165060000": {
       "safety": 40.6,
+      "price": 25.5,
       "convenience": 64.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 70.58,
+        "rentSamples": 563,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.43,
         "crimePer1k": null,
@@ -6020,11 +6020,11 @@
     },
     "1165061000": {
       "safety": 51.4,
+      "price": 25.5,
       "convenience": 37.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 70.58,
+        "rentSamples": 563,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.52,
         "crimePer1k": null,
@@ -6037,11 +6037,11 @@
     },
     "1165062000": {
       "safety": 52.5,
+      "price": 25.5,
       "convenience": 21.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 70.58,
+        "rentSamples": 563,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.41,
         "crimePer1k": null,
@@ -6054,11 +6054,11 @@
     },
     "1165062100": {
       "safety": 31.2,
+      "price": 25.5,
       "convenience": 57.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 70.58,
+        "rentSamples": 563,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.13,
         "crimePer1k": null,
@@ -6071,11 +6071,11 @@
     },
     "1165065100": {
       "safety": 30.5,
+      "price": 29.5,
       "convenience": 19.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.17,
+        "rentSamples": 623,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.27,
         "crimePer1k": null,
@@ -6088,11 +6088,11 @@
     },
     "1165065200": {
       "safety": 54.5,
+      "price": 29.5,
       "convenience": 22.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.17,
+        "rentSamples": 623,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.27,
         "crimePer1k": null,
@@ -6105,11 +6105,11 @@
     },
     "1165066000": {
       "safety": 77.6,
+      "price": 6.6,
       "convenience": 6.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 87.21,
+        "rentSamples": 6,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6122,11 +6122,11 @@
     },
     "1168051000": {
       "safety": 11.5,
+      "price": 20,
       "convenience": 72.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 74.58,
+        "rentSamples": 227,
         "cctvPerKm2": null,
         "nightlifePerKm2": 10.34,
         "crimePer1k": null,
@@ -6139,11 +6139,11 @@
     },
     "1168052100": {
       "safety": 20.7,
+      "price": 15.3,
       "convenience": 85.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 79.58,
+        "rentSamples": 961,
         "cctvPerKm2": null,
         "nightlifePerKm2": 4.82,
         "crimePer1k": null,
@@ -6156,11 +6156,11 @@
     },
     "1168053100": {
       "safety": 25.2,
+      "price": 15.3,
       "convenience": 76.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 79.58,
+        "rentSamples": 961,
         "cctvPerKm2": null,
         "nightlifePerKm2": 3.47,
         "crimePer1k": null,
@@ -6173,10 +6173,10 @@
     },
     "1168054500": {
       "safety": 10.1,
+      "price": 6.2,
       "convenience": 68.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 87.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 14.12,
@@ -6186,15 +6186,15 @@
         "medicalPerKm2": 11.98,
         "walkToStationMin": 11.58
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1168056500": {
       "safety": 19.5,
+      "price": 15.7,
       "convenience": 66.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 78.33,
+        "rentSamples": 212,
         "cctvPerKm2": null,
         "nightlifePerKm2": 5.05,
         "crimePer1k": null,
@@ -6207,11 +6207,11 @@
     },
     "1168058000": {
       "safety": 45.7,
+      "price": 0.6,
       "convenience": 64.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 112.92,
+        "rentSamples": 245,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.04,
         "crimePer1k": null,
@@ -6224,11 +6224,11 @@
     },
     "1168059000": {
       "safety": 29.6,
+      "price": 0.6,
       "convenience": 66.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 112.92,
+        "rentSamples": 245,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.39,
         "crimePer1k": null,
@@ -6241,11 +6241,11 @@
     },
     "1168060000": {
       "safety": 77.6,
+      "price": 7.7,
       "convenience": 53.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 84.58,
+        "rentSamples": 559,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6258,11 +6258,11 @@
     },
     "1168061000": {
       "safety": 51.6,
+      "price": 7.7,
       "convenience": 40.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 84.58,
+        "rentSamples": 559,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.49,
         "crimePer1k": null,
@@ -6275,11 +6275,11 @@
     },
     "1168063000": {
       "safety": 40.8,
+      "price": 7.7,
       "convenience": 72.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 84.58,
+        "rentSamples": 559,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.42,
         "crimePer1k": null,
@@ -6292,11 +6292,11 @@
     },
     "1168064000": {
       "safety": 17.4,
+      "price": 2.2,
       "convenience": 83.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 97.29,
+        "rentSamples": 2455,
         "cctvPerKm2": null,
         "nightlifePerKm2": 5.92,
         "crimePer1k": null,
@@ -6309,11 +6309,11 @@
     },
     "1168065000": {
       "safety": 77.6,
+      "price": 2.2,
       "convenience": 60,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 97.29,
+        "rentSamples": 2455,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6326,11 +6326,11 @@
     },
     "1168065500": {
       "safety": 77.6,
+      "price": 30.6,
       "convenience": 47.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 68.96,
+        "rentSamples": 158,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6343,11 +6343,11 @@
     },
     "1168065600": {
       "safety": 77.6,
+      "price": 30.6,
       "convenience": 46.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 68.96,
+        "rentSamples": 158,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6360,11 +6360,11 @@
     },
     "1168066000": {
       "safety": 77.6,
+      "price": 7.7,
       "convenience": 5.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 84.58,
+        "rentSamples": 310,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6377,11 +6377,11 @@
     },
     "1168067000": {
       "safety": 77.6,
+      "price": 7.7,
       "convenience": 44.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 84.58,
+        "rentSamples": 310,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6394,11 +6394,11 @@
     },
     "1168067500": {
       "safety": 77.6,
+      "price": 7.7,
       "convenience": 33,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 84.58,
+        "rentSamples": 310,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6411,11 +6411,11 @@
     },
     "1168069000": {
       "safety": 77.6,
+      "price": 7.7,
       "convenience": 32.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 84.58,
+        "rentSamples": 310,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6428,11 +6428,11 @@
     },
     "1168070000": {
       "safety": 77.6,
+      "price": 1.8,
       "convenience": 11.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 99.58,
+        "rentSamples": 88,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6445,10 +6445,10 @@
     },
     "1168072000": {
       "safety": 77.6,
+      "price": 6.2,
       "convenience": 42.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 87.58,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -6458,15 +6458,15 @@
         "medicalPerKm2": 2.06,
         "walkToStationMin": 3.05
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1168073000": {
       "safety": 77.6,
+      "price": 52.6,
       "convenience": 47,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 60.18,
+        "rentSamples": 289,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6479,11 +6479,11 @@
     },
     "1168075000": {
       "safety": 77.6,
+      "price": 9.6,
       "convenience": 50.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 83.75,
+        "rentSamples": 28,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6496,11 +6496,11 @@
     },
     "1171051000": {
       "safety": 77.6,
+      "price": 79.5,
       "convenience": 20.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.29,
+        "rentSamples": 308,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6513,11 +6513,11 @@
     },
     "1171052000": {
       "safety": 77.6,
+      "price": 79.5,
       "convenience": 27.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 52.29,
+        "rentSamples": 308,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6530,11 +6530,11 @@
     },
     "1171053100": {
       "safety": 33.3,
+      "price": 9,
       "convenience": 60.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 84.29,
+        "rentSamples": 383,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.98,
         "crimePer1k": null,
@@ -6547,11 +6547,11 @@
     },
     "1171053200": {
       "safety": 77.6,
+      "price": 9,
       "convenience": 80,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 84.29,
+        "rentSamples": 383,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6564,11 +6564,11 @@
     },
     "1171054000": {
       "safety": 77.6,
+      "price": 99.9,
       "convenience": 66.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 41.1,
+        "rentSamples": 224,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6581,11 +6581,11 @@
     },
     "1171055000": {
       "safety": 77.6,
+      "price": 99.9,
       "convenience": 51,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 41.1,
+        "rentSamples": 224,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6598,11 +6598,11 @@
     },
     "1171056100": {
       "safety": 77.6,
+      "price": 3.9,
       "convenience": 51.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 94.58,
+        "rentSamples": 1899,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6615,11 +6615,11 @@
     },
     "1171056200": {
       "safety": 42,
+      "price": 3.9,
       "convenience": 76.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 94.58,
+        "rentSamples": 1899,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.3,
         "crimePer1k": null,
@@ -6632,10 +6632,10 @@
     },
     "1171056600": {
       "safety": 77.6,
+      "price": 4.9,
       "convenience": 27.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 92.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -6645,15 +6645,15 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 4.97
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1171057000": {
       "safety": 77.6,
+      "price": 57.4,
       "convenience": 38.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 59.58,
+        "rentSamples": 124,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6666,11 +6666,11 @@
     },
     "1171058000": {
       "safety": 22.5,
+      "price": 20,
       "convenience": 80.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 74.58,
+        "rentSamples": 322,
         "cctvPerKm2": null,
         "nightlifePerKm2": 4.31,
         "crimePer1k": null,
@@ -6683,11 +6683,11 @@
     },
     "1171059000": {
       "safety": 77.6,
+      "price": 20,
       "convenience": 37,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 74.58,
+        "rentSamples": 322,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6700,11 +6700,11 @@
     },
     "1171060000": {
       "safety": 45.3,
+      "price": 29.5,
       "convenience": 71.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.17,
+        "rentSamples": 513,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.07,
         "crimePer1k": null,
@@ -6717,11 +6717,11 @@
     },
     "1171061000": {
       "safety": 46.4,
+      "price": 34.5,
       "convenience": 73.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 67.67,
+        "rentSamples": 322,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.01,
         "crimePer1k": null,
@@ -6734,10 +6734,10 @@
     },
     "1171062000": {
       "safety": 77.6,
+      "price": 4.9,
       "convenience": 69,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 92.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -6747,15 +6747,15 @@
         "medicalPerKm2": 6.67,
         "walkToStationMin": 7.29
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1171063100": {
       "safety": 77.6,
+      "price": 42.1,
       "convenience": 17.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 255,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6768,11 +6768,11 @@
     },
     "1171063200": {
       "safety": 77.6,
+      "price": 42.1,
       "convenience": 54.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64.58,
+        "rentSamples": 255,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6785,11 +6785,11 @@
     },
     "1171064100": {
       "safety": 12.7,
+      "price": 1.3,
       "convenience": 71.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 100.9,
+        "rentSamples": 2920,
         "cctvPerKm2": null,
         "nightlifePerKm2": 8.99,
         "crimePer1k": null,
@@ -6802,11 +6802,11 @@
     },
     "1171064200": {
       "safety": 52.1,
+      "price": 1.3,
       "convenience": 24.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 100.9,
+        "rentSamples": 2920,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.42,
         "crimePer1k": null,
@@ -6819,10 +6819,10 @@
     },
     "1171064600": {
       "safety": 77.6,
+      "price": 4.9,
       "convenience": 41.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 92.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -6832,14 +6832,14 @@
         "medicalPerKm2": 1.64,
         "walkToStationMin": 11.46
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1171064700": {
       "safety": 77.6,
+      "price": 4.9,
       "convenience": 34.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 92.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -6849,14 +6849,14 @@
         "medicalPerKm2": 3.45,
         "walkToStationMin": 20.53
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1171065000": {
       "safety": 28.8,
+      "price": 4.9,
       "convenience": 81,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 92.92,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 2.63,
@@ -6866,15 +6866,15 @@
         "medicalPerKm2": 4.39,
         "walkToStationMin": 6.49
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1171067000": {
       "safety": 49.5,
+      "price": 14.1,
       "convenience": 16,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 80.88,
+        "rentSamples": 676,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.7,
         "crimePer1k": null,
@@ -6887,11 +6887,11 @@
     },
     "1171068000": {
       "safety": 77.6,
+      "price": 14.1,
       "convenience": 37.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 80.88,
+        "rentSamples": 676,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6904,11 +6904,11 @@
     },
     "1171069000": {
       "safety": 77.6,
+      "price": 14.1,
       "convenience": 28.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 80.88,
+        "rentSamples": 676,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6921,11 +6921,11 @@
     },
     "1171071000": {
       "safety": 49.3,
+      "price": 14.1,
       "convenience": 41.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 80.88,
+        "rentSamples": 676,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.72,
         "crimePer1k": null,
@@ -6938,11 +6938,11 @@
     },
     "1171072000": {
       "safety": 77.6,
+      "price": 14.1,
       "convenience": 20.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 80.88,
+        "rentSamples": 676,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6955,11 +6955,11 @@
     },
     "1174051500": {
       "safety": 77.6,
+      "price": 49.5,
       "convenience": 13.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 62.02,
+        "rentSamples": 286,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -6972,10 +6972,10 @@
     },
     "1174052500": {
       "safety": 77.6,
+      "price": 45.8,
       "convenience": 31.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 63.75,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -6985,14 +6985,14 @@
         "medicalPerKm2": 1.12,
         "walkToStationMin": 12.94
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1174052600": {
       "safety": 77.6,
+      "price": 45.8,
       "convenience": 23.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
+        "monthlyRentMan": 63.75,
         "rentSamples": 0,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
@@ -7002,15 +7002,15 @@
         "medicalPerKm2": 0,
         "walkToStationMin": 12.28
       },
-      "dataQuality": "ok"
+      "dataQuality": "low"
     },
     "1174053000": {
       "safety": 77.6,
+      "price": 21,
       "convenience": 75.7,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 74.23,
+        "rentSamples": 362,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -7023,11 +7023,11 @@
     },
     "1174054000": {
       "safety": 77.6,
+      "price": 21,
       "convenience": 39.9,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 74.23,
+        "rentSamples": 362,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -7040,11 +7040,11 @@
     },
     "1174055000": {
       "safety": 77.6,
+      "price": 94.5,
       "convenience": 21,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 223,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -7057,11 +7057,11 @@
     },
     "1174056000": {
       "safety": 77.6,
+      "price": 94.5,
       "convenience": 17.6,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 47.29,
+        "rentSamples": 223,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -7074,11 +7074,11 @@
     },
     "1174057000": {
       "safety": 41.5,
+      "price": 73.1,
       "convenience": 65.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 54.58,
+        "rentSamples": 609,
         "cctvPerKm2": null,
         "nightlifePerKm2": 1.37,
         "crimePer1k": null,
@@ -7091,11 +7091,11 @@
     },
     "1174058000": {
       "safety": 77.6,
+      "price": 73.1,
       "convenience": 19,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 54.58,
+        "rentSamples": 609,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -7108,11 +7108,11 @@
     },
     "1174059000": {
       "safety": 77.6,
+      "price": 73.1,
       "convenience": 21.5,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 54.58,
+        "rentSamples": 609,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -7125,11 +7125,11 @@
     },
     "1174060000": {
       "safety": 77.6,
+      "price": 27.1,
       "convenience": 72.3,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.58,
+        "rentSamples": 2355,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -7142,11 +7142,11 @@
     },
     "1174061000": {
       "safety": 51.2,
+      "price": 27.1,
       "convenience": 60,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.58,
+        "rentSamples": 2355,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0.55,
         "crimePer1k": null,
@@ -7159,11 +7159,11 @@
     },
     "1174062000": {
       "safety": 77.6,
+      "price": 27.1,
       "convenience": 79.8,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 69.58,
+        "rentSamples": 2355,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -7176,11 +7176,11 @@
     },
     "1174064000": {
       "safety": 77.6,
-      "convenience": 75.6,
       "price": 50,
+      "convenience": 75.6,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 61.94,
+        "rentSamples": 1164,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -7193,11 +7193,11 @@
     },
     "1174065000": {
       "safety": 15.7,
-      "convenience": 84.9,
       "price": 50,
+      "convenience": 84.9,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 61.94,
+        "rentSamples": 1164,
         "cctvPerKm2": null,
         "nightlifePerKm2": 6.39,
         "crimePer1k": null,
@@ -7210,11 +7210,11 @@
     },
     "1174066000": {
       "safety": 77.6,
-      "convenience": 83.3,
       "price": 50,
+      "convenience": 83.3,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 61.94,
+        "rentSamples": 1164,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -7227,11 +7227,11 @@
     },
     "1174068500": {
       "safety": 77.6,
+      "price": 44.8,
       "convenience": 69.1,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 64,
+        "rentSamples": 840,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -7244,11 +7244,11 @@
     },
     "1174069000": {
       "safety": 77.6,
+      "price": 67.4,
       "convenience": 22.4,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 57.17,
+        "rentSamples": 159,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
@@ -7261,11 +7261,11 @@
     },
     "1174070000": {
       "safety": 77.6,
+      "price": 67.4,
       "convenience": 56.2,
-      "price": 50,
       "raw": {
-        "monthlyRentMan": null,
-        "rentSamples": 0,
+        "monthlyRentMan": 57.17,
+        "rentSamples": 159,
         "cctvPerKm2": null,
         "nightlifePerKm2": 0,
         "crimePer1k": null,
