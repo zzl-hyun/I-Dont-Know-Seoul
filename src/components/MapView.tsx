@@ -198,7 +198,7 @@ export default function MapView({
         paint: {
           "line-color": ["get", "color"],
           "line-width": ["interpolate", ["linear"], ["zoom"], 10, 1.2, 13, 2.2, 16, 4],
-          "line-opacity": 0.55,
+          "line-opacity": 0.85,
         },
       });
 
