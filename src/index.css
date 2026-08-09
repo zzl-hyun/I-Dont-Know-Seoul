@@ -947,3 +947,60 @@ input[type="range"] {
   background: #2f3542;
   border-color: var(--accent);
 }
+
+/* ---------------- 라이트 테마 ---------------- */
+
+/*
+ * 등급 색을 다크와 똑같이 두면 안 된다. 노랑(#e0a52b)은 흰 배경에서 뭉개지고
+ * 초록·빨강도 대비가 떨어진다. 밝은 배경용으로 채도를 올리고 명도를 낮춘다.
+ */
+:root[data-theme="light"] {
+  --bg: #f4f5f7;
+  --panel: #ffffff;
+  --panel-2: #eef0f4;
+  --border: #d8dce3;
+  --text: #1b1f26;
+  --text-dim: #5a626e;
+  --text-faint: #8b93a1;
+  --accent: #1d5fd0;
+
+  --best: #1f7a45;
+  --normal: #b57500;
+  --bad: #b03a34;
+}
+
+:root[data-theme="light"] .suggestion:hover,
+:root[data-theme="light"] .suggestion[data-active="true"],
+:root[data-theme="light"] .pick[data-selected="true"],
+:root[data-theme="light"] .share-btn:hover {
+  background: #e2e6ee;
+}
+
+:root[data-theme="light"] .suggestions {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14);
+}
+
+:root[data-theme="light"] .map-toggle,
+:root[data-theme="light"] .line-legend {
+  background: rgba(255, 255, 255, 0.94);
+}
+
+:root[data-theme="light"] .map-toggle:hover {
+  background: rgba(226, 230, 238, 0.96);
+}
+
+:root[data-theme="light"] .maplibregl-popup-content {
+  background: #ffffff;
+  color: var(--text);
+  border-color: var(--border);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+}
+
+:root[data-theme="light"] .maplibregl-popup-tip {
+  border-top-color: #ffffff !important;
+  border-bottom-color: #ffffff !important;
+}
+
+.theme-toggle {
+  gap: 6px;
+}

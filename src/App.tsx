@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import MapView, { type DongView, type MapMode } from "./components/MapView";
+import MapView, { type DongView, type MapMode, type Theme } from "./components/MapView";
 import DestinationSearch from "./components/DestinationSearch";
 import DongDetail, { type CommuteLeg, type ExplainContext } from "./components/DongDetail";
 import TopPicks, { type Pick } from "./components/TopPicks";
@@ -66,6 +66,20 @@ export default function App() {
   const [budget, setBudget] = useState(initial.budget);
   const [mapMode, setMapMode] = useState<MapMode>(initial.mapMode);
   const [copied, setCopied] = useState(false);
+  /**
+   * 테마. 저장된 선택이 있으면 그걸, 없으면 OS 설정을 따른다.
+   * (URL 에는 싣지 않는다 — 받는 사람의 취향을 덮어쓸 이유가 없다)
+   */
+  const [theme, setTheme] = useState<Theme>(() => {
+    const saved = localStorage.getItem("oneday.theme");
+    if (saved === "light" || saved === "dark") return saved;
+    return window.matchMedia?.("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  });
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem("oneday.theme", theme);
+  }, [theme]);
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -272,9 +286,19 @@ export default function App() {
               showSubway={showSubway}
               visibleLines={visibleLines}
               mapMode={mapMode}
+              theme={theme}
               onPickStation={pickStation}
             />
             <div className="map-controls">
+              <button
+                type="button"
+                className="map-toggle theme-toggle"
+                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                title={theme === "dark" ? "밝게 보기" : "어둡게 보기"}
+              >
+                {theme === "dark" ? "☀" : "☾"}
+                {theme === "dark" ? "밝게" : "어둡게"}
+              </button>
               <label className="map-toggle">
                 <input
                   type="checkbox"
