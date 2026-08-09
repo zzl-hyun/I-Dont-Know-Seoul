@@ -78,3 +78,29 @@ export const GRADE_LABEL = {
 
 /** 통근 불가 지역 색 (저채도 회색 — 숨기지 않고 "못 간다"는 정보를 남긴다) */
 export const OUT_OF_RANGE_COLOR = "#c9ccd1";
+
+/**
+ * 통근시간 밴드.
+ *
+ * 등급 색(초록–노랑–빨강)과 겹치지 않게 **파랑 단색 농담**을 쓴다. 같은 계열을
+ * 쓰면 "빨간 동네가 나쁜 건지 먼 건지"를 구분할 수 없다.
+ * 어두운 배경이라 밝을수록 눈에 띄므로, 가까울수록 밝게 둔다.
+ */
+export const COMMUTE_BANDS = [
+  { maxMin: 20, color: "#a8d5ff", label: "20분 이내" },
+  { maxMin: 30, color: "#74b3f5", label: "30분" },
+  { maxMin: 40, color: "#4a8ad4", label: "40분" },
+  { maxMin: 60, color: "#2f5f9e", label: "60분" },
+  { maxMin: Infinity, color: "#22406b", label: "60분 초과" },
+] as const;
+
+/** 통근시간(분) → 밴드 인덱스 */
+export function commuteBand(min: number): number {
+  return COMMUTE_BANDS.findIndex((b) => min <= b.maxMin);
+}
+
+/** 월세 상한 슬라이더 범위 (만원). 서울 원룸 환산월세 실측 41~120 을 감싼다. */
+export const BUDGET_MIN = 40;
+export const BUDGET_MAX = 125;
+/** 이 값이면 "제한 없음" 으로 취급한다 */
+export const BUDGET_OFF = BUDGET_MAX;

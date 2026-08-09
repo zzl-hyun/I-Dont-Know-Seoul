@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import MapView, { type DongView } from "./components/MapView";
+import MapView, { type DongView, type MapMode } from "./components/MapView";
 import DestinationSearch from "./components/DestinationSearch";
 import DongDetail, { type CommuteLeg, type ExplainContext } from "./components/DongDetail";
 import TopPicks, { type Pick } from "./components/TopPicks";
@@ -9,6 +9,10 @@ import { gradeAll, rebalanceWeights } from "./lib/score";
 import { buildDistributions, summarize } from "./lib/explain";
 import { buildSubwayLayers, LINE_COLOR, lineName } from "./lib/subwayLines";
 import {
+  BUDGET_MIN,
+  BUDGET_OFF,
+  COMMUTE_BANDS,
+  commuteBand,
   DEFAULT_MAX_COMMUTE_MIN,
   DEFAULT_WEIGHTS,
   GRADE_LABEL,
@@ -20,6 +24,16 @@ import type { CommuteResult, Destination, Weights } from "./types";
  * 서울 안에서 자취 후보지를 가르는 주요 노선만 고른다.
  */
 const MAIN_LINES = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "신분당", "경의·중앙", "수인·분당"];
+
+/**
+ * 월세 상한 판정.
+ * 실거래 표본이 없는 동은 걸러내지 않는다 — 데이터가 없다고 비싸다고 볼 근거가 없다.
+ */
+function withinBudget(rent: number | null, limit: number): boolean {
+  if (limit >= BUDGET_OFF) return true;
+  if (rent == null) return true;
+  return rent <= limit;
+}
 
 /** 목적지 상한 */
 const MAX_DESTINATIONS = 3;
@@ -44,6 +58,9 @@ export default function App() {
   const [showSubway, setShowSubway] = useState(true);
   /** 꺼둔 노선. 비어 있으면 전부 표시 (기본값) */
   const [hiddenLines, setHiddenLines] = useState<Set<string>>(new Set());
+  /** 월세 상한(만원). BUDGET_OFF 면 제한 없음 */
+  const [budget, setBudget] = useState(BUDGET_OFF);
+  const [mapMode, setMapMode] = useState<MapMode>("grade");
 
   useEffect(() => {
     const ctrl = new AbortController();
@@ -102,13 +119,17 @@ export default function App() {
       const s = data.scores.get(dong.code);
       if (!g || !s) continue;
       const c = commute?.byDong.get(dong.code);
-      const reachable = c?.worstMin != null && c.worstMin <= maxCommute;
+      const inTime = c?.worstMin != null && c.worstMin <= maxCommute;
+      const inBudget = withinBudget(s.raw.monthlyRentMan, budget);
+      const reachable = inTime && inBudget;
       map.set(dong.code, {
         grade: g.grade,
         score: g.score,
+        band: c?.worstMin != null ? commuteBand(c.worstMin) : -1,
         commute: c?.per[0] ?? NO_COMMUTE,
         worstMin: c?.worstMin ?? null,
         reachable,
+        overBudget: inTime && !inBudget,
         // 툴팁용이라 통근권 안인 동만 만든다 (427개 전부 만들 필요 없다)
         reason: reachable
           ? summarize(s, data.pctKeys, g.grade, weights, data.axisWeights)
@@ -116,7 +137,7 @@ export default function App() {
       });
     }
     return map;
-  }, [data, graded, commute, maxCommute, weights]);
+  }, [data, graded, commute, maxCommute, weights, budget]);
 
   /* 통근권 안에서 종합 점수가 높은 순 */
   const picks = useMemo<Pick[]>(() => {
@@ -125,12 +146,14 @@ export default function App() {
     for (const dong of data.dongs) {
       const c = commute.byDong.get(dong.code);
       const g = graded.byDong.get(dong.code);
-      if (!g || c?.worstMin == null || c.worstMin > maxCommute) continue;
+      const s = data.scores.get(dong.code);
+      if (!g || !s || c?.worstMin == null || c.worstMin > maxCommute) continue;
+      if (!withinBudget(s.raw.monthlyRentMan, budget)) continue;
       out.push({ dong, grade: g.grade, score: g.score, commuteMin: c.worstMin });
     }
     out.sort((a, b) => b.score - a.score);
     return out;
-  }, [data, graded, commute, maxCommute]);
+  }, [data, graded, commute, maxCommute, budget]);
 
   const selected = useMemo(() => {
     if (!data || !graded || !selectedCode) return null;
@@ -214,6 +237,7 @@ export default function App() {
               subway={subway}
               showSubway={showSubway}
               visibleLines={visibleLines}
+              mapMode={mapMode}
               onPickStation={pickStation}
             />
             <div className="map-controls">
@@ -317,9 +341,9 @@ export default function App() {
             </div>
 
             <div className="section">
-              <p className="section-title">통근 한계</p>
+              <p className="section-title">조건</p>
               <div className="slider-row">
-                <label htmlFor="commute">시간</label>
+                <label htmlFor="commute">통근</label>
                 <input
                   id="commute"
                   type="range"
@@ -331,6 +355,25 @@ export default function App() {
                 />
                 <output>{maxCommute}분</output>
               </div>
+              <div className="slider-row">
+                <label htmlFor="budget">월세</label>
+                <input
+                  id="budget"
+                  type="range"
+                  min={BUDGET_MIN}
+                  max={BUDGET_OFF}
+                  step={5}
+                  value={budget}
+                  onChange={(e) => setBudget(Number(e.target.value))}
+                />
+                <output>{budget >= BUDGET_OFF ? "제한 없음" : `${budget}만원`}</output>
+              </div>
+              {budget < BUDGET_OFF && (
+                <p className="metric-note">
+                  원룸 환산월세(보증금을 월세로 환산한 값) 기준입니다. 실거래 표본이
+                  없는 동은 거르지 않습니다.
+                </p>
+              )}
             </div>
 
             <div className="section">
@@ -356,18 +399,57 @@ export default function App() {
                   <output>{Math.round(weights[key] * 100)}%</output>
                 </div>
               ))}
-              <div className="legend" style={{ marginTop: 12 }}>
-                {(["best", "normal", "bad"] as const).map((g) => (
-                  <span key={g}>
-                    <i className={`grade-dot ${g}`} />
-                    {GRADE_LABEL[g]}
-                  </span>
+              <div className="mode-switch" role="group" aria-label="지도 색 기준">
+                {(
+                  [
+                    ["grade", "등급"],
+                    ["commute", "통근시간"],
+                  ] as const
+                ).map(([m, label]) => (
+                  <button
+                    key={m}
+                    type="button"
+                    data-active={mapMode === m}
+                    onClick={() => setMapMode(m)}
+                  >
+                    {label}
+                  </button>
                 ))}
               </div>
-              <p className="metric-note" style={{ marginTop: 8 }}>
-                등급은 서울 전체 분포 기준 상대 평가입니다 — 상위 30%가 Best,
-                하위 30%가 Bad입니다.
-              </p>
+
+              {mapMode === "grade" ? (
+                <>
+                  <div className="legend">
+                    {(["best", "normal", "bad"] as const).map((g) => (
+                      <span key={g}>
+                        <i className={`grade-dot ${g}`} />
+                        {GRADE_LABEL[g]}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="metric-note" style={{ marginTop: 8 }}>
+                    등급은 서울 전체 분포 기준 상대 평가입니다 — 상위 30%가 Best,
+                    하위 30%가 Bad입니다.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <div className="legend">
+                    {COMMUTE_BANDS.map((b) => (
+                      <span key={b.label}>
+                        <i
+                          className="grade-dot"
+                          style={{ background: b.color }}
+                        />
+                        {b.label}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="metric-note" style={{ marginTop: 8 }}>
+                    목적지가 여럿이면 <b>가장 오래 걸리는 쪽</b> 기준입니다.
+                  </p>
+                </>
+              )}
             </div>
 
             <TopPicks picks={picks} selectedCode={selectedCode} onSelect={setSelectedCode} />

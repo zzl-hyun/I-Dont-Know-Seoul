@@ -2,7 +2,12 @@ import { useEffect, useRef } from "react";
 import maplibregl, { type MapGeoJSONFeature } from "maplibre-gl";
 import type { FeatureCollection } from "geojson";
 import type { CommuteResult, DongMeta, Destination, Grade } from "../types";
-import { GRADE_COLOR, GRADE_LABEL, OUT_OF_RANGE_COLOR } from "../lib/constants";
+import {
+  COMMUTE_BANDS,
+  GRADE_COLOR,
+  GRADE_LABEL,
+  OUT_OF_RANGE_COLOR,
+} from "../lib/constants";
 import { LINE_COLOR, lineName, type SubwayLayers } from "../lib/subwayLines";
 
 /**
@@ -20,14 +25,20 @@ const SEOUL_BOUNDS: [[number, number], [number, number]] = [
   [127.35, 37.78],
 ];
 
+export type MapMode = "grade" | "commute";
+
 export interface DongView {
   grade: Grade;
   score: number;
+  /** 통근시간 밴드 인덱스 (COMMUTE_BANDS). 도달 불가면 -1 */
+  band: number;
   /** 첫 번째 목적지 기준 상세 (툴팁의 "○○역 경유" 표기용) */
   commute: CommuteResult;
   /** 모든 목적지 중 가장 오래 걸리는 시간 — 통근권 판정과 툴팁 숫자에 쓴다 */
   worstMin: number | null;
   reachable: boolean;
+  /** 통근은 되는데 예산에서 걸린 경우 — 툴팁이 이유를 구분해 알려준다 */
+  overBudget: boolean;
   /** 툴팁에 띄울 한 줄 이유 — 지도만 훑어도 왜 그 등급인지 알 수 있게 */
   reason: string;
 }
@@ -51,6 +62,8 @@ interface Props {
    * (범례에 없는 비주요 노선까지 일일이 상태로 들고 있지 않기 위한 구분)
    */
   visibleLines: string[] | null;
+  /** 색이 무엇을 뜻하는지 — 등급이냐 통근시간이냐 */
+  mapMode: MapMode;
   /** 지도의 역을 클릭했을 때 — 목적지로 추가한다 */
   onPickStation: (station: { name: string; lat: number; lng: number }) => void;
 }
@@ -76,6 +89,7 @@ export default function MapView({
   subway,
   showSubway,
   visibleLines,
+  mapMode,
   onPickStation,
 }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -168,7 +182,7 @@ export default function MapView({
         type: "fill",
         source: SRC_DONG,
         paint: {
-          "fill-color": gradeColorExpr(),
+          "fill-color": fillColorExpr("grade"),
           "fill-opacity": [
             "case",
             ["boolean", ["feature-state", "selected"], false], 0.78,
@@ -261,7 +275,7 @@ export default function MapView({
         type: "circle",
         source: SRC_POINT,
         paint: {
-          "circle-color": gradeColorExpr(),
+          "circle-color": fillColorExpr("grade"),
           "circle-radius": ["interpolate", ["linear"], ["zoom"], 10, 3.5, 13, 7, 15, 9],
           "circle-opacity": reachableOpacityExpr(),
           "circle-stroke-color": "#12141a",
@@ -456,6 +470,7 @@ export default function MapView({
         const v = views.get(dong.code);
         const state = {
           grade: v?.grade ?? "normal",
+          band: v?.band ?? -1,
           reachable: hasDestination ? (v?.reachable ?? false) : false,
         };
         map.setFeatureState({ source: SRC_DONG, id: dong.code }, state);
@@ -540,6 +555,20 @@ export default function MapView({
     else map.once("oneday.ready", apply);
   }, [showSubway]);
 
+  /* ---------------- 지도 모드 (등급 / 통근시간) ---------------- */
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    const apply = () => {
+      if (!map.getLayer("dong-fill")) return;
+      // 지오메트리와 feature-state 는 그대로 두고 색 표현식만 갈아끼운다
+      map.setPaintProperty("dong-fill", "fill-color", fillColorExpr(mapMode));
+      map.setPaintProperty("dong-icon", "circle-color", fillColorExpr(mapMode));
+    };
+    if (readyRef.current) apply();
+    else map.once("oneday.ready", apply);
+  }, [mapMode]);
+
   /* ---------------- 노선별 표시/숨김 ---------------- */
   useEffect(() => {
     const map = mapRef.current;
@@ -618,19 +647,32 @@ function reachableOpacityExpr(): maplibregl.ExpressionSpecification {
   ] as maplibregl.ExpressionSpecification;
 }
 
-/** 통근 가능하면 등급색, 아니면 회색 */
-function gradeColorExpr(): maplibregl.ExpressionSpecification {
+/**
+ * 조건을 통과한 동만 색칠하고 나머지는 회색으로 둔다.
+ * 색이 뜻하는 바는 모드가 정한다 — 등급이냐 통근시간이냐.
+ */
+function fillColorExpr(mode: MapMode): maplibregl.ExpressionSpecification {
+  const inner: maplibregl.ExpressionSpecification =
+    mode === "grade"
+      ? ([
+          "match",
+          ["feature-state", "grade"],
+          "best", GRADE_COLOR.best,
+          "normal", GRADE_COLOR.normal,
+          "bad", GRADE_COLOR.bad,
+          OUT_OF_RANGE_COLOR,
+        ] as maplibregl.ExpressionSpecification)
+      : ([
+          "match",
+          ["feature-state", "band"],
+          ...COMMUTE_BANDS.flatMap((b, i) => [i, b.color]),
+          OUT_OF_RANGE_COLOR,
+        ] as unknown as maplibregl.ExpressionSpecification);
+
   return [
     "case",
     ["boolean", ["feature-state", "reachable"], false],
-    [
-      "match",
-      ["feature-state", "grade"],
-      "best", GRADE_COLOR.best,
-      "normal", GRADE_COLOR.normal,
-      "bad", GRADE_COLOR.bad,
-      OUT_OF_RANGE_COLOR,
-    ],
+    inner,
     OUT_OF_RANGE_COLOR,
   ] as maplibregl.ExpressionSpecification;
 }
@@ -659,7 +701,8 @@ function tooltipHtml(name: string, view: DongView | undefined): string {
   const esc = escapeHtml;
 
   if (!view || !view.reachable) {
-    return `<b>${esc(name)}</b><br><span style="color:#9aa1ae">통근 가능 시간 밖</span>`;
+    const why = view?.overBudget ? "예산 초과" : "통근 가능 시간 밖";
+    return `<b>${esc(name)}</b><br><span style="color:#9aa1ae">${why}</span>`;
   }
   const min = view.worstMin;
   const lines = [

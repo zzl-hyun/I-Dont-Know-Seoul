@@ -184,7 +184,8 @@ button {
 
 .slider-row {
   display: grid;
-  grid-template-columns: 42px 1fr 46px;
+  /* 마지막 칸은 "제한 없음" 같은 문구도 한 줄에 들어가야 한다 */
+  grid-template-columns: 42px 1fr 58px;
   align-items: center;
   gap: 10px;
   margin-bottom: 9px;
@@ -200,6 +201,7 @@ button {
   color: var(--text-dim);
   font-variant-numeric: tabular-nums;
   font-size: 12.5px;
+  white-space: nowrap;
 }
 
 input[type="range"] {
@@ -889,5 +891,36 @@ input[type="range"] {
   margin: 0 0 6px;
   font-size: 12px;
   color: var(--accent);
+  font-weight: 600;
+}
+
+/* ---------------- 지도 색 기준 전환 ---------------- */
+
+.mode-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin: 12px 0 10px;
+  padding: 3px;
+  background: var(--panel-2);
+  border-radius: 8px;
+}
+
+.mode-switch button {
+  padding: 6px 8px;
+  background: none;
+  border: none;
+  border-radius: 6px;
+  font-size: 12.5px;
+  color: var(--text-dim);
+}
+
+.mode-switch button:hover {
+  color: var(--text);
+}
+
+.mode-switch button[data-active="true"] {
+  background: var(--panel);
+  color: var(--text);
   font-weight: 600;
 }
