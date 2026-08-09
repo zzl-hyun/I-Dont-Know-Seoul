@@ -88,6 +88,7 @@ export type MetricKey =
   | "storePerKm2"
   | "foodPerKm2"
   | "medicalPerKm2"
+  | "busStopPerKm2"
   | "walkToStationMin";
 
 /** 축을 구성하는 하위 지표와 그 가중치 (결측 지표를 뺀 뒤 재정규화된 값) */
@@ -118,6 +119,11 @@ export interface DongRawMetrics {
   foodPerKm2: number | null;
   /** 병원·약국 밀도 (개/km²) */
   medicalPerKm2: number | null;
+  /**
+   * 버스 정류장 밀도 (개/km²).
+   * "정류장이 많다"를 재는 것이지 "노선이 다양하다"를 재지 않는다.
+   */
+  busStopPerKm2: number | null;
   /** 대표점에서 최근접 지하철역까지 도보(분) */
   walkToStationMin: number | null;
 }

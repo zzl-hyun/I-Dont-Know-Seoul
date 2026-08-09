@@ -63,6 +63,53 @@ describe("번들에 설명용 데이터가 실려 있다", () => {
   });
 });
 
+describe("교통 접근성 — 지하철 + 버스", () => {
+  const transitKeys = ["walkToStationMin", "busStopPerKm2"] as const;
+
+  it("교통 두 지표의 합이 0.25 이고 지하철이 더 무겁다", () => {
+    const w = Object.fromEntries(
+      bundle.axisWeights.convenience.map((x) => [x.key, x.w])
+    );
+    const subway = w.walkToStationMin;
+    const bus = w.busStopPerKm2;
+    expect(subway + bus, "교통 총합").toBeCloseTo(0.25, 3);
+    // 통근 계산 자체가 지하철만 쓰므로 버스는 보완재다
+    expect(subway).toBeGreaterThan(bus);
+    expect(subway / (subway + bus)).toBeCloseTo(0.7, 2);
+  });
+
+  it("모든 동에 버스 정류장 밀도 값이 있다", () => {
+    for (const [, s] of scores) {
+      expect(typeof s.raw.busStopPerKm2).toBe("number");
+    }
+  });
+
+  it("역이 멀어도 버스가 촘촘하면 편의 점수가 보완된다", () => {
+    // 이 지표를 넣은 이유가 바로 이것이다 — 역 소외 지역의 편향 교정
+    const far = bundle.dongs
+      .map((d) => ({ d, s: bundle.scores[d.code] }))
+      .filter((x) => (x.s.raw.walkToStationMin ?? 0) >= 15);
+    expect(far.length).toBeGreaterThan(50);
+
+    const busRich = [...far].sort(
+      (a, b) => (b.s.raw.busStopPerKm2 ?? 0) - (a.s.raw.busStopPerKm2 ?? 0)
+    );
+    const top5 = busRich.slice(0, 5);
+    const bottom5 = busRich.slice(-5);
+    const avg = (xs: typeof top5) =>
+      xs.reduce((s, x) => s + x.s.convenience, 0) / xs.length;
+
+    // 역 접근성이 비슷하게 나쁜 동들끼리 비교하면, 버스가 촘촘한 쪽이 높아야 한다
+    expect(avg(top5)).toBeGreaterThan(avg(bottom5));
+  });
+
+  for (const key of transitKeys) {
+    it(`${key} 가 pctKeys 에 실린다`, () => {
+      expect(bundle.pctKeys).toContain(key);
+    });
+  }
+});
+
 describe("동점 때문에 백분위가 뭉치는 것을 설명할 수 있다", () => {
   it("신림동: 유흥업소 0개인데 치안 100점이 아닌 이유가 드러난다", () => {
     const { score } = dongByName("관악구", "신림동");
@@ -137,7 +184,9 @@ describe("계산 과정", () => {
       bundle.axisWeights.convenience,
       dists
     );
-    expect(ex.metrics).toHaveLength(4);
+    // 지표 개수를 박아두면 축 구성이 바뀔 때마다 깨진다. 개수 대신 구조를 본다.
+    expect(ex.metrics.length).toBe(bundle.axisWeights.convenience.length);
+    expect(ex.metrics.reduce((s, m) => s + m.weight, 0)).toBeCloseTo(1, 2);
     for (const m of ex.metrics) {
       expect(m.value).not.toBe("");
       expect(m.median).not.toBe("—");

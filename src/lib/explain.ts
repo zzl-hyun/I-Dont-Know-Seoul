@@ -169,6 +169,20 @@ const METRIC_COPY: Record<MetricKey, MetricCopy> = {
     positive: { conn: "역이 가깝고", but: "역은 가깝지만", end: "역이 가깝습니다" },
     negative: { conn: "역이 멀고", but: "역은 멀지만", end: "역이 멉니다" },
   },
+  busStopPerKm2: {
+    label: "버스 정류장 밀도",
+    format: (v) => `${fmt(v)}개/km²`,
+    positive: {
+      conn: "버스 정류장이 많고",
+      but: "버스 정류장은 많지만",
+      end: "버스 정류장이 많습니다",
+    },
+    negative: {
+      conn: "버스 정류장이 적고",
+      but: "버스 정류장은 적지만",
+      end: "버스 정류장이 적습니다",
+    },
+  },
   cctvPerKm2: {
     label: "CCTV 밀도",
     format: (v) => `${fmt(v)}대/km²`,

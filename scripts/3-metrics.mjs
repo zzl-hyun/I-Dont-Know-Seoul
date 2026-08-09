@@ -81,6 +81,19 @@ const POI_GROUPS = {
   nightlife: {
     amenity: ["bar", "pub", "nightclub"],
   },
+  /*
+   * 버스 정류장 (서울 약 14,600개).
+   *
+   * 편의 축이 지하철 도보시간만 보면 편향이 생긴다 — 노원·은평·강북 일부는 역이
+   * 멀어도 버스가 촘촘해 실제 교통 접근성은 훨씬 낫다.
+   *
+   * 한계: 이건 "정류장이 많다"를 재는 것이지 "노선이 다양하다"를 재지 않는다.
+   * 한 노선만 여러 번 서는 동네도 밀도가 높게 나온다. 노선 다양성을 보려면
+   * 정류장→노선 매핑(서울 1,005개 노선)이 필요해 비용이 크게 뛴다.
+   */
+  busStop: {
+    highway: ["bus_stop"],
+  },
 };
 
 async function main() {
@@ -103,7 +116,7 @@ async function main() {
   const counts = new Map(
     dongs.map((d) => [
       d.code,
-      { store: 0, food: 0, medical: 0, nightlife: 0, cctv: 0 },
+      { store: 0, food: 0, medical: 0, nightlife: 0, busStop: 0, cctv: 0 },
     ])
   );
 
@@ -192,6 +205,7 @@ async function main() {
       foodPerKm2: round2(c.food / area),
       medicalPerKm2: round2(c.medical / area),
       nightlifePerKm2: round2(c.nightlife / area),
+      busStopPerKm2: round2(c.busStop / area),
       cctvPerKm2: cctvOk ? round2(c.cctv / area) : null,
       crimePer1k: null, // 자치구 단위 — 키가 생기면 여기에 채운다
       monthlyRentMan: r?.median ?? null,
@@ -200,7 +214,14 @@ async function main() {
     };
   });
 
-  const available = ["storePerKm2", "foodPerKm2", "medicalPerKm2", "nightlifePerKm2", "walkToStationMin"];
+  const available = [
+    "storePerKm2",
+    "foodPerKm2",
+    "medicalPerKm2",
+    "nightlifePerKm2",
+    "busStopPerKm2",
+    "walkToStationMin",
+  ];
   const missing = [];
   if (!cctvOk) missing.push("cctvPerKm2");
   if (rent.size === 0) missing.push("monthlyRentMan");

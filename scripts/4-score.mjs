@@ -36,11 +36,24 @@ const AXES = {
   price: [
     { key: "monthlyRentMan", weight: 1.0, dir: -1, label: "원룸 환산월세" },
   ],
+  /*
+   * 교통(역 도보 + 버스)의 합은 0.25 로 유지하고 그 안에서 7:3 으로 나눈다.
+   *
+   * 지하철에 비중을 더 주는 이유: 서울에서 지하철이 정시성·속도 모두 우위이고,
+   * 무엇보다 이 앱의 통근시간 계산 자체가 지하철만 쓴다. 버스 정류장 밀도는
+   * 독립적인 교통 지표라기보다 "지하철이 안 닿는 동네의 보완재" 성격이다.
+   *
+   * "교통 접근성" 중첩 지표를 만들지 않고 가중치를 쪼갠 이유: AXES 는 평평한
+   * (key, weight, dir) 목록이고 explain.ts 의 계산 과정 표시도 그 구조를 전제한다.
+   * 중첩을 넣으면 파이프라인·타입·설명 UI가 전부 한 단계 깊어지는데,
+   * 쪼개 넣으면 결과가 수학적으로 동일하다.
+   */
   convenience: [
     { key: "storePerKm2", weight: 0.3, dir: +1, label: "편의점·마트 밀도" },
     { key: "foodPerKm2", weight: 0.25, dir: +1, label: "음식점 밀도" },
     { key: "medicalPerKm2", weight: 0.2, dir: +1, label: "병원·약국 밀도" },
-    { key: "walkToStationMin", weight: 0.25, dir: -1, label: "최근접역 도보" },
+    { key: "walkToStationMin", weight: 0.175, dir: -1, label: "최근접역 도보" },
+    { key: "busStopPerKm2", weight: 0.075, dir: +1, label: "버스 정류장 밀도" },
   ],
 };
 
@@ -135,6 +148,7 @@ async function main() {
       storePerKm2: r.storePerKm2,
       foodPerKm2: r.foodPerKm2,
       medicalPerKm2: r.medicalPerKm2,
+      busStopPerKm2: r.busStopPerKm2,
       walkToStationMin: r.walkToStationMin,
     };
     s.dataQuality =
