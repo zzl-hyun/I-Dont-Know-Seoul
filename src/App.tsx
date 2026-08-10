@@ -15,6 +15,7 @@ import {
   COMMUTE_BANDS,
   commuteBand,
   GRADE_LABEL,
+  MAX_DESTINATIONS,
 } from "./lib/constants";
 import type { CommuteResult, Destination, Weights } from "./types";
 
@@ -33,9 +34,6 @@ function withinBudget(rent: number | null, limit: number): boolean {
   if (rent == null) return true;
   return rent <= limit;
 }
-
-/** 목적지 상한 */
-const MAX_DESTINATIONS = 3;
 
 const NO_COMMUTE: CommuteResult = {
   totalMin: null,

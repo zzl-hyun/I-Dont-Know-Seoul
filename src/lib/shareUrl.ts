@@ -5,6 +5,7 @@ import {
   BUDGET_OFF,
   DEFAULT_MAX_COMMUTE_MIN,
   DEFAULT_WEIGHTS,
+  MAX_DESTINATIONS,
 } from "./constants";
 
 /**
@@ -75,6 +76,9 @@ export function decodeShareState(search: string): ShareState {
   };
 
   for (const raw of p.getAll("to")) {
+    // UI가 강제하는 상한과 맞춘다 — 안 그러면 "to" 를 4개 이상 넣은 링크로
+    // 그 상한을 그냥 우회할 수 있다.
+    if (s.destinations.length >= MAX_DESTINATIONS) break;
     const at = raw.lastIndexOf("@");
     if (at < 1) continue;
     const name = raw.slice(0, at);

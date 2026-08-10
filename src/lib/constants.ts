@@ -54,6 +54,13 @@ export const ESTIMATED_SPEED_KMH = 32;
 /** 통근시간 슬라이더 기본값(분) */
 export const DEFAULT_MAX_COMMUTE_MIN = 40;
 
+/**
+ * 목적지 상한. UI(App.tsx)의 추가 버튼뿐 아니라 shareUrl.ts의 URL 디코더도
+ * 이 값으로 잘라야 한다 — 안 그러면 "to" 파라미터를 4개 이상 넣은 링크로
+ * UI가 강제하는 상한을 그냥 우회할 수 있다.
+ */
+export const MAX_DESTINATIONS = 3;
+
 /** 가중치 기본값. 합이 1이어야 한다. */
 export const DEFAULT_WEIGHTS = {
   safety: 0.4,

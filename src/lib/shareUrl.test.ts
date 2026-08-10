@@ -5,7 +5,7 @@ import {
   encodeShareState,
   type ShareState,
 } from "./shareUrl";
-import { BUDGET_OFF } from "./constants";
+import { BUDGET_OFF, MAX_DESTINATIONS } from "./constants";
 
 const sample: ShareState = {
   destinations: [
@@ -77,6 +77,17 @@ describe("이상한 입력을 걸러낸다", () => {
     expect(s.budget).toBe(BUDGET_OFF);
     expect(s.mapMode).toBe("grade");
     expect(s.weights).toEqual(DEFAULT_SHARE_STATE.weights);
+  });
+
+  it(`목적지는 ${MAX_DESTINATIONS}개를 넘으면 잘린다`, () => {
+    // UI(App.tsx)의 추가 버튼은 MAX_DESTINATIONS 에서 막히는데, URL
+    // 디코더가 이걸 안 지키면 "to" 를 여러 개 넣은 링크로 그 상한을
+    // 그냥 우회할 수 있다.
+    const many = Array.from({ length: MAX_DESTINATIONS + 2 }, (_, i) => `to=목적지${i}@37.5,127.0`).join("&");
+    const s = decodeShareState(many);
+    expect(s.destinations).toHaveLength(MAX_DESTINATIONS);
+    expect(s.destinations[0].name).toBe("목적지0");
+    expect(s.destinations[MAX_DESTINATIONS - 1].name).toBe(`목적지${MAX_DESTINATIONS - 1}`);
   });
 
   it("가중치는 합이 1이 되도록 정규화한다", () => {
