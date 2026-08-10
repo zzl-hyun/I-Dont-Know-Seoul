@@ -50,6 +50,14 @@ describe("번들에 설명용 데이터가 실려 있다", () => {
 
   it("축 점수가 하위 지표 백분위의 가중합과 일치한다", () => {
     // 계산 과정을 화면에 보여줄 것이므로, 보여주는 식과 실제 점수가 어긋나면 안 된다.
+    //
+    // 허용 오차 0.1은 화면 표시를 위해 소수 1자리로 반올림해 저장하는
+    // pct·축점수 각각에서 최대 0.05씩 생기는 반올림 오차다(가중치 자체는
+    // 4-score.mjs가 반올림 없이 저장하므로 그쪽에서는 오차가 없다 —
+    // 예전엔 가중치도 소수 3자리로 반올림해서 저장했는데, 축이 3개
+    // 이상이면 합이 1에서 벗어나 최대 0.15점까지 어긋났었다. 그때 이
+    // 테스트의 허용 오차가 0.5로 느슨해서 그 오차를 못 잡고 있었다).
+    const TOLERANCE = 0.1;
     for (const [axis, ws] of Object.entries(bundle.axisWeights)) {
       if (ws.length === 0) continue;
       for (const [, s] of scores) {
@@ -57,7 +65,10 @@ describe("번들에 설명용 데이터가 실려 있다", () => {
           const i = bundle.pctKeys.indexOf(w.key);
           return acc + (s.pct[i] ?? 50) * w.w;
         }, 0);
-        expect(s[axis as "safety"]).toBeCloseTo(expected, 0);
+        const actual = s[axis as "safety"];
+        expect(Math.abs(actual - expected), `${axis}: ${actual} vs ${expected}`).toBeLessThan(
+          TOLERANCE
+        );
       }
     }
   });

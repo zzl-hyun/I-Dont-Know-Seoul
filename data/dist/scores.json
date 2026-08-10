@@ -1,6 +1,6 @@
 {
   "version": "2026-08-10",
-  "generatedAt": "2026-08-10T05:24:53.098Z",
+  "generatedAt": "2026-08-10T08:41:08.256Z",
   "pctKeys": [
     "nightlifePerKm2",
     "crimePer1k",
@@ -18,19 +18,19 @@
         "key": "nightlifePerKm2",
         "label": "유흥업소 밀도",
         "dir": -1,
-        "w": 0.385
+        "w": 0.3846153846153846
       },
       {
         "key": "crimePer1k",
         "label": "5대범죄",
         "dir": -1,
-        "w": 0.462
+        "w": 0.4615384615384615
       },
       {
         "key": "trafficAccidentPerKm2",
         "label": "교통사고 다발지역",
         "dir": -1,
-        "w": 0.154
+        "w": 0.15384615384615385
       }
     ],
     "price": [
