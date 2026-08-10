@@ -48,8 +48,12 @@ export function gradeAll(scores: Map<string, DongScore>, w: Weights): GradeResul
     score: compositeScore(s, w),
   }));
 
-  // 점수 높은 순 정렬 → 순위로 등급을 가른다
-  entries.sort((a, b) => b.score - a.score);
+  // 점수 높은 순 정렬 → 순위로 등급을 가른다.
+  // 동점이면 동 코드 오름차순으로 가른다 — 명시하지 않으면 JS 엔진이
+  // 객체 키를 정수처럼 재정렬하는 특성에 우연히 기대게 되어(동 코드가
+  // 전부 숫자 문자열이라 실제로 그렇게 되어 있었다), 데이터 소스가
+  // 조금만 달라져도 동점 처리가 조용히 바뀔 수 있었다.
+  entries.sort((a, b) => b.score - a.score || a.code.localeCompare(b.code));
 
   const total = entries.length;
   const bestCut = Math.round(total * GRADE_CUT.best);

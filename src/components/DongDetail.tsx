@@ -191,7 +191,7 @@ export default function DongDetail({
           </div>
           <div className="cutline">
             등급 컷 — {composite.bestCut.toFixed(1)}점 이상 Best ·{" "}
-            {composite.normalCut.toFixed(1)}점 이상 Normal
+            {composite.normalCut.toFixed(1)}점 이상 Normal (동점이면 순위로 가릅니다)
           </div>
         </details>
       </div>
