@@ -81,10 +81,24 @@ describe("치안 축 — 5대범죄·교통사고 보강", () => {
   });
 
   it("모든 동에 crimePer1k, trafficAccidentPerKm2 값이 있다", () => {
+    // toBeNull() 만 쓰면 4-score.mjs 의 raw 객체 리터럴에 필드를 안 넣어
+    // undefined 가 나오는 실수를 못 잡는다(undefined !== null 이라 통과해
+    // 버린다) — toBeTypeOf("number")로 실제로 값이 있는지까지 확인한다.
     for (const d of bundle.dongs) {
       const raw = bundle.scores[d.code]!.raw;
-      expect(raw.crimePer1k, d.name).not.toBeNull();
-      expect(raw.trafficAccidentPerKm2, d.name).not.toBeNull();
+      expect(raw.crimePer1k, d.name).toBeTypeOf("number");
+      expect(raw.trafficAccidentPerKm2, d.name).toBeTypeOf("number");
+    }
+  });
+
+  it("AXES 에 있는 모든 지표 키가 raw 객체에도 실린다", () => {
+    // 4-score.mjs 의 raw 객체 리터럴은 AXES 와 별개로 손으로 나열한
+    // 목록이라, 새 지표를 AXES 에는 추가하고 여기 안 넣는 실수가 가능하다
+    // (trafficAccidentPerKm2 를 실제로 이렇게 빠뜨렸었다). pctKeys 는
+    // AXES 에서 실제로 쓰인 지표 키 전체이므로 이걸 기준으로 순회한다.
+    const sample = bundle.scores[bundle.dongs[0].code]!.raw;
+    for (const key of bundle.pctKeys) {
+      expect(Object.hasOwn(sample, key), key).toBe(true);
     }
   });
 });

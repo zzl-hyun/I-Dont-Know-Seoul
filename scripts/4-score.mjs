@@ -158,6 +158,7 @@ async function main() {
       cctvPerKm2: r.cctvPerKm2,
       nightlifePerKm2: r.nightlifePerKm2,
       crimePer1k: r.crimePer1k,
+      trafficAccidentPerKm2: r.trafficAccidentPerKm2,
       storePerKm2: r.storePerKm2,
       foodPerKm2: r.foodPerKm2,
       medicalPerKm2: r.medicalPerKm2,
