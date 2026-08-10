@@ -98,13 +98,20 @@ interface GeoResult {
   kind: "station" | "place";
 }
 
+/** 이 이상은 실제 회사·주소명이 아니라 남용성 요청으로 본다 */
+const MAX_QUERY_LEN = 100;
+/** Kakao 요청이 이보다 오래 걸리면 포기하고 역명 검색으로 넘어간다 */
+const KAKAO_TIMEOUT_MS = 5000;
+
 async function handleGeocode(
   request: Request,
   env: Env,
   ctx: ExecutionContext
 ): Promise<Response> {
+  if (request.method !== "GET") return json({ error: "GET만 지원합니다" }, 405);
+
   const q = new URL(request.url).searchParams.get("q")?.trim() ?? "";
-  if (q.length < 2) return json({ results: [] });
+  if (q.length < 2 || q.length > MAX_QUERY_LEN) return json({ results: [] });
 
   const cacheKey = `geo:${q.toLowerCase()}`;
   const cached = await env.ONEDAY_KV.get(cacheKey, "text");
@@ -151,21 +158,25 @@ async function kakaoSearch(q: string, key: string): Promise<GeoResult[]> {
 
   // 장소(키워드) 검색을 먼저 한다 — "삼성전자 서초사옥", "서울대학교" 처럼
   // 회사·학교 이름으로 찾는 것이 이 서비스의 주 사용 방식이기 때문이다.
-  const [placeRes, addrRes] = await Promise.all([
+  //
+  // allSettled를 쓴다 — 예전엔 Promise.all이라 둘 중 하나만 네트워크
+  // 오류를 던져도 검색 전체가 500으로 죽었다. 타임아웃도 걸어서 Kakao가
+  // 느려도 지하철역 폴백으로 넘어갈 수 있게 한다.
+  const [placeResult, addrResult] = await Promise.allSettled([
     fetch(
       `https://dapi.kakao.com/v2/local/search/keyword.json?size=5&query=${encodeURIComponent(q)}`,
-      { headers }
+      { headers, signal: AbortSignal.timeout(KAKAO_TIMEOUT_MS) }
     ),
     fetch(
       `https://dapi.kakao.com/v2/local/search/address.json?size=3&query=${encodeURIComponent(q)}`,
-      { headers }
+      { headers, signal: AbortSignal.timeout(KAKAO_TIMEOUT_MS) }
     ),
   ]);
 
   const out: GeoResult[] = [];
 
-  if (placeRes.ok) {
-    const data = (await placeRes.json()) as { documents?: KakaoDoc[] };
+  if (placeResult.status === "fulfilled" && placeResult.value.ok) {
+    const data = (await placeResult.value.json()) as { documents?: KakaoDoc[] };
     for (const d of data.documents ?? []) {
       out.push({
         name: d.place_name ?? q,
@@ -177,8 +188,8 @@ async function kakaoSearch(q: string, key: string): Promise<GeoResult[]> {
     }
   }
 
-  if (addrRes.ok) {
-    const data = (await addrRes.json()) as { documents?: KakaoDoc[] };
+  if (addrResult.status === "fulfilled" && addrResult.value.ok) {
+    const data = (await addrResult.value.json()) as { documents?: KakaoDoc[] };
     for (const d of data.documents ?? []) {
       out.push({
         name: d.address_name ?? q,
