@@ -102,7 +102,7 @@ interface Fragment {
 
 const METRIC_COPY: Record<MetricKey, MetricCopy> = {
   monthlyRentMan: {
-    label: "원룸 환산월세",
+    label: "환산월세",
     format: (v) => `${Math.round(v)}만원`,
     positive: {
       conn: "월세가 {v}으로 싸고",
@@ -194,6 +194,20 @@ const METRIC_COPY: Record<MetricKey, MetricCopy> = {
     format: (v) => `${v.toFixed(1)}건/천명`,
     positive: { conn: "범죄가 적고", but: "범죄는 적지만", end: "범죄가 적습니다" },
     negative: { conn: "범죄가 많고", but: "범죄는 많지만", end: "범죄가 많습니다" },
+  },
+  trafficAccidentPerKm2: {
+    label: "교통사고 다발지역",
+    format: (v) => `${fmt(v)}건/km²`,
+    positive: {
+      conn: "교통사고 다발지점이 적고",
+      but: "교통사고 다발지점은 적지만",
+      end: "교통사고 다발지점이 적습니다",
+    },
+    negative: {
+      conn: "교통사고 다발지점이 많고",
+      but: "교통사고 다발지점은 많지만",
+      end: "교통사고 다발지점이 많습니다",
+    },
   },
 };
 

@@ -8,15 +8,16 @@
  *   생활편의 (편의점·마트·음식점·병원)  OSM Overpass    키 불필요 ✔
  *   유흥업소 밀도                      OSM Overpass    키 불필요 ✔
  *   최근접역 도보시간                  자체 그래프      키 불필요 ✔
- *   CCTV 밀도                         서울 열린데이터   SEOUL_OPEN_DATA_KEY 필요
- *   5대범죄 (자치구)                   서울 열린데이터   SEOUL_OPEN_DATA_KEY 필요
- *   원룸 환산월세                      국토부 실거래가   DATA_GO_KR_KEY 필요
+ *   CCTV 밀도                         서울 열린데이터   SEOUL_OPEN_DATA_KEY 필요(원 데이터셋 폐기로 현재 비활성)
+ *   5대범죄 (자치구)                   경찰청+행안부    키 불필요 (data/raw/ CSV 스냅샷)
+ *   교통사고 다발지역                  도로교통공단     키 불필요 (data/raw/ CSV 스냅샷)
+ *   환산월세                          국토부 실거래가   DATA_GO_KR_KEY 필요
  *
- * 키가 없는 지표는 null로 남기고 4-score.mjs 가 가중치를 재분배한다.
- * 즉 키 없이도 지금 당장 돌아가고, 키를 넣으면 그만큼 정확해진다.
+ * 키/데이터가 없는 지표는 null로 남기고 4-score.mjs 가 가중치를 재분배한다.
+ * 즉 아무것도 없어도 지금 당장 돌아가고, 채울수록 그만큼 정확해진다.
  *
  * 환경변수는 .env 파일이나 셸에서 전달한다:
- *   SEOUL_OPEN_DATA_KEY=... DATA_GO_KR_KEY=... npm run data:metrics
+ *   DATA_GO_KR_KEY=... npm run data:metrics
  */
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
@@ -116,12 +117,12 @@ async function main() {
   const counts = new Map(
     dongs.map((d) => [
       d.code,
-      { store: 0, food: 0, medical: 0, nightlife: 0, busStop: 0, cctv: 0 },
+      { store: 0, food: 0, medical: 0, nightlife: 0, busStop: 0, cctv: 0, trafficAccident: 0 },
     ])
   );
 
   /* ---- 1. OSM POI (키 불필요) ---- */
-  console.log("\n[1/4] OSM POI 수집...");
+  console.log("\n[1/6] OSM POI 수집...");
   const pois = await fetchPois();
   let assigned = 0;
   let outside = 0;
@@ -146,7 +147,7 @@ async function main() {
   }
 
   /* ---- 2. 최근접역 도보시간 (자체 그래프) ---- */
-  console.log("\n[2/4] 최근접 지하철역 도보시간...");
+  console.log("\n[2/6] 최근접 지하철역 도보시간...");
   const walkMin = new Map();
   for (const d of dongs) {
     let best = Infinity;
@@ -161,7 +162,7 @@ async function main() {
   console.log(`  중앙값 ${walkVals[Math.floor(walkVals.length / 2)].toFixed(1)}분 · 최대 ${walkVals.at(-1).toFixed(1)}분`);
 
   /* ---- 3. CCTV — 데이터 출처가 없어졌다 ---- */
-  console.log("\n[3/4] CCTV 밀도...");
+  console.log("\n[3/6] CCTV 밀도...");
   /*
    * 서울 열린데이터광장의 "안심이 CCTV 연계 현황"(OA-20923)은 2026-02-10 자로
    * 폐기됐다("안심주소에 IP 노출로 국정원 지적"). 현재 API는 ERROR-500 을 준다.
@@ -176,8 +177,36 @@ async function main() {
   const cctvOk = false;
   console.log("  건너뜀 — 원 데이터셋(안심이 CCTV)이 2026-02-10 폐기됨");
 
-  /* ---- 4. 원룸 환산월세 (국토부, 키 필요) ---- */
-  console.log("\n[4/4] 원룸 환산월세...");
+  /* ---- 4. 5대범죄 (자치구, CSV 스냅샷) ---- */
+  console.log("\n[4/6] 5대범죄...");
+  let crimeByGu = new Map();
+  try {
+    crimeByGu = await loadCrimePer1k();
+    console.log(`  자치구 ${crimeByGu.size}개 계산됨`);
+  } catch (err) {
+    console.log(`  건너뜀 — ${err.message}`);
+  }
+
+  /* ---- 5. 교통사고 다발지역 (점 데이터, 기존 공간 인덱스 재사용) ---- */
+  console.log("\n[5/6] 교통사고 다발지역...");
+  let accidentOk = false;
+  try {
+    const spots = await loadTrafficAccidents();
+    let hit = 0;
+    for (const { lat, lng, count } of spots) {
+      const code = index.lookup(lng, lat);
+      if (!code) continue; // 서울 밖으로 판정되면 자연히 걸러진다 — OSM POI와 동일 패턴
+      counts.get(code).trafficAccident += count;
+      hit++;
+    }
+    console.log(`  ${spots.length}개 지점 중 ${hit}개가 동에 배정됨`);
+    accidentOk = true;
+  } catch (err) {
+    console.log(`  건너뜀 — ${err.message}`);
+  }
+
+  /* ---- 6. 환산월세: 단독/다가구 + 오피스텔 + 소형아파트 (국토부, 키 필요) ---- */
+  console.log("\n[6/6] 환산월세...");
   const molitKey = process.env.DATA_GO_KR_KEY;
   let rent = new Map();
   if (molitKey) {
@@ -207,7 +236,10 @@ async function main() {
       nightlifePerKm2: round2(c.nightlife / area),
       busStopPerKm2: round2(c.busStop / area),
       cctvPerKm2: cctvOk ? round2(c.cctv / area) : null,
-      crimePer1k: null, // 자치구 단위 — 키가 생기면 여기에 채운다
+      // 자치구 단위 — 같은 구 안의 동들은 전부 같은 값을 갖는다. 월세의
+      // 법정동 해상도 한계(자치구 중앙값 대체)와 같은 성격의 제약이다.
+      crimePer1k: crimeByGu.get(d.gu) ?? null,
+      trafficAccidentPerKm2: accidentOk ? round2(c.trafficAccident / area) : null,
       monthlyRentMan: r?.median ?? null,
       rentSamples: r?.samples ?? 0,
       walkToStationMin: round2(walkMin.get(d.code)),
@@ -225,9 +257,12 @@ async function main() {
   const missing = [];
   if (!cctvOk) missing.push("cctvPerKm2");
   if (rent.size === 0) missing.push("monthlyRentMan");
-  missing.push("crimePer1k");
+  if (crimeByGu.size === 0) missing.push("crimePer1k");
+  if (!accidentOk) missing.push("trafficAccidentPerKm2");
   if (cctvOk) available.push("cctvPerKm2");
   if (rent.size > 0) available.push("monthlyRentMan");
+  if (crimeByGu.size > 0) available.push("crimePer1k");
+  if (accidentOk) available.push("trafficAccidentPerKm2");
 
   await mkdir(dirname(OUT), { recursive: true });
   await writeFile(
@@ -239,6 +274,8 @@ async function main() {
         sources: {
           poi: "OpenStreetMap (ODbL)",
           cctv: cctvOk ? "서울 열린데이터광장" : null,
+          crime: crimeByGu.size > 0 ? "경찰청 범죄 발생 지역별 통계 + 행안부 주민등록인구" : null,
+          trafficAccident: accidentOk ? "도로교통공단 전국교통사고다발지역표준데이터" : null,
           rent: rent.size > 0 ? "국토교통부 실거래가" : null,
         },
         available,
@@ -369,7 +406,122 @@ async function overpass(query) {
   throw new Error(`Overpass 실패: ${lastError?.message}`);
 }
 
-/* ---- 국토교통부: 단독/다가구 + 오피스텔 전월세 실거래가 ---- */
+/* ---- 경찰청 5대범죄 + 행안부 인구 (자치구, 연 1회 CSV 스냅샷) ---- */
+
+const CRIME_CSV = join(ROOT, "data/raw/police-crime-by-gu-20241231.csv");
+const POPULATION_CSV = join(ROOT, "data/raw/population-by-gu-20260630.csv");
+
+/**
+ * "5대범죄"(살인·강도·강간강제추행·절도·폭력)에 대응하는 원본 CSV의
+ * 범죄대분류. 원본(경찰청_범죄 발생 지역별 통계)은 사기·기타범죄 등
+ * 39개 세부 항목을 전부 담고 있는데, 그대로 다 합치면 사기(지능범죄)가
+ * 폭력·절도보다 커져 "동네 체감 치안"과 무관한 신호가 된다. 표준 5대범죄
+ * 정의를 따라 세 대분류(강력범죄=살인·강도·강간강제추행·방화,
+ * 절도범죄, 폭력범죄)만 합산한다.
+ */
+const CRIME_CATEGORIES = ["강력범죄", "절도범죄", "폭력범죄"];
+
+/**
+ * 이 프로젝트가 받는 정부 CSV는 필드에 콤마·따옴표가 없어 단순 분리로
+ * 충분하다. 단, 원본이 Windows 줄바꿈(\r\n)이라 각 줄의 마지막 필드에
+ * \r 이 붙는다 — 숫자는 Number()가 알아서 무시하지만 문자열(자치구명)은
+ * 그대로 비교하면 안 맞는다. trim()으로 필드마다 제거한다.
+ */
+function parseCsv(text) {
+  return text
+    .trim()
+    .split(/\r?\n/)
+    .map((line) => line.split(",").map((field) => field.trim()));
+}
+
+/**
+ * 자치구별 인구 1천명당 5대범죄 건수.
+ *
+ * 두 CSV 모두 data.go.kr 파일데이터(인증키 불필요, 연 1회 갱신)를 서울분만
+ * 추출해 UTF-8로 재저장한 스냅샷이다 — 원본은 전국 데이터에 CP949
+ * 인코딩이라(정부 CSV 흔한 함정) 그대로 커밋하지 않고 이 단계에서 이미
+ * 변환해뒀다.
+ */
+async function loadCrimePer1k() {
+  const [crimeText, popText] = await Promise.all([
+    readFile(CRIME_CSV, "utf8"),
+    readFile(POPULATION_CSV, "utf8"),
+  ]);
+
+  const [crimeHeader, ...crimeRows] = parseCsv(crimeText);
+  const guNames = crimeHeader.slice(2); // 범죄대분류, 범죄중분류 다음부터 자치구명
+
+  const crimeByGu = new Map(guNames.map((gu) => [gu, 0]));
+  for (const [major, , ...counts] of crimeRows) {
+    if (!CRIME_CATEGORIES.includes(major)) continue;
+    guNames.forEach((gu, i) => crimeByGu.set(gu, crimeByGu.get(gu) + Number(counts[i] || 0)));
+  }
+
+  const [, ...popRows] = parseCsv(popText);
+  const popByGu = new Map(popRows.map(([gu, pop]) => [gu, Number(pop)]));
+
+  const result = new Map();
+  for (const [gu, crimeCount] of crimeByGu) {
+    const pop = popByGu.get(gu);
+    if (!pop) continue; // 이름이 안 맞는 구는 건너뛴다 — 호출부의 개수 로그로 드러난다
+    result.set(gu, round2((crimeCount / pop) * 1000));
+  }
+  return result;
+}
+
+/* ---- 전국교통사고다발지역표준데이터: 서울 취약계층 사고다발지점 (점 데이터) ---- */
+
+const TRAFFIC_CSV = join(ROOT, "data/raw/traffic-accident-hotspots-seoul-2012-2024.csv");
+
+/**
+ * "사고지역위치명" 일부 필드에 콤마가 섞여 있어(3건 확인됨) 위 parseCsv로는
+ * 컬럼이 밀린다. 최소한의 quoted-field 처리가 있는 파서.
+ */
+function parseCsvQuoted(text) {
+  return text
+    .trim()
+    .split(/\r?\n/)
+    .map((line) => {
+      const out = [];
+      let cur = "";
+      let inQuotes = false;
+      for (const c of line) {
+        if (c === '"') inQuotes = !inQuotes;
+        else if (c === "," && !inQuotes) {
+          out.push(cur.trim());
+          cur = "";
+        } else cur += c;
+      }
+      out.push(cur.trim());
+      return out;
+    });
+}
+
+/**
+ * 서울 교통사고 취약계층(스쿨존어린이·보행어린이·보행노인·자전거) 다발지점.
+ *
+ * 원본은 전국교통사고다발지역표준데이터(data.go.kr 15029185, 2012~2024
+ * 누적)에서 서울분만 추출한 스냅샷이다 — 사전조사 결과 이 4개 유형만
+ * 포함되어 있었다(차대차 등 다른 유형은 이 다운로드에 없음). 여러 해에
+ * 걸쳐 반복 지정된 지점은 그만큼 누적되는데 의도한 동작이다 — 여러 해
+ * 계속 위험지점으로 지정됐다는 건 구조적으로 위험하다는 뜻이다.
+ *
+ * 지점 개수가 아니라 "사고건수"(그 지점·연도의 실제 사고 건수)를 더해서
+ * 집계한다 — 단순 다발지점 지정 여부가 아니라 실제 사고 규모를 반영한다.
+ */
+async function loadTrafficAccidents() {
+  const text = await readFile(TRAFFIC_CSV, "utf8");
+  const [header, ...rows] = parseCsvQuoted(text);
+  const idx = Object.fromEntries(header.map((h, i) => [h, i]));
+
+  return rows.map((r) => ({
+    lat: Number(r[idx["위도"]]),
+    lng: Number(r[idx["경도"]]),
+    count: Number(r[idx["사고건수"]] || 0),
+  }));
+}
+
+/* ---- 국토교통부: 단독/다가구 + 오피스텔 + 아파트 전월세 실거래가 ---- */
 
 /**
  * 전월세 → 환산월세.
@@ -387,6 +539,14 @@ const toMonthly = (depositMan, monthlyMan) =>
  */
 const AREA_MIN = 10;
 const AREA_MAX = 40;
+
+/**
+ * 아파트는 단독/다가구·오피스텔과 같은 상한(40㎡)을 쓰면 표본이 0에 수렴한다.
+ * 서울 아파트는 전용 40㎡ 이하가 거의 없다 — 실질적인 최소 평형대가
+ * 59㎡(18평형)에 몰려 있다. 60으로 잡아 초소형 아파트까지만 받는다.
+ * 가설값이므로 1차 실행 후 실제 ㎡ 분포를 보고 조정할 것.
+ */
+const AREA_MAX_APT = 60;
 
 /** 이 미만이면 표본 부족으로 보고 상위 단위 값으로 대체한다. */
 const MIN_SAMPLES = 5;
@@ -407,9 +567,17 @@ const REQUEST_GAP_MS = 120;
 /** 실패한 요청 재시도 횟수 (지수 백오프). */
 const MAX_RETRY = 4;
 
+/*
+ * 아파트 엔드포인트(RTMSDataSvcAptRent)는 기존 두 개와 같은 1613000
+ * 서비스 패밀리의 명명 규칙을 그대로 따른 것이다. 정확한 URL은 기술문서가
+ * hwp라 자동으로 확인 못 했다 — 활용신청이 안 돼 있거나 이름이 다르면
+ * runJob이 다른 두 엔드포인트처럼 개별 실패로 처리하고 넘어간다(전체가
+ * 죽지 않는다). 실행 로그에 실패율이 튀면 여기부터 의심할 것.
+ */
 const ENDPOINTS = [
-  "https://apis.data.go.kr/1613000/RTMSDataSvcSHRent/getRTMSDataSvcSHRent",
-  "https://apis.data.go.kr/1613000/RTMSDataSvcOffiRent/getRTMSDataSvcOffiRent",
+  { url: "https://apis.data.go.kr/1613000/RTMSDataSvcSHRent/getRTMSDataSvcSHRent", areaMax: AREA_MAX },
+  { url: "https://apis.data.go.kr/1613000/RTMSDataSvcOffiRent/getRTMSDataSvcOffiRent", areaMax: AREA_MAX },
+  { url: "https://apis.data.go.kr/1613000/RTMSDataSvcAptRent/getRTMSDataSvcAptRent", areaMax: AREA_MAX_APT },
 ];
 
 /**
@@ -460,7 +628,7 @@ async function fetchRent(key, dongs) {
   /** 한 요청을 처리한다. 실패하면 지수 백오프로 재시도한다. */
   const runJob = async ({ gu, ym, ep }) => {
     const url =
-      `${ep}?serviceKey=${encodeURIComponent(key)}` +
+      `${ep.url}?serviceKey=${encodeURIComponent(key)}` +
       `&LAWD_CD=${gu}&DEAL_YMD=${ym}&numOfRows=1000&pageNo=1&_type=json`;
 
     for (let attempt = 0; attempt <= MAX_RETRY; attempt++) {
@@ -479,7 +647,7 @@ async function fetchRent(key, dongs) {
         const items = [].concat(body?.body?.items?.item ?? []);
         for (const it of items) {
           const area = Number(String(it.excluUseAr ?? it.totalFloorAr ?? 0));
-          if (!(area >= AREA_MIN && area <= AREA_MAX)) continue;
+          if (!(area >= AREA_MIN && area <= ep.areaMax)) continue;
           const deposit = Number(String(it.deposit ?? "0").replace(/,/g, ""));
           const monthly = Number(String(it.monthlyRent ?? "0").replace(/,/g, ""));
           if (!(monthly > 0)) continue; // 순수 전세 제외 (월세 시세가 아니다)

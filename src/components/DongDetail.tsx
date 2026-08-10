@@ -198,7 +198,7 @@ export default function DongDetail({
 
       {score.dataQuality === "low" && (
         <p className="metric-note warn">
-          이 동은 원룸 실거래 표본이 부족해 월세를 <b>자치구 중앙값</b>으로 대체했습니다.
+          이 동은 실거래 표본이 부족해 월세를 <b>자치구 중앙값</b>으로 대체했습니다.
         </p>
       )}
     </div>

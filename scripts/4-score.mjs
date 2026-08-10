@@ -27,14 +27,27 @@ const OUT_BUNDLE = join(ROOT, "public/data/bundle.json");
  * 축별 구성 지표와 방향.
  *   dir: +1 = 높을수록 좋음, -1 = 높을수록 나쁨
  */
+/*
+ * safety 4개 지표 중 cctvPerKm2 는 원 데이터셋 폐기로 항상 결측이라
+ * 실질적으로 제외된 채 재정규화된다(3-metrics.mjs cctvOk 참고). 자리를
+ * 재활용하지 않고 그대로 둔 이유: 새 CCTV 데이터가 생기면 그 즉시 편입할
+ * 수 있도록 문서화된 경로를 살려둔다.
+ *
+ * nightlifePerKm2 는 crimePer1k·trafficAccidentPerKm2 가 없던 시절엔
+ * 유일한 실질 신호였다. 두 지표가 채워지며 0.35→0.25 로 낮췄다 — 직접
+ * 신호(범죄·사고)가 생겼으니 간접 신호(유흥업소 밀도)의 비중을 줄이는 게
+ * 맞다. trafficAccidentPerKm2 는 신규·검증 전 지표라 보수적으로 0.10만
+ * 배정한다.
+ */
 const AXES = {
   safety: [
     { key: "cctvPerKm2", weight: 0.35, dir: +1, label: "CCTV 밀도" },
-    { key: "nightlifePerKm2", weight: 0.35, dir: -1, label: "유흥업소 밀도" },
+    { key: "nightlifePerKm2", weight: 0.25, dir: -1, label: "유흥업소 밀도" },
     { key: "crimePer1k", weight: 0.3, dir: -1, label: "5대범죄" },
+    { key: "trafficAccidentPerKm2", weight: 0.1, dir: -1, label: "교통사고 다발지역" },
   ],
   price: [
-    { key: "monthlyRentMan", weight: 1.0, dir: -1, label: "원룸 환산월세" },
+    { key: "monthlyRentMan", weight: 1.0, dir: -1, label: "환산월세" },
   ],
   /*
    * 교통(역 도보 + 버스)의 합은 0.25 로 유지하고 그 안에서 7:3 으로 나눈다.

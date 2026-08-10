@@ -108,7 +108,14 @@ export function commuteBand(min: number): number {
   return COMMUTE_BANDS.findIndex((b) => min <= b.maxMin);
 }
 
-/** 월세 상한 슬라이더 범위 (만원). 서울 원룸 환산월세 실측 41~120 을 감싼다. */
+/**
+ * 월세 상한 슬라이더 범위 (만원). 소형아파트 포함 후 실측 44~325 — 상한
+ * 근처 100~125 구간이 실사용 범위이고, 최댓값(325, 한남동 등 초고가 소형
+ * 아파트)까지는 굳이 안 늘렸다. BUDGET_MAX가 곧 BUDGET_OFF(제한 없음)라
+ * 그 이상 동도 필터에서 빠지지 않는다 — 슬라이더로 "200만원 이하"처럼
+ * 중간값은 못 고르고 바로 무제한으로 건너뛴다는 뜻일 뿐, 데이터가
+ * 잘리는 건 아니다.
+ */
 export const BUDGET_MIN = 40;
 export const BUDGET_MAX = 125;
 /** 이 값이면 "제한 없음" 으로 취급한다 */

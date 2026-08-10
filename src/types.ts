@@ -85,6 +85,7 @@ export type MetricKey =
   | "nightlifePerKm2"
   | "cctvPerKm2"
   | "crimePer1k"
+  | "trafficAccidentPerKm2"
   | "storePerKm2"
   | "foodPerKm2"
   | "medicalPerKm2"
@@ -103,7 +104,7 @@ export interface AxisWeight {
 export type AxisName = "safety" | "price" | "convenience";
 
 export interface DongRawMetrics {
-  /** 원룸 환산월세 중앙값 (만원) */
+  /** 환산월세 중앙값 (만원, 단독·다가구·오피스텔·소형아파트) */
   monthlyRentMan: number | null;
   /** 실거래 표본 수 */
   rentSamples: number;
@@ -113,6 +114,8 @@ export interface DongRawMetrics {
   nightlifePerKm2: number | null;
   /** 자치구 5대범죄 발생 (건/천명) — 경찰서 단위라 구 해상도가 한계 */
   crimePer1k: number | null;
+  /** 교통사고 다발지점 사고건수 밀도 (건/km², 취약계층 다발지점 기준) */
+  trafficAccidentPerKm2: number | null;
   /** 편의점·마트 밀도 (개/km²) */
   storePerKm2: number | null;
   /** 음식점 밀도 (개/km²) */
