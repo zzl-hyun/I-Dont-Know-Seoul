@@ -3,8 +3,17 @@ import { TRANSFER_WAIT_MIN } from "./constants";
 
 /** Dijkstra 결과 — 노드별 최단 도달시간과 경로 특성 */
 export interface ShortestPaths {
-  /** nodeId → 도달시간(분). 도달 불가는 Infinity */
+  /**
+   * nodeId → 비교/선택에 쓰는 비용(분). 도달 불가는 Infinity.
+   * 시드에 `realCost`를 따로 주면 이 값엔 가중치가 반영될 수 있으므로
+   * 화면 표시용 실제 시간은 `real`을 써야 한다.
+   */
   dist: Float64Array;
+  /**
+   * nodeId → 실제 소요시간(분). 엣지 비용은 절대 가중치가 붙지 않으므로,
+   * 시드의 `realCost`(생략 시 `cost`)에서 출발해 그대로 누적된다.
+   */
+  real: Float64Array;
   /** nodeId → 그 경로에서의 환승 횟수 */
   transfers: Uint8Array;
   /** nodeId → 경로에 추정 구간이 포함되었는지 */
@@ -22,8 +31,13 @@ export interface ShortestPaths {
 
 export interface Seed {
   nodeId: number;
-  /** 이 노드에서 출발할 때의 초기 비용(분) — 도보 + 첫 대기 */
+  /** 이 노드에서 출발할 때의 초기 비용(분) — 도보 + 첫 대기. 비교/선택에 쓰인다 */
   cost: number;
+  /**
+   * 화면에 표시할 실제 초기 비용(분). 생략하면 `cost`와 같다 — 도보
+   * 가중치가 없는 호출부(승강장 간 거리 측정 등)는 그대로 동작한다.
+   */
+  realCost?: number;
 }
 
 /**
@@ -42,6 +56,7 @@ export function multiSourceDijkstra(
 ): ShortestPaths {
   const n = graph.nodes.length;
   const dist = new Float64Array(n).fill(Infinity);
+  const real = new Float64Array(n).fill(Infinity);
   const transfers = new Uint8Array(n);
   const estimated = new Uint8Array(n);
   const prev = new Int32Array(n).fill(-1);
@@ -51,6 +66,7 @@ export function multiSourceDijkstra(
   for (const seed of seeds) {
     if (seed.cost < dist[seed.nodeId]) {
       dist[seed.nodeId] = seed.cost;
+      real[seed.nodeId] = seed.realCost ?? seed.cost;
       heap.push(seed.nodeId, seed.cost);
     }
   }
@@ -70,6 +86,8 @@ export function multiSourceDijkstra(
       const nd = du + cost;
       if (nd < dist[e.to]) {
         dist[e.to] = nd;
+        // 엣지 비용엔 가중치가 없으므로 real도 같은 증분을 더하면 된다.
+        real[e.to] = real[u] + cost;
         transfers[e.to] = transfers[u] + (e.kind === "transfer" ? 1 : 0);
         estimated[e.to] = estimated[u] || (e.source === "estimated" ? 1 : 0);
         prev[e.to] = u;
@@ -78,7 +96,7 @@ export function multiSourceDijkstra(
     }
   }
 
-  return { dist, transfers, estimated, prev };
+  return { dist, real, transfers, estimated, prev };
 }
 
 /**

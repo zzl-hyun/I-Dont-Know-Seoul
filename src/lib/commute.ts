@@ -12,6 +12,7 @@ import {
   DONG_STATION_RADIUS_M,
   FIRST_WAIT_MIN,
   TRANSFER_WAIT_MIN,
+  WALK_SELECTION_WEIGHT,
 } from "./constants";
 
 /**
@@ -32,6 +33,11 @@ export interface CommuteContext {
  * 목적지 좌표로부터 모든 행정동까지의 통근시간을 한 번에 계산한다.
  *
  * 총 통근시간 = 집→역 도보 + 승차대기 + 지하철 + 환승 + 역→목적지 도보
+ *
+ * 역을 고를 때는 도보 구간에 WALK_SELECTION_WEIGHT를 곱해 비교하지만
+ * (도보가 길어지는 걸 더 꺼리도록), 그렇게 뽑힌 역으로 계산한 위 합계
+ * 자체는 가중치 없는 실측 시간이다 — 화면에 "가짜 시간"이 노출되는 일은
+ * 없다.
  *
  * 목적지 쪽에서 Dijkstra를 한 번만 돌리면 모든 역까지의 최단시간이 나오므로,
  * 동이 427개든 4,000개든 계산량이 늘지 않는다. 이게 이 서비스가 외부
@@ -56,6 +62,7 @@ export function computeCommute(
 
   const emptySp: ShortestPaths = {
     dist: new Float64Array(graph.nodes.length).fill(Infinity),
+    real: new Float64Array(graph.nodes.length).fill(Infinity),
     transfers: new Uint8Array(graph.nodes.length),
     estimated: new Uint8Array(graph.nodes.length),
     prev: new Int32Array(graph.nodes.length).fill(-1),
@@ -66,10 +73,17 @@ export function computeCommute(
     return { byDong, sp: emptySp, destWalk };
   }
 
+  // 도보 구간은 WALK_SELECTION_WEIGHT를 곱한 비용으로 역을 고르지만,
+  // 화면에 보여줄 총 소요시간은 항상 가중치 없는 실측값을 쓴다 —
+  // 두 값을 Dijkstra가 나란히 추적한다(dist=선택용, real=실측).
   const seeds: Seed[] = [];
   for (const { station, walkMin } of destStations) {
     for (const nodeId of station.nodeIds) {
-      seeds.push({ nodeId, cost: walkMin + FIRST_WAIT_MIN });
+      seeds.push({
+        nodeId,
+        cost: walkMin * WALK_SELECTION_WEIGHT + FIRST_WAIT_MIN,
+        realCost: walkMin + FIRST_WAIT_MIN,
+      });
       destWalk.set(nodeId, walkMin);
     }
   }
@@ -79,18 +93,23 @@ export function computeCommute(
   // 2) 역별 최단 도달시간을 물리 역 단위로 접는다.
   //    (환승역은 노선별 노드가 여러 개이므로 그중 최솟값을 쓴다)
   const perStation = graph.stations.map((st) => {
-    let best = Infinity;
+    let bestRank = Infinity;
     let bestNode = -1;
     for (const nodeId of st.nodeIds) {
-      if (sp.dist[nodeId] < best) {
-        best = sp.dist[nodeId];
+      if (sp.dist[nodeId] < bestRank) {
+        bestRank = sp.dist[nodeId];
         bestNode = nodeId;
       }
     }
-    return { min: best, node: bestNode };
+    return {
+      rank: bestRank,
+      real: bestNode >= 0 ? sp.real[bestNode] : Infinity,
+      node: bestNode,
+    };
   });
 
-  // 3) 각 동에서 이용 가능한 역들 중 총 소요시간이 최소인 것을 고른다.
+  // 3) 각 동에서 이용 가능한 역들 중 선택 비용(도보 가중치 반영)이 최소인
+  //    것을 고르되, 기록하는 총 소요시간은 그 역의 실측값이다.
   for (const dong of dongs) {
     const nearby = findNearbyStations(
       dong.lat,
@@ -99,14 +118,16 @@ export function computeCommute(
       DONG_STATION_RADIUS_M
     );
 
+    let bestRank = Infinity;
     let best: CommuteResult = unreachable();
     for (const { station, walkMin } of nearby) {
       const reach = perStation[station.id];
-      if (!Number.isFinite(reach.min)) continue;
-      const total = reach.min + walkMin;
-      if (best.totalMin === null || total < best.totalMin) {
+      if (!Number.isFinite(reach.rank)) continue;
+      const rank = reach.rank + walkMin * WALK_SELECTION_WEIGHT;
+      if (rank < bestRank) {
+        bestRank = rank;
         best = {
-          totalMin: total,
+          totalMin: reach.real + walkMin,
           viaStation: station.name,
           walkMin,
           transfers: sp.transfers[reach.node],
