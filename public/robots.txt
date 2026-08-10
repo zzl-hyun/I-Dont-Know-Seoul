@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://i-dont-know-seoul.cioud.workers.dev/sitemap.xml
