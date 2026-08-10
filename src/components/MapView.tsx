@@ -380,7 +380,24 @@ export default function MapView({
      * 역 좌표를 직선으로 이은 것이지 실제 선로 모양이 아니다. 실선으로 그리면
      * 실제 노선처럼 보여 정확도를 오해하므로 점선으로 그리고, 사이드바에도
      * 추정치임을 적어둔다.
+     *
+     * 1호선(남색) 등 어두운 노선색과 겹치면 파란 경로선이 묻혀 안 보이는
+     * 문제가 있어, 라벨 halo와 같은 원리로 배경색 테두리(casing)를 먼저
+     * 깔고 그 위에 원래 색 점선을 그린다 — 밑에 뭐가 있든 그 구간만
+     * 지워내는 효과라 노선색·건물색 어디에 겹쳐도 도드라진다.
      */
+    map.addLayer({
+      id: "route-line-casing",
+      type: "line",
+      source: SRC_ROUTE,
+      layout: { "line-cap": "round", "line-join": "round" },
+      paint: {
+        "line-color": MAP_THEME[themeRef.current].halo,
+        "line-width": ["interpolate", ["linear"], ["zoom"], 10, 4.5, 14, 7],
+        "line-dasharray": [2, 1.6],
+        "line-opacity": 0.95,
+      },
+    });
     map.addLayer({
       id: "route-line",
       type: "line",

@@ -63,8 +63,11 @@ error 리스너를 붙여둔 이유입니다).
 ### 지도 레이어 순서
 ```
 dong-fill → dong-outline → subway-line → subway-hit → subway-station
-→ dong-icon → dong-label → route-line → subway-label → dest-marker
+→ dong-icon → dong-label → route-line-casing → route-line → subway-label → dest-marker
 ```
+`route-line-casing` 은 `route-line` 바로 아래 깔리는 배경색 테두리입니다.
+1호선 남색처럼 어두운 노선색과 파란 경로 점선이 겹치면 안 보이는 문제 때문에
+추가했고, 라벨 halo와 같은 색(`MAP_THEME[...].halo`)을 재사용합니다.
 지하철은 **등급 아이콘 아래**입니다. 주인공은 등급이고 지하철은 배경이라,
 역 점이 등급 아이콘을 가리면 주 기능이 손상됩니다.
 
