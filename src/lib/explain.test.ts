@@ -63,6 +63,32 @@ describe("번들에 설명용 데이터가 실려 있다", () => {
   });
 });
 
+describe("치안 축 — 5대범죄·교통사고 보강", () => {
+  it("같은 자치구에 속한 동들은 crimePer1k 가 동일하다", () => {
+    // 5대범죄는 자치구 단위 CSV를 조인해서 채운다. 조인이 깨지면(예: 정부
+    // CSV 특유의 트레일링 \r 때문에 마지막 자치구만 값이 안 붙는 식으로)
+    // 같은 구 안에서 동마다 값이 달라지거나 null 이 섞이는데, 이 테스트가
+    // 그걸 잡아준다.
+    const byGu = new Map<string, Set<number | null>>();
+    for (const d of bundle.dongs) {
+      const raw = bundle.scores[d.code]?.raw.crimePer1k ?? null;
+      if (!byGu.has(d.gu)) byGu.set(d.gu, new Set());
+      byGu.get(d.gu)!.add(raw);
+    }
+    for (const [gu, values] of byGu) {
+      expect(values.size, `${gu} 안에서 crimePer1k 값이 갈림`).toBe(1);
+    }
+  });
+
+  it("모든 동에 crimePer1k, trafficAccidentPerKm2 값이 있다", () => {
+    for (const d of bundle.dongs) {
+      const raw = bundle.scores[d.code]!.raw;
+      expect(raw.crimePer1k, d.name).not.toBeNull();
+      expect(raw.trafficAccidentPerKm2, d.name).not.toBeNull();
+    }
+  });
+});
+
 describe("교통 접근성 — 지하철 + 버스", () => {
   const transitKeys = ["walkToStationMin", "busStopPerKm2"] as const;
 
@@ -111,7 +137,7 @@ describe("교통 접근성 — 지하철 + 버스", () => {
 });
 
 describe("동점 때문에 백분위가 뭉치는 것을 설명할 수 있다", () => {
-  it("신림동: 유흥업소 0개인데 치안 100점이 아닌 이유가 드러난다", () => {
+  it("신림동: 유흥업소 0개인데 그 지표 백분위가 100점이 아닌 이유가 드러난다", () => {
     const { score } = dongByName("관악구", "신림동");
     expect(score.raw.nightlifePerKm2).toBe(0);
 
@@ -125,8 +151,9 @@ describe("동점 때문에 백분위가 뭉치는 것을 설명할 수 있다", 
     const i = bundle.pctKeys.indexOf("nightlifePerKm2");
     expect(score.pct[i]).toBeLessThan(100);
     expect(score.pct[i]).toBeGreaterThan(50);
-    // 지표가 하나뿐인 축이므로 축 점수 = 그 지표 백분위
-    expect(score.safety).toBeCloseTo(score.pct[i]!, 1);
+    // 치안 축 자체는 유흥업소·5대범죄·교통사고 세 지표의 가중합이라 이
+    // 지표 백분위 하나와 축 점수가 같지 않다 — 그건 위 "축 점수가 하위
+    // 지표 백분위의 가중합과 일치한다" 테스트가 이미 모든 동에 대해 검증한다.
   });
 });
 
