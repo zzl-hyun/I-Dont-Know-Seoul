@@ -67,7 +67,11 @@ export interface DongView {
   score: number;
   /** 통근시간 밴드 인덱스 (COMMUTE_BANDS). 도달 불가면 -1 */
   band: number;
-  /** 첫 번째 목적지 기준 상세 (툴팁의 "○○역 경유" 표기용) */
+  /**
+   * worstMin 을 만든 그 목적지의 상세 (툴팁의 "○○역 경유" 표기용).
+   * 임의로 첫 번째 목적지 걸 쓰면 "70분 · 강남역 경유"처럼 시간은 A 목적지,
+   * 역은 B 목적지 걸 보여주는 식으로 서로 다른 목적지가 섞여 표시된다.
+   */
   commute: CommuteResult;
   /** 모든 목적지 중 가장 오래 걸리는 시간 — 통근권 판정과 툴팁 숫자에 쓴다 */
   worstMin: number | null;

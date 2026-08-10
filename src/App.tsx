@@ -157,11 +157,14 @@ export default function App() {
       const inTime = c?.worstMin != null && c.worstMin <= maxCommute;
       const inBudget = withinBudget(s.raw.monthlyRentMan, budget);
       const reachable = inTime && inBudget;
+      // worstMin을 만든 그 목적지의 결과를 같이 써야 툴팁에 시간·역이
+      // 서로 다른 목적지를 가리키는 일이 없다.
+      const worst = c?.per.reduce((a, b) => ((b.totalMin ?? -1) > (a.totalMin ?? -1) ? b : a));
       map.set(dong.code, {
         grade: g.grade,
         score: g.score,
         band: c?.worstMin != null ? commuteBand(c.worstMin) : -1,
-        commute: c?.per[0] ?? NO_COMMUTE,
+        commute: worst ?? NO_COMMUTE,
         worstMin: c?.worstMin ?? null,
         reachable,
         overBudget: inTime && !inBudget,
