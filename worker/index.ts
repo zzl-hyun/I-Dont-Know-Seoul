@@ -213,8 +213,18 @@ interface StationLite {
   lines: string[];
 }
 
-/** isolate 수명 동안 재사용한다 (요청마다 번들을 다시 읽지 않기 위해) */
+/**
+ * isolate 수명 동안 재사용한다 (요청마다 번들을 다시 읽지 않기 위해).
+ * TTL을 두는 이유: isolate는 여러 요청에 걸쳐 오래 살 수 있는데, 그동안
+ * npm run data:seed로 KV 데이터만 갱신(재배포 없이)하면 이 캐시가 새
+ * 역 정보를 못 보고 낡은 걸 계속 준다. /api/data 는 매 요청 KV를 새로
+ * 읽어서 이 문제가 없지만, 이건 지오코딩 폴백(Kakao 키 없거나 결과
+ * 0건일 때만 타는 경로)이라 완전 실시간 반영보다는 유한한 지연을
+ * 받아들이는 쪽을 택했다.
+ */
 let stationCache: StationLite[] | null = null;
+let stationCacheAt = 0;
+const STATION_CACHE_TTL_MS = 10 * 60 * 1000; // 10분
 
 async function searchStations(
   q: string,
@@ -247,7 +257,7 @@ async function searchStations(
 }
 
 async function getStations(env: Env, request: Request): Promise<StationLite[]> {
-  if (stationCache) return stationCache;
+  if (stationCache && Date.now() - stationCacheAt < STATION_CACHE_TTL_MS) return stationCache;
 
   let text = await env.ONEDAY_KV.get(KV_BUNDLE_KEY, "text");
   if (!text) {
@@ -265,6 +275,7 @@ async function getStations(env: Env, request: Request): Promise<StationLite[]> {
   } catch {
     stationCache = [];
   }
+  stationCacheAt = Date.now();
   return stationCache;
 }
 
