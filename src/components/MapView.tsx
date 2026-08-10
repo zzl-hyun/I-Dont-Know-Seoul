@@ -151,8 +151,8 @@ export default function MapView({
   const [styleEpoch, setStyleEpoch] = useState(0);
 
   // 최신 props를 이벤트 핸들러에서 읽기 위한 ref (핸들러를 재등록하지 않기 위함)
-  const stateRef = useRef({ dongs, views, onSelect, onPickStation });
-  stateRef.current = { dongs, views, onSelect, onPickStation };
+  const stateRef = useRef({ dongs, views, onSelect, onPickStation, hasDestination });
+  stateRef.current = { dongs, views, onSelect, onPickStation, hasDestination };
 
   // 지하철 노선도는 불변이므로 지도 생성 시점에 한 번만 읽는다
   const subwayRef = useRef(subway);
@@ -469,7 +469,8 @@ export default function MapView({
       const view = stateRef.current.views.get(code);
       const meta = stateRef.current.dongs.find((d) => d.code === code);
       if (!meta) return;
-      popup.setLngLat(e.lngLat).setHTML(tooltipHtml(meta.name, view)).addTo(map);
+      const html = tooltipHtml(meta.name, view, stateRef.current.hasDestination);
+      popup.setLngLat(e.lngLat).setHTML(html).addTo(map);
     };
     const onLeave = () => {
       map.getCanvas().style.cursor = "";
@@ -815,9 +816,12 @@ const emptyFC = (): FeatureCollection => ({
  * 툴팁. 지도를 훑기만 해도 "왜 이 등급인지"가 보이도록 한 줄 이유를 붙인다.
  * 다만 세 줄을 넘기면 지도를 가려서 방해가 되므로 이유는 잘라 쓴다.
  */
-function tooltipHtml(name: string, view: DongView | undefined): string {
+function tooltipHtml(name: string, view: DongView | undefined, hasDestination: boolean): string {
   const esc = escapeHtml;
 
+  if (!hasDestination) {
+    return `<b>${esc(name)}</b><br><span style="color:#9aa1ae">먼저 목적지를 정해주세요</span>`;
+  }
   if (!view || !view.reachable) {
     const why = view?.overBudget ? "예산 초과" : "통근 가능 시간 밖";
     return `<b>${esc(name)}</b><br><span style="color:#9aa1ae">${why}</span>`;
