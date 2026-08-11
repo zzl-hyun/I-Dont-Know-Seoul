@@ -184,7 +184,7 @@ URL이 틀렸다는 신호가 아니라 그 API만 활용신청이 안 됐다는
 
 ```bash
 npm run cf:dev      # Worker + 정적자산 통합 → localhost:8787 (실환경에 가장 가까움)
-npm test            # 81개 — 통근 정확도 / 등급 설명 / 데이터 분류 / 노선도 / URL 공유 / Worker
+npm test            # 86개 — 통근 정확도 / 등급 설명 / 데이터 분류 / 노선도 / URL 공유 / Worker
 npm run typecheck
 npm run cf:deploy   # 빌드 + 배포
 npm run data:seed   # KV 스냅샷 갱신 (데이터만 바뀐 경우 이것만)

@@ -24,7 +24,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { haversineM, pointInGeometry, bbox, walkMinutes } from "./lib/geo.mjs";
-import { isSbizNightlifeClass } from "./lib/sbiz.mjs";
+import { SBIZ_GROUPS } from "./lib/sbiz.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -544,32 +544,7 @@ async function loadTrafficAccidents() {
 
 /* ---- 소상공인시장진흥공단 상가업소 (DATA_GO_KR_KEY 필요, API별 활용신청) ---- */
 
-/**
- * 업종 소분류코드 → 우리 지표.
- *
- * 소분류코드 6자리에 대분류(2)·중분류(4)가 앞에서부터 들어있다.
- * 경계를 자의적으로 긋지 않으려고 **중분류 단위로 통째로** 잡았다.
- *
- * - store: G204 종합 소매(편의점·슈퍼마켓·기타 종합소매).
- *   **대형마트·백화점은 없다** — 소상공인 데이터라 대기업 점포가 빠진다.
- *   일상 장보기 접근성을 재는 지표라 치명적이진 않지만 한계로 남는다.
- * - food: I2 음식 전체에서 **주점(I211)을 뺀다.** 치안 축이 유흥업소를
- *   감점하고 있어서, 빼지 않으면 같은 업소를 편의에서 가점하고 치안에서
- *   감점하는 이중 계산이 된다.
- * - medical: Q1 보건의료(병원·의원·기타보건) + 약국.
- *   약국은 원 분류상 G215 의약·화장품 **소매**에 있지만, 우리 지표는
- *   "의료 접근성"이라 여기 넣는 게 맞다(OSM 도 pharmacy 를 포함했다).
- * - nightlife: `I21101 일반 유흥 주점` + `I21102 무도 유흥 주점`만 포함한다.
- *   `I21103 생맥주 전문`과 `I21104 요리 주점`까지 치안 감점하면 일반 술집을
- *   과도하게 낙인찍으므로 제외한다. food에서는 기존대로 I211 전체를 빼서
- *   같은 업소를 편의에서 가점하고 치안에서 감점하는 이중 계산을 막는다.
- */
-const SBIZ_GROUPS = {
-  store: (c) => c.startsWith("G204"),
-  food: (c) => c.startsWith("I2") && !c.startsWith("I211"),
-  medical: (c) => c.startsWith("Q1") || c === "G21501",
-  nightlife: isSbizNightlifeClass,
-};
+/* 업종 분류 규칙은 lib/sbiz.mjs 에 있다 — 테스트가 불변식을 잠그기 위해서다. */
 
 const SBIZ_BASE = "https://apis.data.go.kr/B553077/api/open/sdsc2/storeListInDong";
 const SBIZ_ROWS = 1000;
