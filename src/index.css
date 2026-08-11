@@ -1109,9 +1109,16 @@ input[type="range"] {
   text-align: left;
 }
 
+/*
+ * 드롭다운은 사진이 아니라 자기 배경(--panel-2) 위에 뜬다. `.hero` 가 사진용으로
+ * 건 color:#fff 를 그대로 상속하면 라이트 테마에서 밝은 배경에 흰 글씨가 되어
+ * 항목 이름이 통째로 안 보인다(다크에서는 우연히 맞아떨어져 안 드러났다).
+ * 테마 색으로 되돌린다.
+ */
 .hero-search .suggestions {
   left: 0;
   right: 0;
+  color: var(--text);
 }
 
 /* 사진 위에 놓이므로 테마와 무관하게 밝은 입력창으로 고정한다 */
