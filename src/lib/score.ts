@@ -8,7 +8,14 @@ import { GRADE_CUT } from "./constants";
  * 여기서는 곱셈과 덧셈만 하면 된다. 그래서 사용자가 가중치 슬라이더를
  * 움직여도 서버 왕복 없이 즉시 재계산된다 (427회 곱셈 ≈ 0.01ms).
  */
-export function compositeScore(score: DongScore, w: Weights): number {
+/**
+ * compositeScore 가 실제로 읽는 것. 원지표(raw)나 백분위(pct)까지 갖춘
+ * DongScore 를 요구하면, 축 점수만 들고 있는 쪽(랜딩의 가중치 데모)이
+ * 쓸 데 없는 필드를 지어내야 한다.
+ */
+export type AxisScores = Pick<DongScore, "safety" | "price" | "convenience">;
+
+export function compositeScore(score: AxisScores, w: Weights): number {
   return (
     score.safety * w.safety +
     score.price * w.price +

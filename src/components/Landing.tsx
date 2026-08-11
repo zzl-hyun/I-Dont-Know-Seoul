@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import "./Landing.css";
 import DestinationSearch from "./DestinationSearch";
+import WeightPlayground from "./WeightPlayground";
 import type { Theme } from "./MapView";
 import type { Destination } from "../types";
 import {
@@ -370,7 +371,15 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
             <p className="landing-note">
               이 비중은 <b>슬라이더로 직접 바꿉니다.</b> 월세가 제일 중요한
               사람과 조용한 동네가 제일 중요한 사람에게 같은 순위를 강요할 근거가
-              없습니다.
+              없습니다. 아래에서 직접 옮겨보세요.
+            </p>
+
+            <WeightPlayground />
+
+            <p className="landing-note">
+              여기 쓰인 점수는 예시가 아니라 <b>실제 산출물</b>입니다. 계산도
+              앱과 같은 코드를 씁니다 — 슬라이더를 끝까지 밀면 1등이 바뀌는데,
+              그게 이 도구가 하는 일의 전부입니다.
             </p>
 
             <p className="summary">
