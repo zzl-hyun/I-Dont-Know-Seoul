@@ -1204,14 +1204,55 @@ input[type="range"] {
 
 .reveal {
   opacity: 0;
-  transform: translateY(22px);
-  transition: opacity 0.62s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.62s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(30px);
+  transition: opacity 0.66s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.66s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .reveal[data-shown="true"] {
   opacity: 1;
   transform: none;
+}
+
+/*
+ * 블록 안 요소들이 한 덩어리로 튀어오르지 않고 차례로 올라오게 한다.
+ * 컨테이너에 data-stagger 를 붙이면 그 직계 자식들이 순서대로 늦게 뜬다.
+ * 부모(.reveal)가 이미 움직이는 중이라 자식 지연은 짧게 잡아야 겹쳐 보인다.
+ */
+/*
+ * `.reveal` 를 앞에 붙여 특정도를 올린다 — 그냥 `[data-stagger] > *` 로 두면
+ * 뒤에 선언된 `.feature` 의 transition(호버용, opacity 미포함)이 이겨서
+ * 페이드가 통째로 사라진다.
+ */
+.reveal [data-stagger] > * {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal[data-shown="true"] [data-stagger] > * {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal[data-shown="true"] [data-stagger] > *:nth-child(1) {
+  transition-delay: 0.06s;
+}
+.reveal[data-shown="true"] [data-stagger] > *:nth-child(2) {
+  transition-delay: 0.12s;
+}
+.reveal[data-shown="true"] [data-stagger] > *:nth-child(3) {
+  transition-delay: 0.18s;
+}
+.reveal[data-shown="true"] [data-stagger] > *:nth-child(4) {
+  transition-delay: 0.24s;
+}
+.reveal[data-shown="true"] [data-stagger] > *:nth-child(5) {
+  transition-delay: 0.3s;
+}
+.reveal[data-shown="true"] [data-stagger] > *:nth-child(6) {
+  transition-delay: 0.36s;
 }
 
 /* --- 섹션 공통 --- */
@@ -1312,14 +1353,35 @@ input[type="range"] {
   transform: scale(1.03);
 }
 
-.shot.tall {
-  max-height: 460px;
-  overflow: hidden;
+/*
+ * 앱 화면 일부를 스크린샷 대신 **실제 마크업**으로 재현한 카드.
+ * 계산 과정·통근 경로처럼 작은 글씨가 많은 화면은 이미지로 넣으면
+ * 고해상도 화면에서 뭉개진다. 앱과 같은 클래스를 쓰므로 테마도 따라온다.
+ */
+.panel-mock {
+  padding: 18px 18px 16px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
 }
 
-.shot.tall img {
-  object-fit: cover;
-  object-position: top;
+.panel-mock .detail-head h3 {
+  margin: 0;
+  font-size: 16px;
+  letter-spacing: -0.3px;
+}
+
+/* 실제 화면은 <details> 지만 여기서는 펼친 상태로 고정해 보여준다 */
+.why-mock {
+  margin-top: 7px;
+}
+
+.why-summary {
+  display: block;
+  padding: 2px 0;
+  font-size: 11.5px;
+  color: var(--text-faint);
 }
 
 /* 텍스트 + 스크린샷 2단 */
@@ -1341,8 +1403,15 @@ input[type="range"] {
   margin: 0 0 14px;
 }
 
+/*
+ * 원본이 1010px 캡처라 폭을 다 채우면 고해상도 화면에서 늘어나 흐려진다.
+ * 표시 폭을 원본의 6할 아래로 묶어 레티나에서도 선명하게 둔다.
+ * (지도는 MapLibre 가 WebGL 캔버스로 그려 SVG 로는 못 뽑는다 — 그래서
+ *  글씨가 많은 패널만 실제 마크업으로 옮기고 지도는 래스터로 남겼다.)
+ */
 .shot-stack {
   position: relative;
+  max-width: 600px;
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border);
@@ -1564,10 +1633,12 @@ input[type="range"] {
   }
 
   .reveal,
+  .reveal [data-stagger] > *,
   .shot img,
   .shot-stack img,
   .feature {
     transition-duration: 0.01ms;
+    transition-delay: 0s;
   }
 }
 

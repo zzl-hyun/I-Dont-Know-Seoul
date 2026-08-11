@@ -5,6 +5,7 @@ import type { Destination } from "../types";
 import {
   COMMUTE_BANDS,
   DEFAULT_WEIGHTS,
+  GRADE_COLOR,
   GRADE_CUT,
   GRADE_LABEL,
 } from "../lib/constants";
@@ -21,10 +22,16 @@ interface Props {
 /**
  * 첫 방문자를 위한 소개 페이지.
  *
- * 설명을 글로 늘어놓는 대신 **실제 화면 스크린샷**을 앞세운다. 이 서비스의
- * 설득력은 "지도가 색으로 칠해진다"와 "계산 과정이 다 보인다"인데, 둘 다
- * 글보다 그림이 훨씬 빠르다. `public/shots/` 이미지는 전부 실행 중인 앱을
- * 찍은 것이고 합성이 아니다.
+ * 설명을 글로 늘어놓는 대신 **실제 화면**을 앞세운다. 이 서비스의 설득력은
+ * "지도가 색으로 칠해진다"와 "계산 과정이 다 보인다"인데, 둘 다 글보다
+ * 그림이 훨씬 빠르다.
+ *
+ * 화면을 두 방식으로 나눠 담았다:
+ *   - 지도는 `public/shots/` 의 스크린샷. MapLibre 가 WebGL 캔버스로 그려서
+ *     벡터로는 못 뽑는다. 실행 중인 앱을 찍은 것이고 합성이 아니다.
+ *   - 계산 과정·통근 경로 패널은 **실제 마크업**(.panel-mock). 작은 글씨가
+ *     많아 이미지로 넣으면 고해상도 화면에서 뭉개지고, 테마 전환도 못 따라온다.
+ *     앱과 같은 클래스를 쓰므로 둘 다 공짜로 해결된다.
  *
  * 문구는 README 에서 옮겨왔다. 수치(가중치 40/35/25, 등급 컷 30%)는 문장에
  * 박지 않고 constants 에서 계산한다 — 상수를 바꿨는데 소개만 옛말을 하는
@@ -99,7 +106,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
         <Reveal>
           <section className="landing-section">
             <h2>무엇을 해주는가</h2>
-            <div className="feature-grid">
+            <div className="feature-grid" data-stagger>
               {FEATURES.map((f) => (
                 <div className="feature" key={f.title}>
                   <b>{f.title}</b>
@@ -138,16 +145,16 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
                 alt="등급 모드 — 초록·노랑·빨강으로 칠해진 서울 지도"
                 data-on={mode === "grade"}
                 loading="lazy"
-                width={880}
-                height={660}
+                width={1010}
+                height={758}
               />
               <img
                 src="/shots/mode-commute.jpg"
                 alt="통근시간 모드 — 파랑 농담으로 칠해진 서울 지도"
                 data-on={mode === "commute"}
                 loading="lazy"
-                width={880}
-                height={660}
+                width={1010}
+                height={758}
               />
             </div>
 
@@ -176,7 +183,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
 
         {/* ---------------- 근거 공개 ---------------- */}
         <Reveal>
-          <section className="landing-section split">
+          <section className="landing-section split" data-stagger>
             <div className="split-text">
               <h2>왜 그 등급인지 전부 보여줍니다</h2>
               <p className="landing-note">
@@ -188,21 +195,44 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
                 <b>믿으라고 하지 않고, 검산할 수 있게 둡니다.</b>
               </p>
             </div>
-            <figure className="shot">
-              <img
-                src="/shots/panel-why.jpg"
-                alt="치안 점수의 계산 과정 — 유흥업소 밀도·5대범죄·교통사고 다발지역의 백분위와 가중치, 그리고 합산식"
-                loading="lazy"
-                width={700}
-                height={521}
-              />
-            </figure>
+            {/*
+              스크린샷이 아니라 실제 마크업이다. 앱과 같은 클래스를 써서
+              테마 전환이 따라오고, 어느 해상도에서도 흐려지지 않는다.
+              수치는 강남역 기준 노량진1동의 실제 산출물이다.
+            */}
+            <div className="panel-mock">
+              <div className="metric">
+                <div className="metric-head">
+                  <span>치안</span>
+                  <b style={{ color: GRADE_COLOR.normal }}>59</b>
+                </div>
+                <div className="bar">
+                  <div style={{ width: "58.7%", background: GRADE_COLOR.normal }} />
+                </div>
+                <div className="why-mock">
+                  <span className="why-summary">▾ 계산 과정</span>
+                  {WHY_ROWS.map((r) => (
+                    <div className="metric-row" key={r.label}>
+                      <div className="metric-row-head">
+                        <span>{r.label}</span>
+                        <b>{r.value}</b>
+                      </div>
+                      <div className="metric-row-note">
+                        서울 중앙값 {r.median} · 이 동은 {r.rank} <b>({r.point}점)</b> ·
+                        가중치 {r.weight}
+                      </div>
+                    </div>
+                  ))}
+                  <div className="formula">치안 58.7 = 40×0.38 + 86×0.46 + 24×0.15</div>
+                </div>
+              </div>
+            </div>
           </section>
         </Reveal>
 
         {/* ---------------- 통근 경로 ---------------- */}
         <Reveal>
-          <section className="landing-section split reverse">
+          <section className="landing-section split reverse" data-stagger>
             <div className="split-text">
               <h2>통근시간을 직접 계산합니다</h2>
               <p className="landing-note">
@@ -215,15 +245,33 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
                 갈아타는지</b>까지 구간별로 나옵니다.
               </p>
             </div>
-            <figure className="shot tall">
-              <img
-                src="/shots/panel-route.jpg"
-                alt="노량진1동에서 강남역까지 31분 — 도보·대기·승차·환승 구간이 나열된 상세 패널"
-                loading="lazy"
-                width={620}
-                height={1123}
-              />
-            </figure>
+            <div className="panel-mock">
+              <div className="detail-head">
+                <h3>동작구 노량진1동</h3>
+                <span className="badge">
+                  <i className="grade-dot best" />
+                  {GRADE_LABEL.best}
+                </span>
+              </div>
+              <p className="rank-line">
+                서울 427개 동 중 <b>25위</b> · 상위 6%
+              </p>
+              <p className="summary">
+                월세가 60만원으로 싸고 범죄는 적지만, 교통사고 다발지점이 많습니다.
+              </p>
+              <div className="route-total">
+                <b>31분</b>
+                <span>환승 1회</span>
+              </div>
+              <ol className="route-legs">
+                {ROUTE_LEGS.map((l, i) => (
+                  <li key={i} className={`leg leg-${l.kind}`}>
+                    <span className="leg-time">{l.min}분</span>
+                    <span className="leg-text">{l.text}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </section>
         </Reveal>
 
@@ -284,7 +332,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
               니즈입니다. 목적지를 최대 3곳까지 더하면 모두 만족하는 지역만
               남습니다.
             </p>
-            <div className="count-compare">
+            <div className="count-compare" data-stagger>
               <div className="count-box">
                 <b>138</b>
                 <span>강남역만</span>
@@ -370,6 +418,47 @@ function Reveal({ children }: { children: ReactNode }) {
     </div>
   );
 }
+
+/*
+ * 아래 수치는 전부 목적지를 강남역으로 뒀을 때의 실제 산출물이다
+ * (public/data/bundle.json 에 computeMultiCommute/buildRoute/summarize 를
+ * 돌려 뽑았다). 지어낸 값이 아니며, 데이터를 갱신하면 다시 뽑아야 한다.
+ */
+const WHY_ROWS = [
+  {
+    label: "유흥업소 밀도",
+    value: "1.23개/km²",
+    median: "0.36개/km²",
+    rank: "하위 40%",
+    point: 40,
+    weight: "0.38",
+  },
+  {
+    label: "5대범죄",
+    value: "6.6건/천명",
+    median: "8.4건/천명",
+    rank: "상위 14%",
+    point: 86,
+    weight: "0.46",
+  },
+  {
+    label: "교통사고 다발지역",
+    value: "63.9건/km²",
+    median: "29.7건/km²",
+    rank: "하위 24%",
+    point: 24,
+    weight: "0.15",
+  },
+];
+
+const ROUTE_LEGS = [
+  { kind: "walk", min: 7, text: "노들역까지 도보" },
+  { kind: "wait", min: 3, text: "승차 대기" },
+  { kind: "ride", min: 13, text: "9호선 7정거장 · 노들 → 신논현" },
+  { kind: "transfer", min: 5, text: "신논현역 환승 · 9호선 → 신분당선" },
+  { kind: "ride", min: 1, text: "신분당선 1정거장 · 신논현 → 강남" },
+  { kind: "walk", min: 1, text: "목적지까지 도보" },
+];
 
 /* README 8-15행의 기능 목록을 그대로 옮긴 것 */
 const FEATURES = [
