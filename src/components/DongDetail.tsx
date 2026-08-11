@@ -71,6 +71,17 @@ export default function DongDetail({
   const summary = summarize(score, ctx.pctKeys, grade, ctx.weights, ctx.axisWeights);
   const composite = explainComposite(score, ctx.weights, grade, rank, total, ctx.cuts);
   const topPct = Math.max(1, Math.round((rank / total) * 100));
+  const axes = AXES.map(({ key, label }) => ({
+    key,
+    label,
+    explanation: explainAxis(
+      key,
+      score,
+      ctx.pctKeys,
+      ctx.axisWeights[key] ?? [],
+      ctx.dists
+    ),
+  }));
 
   return (
     <div className="section detail">
@@ -87,8 +98,112 @@ export default function DongDetail({
 
       <p className="summary">{summary}</p>
 
+      <div className="score-overview">
+        <div className="total-score">
+          <span>종합 점수</span>
+          <div>
+            <b>{composite.total.toFixed(1)}</b>
+            <small>/ 100</small>
+          </div>
+        </div>
+        <div className="axis-overview">
+          {axes.map(({ key, label, explanation }) => (
+            <div className="metric" key={key}>
+              <div className="metric-head">
+                <span>{label}</span>
+                <b style={{ color: barColor(explanation.score) }}>
+                  {Math.round(explanation.score)}
+                </b>
+              </div>
+              <div className="bar">
+                <div
+                  style={{
+                    width: `${explanation.score}%`,
+                    background: barColor(explanation.score),
+                  }}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <details className="why calculation">
+        <summary>
+          <span>계산 근거 전체 보기</span>
+          <small>원지표 · 백분위 · 가중치 · 등급 컷</small>
+        </summary>
+        <div className="calculation-body">
+          {axes.map(({ key, label, explanation }) => (
+            <section className="calculation-axis" key={key}>
+              <div className="calculation-axis-head">
+                <h3>{label}</h3>
+                <b style={{ color: barColor(explanation.score) }}>
+                  {explanation.score.toFixed(1)}점
+                </b>
+              </div>
+              {explanation.metrics.length === 0 ? (
+                <div className="metric-note">수집된 데이터가 없어 전 동 50점으로 둡니다.</div>
+              ) : (
+                <>
+                  {explanation.metrics.map((m) => (
+                    <MetricRow key={m.key} m={m} single={explanation.singleMetric} />
+                  ))}
+                  {!explanation.singleMetric && (
+                    <div className="formula">
+                      {label} {explanation.score.toFixed(1)} ={" "}
+                      {explanation.metrics
+                        .map((m) => `${(m.pct ?? 50).toFixed(0)}×${m.weight.toFixed(2)}`)
+                        .join(" + ")}
+                    </div>
+                  )}
+                </>
+              )}
+              {key === "price" && score.dataQuality === "low" && (
+                <p className="metric-note warn">
+                  실거래 표본이 부족해 월세를 <b>자치구 중앙값</b>으로 대체했습니다.
+                </p>
+              )}
+            </section>
+          ))}
+
+          <section className="calculation-axis calculation-composite">
+            <div className="calculation-axis-head">
+              <h3>종합</h3>
+              <b>{composite.total.toFixed(1)}점</b>
+            </div>
+            <div className="formula">
+              {composite.total.toFixed(1)} ={" "}
+              {composite.terms
+                .map((t) => `${t.score.toFixed(0)}×${t.weight.toFixed(2)}`)
+                .join(" + ")}
+            </div>
+            <div className="contrib">
+              {composite.terms.map((t) => (
+                <div key={t.axis} className="contrib-row">
+                  <span>{t.label}</span>
+                  <div className="contrib-bar">
+                    <div
+                      style={{
+                        width: `${(t.contribution / Math.max(composite.total, 1)) * 100}%`,
+                      }}
+                    />
+                  </div>
+                  <span className="contrib-val">+{t.contribution.toFixed(1)}</span>
+                </div>
+              ))}
+            </div>
+            <div className="cutline">
+              등급 컷 — {composite.bestCut.toFixed(1)}점 이상 Best ·{" "}
+              {composite.normalCut.toFixed(1)}점 이상 Normal (동점이면 순위로 가릅니다)
+            </div>
+          </section>
+        </div>
+      </details>
+
       {commutes.length > 0 && (
-        <div className="route">
+        <div className="route detail-route">
+          <p className="detail-section-title">통근 경로</p>
           {commutes.map(({ destName, result, route }, i) => (
             <div className="route-block" key={i}>
               {/* 목적지가 하나면 이름을 반복할 필요가 없다 */}
@@ -126,75 +241,6 @@ export default function DongDetail({
           </p>
         </div>
       )}
-
-      {AXES.map(({ key, label }) => {
-        const ax = explainAxis(key, score, ctx.pctKeys, ctx.axisWeights[key] ?? [], ctx.dists);
-        return (
-          <div className="metric" key={key}>
-            <div className="metric-head">
-              <span>{label}</span>
-              <b style={{ color: barColor(ax.score) }}>{Math.round(ax.score)}</b>
-            </div>
-            <div className="bar">
-              <div style={{ width: `${ax.score}%`, background: barColor(ax.score) }} />
-            </div>
-
-            {ax.metrics.length === 0 ? (
-              <div className="metric-note">수집된 데이터가 없어 전 동 50점으로 둡니다.</div>
-            ) : (
-              <details className="why">
-                <summary>계산 과정</summary>
-                {ax.metrics.map((m) => (
-                  <MetricRow key={m.key} m={m} single={ax.singleMetric} />
-                ))}
-                {!ax.singleMetric && (
-                  <div className="formula">
-                    {label} {ax.score.toFixed(1)} ={" "}
-                    {ax.metrics
-                      .map((m) => `${(m.pct ?? 50).toFixed(0)}×${m.weight.toFixed(2)}`)
-                      .join(" + ")}
-                  </div>
-                )}
-              </details>
-            )}
-          </div>
-        );
-      })}
-
-      <div className="composite">
-        <div className="metric-head">
-          <span>종합</span>
-          <b>{composite.total.toFixed(1)}</b>
-        </div>
-        <details className="why">
-          <summary>계산 과정</summary>
-          <div className="formula">
-            {composite.total.toFixed(1)} ={" "}
-            {composite.terms
-              .map((t) => `${t.score.toFixed(0)}×${t.weight.toFixed(2)}`)
-              .join(" + ")}
-          </div>
-          <div className="contrib">
-            {composite.terms.map((t) => (
-              <div key={t.axis} className="contrib-row">
-                <span>{t.label}</span>
-                <div className="contrib-bar">
-                  <div
-                    style={{
-                      width: `${(t.contribution / Math.max(composite.total, 1)) * 100}%`,
-                    }}
-                  />
-                </div>
-                <span className="contrib-val">+{t.contribution.toFixed(1)}</span>
-              </div>
-            ))}
-          </div>
-          <div className="cutline">
-            등급 컷 — {composite.bestCut.toFixed(1)}점 이상 Best ·{" "}
-            {composite.normalCut.toFixed(1)}점 이상 Normal (동점이면 순위로 가릅니다)
-          </div>
-        </details>
-      </div>
 
       {score.dataQuality === "low" && (
         <p className="metric-note warn">

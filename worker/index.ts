@@ -20,6 +20,8 @@ export interface Env {
 
 const KV_BUNDLE_KEY = "bundle:current";
 const GEO_CACHE_TTL_SEC = 60 * 60 * 24 * 30; // 30일
+/** 검색 범위 정책이 바뀌면 올려서 이전 정책의 캐시를 즉시 우회한다 */
+const GEO_CACHE_VERSION = "v2";
 const DATA_MAX_AGE_SEC = 60 * 60; // 1시간
 
 export default {
@@ -102,6 +104,10 @@ interface GeoResult {
 const MAX_QUERY_LEN = 100;
 /** Kakao 요청이 이보다 오래 걸리면 포기하고 역명 검색으로 넘어간다 */
 const KAKAO_TIMEOUT_MS = 5000;
+/** 백령도부터 경기 동부까지 포함한 수도권 검색 사각형 (서경도, 남위도, 동경도, 북위도) */
+const CAPITAL_AREA_RECT = "124.5,36.8,128.0,38.4";
+/** 기존 UI가 한 번에 받던 결과 수(장소 5 + 주소 3)를 유지한다 */
+const MAX_GEO_RESULTS = 8;
 
 async function handleGeocode(
   request: Request,
@@ -113,7 +119,7 @@ async function handleGeocode(
   const q = new URL(request.url).searchParams.get("q")?.trim() ?? "";
   if (q.length < 2 || q.length > MAX_QUERY_LEN) return json({ results: [] });
 
-  const cacheKey = `geo:${q.toLowerCase()}`;
+  const cacheKey = `geo:${GEO_CACHE_VERSION}:${q.toLowerCase()}`;
   const cached = await env.ONEDAY_KV.get(cacheKey, "text");
   if (cached) {
     return json(JSON.parse(cached), 200, { "X-Oneday-Geocode": "kv-hit" });
@@ -149,12 +155,31 @@ interface KakaoDoc {
   place_name?: string;
   address_name?: string;
   road_address_name?: string;
+  address?: KakaoAddress;
+  road_address?: KakaoAddress;
   x: string;
   y: string;
 }
 
+interface KakaoAddress {
+  region_1depth_name?: string;
+}
+
+interface RankedGeoResult {
+  result: GeoResult;
+  /** 서울 0, 경기·인천 1 — 카카오 정확도 순서는 같은 rank 안에서 유지한다 */
+  regionRank: number;
+  sourceOrder: number;
+}
+
 async function kakaoSearch(q: string, key: string): Promise<GeoResult[]> {
   const headers = { Authorization: `KakaoAK ${key}` };
+  const keywordParams = new URLSearchParams({
+    query: q,
+    size: "15",
+    rect: CAPITAL_AREA_RECT,
+  });
+  const addressParams = new URLSearchParams({ query: q, size: "3" });
 
   // 장소(키워드) 검색을 먼저 한다 — "삼성전자 서초사옥", "서울대학교" 처럼
   // 회사·학교 이름으로 찾는 것이 이 서비스의 주 사용 방식이기 때문이다.
@@ -164,26 +189,33 @@ async function kakaoSearch(q: string, key: string): Promise<GeoResult[]> {
   // 느려도 지하철역 폴백으로 넘어갈 수 있게 한다.
   const [placeResult, addrResult] = await Promise.allSettled([
     fetch(
-      `https://dapi.kakao.com/v2/local/search/keyword.json?size=5&query=${encodeURIComponent(q)}`,
+      `https://dapi.kakao.com/v2/local/search/keyword.json?${keywordParams}`,
       { headers, signal: AbortSignal.timeout(KAKAO_TIMEOUT_MS) }
     ),
     fetch(
-      `https://dapi.kakao.com/v2/local/search/address.json?size=3&query=${encodeURIComponent(q)}`,
+      `https://dapi.kakao.com/v2/local/search/address.json?${addressParams}`,
       { headers, signal: AbortSignal.timeout(KAKAO_TIMEOUT_MS) }
     ),
   ]);
 
-  const out: GeoResult[] = [];
+  const out: RankedGeoResult[] = [];
+  let sourceOrder = 0;
 
   if (placeResult.status === "fulfilled" && placeResult.value.ok) {
     const data = (await placeResult.value.json()) as { documents?: KakaoDoc[] };
     for (const d of data.documents ?? []) {
+      const regionRank = kakaoRegionRank(d);
+      if (regionRank === null) continue;
       out.push({
-        name: d.place_name ?? q,
-        address: d.road_address_name || d.address_name || "",
-        lat: Number(d.y),
-        lng: Number(d.x),
-        kind: "place",
+        result: {
+          name: d.place_name ?? q,
+          address: d.road_address_name || d.address_name || "",
+          lat: Number(d.y),
+          lng: Number(d.x),
+          kind: "place",
+        },
+        regionRank,
+        sourceOrder: sourceOrder++,
       });
     }
   }
@@ -191,17 +223,45 @@ async function kakaoSearch(q: string, key: string): Promise<GeoResult[]> {
   if (addrResult.status === "fulfilled" && addrResult.value.ok) {
     const data = (await addrResult.value.json()) as { documents?: KakaoDoc[] };
     for (const d of data.documents ?? []) {
+      const regionRank = kakaoRegionRank(d);
+      if (regionRank === null) continue;
       out.push({
-        name: d.address_name ?? q,
-        address: d.address_name ?? "",
-        lat: Number(d.y),
-        lng: Number(d.x),
-        kind: "place",
+        result: {
+          name: d.address_name ?? q,
+          address: d.address_name ?? "",
+          lat: Number(d.y),
+          lng: Number(d.x),
+          kind: "place",
+        },
+        regionRank,
+        sourceOrder: sourceOrder++,
       });
     }
   }
 
-  return out.filter((r) => Number.isFinite(r.lat) && Number.isFinite(r.lng));
+  return out
+    .filter(({ result }) => Number.isFinite(result.lat) && Number.isFinite(result.lng))
+    .sort((a, b) => a.regionRank - b.regionRank || a.sourceOrder - b.sourceOrder)
+    .slice(0, MAX_GEO_RESULTS)
+    .map(({ result }) => result);
+}
+
+/** 주소 문자열과 상세 지역 필드를 함께 봐서 수도권 여부와 서울 우선순위를 정한다 */
+function kakaoRegionRank(d: KakaoDoc): number | null {
+  const candidates = [
+    d.road_address?.region_1depth_name,
+    d.address?.region_1depth_name,
+    d.road_address_name,
+    d.address_name,
+  ];
+
+  for (const value of candidates) {
+    const region = value?.trim();
+    if (!region) continue;
+    if (region.startsWith("서울")) return 0;
+    if (region.startsWith("경기") || region.startsWith("인천")) return 1;
+  }
+  return null;
 }
 
 /* --- 지하철역 폴백 --- */
