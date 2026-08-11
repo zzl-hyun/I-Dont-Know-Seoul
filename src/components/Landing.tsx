@@ -265,10 +265,10 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
               <div className="metric">
                 <div className="metric-head">
                   <span>치안</span>
-                  <b style={{ color: GRADE_COLOR.normal }}>59</b>
+                  <b style={{ color: GRADE_COLOR.normal }}>69</b>
                 </div>
                 <div className="bar">
-                  <div style={{ width: "58.7%", background: GRADE_COLOR.normal }} />
+                  <div style={{ width: "68.8%", background: GRADE_COLOR.normal }} />
                 </div>
                 <div className="why-mock">
                   <span className="why-summary">▾ 계산 과정</span>
@@ -284,7 +284,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
                       </div>
                     </div>
                   ))}
-                  <div className="formula">치안 58.7 = 40×0.38 + 86×0.46 + 24×0.15</div>
+                  <div className="formula">치안 68.8 = 66×0.38 + 86×0.46 + 24×0.15</div>
                 </div>
               </div>
             </div>
@@ -315,7 +315,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
                 </span>
               </div>
               <p className="rank-line">
-                서울 427개 동 중 <b>25위</b> · 상위 6%
+                서울 427개 동 중 <b>48위</b> · 상위 11%
               </p>
               <p className="summary">
                 월세가 60만원으로 싸고 범죄는 적지만, 교통사고 다발지점이 많습니다.
@@ -403,14 +403,14 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
             </p>
             <div className="count-compare" data-stagger>
               <div className="count-box">
-                <b>138</b>
+                <b>146</b>
                 <span>강남역만</span>
               </div>
               <div className="count-arrow" aria-hidden="true">
                 →
               </div>
               <div className="count-box narrowed">
-                <b>73</b>
+                <b>76</b>
                 <span>강남역 + 여의도역</span>
               </div>
             </div>
@@ -534,16 +534,21 @@ function Reveal({ children }: { children: ReactNode }) {
 
 /*
  * 아래 수치는 전부 목적지를 강남역으로 뒀을 때의 실제 산출물이다
- * (public/data/bundle.json 에 computeMultiCommute/buildRoute/summarize 를
- * 돌려 뽑았다). 지어낸 값이 아니며, 데이터를 갱신하면 다시 뽑아야 한다.
+ * (public/data/bundle.json 에 explainAxis/summarize/gradeAll/buildRoute 를
+ * 그대로 돌려 뽑았다). 지어낸 값이 아니다.
+ *
+ * **데이터를 갱신하면 반드시 다시 뽑아야 한다.** 실제로 유흥업소 지표를
+ * OSM 에서 소상공인 분류로 바꿨을 때 이 값들이 통째로 낡았었다 —
+ * 치안 58.7→68.8, 유흥업소 백분위 40→66, 통근권 138→146 개.
+ * 화면에는 그럴듯한 숫자가 그대로 떠 있어서 눈으로는 안 잡힌다.
  */
 const WHY_ROWS = [
   {
     label: "유흥업소 밀도",
-    value: "1.23개/km²",
-    median: "0.36개/km²",
-    rank: "하위 40%",
-    point: 40,
+    value: "0.61개/km²",
+    median: "1.81개/km²",
+    rank: "상위 34%",
+    point: 66,
     weight: "0.38",
   },
   {
@@ -564,13 +569,20 @@ const WHY_ROWS = [
   },
 ];
 
+/*
+ * 앱은 구간마다 반올림하고 0분이 된 구간은 지운다(DongDetail 의 filter).
+ * 그래서 마지막 "목적지까지 도보"(0.0분)는 여기서도 없다 — 넣으면 실제
+ * 화면에 없는 줄이 소개에만 생긴다.
+ *
+ * 구간 합(30분)이 머리의 31분과 1분 다른 건 반올림 때문이고 앱도 똑같다.
+ * 실제 합은 8.03 + 3 + 13.25 + 5 + 1.41 = 30.69 분이다.
+ */
 const ROUTE_LEGS = [
-  { kind: "walk", min: 7, text: "노들역까지 도보" },
+  { kind: "walk", min: 8, text: "노들역까지 도보" },
   { kind: "wait", min: 3, text: "승차 대기" },
   { kind: "ride", min: 13, text: "9호선 7정거장 · 노들 → 신논현" },
   { kind: "transfer", min: 5, text: "신논현역 환승 · 9호선 → 신분당선" },
   { kind: "ride", min: 1, text: "신분당선 1정거장 · 신논현 → 강남" },
-  { kind: "walk", min: 1, text: "목적지까지 도보" },
 ];
 
 /*
