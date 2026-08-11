@@ -118,6 +118,65 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
           </section>
         </Reveal>
 
+        {/* ---------------- 실제 화면 ---------------- */}
+        <Reveal>
+          <section className="landing-section">
+            <h2>이게 실제 화면입니다</h2>
+            <p className="landing-note">
+              합성이나 컨셉 이미지가 아니라, 강남역을 목적지로 두고 실행한
+              화면을 그대로 찍은 것입니다.
+            </p>
+
+            <figure className="app-shot">
+              <div className="app-shot-frame">
+                <picture>
+                  <source
+                    type="image/webp"
+                    srcSet="/shots/app-full-sm.webp 1200w, /shots/app-full.webp 2200w"
+                    sizes="(max-width: 880px) 100vw, min(1180px, 100vw - 40px)"
+                  />
+                  <img
+                    src="/shots/app-full.jpg"
+                    alt="강남역을 목적지로 둔 실행 화면. 서울 지도가 초록·노랑·빨강으로 칠해져 있고 오른쪽에 조건·가중치 패널과 추천 동네 목록이 있다."
+                    width={2200}
+                    height={1095}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+
+                {/*
+                  마커는 번호만 찍고 설명은 아래 목록에 둔다. 라벨을 이미지에
+                  직접 붙이면 좁은 화면에서 서로 겹치거나 프레임 밖으로
+                  넘치는데, 번호 점만 있으면 어느 폭에서도 안 깨진다.
+                */}
+                {SHOT_MARKS.map((m, i) => (
+                  <span
+                    key={m.title}
+                    className="app-mark"
+                    style={{ left: `${m.x}%`, top: `${m.y}%` }}
+                    aria-hidden="true"
+                  >
+                    {i + 1}
+                  </span>
+                ))}
+              </div>
+            </figure>
+
+            <ol className="app-mark-list" data-stagger>
+              {SHOT_MARKS.map((m, i) => (
+                <li key={m.title}>
+                  <span className="app-mark-no">{i + 1}</span>
+                  <div>
+                    <b>{m.title}</b>
+                    <span>{m.body}</span>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+        </Reveal>
+
         {/* ---------------- 지도 두 모드 ---------------- */}
         <Reveal>
           <section className="landing-section">
@@ -503,6 +562,50 @@ const ROUTE_LEGS = [
   { kind: "transfer", min: 5, text: "신논현역 환승 · 9호선 → 신분당선" },
   { kind: "ride", min: 1, text: "신분당선 1정거장 · 신논현 → 강남" },
   { kind: "walk", min: 1, text: "목적지까지 도보" },
+];
+
+/*
+ * 실행 화면(public/shots/app-full.*) 위에 찍는 번호 마커.
+ * x·y 는 이미지 박스 기준 백분율이라 어느 폭에서도 같은 지점을 가리킨다.
+ * 이미지를 새로 찍으면 좌표도 다시 잡아야 한다.
+ */
+const SHOT_MARKS = [
+  {
+    x: 88,
+    y: 6,
+    title: "목적지",
+    body: "회사·학교를 검색하거나 지도의 역을 눌러 넣습니다. 최대 3곳.",
+  },
+  {
+    x: 88,
+    y: 29,
+    title: "조건과 가중치",
+    body: "통근 한계·월세 상한을 정하고, 무엇을 중요하게 볼지 비중을 옮깁니다.",
+  },
+  {
+    x: 57,
+    y: 26,
+    title: "등급 아이콘",
+    body: "행정동마다 Best·Normal·Bad 를 점으로 찍습니다. 조건을 바꾸면 즉시 다시 칠해집니다.",
+  },
+  {
+    x: 43.5,
+    y: 62,
+    title: "통근 경로",
+    body: "고른 동네에서 목적지까지 실제로 어떤 경로인지 점선으로 그립니다.",
+  },
+  {
+    x: 20,
+    y: 58,
+    title: "지하철 노선도",
+    body: "623개 역과 21개 노선을 깔아둡니다. 노선별로 끄고 켤 수 있습니다.",
+  },
+  {
+    x: 95,
+    y: 55,
+    title: "추천 목록",
+    body: "조건을 만족하는 동네를 점수 순으로 세웁니다. 누르면 상세가 열립니다.",
+  },
 ];
 
 /* README 8-15행의 기능 목록을 그대로 옮긴 것 */

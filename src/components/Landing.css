@@ -448,6 +448,137 @@
   transform: scale(1.03);
 }
 
+/* --- 실행 화면 + 번호 마커 --- */
+
+/*
+ * 가로로 넓은 스크린샷이라 본문 폭(880px)에 가두면 너무 작아진다.
+ * 부모 밖으로 꺼내 최대 1180px 까지 쓴다.
+ */
+.app-shot {
+  margin: 22px 0 0;
+  width: min(1180px, 100vw - 40px);
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
+.app-shot-frame {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.34);
+  line-height: 0;
+}
+
+.app-shot-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/*
+ * 번호 마커. 라벨 없이 점만 찍고 설명은 아래 목록이 맡는다.
+ * 화면 폭이 좁아져도 위치가 백분율이라 같은 지점을 계속 가리킨다.
+ */
+.app-mark {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+/* 퍼지는 링. 마커마다 시차를 줘서 한꺼번에 깜빡이지 않게 한다 */
+.app-mark::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border-radius: inherit;
+  border: 2px solid var(--accent);
+  animation: mark-pulse 2.6s ease-out infinite;
+}
+
+.app-mark:nth-child(2)::after {
+  animation-delay: 0.35s;
+}
+.app-mark:nth-child(3)::after {
+  animation-delay: 0.7s;
+}
+.app-mark:nth-child(4)::after {
+  animation-delay: 1.05s;
+}
+.app-mark:nth-child(5)::after {
+  animation-delay: 1.4s;
+}
+.app-mark:nth-child(6)::after {
+  animation-delay: 1.75s;
+}
+
+@keyframes mark-pulse {
+  0% {
+    opacity: 0.85;
+    transform: scale(0.72);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+.app-mark-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 22px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.app-mark-list li {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+
+.app-mark-no {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 19px;
+  height: 19px;
+  border-radius: 999px;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-size: 11px;
+  font-weight: 700;
+  /* baseline 정렬이라 숫자가 글줄에 얹히도록 살짝 내린다 */
+  transform: translateY(3px);
+}
+
+.app-mark-list b {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 13.5px;
+}
+
+.app-mark-list span:not(.app-mark-no) {
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--text-dim);
+  word-break: keep-all;
+}
+
 /*
  * 앱 화면 일부를 스크린샷 대신 **실제 마크업**으로 재현한 카드.
  * 계산 과정·통근 경로처럼 작은 글씨가 많은 화면은 이미지로 넣으면
@@ -712,6 +843,18 @@
   .count-box b {
     font-size: 26px;
   }
+
+  /* 좁은 화면에서는 마커가 서로 붙어 못 읽는다 — 점만 줄이고 목록으로 읽힌다 */
+  .app-mark {
+    width: 20px;
+    height: 20px;
+    font-size: 11px;
+  }
+
+  .app-mark-list {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
 }
 
 /*
@@ -735,5 +878,9 @@
   .feature {
     transition-duration: 0.01ms;
     transition-delay: 0s;
+  }
+
+  .app-mark::after {
+    animation: none;
   }
 }
