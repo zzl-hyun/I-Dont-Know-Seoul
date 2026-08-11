@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import MapView, {
   type DongView,
   type MapMode,
@@ -30,6 +30,7 @@ import type { CommuteResult, Destination, Weights } from "./types";
  * 서울 안에서 자취 후보지를 가르는 주요 노선만 고른다.
  */
 const MAIN_LINES = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "신분당", "경의·중앙", "수인·분당"];
+const MAX_COMMUTE_MINUTES = 90;
 
 /**
  * 월세 상한 판정.
@@ -49,6 +50,8 @@ const NO_COMMUTE: CommuteResult = {
   hasEstimatedLeg: false,
   viaNodeId: -1,
 };
+
+type SidebarTab = "detail" | "recommendations";
 
 export default function App() {
   const [data, setData] = useState<AppData | null>(null);
@@ -79,6 +82,9 @@ export default function App() {
   const [maxCommute, setMaxCommute] = useState(initial.maxCommute);
   const [weights, setWeights] = useState<Weights>(initial.weights);
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
+  const [sidebarTab, setSidebarTab] = useState<SidebarTab>("recommendations");
+  const sidebarRef = useRef<HTMLElement>(null);
+  const sidebarTabsRef = useRef<HTMLDivElement>(null);
   const [showSubway, setShowSubway] = useState(initial.showSubway);
   /** 꺼둔 노선. 비어 있으면 전부 표시 (기본값) */
   const [hiddenLines, setHiddenLines] = useState<Set<string>>(
@@ -97,6 +103,41 @@ export default function App() {
     if (saved === "light" || saved === "dark") return saved;
     return window.matchMedia?.("(prefers-color-scheme: light)").matches ? "light" : "dark";
   });
+
+  /** 탭을 바꿀 때 긴 사이드바의 중간에 남지 않고 새 패널의 첫 줄부터 보여준다. */
+  const scrollSidebarToTabs = useCallback(() => {
+    requestAnimationFrame(() => {
+      const sidebar = sidebarRef.current;
+      const tabs = sidebarTabsRef.current;
+      if (!sidebar || !tabs) return;
+      sidebar.scrollTo({ top: tabs.offsetTop, behavior: "auto" });
+    });
+  }, []);
+
+  const showSidebarTab = useCallback(
+    (tab: SidebarTab) => {
+      if (tab === "detail" && !selectedCode) return;
+      setSidebarTab(tab);
+      scrollSidebarToTabs();
+    },
+    [scrollSidebarToTabs, selectedCode]
+  );
+
+  /** 지도와 추천 목록의 선택 동작을 한곳에 모아 상세 탭 전환을 빠뜨리지 않는다. */
+  const selectDong = useCallback(
+    (code: string | null) => {
+      if (code == null) {
+        setSelectedCode(null);
+        setSidebarTab("recommendations");
+        scrollSidebarToTabs();
+        return;
+      }
+      setSelectedCode(code);
+      setSidebarTab("detail");
+      scrollSidebarToTabs();
+    },
+    [scrollSidebarToTabs]
+  );
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -202,19 +243,22 @@ export default function App() {
   }, [data, graded, commute, maxCommute, weights, budget]);
 
   /* 통근권 안에서 종합 점수가 높은 순 */
-  const picks = useMemo<Pick[]>(() => {
-    if (!data || !graded || !commute) return [];
+  const { picks, commuteEligibleCount } = useMemo(() => {
     const out: Pick[] = [];
+    let commuteEligibleCount = 0;
+    if (!data || !graded || !commute) return { picks: out, commuteEligibleCount };
+
     for (const dong of data.dongs) {
       const c = commute.byDong.get(dong.code);
       const g = graded.byDong.get(dong.code);
       const s = data.scores.get(dong.code);
       if (!g || !s || c?.worstMin == null || c.worstMin > maxCommute) continue;
+      commuteEligibleCount += 1;
       if (!withinBudget(s.raw.monthlyRentMan, budget)) continue;
       out.push({ dong, grade: g.grade, score: g.score, commuteMin: c.worstMin });
     }
     out.sort((a, b) => b.score - a.score);
-    return out;
+    return { picks: out, commuteEligibleCount };
   }, [data, graded, commute, maxCommute, budget]);
 
   const selected = useMemo(() => {
@@ -253,6 +297,10 @@ export default function App() {
       })
     );
   }, [selected]);
+
+  // 데이터 로딩이나 목적지 삭제 직후처럼 선택 상세가 없으면 추천 탭으로 안전하게 복귀한다.
+  const visibleSidebarTab: SidebarTab =
+    sidebarTab === "detail" && selected ? "detail" : "recommendations";
 
   /*
    * 상태를 URL 에 반영한다. pushState 를 쓰면 슬라이더를 움직일 때마다 히스토리가
@@ -321,8 +369,17 @@ export default function App() {
     setShowLanding(false);
   };
 
-  const removeDestination = (i: number) =>
+  const removeDestination = (i: number) => {
+    const removesLast = destinations.length === 1;
     setDestinations((prev) => prev.filter((_, j) => j !== i));
+    if (removesLast) {
+      setSelectedCode(null);
+      setSidebarTab("recommendations");
+      requestAnimationFrame(() =>
+        sidebarRef.current?.scrollTo({ top: 0, behavior: "auto" })
+      );
+    }
+  };
 
   /** 지도의 역을 클릭 → 목적지로 추가 */
   const pickStation = (s: { name: string; lat: number; lng: number }) =>
@@ -355,7 +412,7 @@ export default function App() {
               views={views}
               destinations={destinations}
               selectedCode={selectedCode}
-              onSelect={setSelectedCode}
+              onSelect={selectDong}
               hasDestination={destinations.length > 0}
               routePath={routePath}
               subway={subway}
@@ -423,7 +480,7 @@ export default function App() {
         )}
       </div>
 
-      <aside className="sidebar">
+      <aside className="sidebar" ref={sidebarRef}>
         <div className="brand">
           <h1>I Don&rsquo;t Know Seoul</h1>
           <p>
@@ -474,128 +531,213 @@ export default function App() {
               )}
             </div>
 
-            <div className="section">
-              <p className="section-title">조건</p>
-              <div className="slider-row">
-                <label htmlFor="commute">통근</label>
-                <input
-                  id="commute"
-                  type="range"
-                  min={15}
-                  max={90}
-                  step={5}
-                  value={maxCommute}
-                  onChange={(e) => setMaxCommute(Number(e.target.value))}
-                />
-                <output>{maxCommute}분</output>
-              </div>
-              <div className="slider-row">
-                <label htmlFor="budget">월세</label>
-                <input
-                  id="budget"
-                  type="range"
-                  min={BUDGET_MIN}
-                  max={BUDGET_OFF}
-                  step={5}
-                  value={budget}
-                  onChange={(e) => setBudget(Number(e.target.value))}
-                />
-                <output>{budget >= BUDGET_OFF ? "제한 없음" : `${budget}만원`}</output>
-              </div>
-              {budget < BUDGET_OFF && (
-                <p className="metric-note">
-                  환산월세(보증금을 월세로 환산한 값) 기준입니다. 단독·다가구·오피스텔·
-                  소형아파트 실거래를 포함합니다. 표본이 없는 동은 거르지 않습니다.
-                </p>
-              )}
-            </div>
-
-            <div className="section">
-              <p className="section-title">무엇이 중요한가요?</p>
-              {(
-                [
-                  ["safety", "치안"],
-                  ["price", "가격"],
-                  ["convenience", "편의"],
-                ] as const
-              ).map(([key, label]) => (
-                <div className="slider-row" key={key}>
-                  <label htmlFor={key}>{label}</label>
-                  <input
-                    id={key}
-                    type="range"
-                    min={0}
-                    max={100}
-                    step={5}
-                    value={Math.round(weights[key] * 100)}
-                    onChange={(e) => setWeight(key, Number(e.target.value) / 100)}
-                  />
-                  <output>{Math.round(weights[key] * 100)}%</output>
-                </div>
-              ))}
-              <div className="mode-switch" role="group" aria-label="지도 색 기준">
-                {(
-                  [
-                    ["grade", "등급"],
-                    ["commute", "통근시간"],
-                  ] as const
-                ).map(([m, label]) => (
-                  <button
-                    key={m}
-                    type="button"
-                    data-active={mapMode === m}
-                    onClick={() => setMapMode(m)}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
-
-              {mapMode === "grade" ? (
-                <>
-                  <div className="legend">
-                    {(["best", "normal", "bad"] as const).map((g) => (
-                      <span key={g}>
-                        <i className={`grade-dot ${g}`} />
-                        {GRADE_LABEL[g]}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="metric-note" style={{ marginTop: 8 }}>
-                    등급은 서울 전체 분포 기준 상대 평가입니다 — 상위 30%가 Best,
-                    하위 30%가 Bad입니다.
-                  </p>
-                </>
-              ) : (
-                <>
-                  <div className="legend">
-                    {COMMUTE_BANDS.map((b) => (
-                      <span key={b.label}>
-                        <i
-                          className="grade-dot"
-                          style={{ background: b.color }}
-                        />
-                        {b.label}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="metric-note" style={{ marginTop: 8 }}>
-                    목적지가 여럿이면 <b>가장 오래 걸리는 쪽</b> 기준입니다.
-                  </p>
-                </>
-              )}
-            </div>
-
-            <div className="section share-row">
-              <button type="button" className="share-btn" onClick={copyShareLink}>
-                {copied ? "링크가 복사됐습니다" : "이 결과 링크 복사"}
+            <div
+              className="sidebar-tabs"
+              ref={sidebarTabsRef}
+              role="tablist"
+              aria-label="오른쪽 패널 보기"
+              onKeyDown={(event) => {
+                if (!selected || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
+                  return;
+                }
+                event.preventDefault();
+                const next: SidebarTab =
+                  event.key === "ArrowLeft" || event.key === "Home"
+                    ? "detail"
+                    : "recommendations";
+                setSidebarTab(next);
+                requestAnimationFrame(() =>
+                  document.getElementById(`sidebar-tab-${next}`)?.focus()
+                );
+              }}
+            >
+              <button
+                id="sidebar-tab-detail"
+                type="button"
+                role="tab"
+                aria-selected={visibleSidebarTab === "detail"}
+                aria-controls="sidebar-panel-detail"
+                tabIndex={visibleSidebarTab === "detail" ? 0 : -1}
+                disabled={!selected}
+                data-active={visibleSidebarTab === "detail"}
+                onClick={() => showSidebarTab("detail")}
+              >
+                <span>상세 정보</span>
+                <small>{selected?.dong.dong ?? "동네를 선택하세요"}</small>
               </button>
-              <p className="metric-note">
-                목적지·조건·가중치가 주소에 담깁니다. 받은 사람은 같은 화면을 그대로 봅니다.
-              </p>
+              <button
+                id="sidebar-tab-recommendations"
+                type="button"
+                role="tab"
+                aria-selected={visibleSidebarTab === "recommendations"}
+                aria-controls="sidebar-panel-recommendations"
+                tabIndex={visibleSidebarTab === "recommendations" ? 0 : -1}
+                data-active={visibleSidebarTab === "recommendations"}
+                onClick={() => showSidebarTab("recommendations")}
+              >
+                <span>조건·추천</span>
+                <small>통근권 {picks.length}개 동</small>
+              </button>
             </div>
 
-            <TopPicks picks={picks} selectedCode={selectedCode} onSelect={setSelectedCode} />
+            {visibleSidebarTab === "detail" && selected && explainCtx && (
+              <div
+                id="sidebar-panel-detail"
+                className="sidebar-panel"
+                role="tabpanel"
+                aria-labelledby="sidebar-tab-detail"
+              >
+                <DongDetail
+                  dong={selected.dong}
+                  score={selected.score}
+                  grade={selected.grade}
+                  rank={selected.rank}
+                  total={selected.total}
+                  commutes={selected.commutes}
+                  ctx={explainCtx}
+                />
+              </div>
+            )}
+
+            {visibleSidebarTab === "recommendations" && (
+              <div
+                id="sidebar-panel-recommendations"
+                className="sidebar-panel"
+                role="tabpanel"
+                aria-labelledby="sidebar-tab-recommendations"
+              >
+                <div className="section">
+                  <p className="section-title">조건</p>
+                  <div className="slider-row">
+                    <label htmlFor="commute">통근</label>
+                    <input
+                      id="commute"
+                      type="range"
+                      min={15}
+                      max={MAX_COMMUTE_MINUTES}
+                      step={5}
+                      value={maxCommute}
+                      onChange={(e) => setMaxCommute(Number(e.target.value))}
+                    />
+                    <output>{maxCommute}분</output>
+                  </div>
+                  <div className="slider-row">
+                    <label htmlFor="budget">월세</label>
+                    <input
+                      id="budget"
+                      type="range"
+                      min={BUDGET_MIN}
+                      max={BUDGET_OFF}
+                      step={5}
+                      value={budget}
+                      onChange={(e) => setBudget(Number(e.target.value))}
+                    />
+                    <output>{budget >= BUDGET_OFF ? "제한 없음" : `${budget}만원`}</output>
+                  </div>
+                  <p className="metric-note budget-note">
+                    월세 제한은 보증금을 월세로 환산한 환산월세 기준입니다. 단독·다가구·
+                    오피스텔·소형아파트 실거래를 포함하며, 표본이 없는 동은 제한을 설정해도
+                    거르지 않습니다.
+                  </p>
+                </div>
+
+                <div className="section">
+                  <p className="section-title">무엇이 중요한가요?</p>
+                  {(
+                    [
+                      ["safety", "치안"],
+                      ["price", "가격"],
+                      ["convenience", "편의"],
+                    ] as const
+                  ).map(([key, label]) => (
+                    <div className="slider-row" key={key}>
+                      <label htmlFor={key}>{label}</label>
+                      <input
+                        id={key}
+                        type="range"
+                        min={0}
+                        max={100}
+                        step={5}
+                        value={Math.round(weights[key] * 100)}
+                        onChange={(e) => setWeight(key, Number(e.target.value) / 100)}
+                      />
+                      <output>{Math.round(weights[key] * 100)}%</output>
+                    </div>
+                  ))}
+                  <div className="mode-switch" role="group" aria-label="지도 색 기준">
+                    {(
+                      [
+                        ["grade", "등급"],
+                        ["commute", "통근시간"],
+                      ] as const
+                    ).map(([m, label]) => (
+                      <button
+                        key={m}
+                        type="button"
+                        data-active={mapMode === m}
+                        onClick={() => setMapMode(m)}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+
+                  {mapMode === "grade" ? (
+                    <>
+                      <div className="legend">
+                        {(["best", "normal", "bad"] as const).map((g) => (
+                          <span key={g}>
+                            <i className={`grade-dot ${g}`} />
+                            {GRADE_LABEL[g]}
+                          </span>
+                        ))}
+                      </div>
+                      <p className="metric-note" style={{ marginTop: 8 }}>
+                        등급은 서울 전체 분포 기준 상대 평가입니다 — 상위 30%가 Best,
+                        하위 30%가 Bad입니다.
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <div className="legend">
+                        {COMMUTE_BANDS.map((b) => (
+                          <span key={b.label}>
+                            <i className="grade-dot" style={{ background: b.color }} />
+                            {b.label}
+                          </span>
+                        ))}
+                      </div>
+                      <p className="metric-note" style={{ marginTop: 8 }}>
+                        목적지가 여럿이면 <b>가장 오래 걸리는 쪽</b> 기준입니다.
+                      </p>
+                    </>
+                  )}
+                </div>
+
+                <TopPicks
+                  picks={picks}
+                  selectedCode={selectedCode}
+                  emptyReason={commuteEligibleCount === 0 ? "commute" : "budget"}
+                  canExpandCommute={maxCommute < MAX_COMMUTE_MINUTES}
+                  onSelect={selectDong}
+                  onExpandCommute={() =>
+                    setMaxCommute((current) =>
+                      Math.min(MAX_COMMUTE_MINUTES, current + 15)
+                    )
+                  }
+                  onResetBudget={() => setBudget(BUDGET_OFF)}
+                />
+
+                <div className="section share-row">
+                  <button type="button" className="share-btn" onClick={copyShareLink}>
+                    {copied ? "링크가 복사됐습니다" : "이 결과 링크 복사"}
+                  </button>
+                  <p className="metric-note">
+                    목적지·조건·가중치가 주소에 담깁니다. 받은 사람은 같은 화면을 그대로 봅니다.
+                  </p>
+                </div>
+              </div>
+            )}
           </>
         )}
 
@@ -607,18 +749,6 @@ export default function App() {
             <br />
             통근 가능한 지역이 지도에 나타납니다.
           </div>
-        )}
-
-        {selected && explainCtx && (
-          <DongDetail
-            dong={selected.dong}
-            score={selected.score}
-            grade={selected.grade}
-            rank={selected.rank}
-            total={selected.total}
-            commutes={selected.commutes}
-            ctx={explainCtx}
-          />
         )}
 
         <div className="disclaimer">
