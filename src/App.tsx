@@ -3,6 +3,7 @@ import MapView, { type DongView, type MapMode, type Theme } from "./components/M
 import DestinationSearch from "./components/DestinationSearch";
 import DongDetail, { type CommuteLeg, type ExplainContext } from "./components/DongDetail";
 import TopPicks, { type Pick } from "./components/TopPicks";
+import Landing from "./components/Landing";
 import { loadAppData, type AppData } from "./lib/data";
 import { buildRoute, computeMultiCommute } from "./lib/commute";
 import { gradeAll, rebalanceWeights } from "./lib/score";
@@ -50,6 +51,24 @@ export default function App() {
 
   // 링크로 들어온 경우 그 상태에서 시작한다 (최초 1회만 읽는다)
   const [initial] = useState(() => decodeShareState(window.location.search));
+
+  /**
+   * 소개 페이지를 보여줄지. **마운트 시 1회만** 판정한다.
+   *
+   * `destinations.length === 0` 을 그대로 조건으로 쓰면 도구에서 목적지를 다
+   * 지운 순간 소개로 튕겨나간다 — 지우는 건 "다시 고르겠다"는 뜻이지 "소개를
+   * 다시 읽겠다"는 뜻이 아니다. 그래서 초기 URL 상태로만 정하고, 이후에는
+   * 사용자의 명시적 행동(검색·둘러보기)으로만 내린다.
+   *
+   * 쿼리스트링 유무가 아니라 **목적지 유무**로 가른다. utm 같은 유입 파라미터가
+   * 붙은 링크(랜딩을 가장 보여줘야 할 유입)까지 도구로 보내면 안 되고, 반대로
+   * 목적지 없는 `?w=...` 링크를 도구로 보내면 빈 지도만 남는다.
+   *
+   * 경로가 아니라 상태로 가르는 이유: 이미 뿌려진 공유 링크가 전부 `/?to=...`
+   * 형태라, `/app` 같은 새 경로를 만들면 그 링크들이 전부 소개로 떨어져
+   * 목적지가 복원되지 않는다.
+   */
+  const [showLanding, setShowLanding] = useState(initial.destinations.length === 0);
 
   const [destinations, setDestinations] = useState<Destination[]>(initial.destinations);
   const [maxCommute, setMaxCommute] = useState(initial.maxCommute);
@@ -281,12 +300,35 @@ export default function App() {
       return [...prev, d];
     });
 
+  /** 소개 페이지의 검색에서 목적지를 고르면 곧장 도구로 넘어간다 */
+  const startWithDestination = (d: Destination) => {
+    addDestination(d);
+    setShowLanding(false);
+  };
+
   const removeDestination = (i: number) =>
     setDestinations((prev) => prev.filter((_, j) => j !== i));
 
   /** 지도의 역을 클릭 → 목적지로 추가 */
   const pickStation = (s: { name: string; lat: number; lng: number }) =>
     addDestination({ name: s.name, address: "지하철역", lat: s.lat, lng: s.lng });
+
+  /*
+   * 소개 페이지는 `.app` 그리드(지도 1fr + 사이드바 380px)를 통째로 대체한다.
+   * 그 안에 넣으면 380px 칼럼에 갇혀 풀블리드 섹션을 못 만든다.
+   * 데이터 로딩(loadAppData)은 그대로 두는 게 낫다 — 소개를 읽는 동안 받아두면
+   * 검색 직후 지도가 곧바로 뜬다.
+   */
+  if (showLanding) {
+    return (
+      <Landing
+        onPick={startWithDestination}
+        onSkip={() => setShowLanding(false)}
+        theme={theme}
+        onToggleTheme={() => setTheme(theme === "dark" ? "light" : "dark")}
+      />
+    );
+  }
 
   return (
     <div className="app">
