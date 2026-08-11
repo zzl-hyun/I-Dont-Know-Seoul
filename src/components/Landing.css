@@ -157,32 +157,46 @@
 
 .hero-legend {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 14px;
-  margin-bottom: 20px;
+  gap: 7px;
+  margin-bottom: 22px;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.78);
 }
 
+/*
+ * 사진 위라 맨 글씨로 두면 배경에 따라 읽히는 정도가 들쭉날쭉하다.
+ * 알약 배경을 깔아 어느 지점에 놓여도 같은 대비를 갖게 한다.
+ */
 .hero-legend span {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  padding: 5px 11px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(12, 14, 19, 0.42);
+  backdrop-filter: blur(7px);
+  color: rgba(255, 255, 255, 0.9);
 }
 
+/*
+ * 폰트 크기를 화면 폭에 따라 흐르게 둔다. 단계별 미디어 쿼리로 끊으면
+ * 태블릿처럼 중간 폭에서 제목만 유난히 크거나 작게 남는다.
+ */
 .hero h1 {
-  margin: 0 0 16px;
-  font-size: 46px;
-  line-height: 1.15;
-  letter-spacing: -1.6px;
+  margin: 0 0 18px;
+  font-size: clamp(32px, 6.4vw, 56px);
+  line-height: 1.14;
+  letter-spacing: -0.035em;
   text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
 }
 
 .hero-lead {
-  margin: 0 0 28px;
-  font-size: 16px;
+  margin: 0 0 30px;
+  font-size: clamp(14.5px, 1.9vw, 17px);
   line-height: 1.75;
-  color: rgba(255, 255, 255, 0.84);
+  color: rgba(255, 255, 255, 0.86);
   word-break: keep-all;
   text-shadow: 0 1px 12px rgba(0, 0, 0, 0.45);
 }
@@ -295,6 +309,67 @@
   }
 }
 
+/* --- 숫자 띠 --- */
+
+/* 눈에는 안 보이지만 스크린리더는 읽는다 (세어 올라가는 중간값 대신 최종값용) */
+.landing .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.stat-band {
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+}
+
+.stat-band-inner {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 26px 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.stat dt {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -1.2px;
+  line-height: 1.1;
+  /* 세어 올라가는 동안 자릿수가 바뀌어도 옆 칸이 안 흔들린다 */
+  font-variant-numeric: tabular-nums;
+}
+
+.stat dt i {
+  font-style: normal;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--text-faint);
+}
+
+.stat dd {
+  margin: 6px 0 0;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  word-break: keep-all;
+}
+
+/* 0회가 이 서비스의 자랑이라 그것만 강조색을 쓴다 */
+.stat:last-child dt {
+  color: var(--accent);
+}
+
 /* --- 스크롤 등장 --- */
 
 .reveal {
@@ -373,9 +448,9 @@
 
 .landing-section h2 {
   margin: 0 0 20px;
-  font-size: 26px;
-  line-height: 1.35;
-  letter-spacing: -0.8px;
+  font-size: clamp(21px, 3.1vw, 29px);
+  line-height: 1.33;
+  letter-spacing: -0.03em;
   word-break: keep-all;
 }
 
@@ -964,21 +1039,10 @@
     padding: 64px 18px 88px;
   }
 
-  .hero h1 {
-    font-size: 33px;
-    letter-spacing: -1px;
-  }
-
-  .hero-lead {
-    font-size: 14.5px;
-  }
+  /* h1·h2·lead 는 clamp 로 흐르므로 여기서 다시 잡지 않는다 */
 
   .landing-section {
     padding: 56px 0;
-  }
-
-  .landing-section h2 {
-    font-size: 21px;
   }
 
   .feature-grid {
@@ -1017,6 +1081,17 @@
 
   .count-box b {
     font-size: 26px;
+  }
+
+  /* 4열은 좁은 화면에서 숫자가 줄바꿈된다 */
+  .stat-band-inner {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 16px;
+    padding: 22px 18px;
+  }
+
+  .stat dt {
+    font-size: 25px;
   }
 
   /* 막대까지 넣으면 이름이 잘린다 — 막대를 빼고 점수만 남긴다 */

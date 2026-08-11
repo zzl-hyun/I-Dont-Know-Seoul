@@ -93,8 +93,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
           </button>
 
           <p className="hero-stats">
-            행정동 427개 · 지하철 623역 · 외부 길찾기 API 호출 0회 · 서버에
-            아무것도 저장하지 않습니다
+            서버에 아무것도 저장하지 않습니다
           </p>
         </div>
 
@@ -102,6 +101,8 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
           <span />
         </div>
       </header>
+
+      <StatBand />
 
       <div className="landing-inner">
         {/* ---------------- 기능 ---------------- */}
@@ -494,6 +495,85 @@ function HeroImage({
 }
 
 /**
+ * 히어로 바로 아래 숫자 띠.
+ *
+ * 원래 이 수치들은 히어로 맨 아래 11.5px 회색 한 줄에 묻혀 있었다.
+ * 그런데 "외부 길찾기 API 호출 0회"는 이 서비스에서 가장 설명하기 어려운
+ * 동시에 가장 내세울 만한 사실이다 — 통근시간을 직접 계산하기 때문에
+ * 무료로 돌아가고, 조건을 바꿔도 즉시 다시 계산된다. 작게 흘리면 아무도
+ * 안 읽는다.
+ */
+function StatBand() {
+  return (
+    <div className="stat-band">
+      <dl className="stat-band-inner">
+        {STATS.map((s) => (
+          <div className="stat" key={s.label}>
+            <dt>
+              <CountUp to={s.value} />
+              <i>{s.unit}</i>
+            </dt>
+            <dd>{s.label}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
+/**
+ * 화면에 들어오면 0 에서 목표값까지 세어 올린다.
+ *
+ * `prefers-reduced-motion` 이면 세지 않고 바로 최종값을 쓴다. 그리고
+ * 애니메이션 여부와 무관하게 **최종값은 항상 DOM 에 있다** — 중간값이
+ * 스크린리더로 계속 읽히지 않도록 aria-hidden 으로 가리고, 실제로 읽히는
+ * 값은 따로 둔다.
+ */
+function CountUp({ to, ms = 1100 }: { to: number; ms?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const [n, setN] = useState(to);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const still =
+      typeof matchMedia === "undefined" ||
+      matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (still || typeof IntersectionObserver === "undefined" || to === 0) return;
+
+    setN(0);
+    let raf = 0;
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        const t0 = performance.now();
+        const tick = (t: number) => {
+          const p = Math.min(1, (t - t0) / ms);
+          // ease-out — 끝에서 천천히 멈춰야 숫자가 또렷하게 읽힌다
+          setN(Math.round(to * (1 - Math.pow(1 - p, 3))));
+          if (p < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+      },
+      { rootMargin: "0px 0px -10% 0px" }
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
+    };
+  }, [to, ms]);
+
+  return (
+    <span ref={ref}>
+      <span aria-hidden="true">{n.toLocaleString("ko-KR")}</span>
+      <span className="sr-only">{to.toLocaleString("ko-KR")}</span>
+    </span>
+  );
+}
+
+/**
  * 스크롤해서 화면에 들어오면 한 번 나타난다.
  *
  * 한 번 보이면 관찰을 끊는다 — 위아래로 스크롤할 때마다 다시 사라졌다
@@ -583,6 +663,25 @@ const ROUTE_LEGS = [
   { kind: "ride", min: 13, text: "9호선 7정거장 · 노들 → 신논현" },
   { kind: "transfer", min: 5, text: "신논현역 환승 · 9호선 → 신분당선" },
   { kind: "ride", min: 1, text: "신분당선 1정거장 · 신논현 → 강남" },
+];
+
+/*
+ * 히어로 아래 숫자 띠.
+ *
+ * 427·623·9 는 파이프라인 산출물과 대조한 값이다(bundle.json 의 dongs
+ * 427개, graph.stations 623개, meta.availableMetrics 9개). 데이터가 바뀌면
+ * 같이 고쳐야 한다.
+ *
+ * "0" 은 계산이 아니라 설계다. 목적지 하나를 잡으면 427개 동의 통근시간이
+ * 전부 필요한데, 길찾기 API 로 하면 요청 한 번에 427콜이라 무료 한도로는
+ * 하루 두 명도 못 받는다. 그래서 지하철 그래프를 직접 들고 브라우저에서
+ * 탐색한다.
+ */
+const STATS = [
+  { value: 427, unit: "개", label: "행정동을 전부 등급화" },
+  { value: 623, unit: "역", label: "지하철 21개 노선" },
+  { value: 9, unit: "개", label: "등급에 쓰는 공공데이터 지표" },
+  { value: 0, unit: "회", label: "외부 길찾기 API 호출" },
 ];
 
 /*
