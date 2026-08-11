@@ -43,7 +43,40 @@
     -->
     <meta name="theme-color" content="#16181d" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f4f5f7" media="(prefers-color-scheme: light)" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>" />
+    <!--
+      파비콘은 **실제 파일이어야 한다.** 예전에는 data: URI 에 이모지를 넣어
+      뒀는데, 브라우저 탭에는 나와도 구글은 크롤 가능한 URL 의 파비콘만
+      색인하므로 검색 결과에는 회색 기본 아이콘이 떴다.
+
+      구글 권장은 48px 의 배수이고 최소 8px 이라 96px 을 함께 둔다.
+      .ico 는 16/32/48 을 한 파일에 담았다 — 아직도 /favicon.ico 를 그냥
+      찍어보는 크롤러가 있다.
+    -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icon-96.png" type="image/png" sizes="96x96" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!--
+      검색 결과에 사이트 이름이 "Cloudflare" 로 뜨던 문제 때문에 넣었다.
+      workers.dev 가 Cloudflare 소유 도메인이라, 다른 신호가 없으면 구글이
+      사이트명을 도메인 소유자 쪽으로 귀속시킨다. 사이트 이름의 첫 번째
+      근거는 WebSite 구조화 데이터의 name 이다.
+
+      자체 도메인을 붙이기 전까지는 이게 할 수 있는 최선이고, 구글이
+      반드시 따르는 건 아니다(재크롤 후 며칠 걸린다).
+    -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "I Don't Know Seoul",
+        "alternateName": "아이 돈트 노 서울",
+        "url": "https://i-dont-know-seoul.cioud.workers.dev/",
+        "inLanguage": "ko-KR",
+        "description": "상경인을 위한 지도. 회사·학교를 검색하면 통근 가능한 서울 동네를 치안·월세·생활편의 등급으로 보여줍니다."
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
