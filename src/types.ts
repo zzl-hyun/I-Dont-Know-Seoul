@@ -56,7 +56,14 @@ export interface Edge {
   /** 소요시간(분) */
   min: number;
   kind: "ride" | "transfer";
-  /** measured = 공공데이터 실측값, estimated = 거리 기반 추정값 */
+  /**
+   * measured = 공공데이터 실측값, estimated = 거리 기반 추정값.
+   *
+   * **현재 파이프라인은 `estimated` 만 만듭니다** — `2-subway.mjs` 에 실측
+   * 소요시간을 붙이는 경로가 아직 없습니다. `measured` 는 나중에 역간 실측
+   * 데이터를 넣을 자리로 남겨둔 것이고, 지금 이 값으로 분기하는 코드를 쓰면
+   * 항상 한쪽만 타므로 테스트에서 안 걸립니다.
+   */
   source: "measured" | "estimated";
 }
 
@@ -158,7 +165,15 @@ export interface CommuteResult {
   walkMin: number;
   /** 환승 횟수 */
   transfers: number;
-  /** 경로에 추정 구간이 포함되었는지 (UI에 "추정" 표기) */
+  /**
+   * 경로에 추정 구간이 포함되었는지.
+   *
+   * **지금은 도달 가능한 모든 경로에서 항상 true 입니다** — 위 `Edge.source`
+   * 설명대로 실측 엣지가 아직 없기 때문입니다. 그래서 상세 패널은 경로별
+   * "추정" 배지 대신 "역간 소요시간은 실측이 아니라 거리와 노선 특성으로
+   * 계산한 값" 이라는 **일괄 문구**를 씁니다(`DongDetail.tsx`). 실측 엣지가
+   * 생기면 그때 이 값으로 경로별 표기를 나누면 됩니다.
+   */
   hasEstimatedLeg: boolean;
   /**
    * 이 동이 실제로 이용한 그래프 노드. 경로를 되짚는 출발점이다.
