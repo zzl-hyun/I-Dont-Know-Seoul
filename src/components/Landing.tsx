@@ -202,22 +202,24 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
             </div>
 
             <div className="shot-stack">
-              <img
-                src="/shots/mode-grade.jpg"
-                alt="등급 모드 — 초록·노랑·빨강으로 칠해진 서울 지도"
-                data-on={mode === "grade"}
-                loading="lazy"
-                width={1010}
-                height={758}
-              />
-              <img
-                src="/shots/mode-commute.jpg"
-                alt="통근시간 모드 — 파랑 농담으로 칠해진 서울 지도"
-                data-on={mode === "commute"}
-                loading="lazy"
-                width={1010}
-                height={758}
-              />
+              {MODE_SHOTS.map((s) => (
+                <picture key={s.mode}>
+                  <source
+                    type="image/webp"
+                    srcSet={`/shots/mode-${s.mode}-sm.webp 1000w, /shots/mode-${s.mode}.webp 1800w`}
+                    sizes="(max-width: 880px) calc(100vw - 40px), 840px"
+                  />
+                  <img
+                    src={`/shots/mode-${s.mode}.jpg`}
+                    alt={s.alt}
+                    data-on={mode === s.mode}
+                    loading="lazy"
+                    decoding="async"
+                    width={1800}
+                    height={1350}
+                  />
+                </picture>
+              ))}
             </div>
 
             <div className="legend shot-legend">
@@ -664,6 +666,18 @@ const ROUTE_LEGS = [
   { kind: "transfer", min: 5, text: "신논현역 환승 · 9호선 → 신분당선" },
   { kind: "ride", min: 1, text: "신분당선 1정거장 · 신논현 → 강남" },
 ];
+
+/*
+ * 지도 색 기준 두 가지를 보여주는 스크린샷 한 쌍.
+ *
+ * **같은 화면에서 mode 만 바꿔 찍은 것**이라 프레이밍이 정확히 겹친다.
+ * 전환할 때 지도가 흔들리지 않고 색만 바뀌어야 두 모드의 차이가 보인다.
+ * (강남역 목적지 · 통근 45분 · 가중치 35/30/35 기준)
+ */
+const MODE_SHOTS = [
+  { mode: "grade", alt: "등급 모드 — 초록·노랑·빨강으로 칠해진 서울 지도" },
+  { mode: "commute", alt: "통근시간 모드 — 강남역에서 멀어질수록 옅어지는 파랑 지도" },
+] as const;
 
 /*
  * 히어로 아래 숫자 띠.

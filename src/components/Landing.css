@@ -26,6 +26,14 @@
 .landing {
   height: 100%;
   overflow-y: auto;
+  /*
+   * 실행 화면 섹션이 100vw 기준으로 본문 폭 밖까지 넓어진다. 그런데 100vw 는
+   * 세로 스크롤바 폭을 포함하므로, 스크롤바가 자리를 차지하는 환경(윈도우)
+   * 에서는 그만큼 넘쳐 가로 스크롤이 생긴다. clip 으로 잘라둔다 —
+   * hidden 과 달리 clip 은 이 요소를 스크롤 컨테이너로 만들지 않아
+   * overflow-y: auto 와 같이 써도 세로 스크롤이 안 망가진다.
+   */
+  overflow-x: clip;
   overscroll-behavior: contain;
   background: var(--bg);
   scroll-behavior: smooth;
@@ -705,19 +713,28 @@
 }
 
 /*
- * 원본이 1010px 캡처라 폭을 다 채우면 고해상도 화면에서 늘어나 흐려진다.
- * 표시 폭을 원본의 6할 아래로 묶어 레티나에서도 선명하게 둔다.
- * (지도는 MapLibre 가 WebGL 캔버스로 그려 SVG 로는 못 뽑는다 — 그래서
- *  글씨가 많은 패널만 실제 마크업으로 옮기고 지도는 래스터로 남겼다.)
+ * 예전에는 원본이 1010px 캡처라 표시 폭을 600px 로 묶어 두었다. 지금은
+ * MapLibre 캔버스에서 3127px 로 직접 뽑아 쓰므로 본문 폭을 다 채워도
+ * 레티나에서 선명하다.
+ * (지도는 WebGL 캔버스라 SVG 로는 못 뽑는다 — 그래서 글씨가 많은 패널만
+ *  실제 마크업으로 옮기고 지도는 래스터로 남겼다.)
  */
 .shot-stack {
   position: relative;
-  max-width: 600px;
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--border);
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.28);
   line-height: 0;
+}
+
+/*
+ * <picture> 를 레이아웃에서 지운다. 아래 규칙들이 .shot-stack 을 기준으로
+ * img 를 겹쳐 놓는데, picture 가 중간에 상자로 끼면 inset:0 이 엉뚱한
+ * 기준을 잡는다.
+ */
+.shot-stack picture {
+  display: contents;
 }
 
 .shot-stack img {
