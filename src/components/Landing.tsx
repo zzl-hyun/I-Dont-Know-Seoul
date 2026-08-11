@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import "./Landing.css";
 import DestinationSearch from "./DestinationSearch";
 import type { Theme } from "./MapView";
 import type { Destination } from "../types";
