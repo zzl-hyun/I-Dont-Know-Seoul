@@ -371,8 +371,8 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
         지역에 대한 가치판단이 아닙니다. 통근시간은 지하철 기준 추정치로 실제
         소요시간과 다를 수 있습니다.
         <br />
-        경계 © 통계청 SGIS · 지하철·POI © OpenStreetMap contributors · 월세 ©
-        국토교통부 실거래가
+        경계 © 통계청 SGIS · 지하철·버스 정류장 © OpenStreetMap contributors ·
+        상가업소 © 소상공인시장진흥공단 · 월세 © 국토교통부 실거래가
       </p>
     </div>
   );
