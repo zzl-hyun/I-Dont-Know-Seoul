@@ -110,7 +110,7 @@ export interface DongRawMetrics {
   rentSamples: number;
   /** CCTV 밀도 (대/km²) */
   cctvPerKm2: number | null;
-  /** 유흥·단란주점 밀도 (개/km²) */
+  /** 일반·무도 유흥주점 밀도 (개/km²) */
   nightlifePerKm2: number | null;
   /** 자치구 5대범죄 발생 (건/천명) — 경찰서 단위라 구 해상도가 한계 */
   crimePer1k: number | null;

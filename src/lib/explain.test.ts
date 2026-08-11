@@ -162,9 +162,12 @@ describe("교통 접근성 — 지하철 + 버스", () => {
 });
 
 describe("동점 때문에 백분위가 뭉치는 것을 설명할 수 있다", () => {
-  it("신림동: 유흥업소 0개인데 그 지표 백분위가 100점이 아닌 이유가 드러난다", () => {
-    const { score } = dongByName("관악구", "신림동");
-    expect(score.raw.nightlifePerKm2).toBe(0);
+  it("유흥업소 0개인 동도 동점 평균 순위 때문에 100점이 아니다", () => {
+    const zeroDong = bundle.dongs.find(
+      (d) => bundle.scores[d.code].raw.nightlifePerKm2 === 0
+    );
+    expect(zeroDong, "유흥업소 0개인 동이 없음").toBeDefined();
+    const score = bundle.scores[zeroDong!.code];
 
     const dist = dists.get("nightlifePerKm2")!;
     const tied = sameValueShare(dist, 0);
@@ -179,6 +182,15 @@ describe("동점 때문에 백분위가 뭉치는 것을 설명할 수 있다", 
     // 치안 축 자체는 유흥업소·5대범죄·교통사고 세 지표의 가중합이라 이
     // 지표 백분위 하나와 축 점수가 같지 않다 — 그건 위 "축 점수가 하위
     // 지표 백분위의 가중합과 일치한다" 테스트가 이미 모든 동에 대해 검증한다.
+  });
+
+  it("유흥업소 밀도는 427개 동에서 유효한 비음수 값이다", () => {
+    const values = bundle.dongs.map(
+      (d) => bundle.scores[d.code].raw.nightlifePerKm2
+    );
+    expect(values).toHaveLength(427);
+    expect(values.every((v) => typeof v === "number" && Number.isFinite(v) && v >= 0)).toBe(true);
+    expect(values.filter((v) => (v ?? 0) > 0).length).toBeGreaterThan(200);
   });
 });
 

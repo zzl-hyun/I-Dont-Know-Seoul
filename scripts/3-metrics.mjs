@@ -6,8 +6,8 @@
  * 지표별 출처와 키 필요 여부:
  *
  *   편의점·마트, 음식점, 병원·약국      소상공인 상가업소  DATA_GO_KR_KEY 필요 (API별 활용신청)
+ *   유흥업소 밀도                      소상공인 상가업소  같은 캐시 사용
  *   버스 정류장 밀도                   OSM Overpass    키 불필요 ✔
- *   유흥업소 밀도                      OSM Overpass    키 불필요 ✔
  *   최근접역 도보시간                  자체 그래프      키 불필요 ✔
  *   CCTV 밀도                         서울 열린데이터   SEOUL_OPEN_DATA_KEY 필요(원 데이터셋 폐기로 현재 비활성)
  *   5대범죄 (자치구)                   경찰청+행안부    키 불필요 (data/raw/ CSV 스냅샷)
@@ -24,6 +24,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { haversineM, pointInGeometry, bbox, walkMinutes } from "./lib/geo.mjs";
+import { isSbizNightlifeClass } from "./lib/sbiz.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -60,34 +61,23 @@ const OVERPASS_MIRRORS = [
   "https://overpass.private.coffee/api/interpreter",
 ];
 
-/**
- * POI 분류.
- *
- * OSM 서울 커버리지 실측: 편의점 7,132개(실제 약 9,000개의 79%),
- * 음식점 42,797개. 절대 개수는 실제보다 적지만 모든 지표를 동 간
- * **백분위**로 환산해 쓰므로, 커버리지가 지역에 고르게 분포하는 한
- * 상대 비교에는 문제가 없다.
- *
- * 다만 매핑 활동이 활발한 지역(홍대·이태원 등)이 과대 대표될 수 있다는
- * 편향은 남는다. 이건 4-score.mjs 의 출처 표기와 UI 면책 문구로 알린다.
- */
 /*
- * OSM 에서 남긴 것은 유흥업소와 버스 정류장 뿐이다.
+ * OSM POI에서 남긴 것은 버스 정류장뿐이다.
  *
- * 편의점·음식점·의료는 소상공인시장진흥공단 상가업소 데이터로 **교체**했다.
+ * 편의점·음식점·의료·유흥업소는 소상공인시장진흥공단 상가업소 데이터로
+ * **교체**했다.
  * OSM 이 실제의 7~22% 만 잡는 데다, 빠지는 방식이 무작위가 아니라서다 —
  * 동별 밀도 순위 상관이 ρ 0.42~0.62 밖에 안 나왔다. 즉 "개수만 적고 순위는
  * 같다"가 아니라 순위 자체가 달랐다. 매핑이 드문 오래된 주거지(신길·구로4동·
  * 가리봉동 등)가 하위권으로 밀려 있었고, 이건 이 서비스의 주 타깃이 찾는
  * 동네다. 자세한 비교는 README "POI 데이터 출처" 참고.
  *
- * 버스 정류장은 상가업소가 아니라 대체 불가. 유흥업소는 축이 달라(치안)
- * 교체 여부를 따로 판단한다.
+ * 유흥업소도 별도 검증에서 OSM과 소상공인 데이터의 동별 순위 상관이
+ * ρ 0.3892에 그쳤다. 소상공인 `일반·무도 유흥 주점` 2,484곳은 행정동에
+ * 전부 배정됐지만 OSM `bar/pub/nightclub`은 1,663곳 중 1,280곳만 서울 경계에
+ * 배정됐다. 버스 정류장은 상가업소가 아니라 OSM을 유지한다.
  */
 const POI_GROUPS = {
-  nightlife: {
-    amenity: ["bar", "pub", "nightclub"],
-  },
   /*
    * 버스 정류장 (서울 약 14,600개).
    *
@@ -148,12 +138,12 @@ async function main() {
   }
   console.log(`  POI ${pois.length.toLocaleString()}개 중 ${assigned.toLocaleString()}개를 행정동에 배정 (서울 밖 ${outside.toLocaleString()}개 제외)`);
 
-  /* ---- 1-b. 상가업소 (편의점·음식점·의료) ---- */
+  /* ---- 1-b. 상가업소 (편의점·음식점·의료·유흥업소) ---- */
   console.log("\n[1b/6] 소상공인 상가업소...");
   const sbizKey = process.env.DATA_GO_KR_KEY;
   if (!sbizKey) {
     throw new Error(
-      "DATA_GO_KR_KEY 가 없습니다. 편의·음식·의료 지표가 이 데이터로 계산되므로 건너뛸 수 없습니다.\n" +
+      "DATA_GO_KR_KEY 가 없습니다. 편의·음식·의료·유흥업소 지표가 이 데이터로 계산되므로 건너뛸 수 없습니다.\n" +
       "  https://www.data.go.kr/data/15012005/openapi.do 에서 활용신청(자동승인) 후 .env 에 키를 넣으세요."
     );
   }
@@ -201,7 +191,7 @@ async function main() {
    *   - OSM man_made=surveillance: 서울 875개. 실제 공공 CCTV 약 8만대의 1% —
    *     밀도 비교에 쓰면 지역 간 차이가 매핑 활동 편차를 반영할 뿐이다.
    *
-   * 따라서 치안 축은 유흥업소 밀도만으로 계산한다. 새 출처가 생기면
+   * 따라서 치안 축은 유흥업소·5대범죄·교통사고로 계산한다. 새 출처가 생기면
    * counts.get(code).cctv 를 채우고 cctvOk 를 true 로 만들면 된다.
    */
   const cctvOk = false;
@@ -302,8 +292,8 @@ async function main() {
         version: new Date().toISOString().slice(0, 10),
         generatedAt: new Date().toISOString(),
         sources: {
-          poi: "OpenStreetMap (ODbL) — 유흥업소·버스 정류장",
-          store: "소상공인시장진흥공단 상가업소정보 (공공누리 제1유형) — 편의점·음식점·의료",
+          poi: "OpenStreetMap (ODbL) — 버스 정류장",
+          store: "소상공인시장진흥공단 상가업소정보 (공공누리 제1유형) — 편의점·음식점·의료·유흥업소",
           cctv: cctvOk ? "서울 열린데이터광장" : null,
           crime: crimeByGu.size > 0 ? "경찰청 범죄 발생 지역별 통계 + 행안부 주민등록인구" : null,
           trafficAccident: accidentOk ? "도로교통공단 전국교통사고다발지역표준데이터" : null,
@@ -569,11 +559,16 @@ async function loadTrafficAccidents() {
  * - medical: Q1 보건의료(병원·의원·기타보건) + 약국.
  *   약국은 원 분류상 G215 의약·화장품 **소매**에 있지만, 우리 지표는
  *   "의료 접근성"이라 여기 넣는 게 맞다(OSM 도 pharmacy 를 포함했다).
+ * - nightlife: `I21101 일반 유흥 주점` + `I21102 무도 유흥 주점`만 포함한다.
+ *   `I21103 생맥주 전문`과 `I21104 요리 주점`까지 치안 감점하면 일반 술집을
+ *   과도하게 낙인찍으므로 제외한다. food에서는 기존대로 I211 전체를 빼서
+ *   같은 업소를 편의에서 가점하고 치안에서 감점하는 이중 계산을 막는다.
  */
 const SBIZ_GROUPS = {
   store: (c) => c.startsWith("G204"),
   food: (c) => c.startsWith("I2") && !c.startsWith("I211"),
   medical: (c) => c.startsWith("Q1") || c === "G21501",
+  nightlife: isSbizNightlifeClass,
 };
 
 const SBIZ_BASE = "https://apis.data.go.kr/B553077/api/open/sdsc2/storeListInDong";
