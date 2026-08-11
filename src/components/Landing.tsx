@@ -747,7 +747,7 @@ const SHOT_MARKS = [
   },
 ];
 
-/* README 8-15행의 기능 목록을 그대로 옮긴 것 */
+/* README 상단의 기능 목록을 그대로 옮긴 것 */
 const FEATURES = [
   {
     title: "427개 행정동 등급화",

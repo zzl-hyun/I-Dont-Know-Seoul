@@ -15,7 +15,7 @@ import { LINE_COLOR, lineName, type SubwayLayers } from "../lib/subwayLines";
  *
  * MapLibre GL JS(오픈소스) + CARTO 무료 베이스맵(OSM 기반). 키가 필요 없어
  * 바로 동작한다. 한국어 라벨 품질을 더 올리려면 VWorld 타일로 교체할 수 있는데,
- * 그쪽은 인증키 발급 + 도메인 등록이 필요하다 (README 참고).
+ * 그쪽은 인증키 발급 + 도메인 등록이 필요하다 (docs/development.md 참고).
  */
 const BASE_STYLE = {
   dark: "https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json",

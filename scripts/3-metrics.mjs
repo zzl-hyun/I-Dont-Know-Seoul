@@ -70,7 +70,7 @@ const OVERPASS_MIRRORS = [
  * 동별 밀도 순위 상관이 ρ 0.42~0.62 밖에 안 나왔다. 즉 "개수만 적고 순위는
  * 같다"가 아니라 순위 자체가 달랐다. 매핑이 드문 오래된 주거지(신길·구로4동·
  * 가리봉동 등)가 하위권으로 밀려 있었고, 이건 이 서비스의 주 타깃이 찾는
- * 동네다. 자세한 비교는 README "POI 데이터 출처" 참고.
+ * 동네다. 자세한 비교는 docs/data.md "상가 POI는 왜 OSM을 안 쓰는가" 참고.
  *
  * 유흥업소도 별도 검증에서 OSM과 소상공인 데이터의 동별 순위 상관이
  * ρ 0.3892에 그쳤다. 소상공인 `일반·무도 유흥 주점` 2,484곳은 행정동에
@@ -312,7 +312,7 @@ async function main() {
   console.log(`  수집된 지표: ${available.join(", ")}`);
   if (missing.length) {
     console.log(`  미수집 지표: ${missing.join(", ")}`);
-    console.log(`  → API 키를 설정하면 채워집니다 (README 참고)`);
+    console.log(`  → API 키를 설정하면 채워집니다 (docs/development.md 참고)`);
   }
 }
 
