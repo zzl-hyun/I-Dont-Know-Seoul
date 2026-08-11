@@ -8,18 +8,52 @@
  * 표본: 통근 모델이 실제로 평가하는 (동 대표점 → 반경 1.5km 내 후보역) 쌍.
  *   — 임의의 두 점이 아니라 모델이 쓰는 그 쌍이어야 보정이 의미가 있다.
  *
- * 한계(결과 해석 시 반드시 감안할 것):
- *   OSM 도로 중심선을 따라 잰다. 서울은 인도(sidewalk)가 별도 way 로
- *   충분히 매핑돼 있지 않아서, 횡단보도를 찾아 돌아가는 우회가 빠진다.
- *   따라서 여기서 나온 값은 실제의 **하한**이다.
+ * 데이터 소스가 두 개다. `npm run data:calibrate-walk -- --source=seoul` 로 고른다.
+ *
+ *   osm    (기본) OSM 도로 중심선. 키 불필요.
+ *          한계: 서울은 인도(sidewalk)가 별도 way 로 충분히 매핑돼 있지 않아
+ *          횡단보도를 찾아 돌아가는 우회가 빠진다. 결과는 실제의 **하한**이다.
+ *   seoul  서울시 도보 네트워크(TbTraficWlkNet). SEOUL_OPEN_DATA_KEY 필요.
+ *          보행 전용으로 만들어진 망이라 횡단보도·육교·지하철 통로·건물 내
+ *          통로가 링크로 들어있다. osm 의 하한 편향을 검증하는 용도.
+ *
+ * 두 소스를 같은 엔진·같은 표본으로 재야 비교가 성립하므로 스크립트를 나누지
+ * 않았다.
  */
 import { mkdir, readFile, writeFile, stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { haversineM } from "./lib/geo.mjs";
+import { haversineM, WALK_DETOUR_FACTOR } from "./lib/geo.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+/** .env 에서 키를 읽는다 (--source=seoul 에만 필요). 셸 값이 있으면 그쪽 우선. */
+async function loadEnv() {
+  let text;
+  try { text = await readFile(join(ROOT, ".env"), "utf8"); } catch { return; }
+  for (const line of text.split("\n")) {
+    const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
+    if (!m || process.env[m[1]]) continue;
+    process.env[m[1]] = m[2].replace(/^["']|["']$/g, "");
+  }
+}
+await loadEnv();
 const TILE_DIR = join(ROOT, "data/raw/walk-tiles");
+const SEOUL_DIR = join(ROOT, "data/raw/walk-net-seoul");
+
+/** --source=osm | seoul */
+const SOURCE = (process.argv.find((a) => a.startsWith("--source="))?.split("=")[1] ?? "osm");
+if (!["osm", "seoul"].includes(SOURCE)) {
+  console.error(`알 수 없는 --source=${SOURCE} (osm | seoul)`);
+  process.exit(1);
+}
+
+/** 서울시 도보 네트워크 — 한 번에 1000행까지, 총 49만행 → 약 492회 */
+const SEOUL_API = "http://openapi.seoul.go.kr:8088";
+const SEOUL_SERVICE = "TbTraficWlkNet";
+const SEOUL_PAGE = 1000;
+/** 한 캐시 파일에 담을 페이지 수. 중간에 끊겨도 받은 만큼은 남는다. */
+const SEOUL_BATCH_PAGES = 20;
 
 const OVERPASS_MIRRORS = [
   "https://overpass-api.de/api/interpreter",
@@ -30,7 +64,8 @@ const OVERPASS_MIRRORS = [
 /** 모델과 같은 값을 써야 표본이 일치한다 (src/lib/constants.ts) */
 const RADIUS_M = 1500;
 const MAX_NEARBY = 6;
-const CURRENT_FACTOR = 1.3;
+/** 지금 쓰고 있는 값. 여기 숫자를 다시 적으면 상수를 바꿀 때 이쪽만 남는다. */
+const CURRENT_FACTOR = WALK_DETOUR_FACTOR;
 
 /** 타일 한 변(도). 0.06°≈6.6km — 한 타일 응답이 대략 5~10MB 로 떨어진다. */
 const TILE_DEG = 0.06;
@@ -51,20 +86,28 @@ async function main() {
   const dongs = JSON.parse(await readFile(join(ROOT, "data/dist/dong-meta.json"), "utf8")).dongs;
   const stations = JSON.parse(await readFile(join(ROOT, "data/dist/subway-graph.json"), "utf8")).stations;
 
-  console.log("[1/4] 필요한 타일 계산...");
-  const tiles = planTiles(dongs);
-  console.log(`  ${tiles.length}개 타일 (동 427개 + 반경 ${RADIUS_M}m 를 덮는 범위)`);
+  console.log(`소스: ${SOURCE === "osm" ? "OSM 도로 중심선" : "서울시 도보 네트워크 (TbTraficWlkNet)"}`);
 
-  console.log("[2/4] 보행 도로망 수집 (캐시 우선)...");
-  await mkdir(TILE_DIR, { recursive: true });
-  const graph = await buildGraphFromTiles(tiles);
+  let graph;
+  if (SOURCE === "osm") {
+    console.log("[1/4] 필요한 타일 계산...");
+    const tiles = planTiles(dongs);
+    console.log(`  ${tiles.length}개 타일 (동 427개 + 반경 ${RADIUS_M}m 를 덮는 범위)`);
+    console.log("[2/4] 보행 도로망 수집 (캐시 우선)...");
+    await mkdir(TILE_DIR, { recursive: true });
+    graph = await buildGraphFromTiles(tiles);
+  } else {
+    console.log("[1-2/4] 서울시 도보 네트워크 수집 (캐시 우선)...");
+    await mkdir(SEOUL_DIR, { recursive: true });
+    graph = await buildGraphFromSeoul();
+  }
   console.log(`  노드 ${graph.nodes.count.toLocaleString()} / 링크 ${graph.linkCount.toLocaleString()}`);
 
   console.log("[3/4] 최단 보행거리 측정...");
   const rows = measure(graph, dongs, stations);
 
   // 재분석이 잦다. 그래프를 다시 세우는 데 몇 분이 걸리므로 측정 결과를 떨궈둔다.
-  await writeFile(join(ROOT, "data/raw/walk-calibration-rows.json"), JSON.stringify(rows));
+  await writeFile(join(ROOT, `data/raw/walk-calibration-rows-${SOURCE}.json`), JSON.stringify(rows));
 
   console.log("[4/4] 결과");
   report(rows, dongs.length);
@@ -129,6 +172,117 @@ async function buildGraphFromTiles(tiles) {
     }
   }
   return { nodes: { lat, lng, count: lat.length }, adj, linkCount };
+}
+
+/**
+ * 서울시 도보 네트워크에서 그래프를 만든다.
+ *
+ * 응답 행은 NODE 와 LINK 두 종류인데 **LINK 행이 LINESTRING 전체 좌표를
+ * 갖고 있어서 NODE 행은 안 써도 된다.** OSM 쪽과 똑같이 좌표 문자열을 노드
+ * 키로 삼으면 링크끼리 교차점에서 이어진다.
+ */
+async function buildGraphFromSeoul() {
+  const key = process.env.SEOUL_OPEN_DATA_KEY;
+  if (!key) throw new Error("SEOUL_OPEN_DATA_KEY 가 없습니다 (.env)");
+
+  const nodeKey = new Map();
+  const lat = [], lng = [], adj = [];
+  const seenLink = new Set();
+  let linkCount = 0;
+  const flagTotals = { CRSWK: 0, OVRP: 0, SBWY_NTW: 0, BLDG: 0 };
+
+  const nid = (la, lo) => {
+    const k = `${la.toFixed(7)},${lo.toFixed(7)}`;
+    let i = nodeKey.get(k);
+    if (i === undefined) { i = lat.length; nodeKey.set(k, i); lat.push(la); lng.push(lo); adj.push([]); }
+    return i;
+  };
+
+  const total = await seoulTotalCount(key);
+  const batches = Math.ceil(total / (SEOUL_PAGE * SEOUL_BATCH_PAGES));
+  console.log(`  총 ${total.toLocaleString()}행 · ${batches}개 배치`);
+
+  for (let b = 0; b < batches; b++) {
+    const rows = await seoulBatch(key, b, batches);
+    for (const r of rows) {
+      if (r.NODE_TYPE !== "LINK" || !r.LNKG_WKT) continue;
+      const pts = parseLineString(r.LNKG_WKT);
+      if (pts.length < 2) continue;
+      for (const f of Object.keys(flagTotals)) if (Number(r[f]) === 1) flagTotals[f]++;
+      for (let i = 1; i < pts.length; i++) {
+        const [alo, ala] = pts[i - 1], [blo, bla] = pts[i];
+        const u = nid(ala, alo), v = nid(bla, blo);
+        if (u === v) continue;
+        const lk = u < v ? `${u}:${v}` : `${v}:${u}`;
+        if (seenLink.has(lk)) continue;
+        seenLink.add(lk);
+        const w = haversineM(ala, alo, bla, blo);
+        adj[u].push(v, w); adj[v].push(u, w);
+        linkCount++;
+      }
+    }
+  }
+  console.log(`  링크 속성: 횡단보도 ${flagTotals.CRSWK.toLocaleString()} · 육교 ${flagTotals.OVRP.toLocaleString()} · 지하철통로 ${flagTotals.SBWY_NTW.toLocaleString()} · 건물내 ${flagTotals.BLDG.toLocaleString()}`);
+  return { nodes: { lat, lng, count: lat.length }, adj, linkCount };
+}
+
+/** "LINESTRING(lng lat,lng lat)" → [[lng,lat], ...] */
+function parseLineString(wkt) {
+  const inner = wkt.slice(wkt.indexOf("(") + 1, wkt.lastIndexOf(")"));
+  const out = [];
+  for (const p of inner.split(",")) {
+    const [lo, la] = p.trim().split(/\s+/).map(Number);
+    if (Number.isFinite(lo) && Number.isFinite(la)) out.push([lo, la]);
+  }
+  return out;
+}
+
+async function seoulTotalCount(key) {
+  const j = await seoulGet(`${SEOUL_API}/${key}/json/${SEOUL_SERVICE}/1/1/`);
+  return Number(j[SEOUL_SERVICE]?.list_total_count ?? 0);
+}
+
+/** 배치 단위로 캐시한다 — 일일 호출 한도가 있어 재실행 때 다시 받으면 안 된다. */
+async function seoulBatch(key, b, batches) {
+  const path = join(SEOUL_DIR, `${String(b).padStart(3, "0")}.json`);
+  try {
+    const rows = JSON.parse(await readFile(path, "utf8"));
+    process.stdout.write(`\r  [${b + 1}/${batches}] 캐시   `);
+    return rows;
+  } catch { /* 없으면 받는다 */ }
+
+  const rows = [];
+  for (let p = 0; p < SEOUL_BATCH_PAGES; p++) {
+    const start = (b * SEOUL_BATCH_PAGES + p) * SEOUL_PAGE + 1;
+    const j = await seoulGet(`${SEOUL_API}/${key}/json/${SEOUL_SERVICE}/${start}/${start + SEOUL_PAGE - 1}/`);
+    // 데이터 범위를 넘어가면 서비스명 래퍼 없이 { RESULT: {...} } 만 온다.
+    const body = j[SEOUL_SERVICE] ?? j;
+    const code = body?.RESULT?.CODE;
+    if (code === "INFO-200") break;                    // 데이터 끝
+    if (code !== "INFO-000") throw new Error(`${code} ${body?.RESULT?.MESSAGE ?? ""}`);
+    // 우리가 쓰는 필드만 남긴다 — 23개 필드를 다 들면 메모리가 튄다
+    for (const r of body.row ?? []) {
+      if (r.NODE_TYPE !== "LINK") continue;
+      rows.push({ NODE_TYPE: "LINK", LNKG_WKT: r.LNKG_WKT,
+        CRSWK: r.CRSWK, OVRP: r.OVRP, SBWY_NTW: r.SBWY_NTW, BLDG: r.BLDG });
+    }
+  }
+  await writeFile(path, JSON.stringify(rows));
+  process.stdout.write(`\r  [${b + 1}/${batches}] ${rows.length}링크   `);
+  return rows;
+}
+
+async function seoulGet(url, attempt = 0) {
+  try {
+    const res = await fetch(url, { signal: AbortSignal.timeout(60_000) });
+    const text = await res.text();
+    if (!text.startsWith("{")) throw new Error(`JSON 이 아님: ${text.slice(0, 120)}`);
+    return JSON.parse(text);
+  } catch (e) {
+    if (attempt >= 3) throw e;
+    await new Promise((r) => setTimeout(r, 800 * 2 ** attempt));
+    return seoulGet(url, attempt + 1);
+  }
 }
 
 async function fetchTile(tile, n, total) {
@@ -285,7 +439,7 @@ function report(rows, dongCount) {
   const s = summarize(ratios);
   const totalRatio = rows.reduce((a, r) => a + r.walk, 0) / rows.reduce((a, r) => a + r.straight, 0);
 
-  console.log(`\n  실제 보행거리 ÷ 직선거리  (n=${s.n}, 동 ${dongCount}개 기준)`);
+  console.log(`\n  실제 보행거리 ÷ 직선거리  (n=${s.n}, 동 ${dongCount}개 기준, 소스 ${SOURCE})`);
   console.log(`    평균 ${s.mean.toFixed(3)}   중앙 ${s.median.toFixed(3)}`);
   console.log(`    p10 ${s.p10.toFixed(3)} / p25 ${s.p25.toFixed(3)} / p75 ${s.p75.toFixed(3)} / p90 ${s.p90.toFixed(3)}`);
   console.log(`    총거리 기준(Σ보행÷Σ직선) ${totalRatio.toFixed(3)}   ← 단일 계수로 총 도보거리를 맞추는 값`);

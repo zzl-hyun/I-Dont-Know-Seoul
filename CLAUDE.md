@@ -49,9 +49,10 @@
 캘리브레이션되어 있고, 스팟체크 7개가 ±25% 안에 들어야 합니다.
 
 `WALK_DETOUR_FACTOR` 는 **서울 보행 도로망 실측값(1.4)** 입니다. 감으로 찍은
-값이 아니니 근거 없이 되돌리지 마세요. `npm run data:calibrate-walk` 가 OSM
-보행 도로망(노드 89.7만) 위에서 1,686쌍을 재서 뽑습니다 — 근거는
-`src/lib/constants.ts` 주석에 있습니다. **이 값은 `scripts/lib/geo.mjs` 에도
+값이 아니니 근거 없이 되돌리지 마세요. `npm run data:calibrate-walk` (OSM,
+키 불필요) 또는 `-- --source=seoul` (서울시 공식망, `SEOUL_OPEN_DATA_KEY`
+필요)로 재현합니다. 두 소스로 교차검증했고 결과가 1.397 대 1.418로 1.5%p
+차이라 1.4를 유지했습니다 — 근거는 `src/lib/constants.ts` 주석에 있습니다. **이 값은 `scripts/lib/geo.mjs` 에도
 복제돼 있습니다**(.mjs 가 TS 를 못 읽어서). 한쪽만 바꾸면 화면 통근시간과
 "최근접역 도보" 지표가 서로 다른 계수로 계산되는데 둘 다 그럴듯해서 눈으로는
 못 잡습니다 — `commute.test.ts` 의 "도보 모델 상수가 앱과 파이프라인에서
@@ -185,14 +186,17 @@ npm run typecheck
 npm run cf:deploy   # 빌드 + 배포
 npm run data:seed   # KV 스냅샷 갱신 (데이터만 바뀐 경우 이것만)
 
-npm run data:calibrate-walk   # WALK_DETOUR_FACTOR 실측 (일회성, 파이프라인 아님)
+npm run data:calibrate-walk                      # WALK_DETOUR_FACTOR 실측 — OSM (일회성, 파이프라인 아님)
+npm run data:calibrate-walk -- --source=seoul    # 같은 측정을 서울시 공식망으로 교차검증
 ```
 
-`data:calibrate-walk` 는 Overpass 에서 보행 도로망 33타일(약 310MB)을
-`data/raw/walk-tiles/` 에 캐시합니다. 두 번째 실행부터 네트워크를 안 씁니다.
-결과는 사람이 읽고 `src/lib/constants.ts` 에 옮겨 적습니다 — 자동 반영하지
-않습니다. 계수가 바뀌면 통근시간 분포가 통째로 움직여서, 눈으로 보고
-결정할 문제이기 때문입니다.
+`data:calibrate-walk` 는 기본으로 Overpass 에서 보행 도로망 33타일(약 310MB)을
+`data/raw/walk-tiles/` 에 캐시합니다. `--source=seoul` 은 서울시 열린데이터광장
+`TbTraficWlkNet`(49만 행)을 `data/raw/walk-net-seoul/` 에 캐시합니다 — 이쪽은
+호출 한도가 있으니 재실행 전에 캐시부터 확인하세요. 두 소스 모두 두 번째
+실행부터 네트워크를 안 씁니다. 결과는 사람이 읽고 `src/lib/constants.ts` 에
+옮겨 적습니다 — 자동 반영하지 않습니다. 계수가 바뀌면 통근시간 분포가 통째로
+움직여서, 눈으로 보고 결정할 문제이기 때문입니다.
 
 데이터 파이프라인은 `1-boundaries → 2-subway → 3-metrics → 4-score` 순서이며,
 각 스크립트가 자체 검증을 내장하고 실패 시 종료 코드 1을 반환합니다.
