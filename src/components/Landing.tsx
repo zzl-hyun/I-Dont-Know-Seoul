@@ -49,7 +49,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
     <div className="landing">
       {/* ---------------- 히어로 ---------------- */}
       <header className="hero">
-        <div className="hero-bg" />
+        <HeroImage priority />
         <div className="hero-scrim" />
 
         <div className="hero-nav">
@@ -357,7 +357,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
 
       {/* ---------------- 마무리 ---------------- */}
       <section className="landing-cta">
-        <div className="hero-bg cta-bg" />
+        <HeroImage className="cta-bg" />
         <div className="hero-scrim" />
         <div className="cta-body">
           <h2>어디로 출근하세요?</h2>
@@ -380,6 +380,50 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
 }
 
 /* ------------------------------------------------------------------ */
+
+/**
+ * 히어로·마무리 CTA 의 배경 지도.
+ *
+ * CSS `background-image` 가 아니라 **진짜 `<img>`** 를 쓴다. 배경으로 두면
+ * 브라우저가 화면 폭에 맞는 파일을 고를 수단이 없어서, 휴대폰에도 2000px
+ * 짜리를 그대로 내려받게 된다. `srcset` 을 쓰려면 이미지여야 한다.
+ *
+ * 히어로 배경은 첫 화면에서 가장 큰 요소(LCP)라 `fetchpriority="high"` 로
+ * 우선순위를 올린다. 반대로 CTA 쪽은 스크롤을 한참 내려야 나오므로
+ * `loading="lazy"` 로 미룬다.
+ *
+ * alt 를 비워둔 건 장식이기 때문이다 — 이 사진이 전하는 내용은 바로 옆
+ * h1 과 등급 범례가 글로 이미 말하고 있어서, 읽어주면 중복이 된다.
+ */
+function HeroImage({
+  priority = false,
+  className = "",
+}: {
+  priority?: boolean;
+  className?: string;
+}) {
+  return (
+    <div className={`hero-bg ${className}`.trim()}>
+      <picture>
+        <source
+          type="image/webp"
+          srcSet="/shots/hero-map-sm.webp 1100w, /shots/hero-map.webp 2000w"
+          sizes="100vw"
+        />
+        {/* webp 를 못 읽는 브라우저용 폴백. 폴백이므로 해상도를 낮게 잡았다 */}
+        <img
+          src="/shots/hero-map.jpg"
+          alt=""
+          width={2000}
+          height={1164}
+          decoding="async"
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "low"}
+        />
+      </picture>
+    </div>
+  );
+}
 
 /**
  * 스크롤해서 화면에 들어오면 한 번 나타난다.
