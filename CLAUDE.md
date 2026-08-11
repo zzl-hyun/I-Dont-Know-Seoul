@@ -47,6 +47,16 @@
 바꾸면 **반드시 `npm test`** 를 돌리세요. 2호선 순환 일주 87분을 앵커로
 캘리브레이션되어 있고, 스팟체크 7개가 ±25% 안에 들어야 합니다.
 
+`WALK_DETOUR_FACTOR` 는 **서울 보행 도로망 실측값(1.4)** 입니다. 감으로 찍은
+값이 아니니 근거 없이 되돌리지 마세요. `npm run data:calibrate-walk` 가 OSM
+보행 도로망(노드 89.7만) 위에서 1,686쌍을 재서 뽑습니다 — 근거는
+`src/lib/constants.ts` 주석에 있습니다. **이 값은 `scripts/lib/geo.mjs` 에도
+복제돼 있습니다**(.mjs 가 TS 를 못 읽어서). 한쪽만 바꾸면 화면 통근시간과
+"최근접역 도보" 지표가 서로 다른 계수로 계산되는데 둘 다 그럴듯해서 눈으로는
+못 잡습니다 — `commute.test.ts` 의 "도보 모델 상수가 앱과 파이프라인에서
+같다" 가 이걸 막습니다. 바꾸면 `npm run data:metrics && npm run data:score`
+까지 다시 돌려야 지표가 따라옵니다.
+
 `WALK_SELECTION_WEIGHT` 는 예외입니다 — 역 **선택**(어느 역에서 타고 내릴지)
 비교에만 쓰이고, 화면에 나오는 총 소요시간·구간 텍스트는 항상 가중치 없는
 실측값입니다(`src/lib/dijkstra.ts` 의 `dist`=선택용 / `real`=실측용 분리).
@@ -162,11 +172,19 @@ URL이 틀렸다는 신호가 아니라 그 API만 활용신청이 안 됐다는
 
 ```bash
 npm run cf:dev      # Worker + 정적자산 통합 → localhost:8787 (실환경에 가장 가까움)
-npm test            # 64개 — 통근 정확도 / 등급 설명 / 노선도 / URL 공유
+npm test            # 75개 — 통근 정확도 / 등급 설명 / 노선도 / URL 공유
 npm run typecheck
 npm run cf:deploy   # 빌드 + 배포
 npm run data:seed   # KV 스냅샷 갱신 (데이터만 바뀐 경우 이것만)
+
+npm run data:calibrate-walk   # WALK_DETOUR_FACTOR 실측 (일회성, 파이프라인 아님)
 ```
+
+`data:calibrate-walk` 는 Overpass 에서 보행 도로망 33타일(약 310MB)을
+`data/raw/walk-tiles/` 에 캐시합니다. 두 번째 실행부터 네트워크를 안 씁니다.
+결과는 사람이 읽고 `src/lib/constants.ts` 에 옮겨 적습니다 — 자동 반영하지
+않습니다. 계수가 바뀌면 통근시간 분포가 통째로 움직여서, 눈으로 보고
+결정할 문제이기 때문입니다.
 
 데이터 파이프라인은 `1-boundaries → 2-subway → 3-metrics → 4-score` 순서이며,
 각 스크립트가 자체 검증을 내장하고 실패 시 종료 코드 1을 반환합니다.

@@ -4,7 +4,8 @@ import { join } from "node:path";
 import type { SubwayGraph, DongMeta } from "../types";
 import { multiSourceDijkstra } from "./dijkstra";
 import { computeCommute, computeMultiCommute, buildRoute } from "./commute";
-import { FIRST_WAIT_MIN } from "./constants";
+import { FIRST_WAIT_MIN, WALK_DETOUR_FACTOR, WALK_SPEED_M_PER_MIN } from "./constants";
+import * as pipelineGeo from "../../scripts/lib/geo.mjs";
 
 const graph: SubwayGraph = JSON.parse(
   readFileSync(join(__dirname, "../../data/dist/subway-graph.json"), "utf8")
@@ -140,6 +141,27 @@ describe("동별 통근 계산", () => {
     const r = result.get(sillim!.code)!;
     expect(r.totalMin).not.toBeNull();
     expect(r.totalMin!).toBeLessThan(40);
+  });
+});
+
+describe("도보 모델 상수가 앱과 파이프라인에서 같다", () => {
+  /*
+   * 도보 보정 계수는 두 곳에 있다 — src/lib/constants.ts(앱)와
+   * scripts/lib/geo.mjs(파이프라인). .mjs 스크립트가 TS 모듈을 못 읽어서
+   * 어쩔 수 없이 복제한 값이다.
+   *
+   * 한쪽만 바꾸면 화면의 통근시간과 "최근접역 도보" 지표가 서로 다른 계수로
+   * 계산되는데, 둘 다 그럴듯한 숫자라 눈으로는 못 잡는다. 여기서 막는다.
+   */
+  it("보정 계수와 도보 속도가 일치한다", () => {
+    expect(pipelineGeo.WALK_DETOUR_FACTOR).toBe(WALK_DETOUR_FACTOR);
+    expect(pipelineGeo.WALK_SPEED_M_PER_MIN).toBe(WALK_SPEED_M_PER_MIN);
+  });
+
+  it("도보시간 계산식이 일치한다", () => {
+    for (const m of [0, 120, 530, 1500]) {
+      expect(pipelineGeo.walkMinutes(m)).toBeCloseTo((m * WALK_DETOUR_FACTOR) / WALK_SPEED_M_PER_MIN, 10);
+    }
   });
 });
 

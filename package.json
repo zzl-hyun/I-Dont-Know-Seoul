@@ -14,6 +14,7 @@
     "data:metrics": "node scripts/3-metrics.mjs",
     "data:score": "node scripts/4-score.mjs",
     "data:seed": "node scripts/5-seed-kv.mjs",
+    "data:calibrate-walk": "node --max-old-space-size=6144 scripts/calibrate-walk.mjs",
     "test": "vitest run",
     "typecheck": "tsc -b --noEmit"
   },

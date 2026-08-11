@@ -3,6 +3,19 @@
 const EARTH_R = 6371008.8; // m
 const toRad = (d) => (d * Math.PI) / 180;
 
+/**
+ * 도보 모델 상수 — src/lib/constants.ts 의 값과 **반드시 같아야 한다.**
+ * 파이프라인(.mjs)이 TS 모듈을 못 읽어서 어쩔 수 없이 복제한 값이다.
+ * 한쪽만 바꾸면 화면의 통근시간과 "최근접역 도보" 지표가 조용히 어긋난다.
+ */
+export const WALK_SPEED_M_PER_MIN = 67;
+export const WALK_DETOUR_FACTOR = 1.4;
+
+/** 직선거리(m) → 도보 소요시간(분). src/lib/geo.ts 의 walkMinutes 와 같다. */
+export function walkMinutes(straightM) {
+  return (straightM * WALK_DETOUR_FACTOR) / WALK_SPEED_M_PER_MIN;
+}
+
 /** 두 좌표 사이 대권거리 (m) */
 export function haversineM(lat1, lng1, lat2, lng2) {
   const dLat = toRad(lat2 - lat1);

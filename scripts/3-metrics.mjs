@@ -22,7 +22,7 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { haversineM, pointInGeometry, bbox } from "./lib/geo.mjs";
+import { haversineM, pointInGeometry, bbox, walkMinutes } from "./lib/geo.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -155,8 +155,9 @@ async function main() {
       const dist = haversineM(d.lat, d.lng, s.lat, s.lng);
       if (dist < best) best = dist;
     }
-    // src/lib/constants.ts 와 동일한 보정: 직선거리 × 1.3 ÷ 67 m/분
-    walkMin.set(d.code, (best * 1.3) / 67);
+    // 보정 계수는 geo.mjs 한 곳에서만 정의한다 — 여기 숫자를 다시 적으면
+    // 상수를 바꿀 때 이쪽만 남아 지표와 모델이 어긋난다.
+    walkMin.set(d.code, walkMinutes(best));
   }
   const walkVals = [...walkMin.values()].sort((a, b) => a - b);
   console.log(`  중앙값 ${walkVals[Math.floor(walkVals.length / 2)].toFixed(1)}분 · 최대 ${walkVals.at(-1).toFixed(1)}분`);
