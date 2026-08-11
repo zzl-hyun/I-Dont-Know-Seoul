@@ -62,6 +62,19 @@ const SEOUL_BOUNDS: [[number, number], [number, number]] = [
 
 export type MapMode = "grade" | "commute";
 
+/**
+ * 통근 경로를 이루는 선분 하나.
+ *
+ * 지하철과 도보를 나눠 넘기는 이유: MapLibre 의 line-dasharray 는
+ * data-driven 표현식을 못 받아서 한 레이어 안에서 점선 모양을 구간별로
+ * 다르게 줄 수 없다. 그래서 kind 를 피처 속성으로 싣고 레이어를 갈라
+ * filter 로 나눠 그린다.
+ */
+export interface RouteSegment {
+  kind: "ride" | "walk";
+  coords: Array<[number, number]>;
+}
+
 export interface DongView {
   grade: Grade;
   score: number;
@@ -91,8 +104,8 @@ interface Props {
   onSelect: (code: string | null) => void;
   /** 목적지가 아직 없으면 등급 대신 안내만 보여준다 */
   hasDestination: boolean;
-  /** 선택된 동의 통근 경로 (역 좌표를 이은 선) */
-  routePath: Array<Array<[number, number]>>;
+  /** 선택된 동의 통근 경로. 지하철 구간과 도보 구간을 나눠 그린다 */
+  routePath: RouteSegment[];
   /** 지하철 노선도 (노선별 MultiLineString + 역 Point) */
   subway: SubwayLayers;
   showSubway: boolean;
@@ -402,10 +415,34 @@ export default function MapView({
         "line-opacity": 0.95,
       },
     });
+
+    /*
+     * 도보 구간. 지하철보다 먼저(=아래) 깔아 교차 지점에서 지하철이 위로
+     * 오게 한다.
+     *
+     * 이건 **실제 보행로가 아니라 직선**이다. 통근 계산 자체가 도보를
+     * 직선거리 × 보정계수로 잡으므로 직선이 계산과 일치한다. 다만 그림만
+     * 봐서는 길처럼 오해할 수 있어, 지하철 구간보다 가늘고 촘촘한 점선에
+     * 투명도를 낮춰 "대략 이 방향으로 이만큼"으로 읽히게 한다.
+     */
+    map.addLayer({
+      id: "route-walk-line",
+      type: "line",
+      source: SRC_ROUTE,
+      filter: ["==", ["get", "kind"], "walk"],
+      layout: { "line-cap": "round", "line-join": "round" },
+      paint: {
+        "line-color": MAP_THEME[themeRef.current].route,
+        "line-width": ["interpolate", ["linear"], ["zoom"], 10, 1.6, 14, 2.6],
+        "line-dasharray": [0.6, 1.8],
+        "line-opacity": 0.75,
+      },
+    });
     map.addLayer({
       id: "route-line",
       type: "line",
       source: SRC_ROUTE,
+      filter: ["==", ["get", "kind"], "ride"],
       layout: { "line-cap": "round", "line-join": "round" },
       paint: {
         "line-color": MAP_THEME[themeRef.current].route,
@@ -738,11 +775,12 @@ export default function MapView({
       src.setData({
         type: "FeatureCollection",
         features: routePath
-          .filter((coords) => coords.length >= 2)
-          .map((coords) => ({
+          .filter((seg) => seg.coords.length >= 2)
+          .map((seg) => ({
             type: "Feature",
-            geometry: { type: "LineString", coordinates: coords },
-            properties: {},
+            geometry: { type: "LineString", coordinates: seg.coords },
+            // 레이어가 이 값으로 갈린다 (route-line / route-walk-line)
+            properties: { kind: seg.kind },
           })),
       });
     };

@@ -169,7 +169,23 @@ export interface CommuteResult {
 
 /** 통근 경로의 한 구간 */
 export type RouteLeg =
-  | { kind: "walk"; minutes: number; to: string }
+  | {
+      kind: "walk";
+      minutes: number;
+      to: string;
+      /**
+       * 도보 구간의 양 끝 좌표 (지도에 선으로 그릴 때 사용).
+       *
+       * 실제 보행로가 아니라 **직선**이다 — 통근 계산 자체가 도보를
+       * 직선거리 × WALK_DETOUR_FACTOR 로 잡으므로, 직선으로 긋는 게 우리가
+       * 계산한 것과 정확히 일치한다. 도로를 따라가는 선을 그리면 소요시간
+       * 숫자보다 그림이 더 정밀해 보이는 역전이 생긴다.
+       *
+       * 집 쪽 좌표(동 대표점)는 buildRoute 가 모르므로 호출부가 채운다.
+       * 그래서 optional 이다.
+       */
+      path?: Array<[lng: number, lat: number]>;
+    }
   /** 최초 승차 대기 — 이걸 빼면 구간 합이 총 통근시간과 안 맞아 보인다 */
   | { kind: "wait"; minutes: number; at: string }
   | {

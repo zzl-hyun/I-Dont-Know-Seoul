@@ -72,11 +72,19 @@ error 리스너를 붙여둔 이유입니다).
 ### 지도 레이어 순서
 ```
 dong-fill → dong-outline → subway-line → subway-hit → subway-station
-→ dong-icon → dong-label → route-line-casing → route-line → subway-label → dest-marker
+→ dong-icon → dong-label → route-line-casing → route-walk-line → route-line
+→ subway-label → dest-marker
 ```
-`route-line-casing` 은 `route-line` 바로 아래 깔리는 배경색 테두리입니다.
+`route-line-casing` 은 경로선 아래 깔리는 배경색 테두리입니다.
 1호선 남색처럼 어두운 노선색과 파란 경로 점선이 겹치면 안 보이는 문제 때문에
 추가했고, 라벨 halo와 같은 색(`MAP_THEME[...].halo`)을 재사용합니다.
+
+경로선이 **두 레이어로 갈려 있습니다**(`route-walk-line` = 도보,
+`route-line` = 지하철). MapLibre 의 `line-dasharray` 는 data-driven 표현식을
+못 받아서 한 레이어 안에서 점선 모양을 구간별로 다르게 줄 수 없기 때문입니다.
+피처의 `kind` 속성으로 `filter` 를 걸어 나눕니다. **경로 선분을 추가할 때는
+`properties.kind` 를 반드시 실어야 합니다** — 없으면 어느 레이어에도 안 걸려
+조용히 안 그려집니다.
 지하철은 **등급 아이콘 아래**입니다. 주인공은 등급이고 지하철은 배경이라,
 역 점이 등급 아이콘을 가리면 주 기능이 손상됩니다.
 

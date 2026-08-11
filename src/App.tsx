@@ -1,5 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
-import MapView, { type DongView, type MapMode, type Theme } from "./components/MapView";
+import MapView, {
+  type DongView,
+  type MapMode,
+  type RouteSegment,
+  type Theme,
+} from "./components/MapView";
 import DestinationSearch from "./components/DestinationSearch";
 import DongDetail, { type CommuteLeg, type ExplainContext } from "./components/DongDetail";
 import TopPicks, { type Pick } from "./components/TopPicks";
@@ -225,17 +230,27 @@ export default function App() {
         ? commute.contexts.map((ctx, i) => ({
             destName: destinations[i]?.name ?? `목적지 ${i + 1}`,
             result: c.per[i],
-            route: buildRoute(data.graph, ctx, c.per[i]),
+            route: buildRoute(data.graph, ctx, c.per[i], dong),
           }))
         : [];
     return { dong, score, grade: g.grade, rank: g.rank, total: g.total, commutes };
   }, [data, graded, commute, selectedCode, destinations]);
 
-  /** 선택된 동의 경로를 지도에 그릴 좌표열 */
-  const routePath = useMemo(() => {
+  /**
+   * 선택된 동의 경로를 지도에 그릴 선분들.
+   *
+   * 지하철과 도보를 구분해서 넘긴다 — MapLibre 의 line-dasharray 는
+   * data-driven 이 아니라 한 레이어에서 점선 모양을 나눌 수 없어서,
+   * MapView 가 kind 로 레이어를 갈라 그린다.
+   */
+  const routePath = useMemo<RouteSegment[]>(() => {
     if (!selected) return [];
     return selected.commutes.flatMap((c) =>
-      c.route.flatMap((leg) => (leg.kind === "ride" ? [leg.path] : []))
+      c.route.flatMap((leg): RouteSegment[] => {
+        if (leg.kind === "ride") return [{ kind: "ride", coords: leg.path }];
+        if (leg.kind === "walk" && leg.path) return [{ kind: "walk", coords: leg.path }];
+        return [];
+      })
     );
   }, [selected]);
 

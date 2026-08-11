@@ -27,6 +27,8 @@ export interface CommuteContext {
   sp: ShortestPaths;
   /** 출발점(목적지측) 노드 → 목적지까지 도보(분) */
   destWalk: Map<number, number>;
+  /** 목적지 좌표. 마지막 도보 구간을 지도에 그릴 때 끝점으로 쓴다 */
+  dest: { lat: number; lng: number };
 }
 
 /**
@@ -70,7 +72,7 @@ export function computeCommute(
 
   if (destStations.length === 0) {
     for (const d of dongs) byDong.set(d.code, unreachable());
-    return { byDong, sp: emptySp, destWalk };
+    return { byDong, sp: emptySp, destWalk, dest };
   }
 
   // 도보 구간은 WALK_SELECTION_WEIGHT를 곱한 비용으로 역을 고르지만,
@@ -139,7 +141,7 @@ export function computeCommute(
     byDong.set(dong.code, best);
   }
 
-  return { byDong, sp, destWalk };
+  return { byDong, sp, destWalk, dest };
 }
 
 /* ------------------------------------------------------------------ */
@@ -213,25 +215,37 @@ const unreachable = (): CommuteResult => ({
  * `prev` 를 따라가면 목적지 방향으로 진행하므로 그대로 집 → 목적지 순서가 된다.
  * 같은 노선을 연속으로 타는 구간은 하나의 leg 로 접는다 — 사용자가 알고 싶은
  * 건 "2호선 8정거장"이지 "신림→봉천, 봉천→서울대입구, …" 가 아니다.
+ *
+ * @param origin 출발 동의 대표점. 주면 집→승차역 도보 구간에 좌표가 실려
+ *   지도에 그릴 수 있다. buildRoute 는 어느 동에서 출발하는지 모르므로
+ *   호출부가 넘긴다.
  */
 export function buildRoute(
   graph: SubwayGraph,
   ctx: CommuteContext,
-  result: CommuteResult
+  result: CommuteResult,
+  origin?: { lat: number; lng: number }
 ): RouteLeg[] {
   if (result.totalMin === null || result.viaNodeId < 0) return [];
 
-  const { sp, destWalk } = ctx;
+  const { sp, destWalk, dest } = ctx;
   const legs: RouteLeg[] = [];
   const stationOf = (nodeId: number): Station =>
     graph.stations[graph.nodes[nodeId].stationId];
 
   // 집 → 승차역, 그리고 최초 승차 대기.
   // 대기시간은 총 통근시간에 들어 있으므로 구간에도 드러내야 합이 맞는다.
+  const boarding = stationOf(result.viaNodeId);
   legs.push({
     kind: "walk",
     minutes: result.walkMin,
-    to: stationOf(result.viaNodeId).name,
+    to: boarding.name,
+    path: origin
+      ? [
+          [origin.lng, origin.lat],
+          [boarding.lng, boarding.lat],
+        ]
+      : undefined,
   });
   legs.push({
     kind: "wait",
@@ -296,7 +310,16 @@ export function buildRoute(
   // 하차역 → 목적지
   const finalWalk = destWalk.get(cur);
   if (finalWalk != null) {
-    legs.push({ kind: "walk", minutes: finalWalk, to: "목적지" });
+    const alighting = stationOf(cur);
+    legs.push({
+      kind: "walk",
+      minutes: finalWalk,
+      to: "목적지",
+      path: [
+        [alighting.lng, alighting.lat],
+        [dest.lng, dest.lat],
+      ],
+    });
   }
 
   return legs;
