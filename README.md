@@ -164,7 +164,7 @@ npm run data:score
 
 # 5) 실행
 npm run cf:dev   # Worker + 정적자산 통합 → http://localhost:8787
-npm test         # 통근·등급 설명·데이터 분류·노선도·URL 공유 회귀 테스트 77개
+npm test         # 통근·등급 설명·데이터 분류·노선도·URL 공유·Worker 회귀 테스트 81개
 ```
 
 `data/raw/` 는 캐시입니다. 다시 받으려면 해당 파일을 지우고 스크립트를 재실행하세요.

@@ -52,7 +52,8 @@
 값이 아니니 근거 없이 되돌리지 마세요. `npm run data:calibrate-walk` (OSM,
 키 불필요) 또는 `-- --source=seoul` (서울시 공식망, `SEOUL_OPEN_DATA_KEY`
 필요)로 재현합니다. 두 소스로 교차검증했고 결과가 1.397 대 1.418로 1.5%p
-차이라 1.4를 유지했습니다 — 근거는 `src/lib/constants.ts` 주석에 있습니다. **이 값은 `scripts/lib/geo.mjs` 에도
+차이라 1.4를 유지했습니다 — 근거는 `src/lib/constants.ts` 주석에 있습니다.
+**이 값은 `scripts/lib/geo.mjs` 에도
 복제돼 있습니다**(.mjs 가 TS 를 못 읽어서). 한쪽만 바꾸면 화면 통근시간과
 "최근접역 도보" 지표가 서로 다른 계수로 계산되는데 둘 다 그럴듯해서 눈으로는
 못 잡습니다 — `commute.test.ts` 의 "도보 모델 상수가 앱과 파이프라인에서
@@ -183,7 +184,7 @@ URL이 틀렸다는 신호가 아니라 그 API만 활용신청이 안 됐다는
 
 ```bash
 npm run cf:dev      # Worker + 정적자산 통합 → localhost:8787 (실환경에 가장 가까움)
-npm test            # 77개 — 통근 정확도 / 등급 설명 / 데이터 분류 / 노선도 / URL 공유
+npm test            # 81개 — 통근 정확도 / 등급 설명 / 데이터 분류 / 노선도 / URL 공유 / Worker
 npm run typecheck
 npm run cf:deploy   # 빌드 + 배포
 npm run data:seed   # KV 스냅샷 갱신 (데이터만 바뀐 경우 이것만)
