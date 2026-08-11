@@ -5,7 +5,8 @@
  *
  * 지표별 출처와 키 필요 여부:
  *
- *   생활편의 (편의점·마트·음식점·병원)  OSM Overpass    키 불필요 ✔
+ *   편의점·마트, 음식점, 병원·약국      소상공인 상가업소  DATA_GO_KR_KEY 필요 (API별 활용신청)
+ *   버스 정류장 밀도                   OSM Overpass    키 불필요 ✔
  *   유흥업소 밀도                      OSM Overpass    키 불필요 ✔
  *   최근접역 도보시간                  자체 그래프      키 불필요 ✔
  *   CCTV 밀도                         서울 열린데이터   SEOUL_OPEN_DATA_KEY 필요(원 데이터셋 폐기로 현재 비활성)
@@ -49,6 +50,7 @@ async function loadEnv() {
 await loadEnv();
 const OUT = join(ROOT, "data/dist/metrics.json");
 const POI_CACHE = join(ROOT, "data/raw/osm-poi.json");
+const SBIZ_CACHE = join(ROOT, "data/raw/sbiz-seoul.json");
 
 const SEOUL_BBOX = "37.41,126.75,37.72,127.20";
 
@@ -69,16 +71,20 @@ const OVERPASS_MIRRORS = [
  * 다만 매핑 활동이 활발한 지역(홍대·이태원 등)이 과대 대표될 수 있다는
  * 편향은 남는다. 이건 4-score.mjs 의 출처 표기와 UI 면책 문구로 알린다.
  */
+/*
+ * OSM 에서 남긴 것은 유흥업소와 버스 정류장 뿐이다.
+ *
+ * 편의점·음식점·의료는 소상공인시장진흥공단 상가업소 데이터로 **교체**했다.
+ * OSM 이 실제의 7~22% 만 잡는 데다, 빠지는 방식이 무작위가 아니라서다 —
+ * 동별 밀도 순위 상관이 ρ 0.42~0.62 밖에 안 나왔다. 즉 "개수만 적고 순위는
+ * 같다"가 아니라 순위 자체가 달랐다. 매핑이 드문 오래된 주거지(신길·구로4동·
+ * 가리봉동 등)가 하위권으로 밀려 있었고, 이건 이 서비스의 주 타깃이 찾는
+ * 동네다. 자세한 비교는 README "POI 데이터 출처" 참고.
+ *
+ * 버스 정류장은 상가업소가 아니라 대체 불가. 유흥업소는 축이 달라(치안)
+ * 교체 여부를 따로 판단한다.
+ */
 const POI_GROUPS = {
-  store: {
-    shop: ["convenience", "supermarket", "department_store", "greengrocer"],
-  },
-  food: {
-    amenity: ["restaurant", "fast_food", "cafe"],
-  },
-  medical: {
-    amenity: ["pharmacy", "clinic", "hospital", "doctors"],
-  },
   nightlife: {
     amenity: ["bar", "pub", "nightclub"],
   },
@@ -141,6 +147,29 @@ async function main() {
     assigned++;
   }
   console.log(`  POI ${pois.length.toLocaleString()}개 중 ${assigned.toLocaleString()}개를 행정동에 배정 (서울 밖 ${outside.toLocaleString()}개 제외)`);
+
+  /* ---- 1-b. 상가업소 (편의점·음식점·의료) ---- */
+  console.log("\n[1b/6] 소상공인 상가업소...");
+  const sbizKey = process.env.DATA_GO_KR_KEY;
+  if (!sbizKey) {
+    throw new Error(
+      "DATA_GO_KR_KEY 가 없습니다. 편의·음식·의료 지표가 이 데이터로 계산되므로 건너뛸 수 없습니다.\n" +
+      "  https://www.data.go.kr/data/15012005/openapi.do 에서 활용신청(자동승인) 후 .env 에 키를 넣으세요."
+    );
+  }
+  const sbiz = await fetchSbizStores(sbizKey, new Set(dongs.map((d) => d.guCode)));
+  let sbizOutside = 0;
+  for (const [lng, lat, cls] of sbiz.stores) {
+    const code = index.lookup(lng, lat);
+    if (!code) { sbizOutside++; continue; }
+    const c = counts.get(code);
+    for (const [group, match] of Object.entries(SBIZ_GROUPS)) if (match(cls)) c[group]++;
+  }
+  console.log(`  상가업소 ${sbiz.stores.length.toLocaleString()}건 중 서울 밖 ${sbizOutside.toLocaleString()}건 제외`);
+  for (const g of Object.keys(SBIZ_GROUPS)) {
+    const total = [...counts.values()].reduce((x, c) => x + c[g], 0);
+    console.log(`    ${g.padEnd(10)} ${total.toLocaleString()}개`);
+  }
   for (const g of Object.keys(POI_GROUPS)) {
     const total = [...counts.values()].reduce((s, c) => s + c[g], 0);
     console.log(`    ${g.padEnd(10)} ${total.toLocaleString()}개`);
@@ -273,7 +302,8 @@ async function main() {
         version: new Date().toISOString().slice(0, 10),
         generatedAt: new Date().toISOString(),
         sources: {
-          poi: "OpenStreetMap (ODbL)",
+          poi: "OpenStreetMap (ODbL) — 유흥업소·버스 정류장",
+          store: "소상공인시장진흥공단 상가업소정보 (공공누리 제1유형) — 편의점·음식점·의료",
           cctv: cctvOk ? "서울 열린데이터광장" : null,
           crime: crimeByGu.size > 0 ? "경찰청 범죄 발생 지역별 통계 + 행안부 주민등록인구" : null,
           trafficAccident: accidentOk ? "도로교통공단 전국교통사고다발지역표준데이터" : null,
@@ -520,6 +550,108 @@ async function loadTrafficAccidents() {
     lng: Number(r[idx["경도"]]),
     count: Number(r[idx["사고건수"]] || 0),
   }));
+}
+
+/* ---- 소상공인시장진흥공단 상가업소 (DATA_GO_KR_KEY 필요, API별 활용신청) ---- */
+
+/**
+ * 업종 소분류코드 → 우리 지표.
+ *
+ * 소분류코드 6자리에 대분류(2)·중분류(4)가 앞에서부터 들어있다.
+ * 경계를 자의적으로 긋지 않으려고 **중분류 단위로 통째로** 잡았다.
+ *
+ * - store: G204 종합 소매(편의점·슈퍼마켓·기타 종합소매).
+ *   **대형마트·백화점은 없다** — 소상공인 데이터라 대기업 점포가 빠진다.
+ *   일상 장보기 접근성을 재는 지표라 치명적이진 않지만 한계로 남는다.
+ * - food: I2 음식 전체에서 **주점(I211)을 뺀다.** 치안 축이 유흥업소를
+ *   감점하고 있어서, 빼지 않으면 같은 업소를 편의에서 가점하고 치안에서
+ *   감점하는 이중 계산이 된다.
+ * - medical: Q1 보건의료(병원·의원·기타보건) + 약국.
+ *   약국은 원 분류상 G215 의약·화장품 **소매**에 있지만, 우리 지표는
+ *   "의료 접근성"이라 여기 넣는 게 맞다(OSM 도 pharmacy 를 포함했다).
+ */
+const SBIZ_GROUPS = {
+  store: (c) => c.startsWith("G204"),
+  food: (c) => c.startsWith("I2") && !c.startsWith("I211"),
+  medical: (c) => c.startsWith("Q1") || c === "G21501",
+};
+
+const SBIZ_BASE = "https://apis.data.go.kr/B553077/api/open/sdsc2/storeListInDong";
+const SBIZ_ROWS = 1000;
+/** 실거래가에서 동시 6개로 데였다. 올리지 말 것. */
+const SBIZ_CONCURRENCY = 2;
+const SBIZ_GAP_MS = 120;
+
+/**
+ * 서울 전량(약 55만 건)을 자치구 25개로 나눠 받는다. 약 570회 호출로
+ * 개발계정 일 10,000회 안에 넉넉히 들어간다.
+ *
+ * 캐시 형식은 좌표와 소분류코드만 남긴 슬림 배열이다 — 원본 40개 필드를
+ * 다 들고 있으면 500MB 가 넘는데, 우리가 쓰는 건 이 셋뿐이다.
+ */
+async function fetchSbizStores(key, guCodes) {
+  try {
+    const cached = JSON.parse(await readFile(SBIZ_CACHE, "utf8"));
+    console.log(`  상가업소 캐시 사용 ${cached.stores.length.toLocaleString()}건 (다시 받으려면 ${SBIZ_CACHE} 삭제)`);
+    return cached;
+  } catch {
+    /* 캐시 없음 → 받는다 */
+  }
+
+  const page = async (gu, pageNo, attempt = 0) => {
+    const q = new URLSearchParams({
+      serviceKey: key, type: "json", divId: "signguCd", key: gu,
+      numOfRows: String(SBIZ_ROWS), pageNo: String(pageNo),
+    });
+    try {
+      const res = await fetch(`${SBIZ_BASE}?${q}`, { signal: AbortSignal.timeout(45_000) });
+      const j = JSON.parse(await res.text());
+      if (j.header?.resultCode === "03") return { items: [], total: 0 }; // NODATA
+      if (j.header?.resultCode !== "00") {
+        throw new Error(
+          `${j.header?.resultMsg ?? "알 수 없는 오류"} — ` +
+          `"등록되지 않은 서비스키" 면 이 API(15012005)만 활용신청이 안 된 것입니다`
+        );
+      }
+      return { items: j.body?.items ?? [], total: Number(j.body?.totalCount ?? 0) };
+    } catch (e) {
+      if (attempt >= 4) throw e;
+      await new Promise((r) => setTimeout(r, 500 * 2 ** attempt));
+      return page(gu, pageNo, attempt + 1);
+    }
+  };
+
+  const stores = [];
+  const names = {};
+  let calls = 0;
+  for (const gu of [...guCodes].sort()) {
+    const first = await page(gu, 1); calls++;
+    const pages = Math.ceil(first.total / SBIZ_ROWS);
+    const take = (items) => {
+      for (const it of items) {
+        if (it.lon == null || it.lat == null || !it.indsSclsCd) continue;
+        stores.push([+(+it.lon).toFixed(6), +(+it.lat).toFixed(6), it.indsSclsCd]);
+        names[it.indsSclsCd] ??= `${it.indsLclsNm}>${it.indsMclsNm}>${it.indsSclsNm}`;
+      }
+    };
+    take(first.items);
+
+    const queue = []; for (let p = 2; p <= pages; p++) queue.push(p);
+    let qi = 0;
+    await Promise.all(Array.from({ length: SBIZ_CONCURRENCY }, async () => {
+      for (;;) {
+        const p = queue[qi++]; if (p === undefined) break;
+        take((await page(gu, p)).items); calls++;
+        await new Promise((r) => setTimeout(r, SBIZ_GAP_MS));
+      }
+    }));
+    process.stdout.write(`\r  상가업소 수집 ${stores.length.toLocaleString()}건 · 호출 ${calls}회   `);
+  }
+  console.log();
+  const out = { source: "소상공인시장진흥공단 상가업소정보 (data.go.kr 15012005)",
+                fetchedAt: new Date().toISOString(), calls, names, stores };
+  await writeFile(SBIZ_CACHE, JSON.stringify(out));
+  return out;
 }
 
 /* ---- 국토교통부: 단독/다가구 + 오피스텔 + 아파트 전월세 실거래가 ---- */
