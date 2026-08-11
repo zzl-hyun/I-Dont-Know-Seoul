@@ -124,7 +124,13 @@ export default function DestinationSearch({ onPick, disabled, placeholder }: Pro
         placeholder={
           disabled
             ? "목적지를 더 추가할 수 없습니다"
-            : (placeholder ?? "회사나 학교를 검색하세요 (예: 강남역, 서울대학교)")
+            : /*
+               * 예시를 "강남역, SK AX" 로 둔다. 역 하나와 회사 하나를 보여줘
+               * 둘 다 된다는 걸 알리는 게 첫째 이유고, SK AX 는 판교라
+               * **목적지가 서울 밖이어도 된다**는 것까지 같이 알린다
+               * (서울 밖으로 통근하며 서울에 사는 게 이 도구의 흔한 쓰임이다).
+               */
+              (placeholder ?? "회사나 학교를 검색하세요 (예: 강남역, SK AX)")
         }
         autoComplete="off"
         spellCheck={false}

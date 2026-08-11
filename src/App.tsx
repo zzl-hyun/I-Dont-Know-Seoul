@@ -494,7 +494,7 @@ export default function App() {
           disabled={destinations.length >= MAX_DESTINATIONS}
           placeholder={
             destinations.length === 0
-              ? "회사나 학교를 검색하세요 (예: 강남역, 서울대학교)"
+              ? "회사나 학교를 검색하세요 (예: 강남역, SK AX)"
               : "목적지 추가 (예: 룸메이트 회사)"
           }
         />
