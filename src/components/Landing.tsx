@@ -463,6 +463,11 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
  * 우선순위를 올린다. 반대로 CTA 쪽은 스크롤을 한참 내려야 나오므로
  * `loading="lazy"` 로 미룬다.
  *
+ * **3200px 짜리를 두는 이유.** 이 사진은 화면 전체를 덮으므로 필요한
+ * 픽셀이 `뷰포트 폭 × dpr` 이다. QHD(2560) 에 dpr 2 면 5120px 이라,
+ * 2000px 만 두면 2.5배로 늘어나 눈에 띄게 뭉갠다. 원본을 MapLibre 캔버스에서
+ * 4096px 로 뽑아 3200px 까지 만들어 뒀다.
+ *
  * alt 를 비워둔 건 장식이기 때문이다 — 이 사진이 전하는 내용은 바로 옆
  * h1 과 등급 범례가 글로 이미 말하고 있어서, 읽어주면 중복이 된다.
  */
@@ -478,15 +483,15 @@ function HeroImage({
       <picture>
         <source
           type="image/webp"
-          srcSet="/shots/hero-map-sm.webp 1100w, /shots/hero-map.webp 2000w"
+          srcSet="/shots/hero-map-sm.webp 1200w, /shots/hero-map.webp 2000w, /shots/hero-map-xl.webp 3200w"
           sizes="100vw"
         />
         {/* webp 를 못 읽는 브라우저용 폴백. 폴백이므로 해상도를 낮게 잡았다 */}
         <img
           src="/shots/hero-map.jpg"
           alt=""
-          width={2000}
-          height={1164}
+          width={3200}
+          height={1866}
           decoding="async"
           loading={priority ? "eager" : "lazy"}
           fetchPriority={priority ? "high" : "low"}
