@@ -79,7 +79,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
             어디 살아야<br />할지 모르겠다면
           </h1>
           <p className="hero-lead">
-            회사나 학교를 검색하면, 통근 가능한 서울 동네가
+            회사나 학교를 검색하면, 통근 가능한 동네가
             <br />
             평판 등급으로 칠해진 지도가 나옵니다.
           </p>
@@ -251,7 +251,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
             <div className="split-text">
               <h2>왜 그 등급인지 전부 보여줍니다</h2>
               <p className="landing-note">
-                점수만 던지지 않습니다. 원지표가 서울 중앙값 대비 어디쯤인지,
+                점수만 던지지 않습니다. 원지표가 전체 중앙값 대비 어디쯤인지,
                 백분위가 몇 점인지, 가중치가 얼마인지, 그게 어떻게 합산됐는지
                 마지막 덧셈까지 펼쳐서 보여줍니다.
               </p>
@@ -282,7 +282,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
                         <b>{r.value}</b>
                       </div>
                       <div className="metric-row-note">
-                        서울 중앙값 {r.median} · 이 동은 {r.rank} <b>({r.point}점)</b> ·
+                        전체 중앙값 {r.median} · 이 동은 {r.rank} <b>({r.point}점)</b> ·
                         가중치 {r.weight}
                       </div>
                     </div>
@@ -386,10 +386,10 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
             </p>
 
             <p className="summary">
-              등급은 절대 평가가 아니라 서울 안에서의 상대 평가입니다. 상위{" "}
+              등급은 절대 평가가 아니라 대상 지역 안에서의 상대 평가입니다. 상위{" "}
               {pct(GRADE_CUT.best)}%가 Best, 하위 {pct(1 - GRADE_CUT.normal)}%가
               Bad입니다. &ldquo;Bad&rdquo;는 살 수 없는 동네라는 뜻이 아니라,
-              같은 조건에서 비교했을 때 서울 하위권이라는 뜻입니다.
+              같은 조건에서 비교했을 때 하위권이라는 뜻입니다.
             </p>
           </section>
         </Reveal>
@@ -439,7 +439,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
       </section>
 
       <p className="disclaimer landing-foot">
-        등급은 공공·공개 데이터로 계산한 <b>서울 내 상대 평가</b>이며, 특정
+        등급은 공공·공개 데이터로 계산한 <b>대상 지역 내 상대 평가</b>이며, 특정
         지역에 대한 가치판단이 아닙니다. 통근시간은 지하철 기준 추정치로 실제
         소요시간과 다를 수 있습니다.
         <br />

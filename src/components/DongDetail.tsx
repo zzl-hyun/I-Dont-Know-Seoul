@@ -93,7 +93,7 @@ export default function DongDetail({
         </span>
       </div>
       <p className="rank-line">
-        서울 {total}개 동 중 <b>{rank}위</b> · 상위 {topPct}%
+        수도권 {total}개 동 중 <b>{rank}위</b> · 상위 {topPct}%
       </p>
 
       <p className="summary">{summary}</p>
