@@ -66,6 +66,37 @@ export const MAX_NEARBY_STATIONS = 6;
  */
 export const WALK_SELECTION_WEIGHT = 1.4;
 
+/** 이보다 오래 걸어야 하는 접근 구간만 버스 대체를 검토한다. */
+export const BUS_TRIGGER_WALK_MIN = 15;
+
+/** 출발점·도착점에서 승하차 정류장을 찾는 보행 반경. */
+export const BUS_STOP_SEARCH_RADIUS_M = 450;
+
+/** 정류장 후보가 너무 많은 도심에서 탐색량을 제한한다. */
+export const MAX_NEARBY_BUS_STOPS = 24;
+
+/** 정류장 정차를 포함하기 전 버스 주행속도. 정차시간은 아래 상수로 따로 더한다. */
+export const BUS_SPEED_KMH = 15;
+
+/** 한 정류장 진행마다 더하는 승하차 정차시간(분). */
+export const BUS_DWELL_MIN_PER_STOP = 0.2;
+
+/** 배차간격을 못 얻은 서울 노선에 쓰는 보수적인 평일 기본값(분). */
+export const BUS_DEFAULT_HEADWAY_MIN = 15;
+
+/** 기대 대기시간(배차간격/2)의 하한·상한. */
+export const BUS_MIN_WAIT_MIN = 2;
+export const BUS_MAX_WAIT_MIN = 8;
+
+/** 도보보다 이만큼은 빨라야 버스 대체로 채택한다. */
+export const BUS_MIN_SAVING_MIN = 1;
+
+/** 버스 접근을 검토할 때 목적지·거주지에서 탐색하는 지하철역 최대 직선거리. */
+export const BUS_STATION_SEARCH_RADIUS_M = 5000;
+
+/** 버스 접근 검토 전 거리순으로 남기는 역 후보 수. */
+export const MAX_BUS_STATION_CANDIDATES = 12;
+
 /**
  * 실측 소요시간이 없는 노선(9호선·신분당선·경의중앙선 등)의 역간 시간을
  * 거리로 추정할 때 쓰는 표정속도 (km/h). 정차시간 포함.
@@ -91,7 +122,7 @@ export const DEFAULT_WEIGHTS = {
 } as const;
 
 /**
- * 등급 구간 — 서울 전체 분포 기준 상대 컷.
+ * 등급 구간 — 대상 지역 전체 분포 기준 상대 컷.
  * 절대 컷(예: 70점 이상 Best)을 쓰면 "서울 전체가 Bad" 같은 무의미한
  * 화면이 나올 수 있다. 상대 컷은 항상 의미 있는 대비를 만든다.
  */

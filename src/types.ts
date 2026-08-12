@@ -35,6 +35,79 @@ export interface SubwayGraph {
   edges: Edge[][];
 }
 
+/**
+ * 정적 버스망. 원천의 긴 필드명을 4개짜리 튜플로 접어 KV 번들 크기를 줄인다.
+ * 노선의 정류장 배열은 운행 방향 순서이며 같은 노선에서도 역방향 이동은 허용하지 않는다.
+ */
+export interface BusNetwork {
+  version: string | number;
+  generatedAt: string;
+  defaultHeadwayMin: number;
+  sources: Record<string, unknown>;
+  /** [정류장명, 위도, 경도] — 배열 인덱스가 정류장 id다. */
+  stops: Array<[name: string, lat: number, lng: number]>;
+  /** [노선명, 평일 배차간격, 정류장 id 순서, 누적 운행거리(m)] */
+  routes: Array<[
+    name: string,
+    headwayMin: number,
+    stopIds: number[],
+    cumulativeMeters: number[],
+  ]>;
+}
+
+/**
+ * 100m 거주인구 지점들을 좌표 없이 같은 접근 선택지 묶음으로 압축한 프로필.
+ *
+ * option = [역 id, 실제 접근시간, 역 선택용 비용, 0=도보/1=버스, busRef?]
+ * busRef = [버스 노선 id, 승차 순번, 하차 순번, 승차 정류장까지 도보시간]
+ * profile = [동별 정규화 가중치, option 목록]
+ */
+export type ResidentialBusReference = [
+  routeId: number,
+  boardOrder: number,
+  alightOrder: number,
+  walkToBoardMin: number,
+];
+
+export type ResidentialStationAccess = [
+  stationId: number,
+  realMinutes: number,
+  selectionCost: number,
+  mode: 0 | 1,
+  busRef?: ResidentialBusReference,
+];
+
+export type ResidentialProfileV4 = [
+  weight: number,
+  accesses: ResidentialStationAccess[],
+];
+
+/** 배포 전 정확도 비교와 구 데이터 호환에만 쓰는 과거 좌표 포함 형식. */
+export type LegacyResidentialProfile = [
+  weight: number,
+  lng: number,
+  lat: number,
+  accesses: ResidentialStationAccess[],
+];
+
+export type ResidentialProfile = ResidentialProfileV4 | LegacyResidentialProfile;
+
+export interface ResidentialAccess {
+  version: string;
+  /** 공개 산출물에서 분리되어도 유지되는 필수 출처표시. */
+  source?: string;
+  /** 인덱스 기반 busRef를 만들 때 사용한 정확한 버스망 버전. */
+  busVersion?: string | number;
+  generatedAt: string;
+  resolutionM: number;
+  percentile: number;
+  /** 원 인구수 대신 동마다 합을 같게 만든 정규화 가중치 눈금. */
+  weightScale?: number;
+  /** 원 100m 셀을 그대로 노출하지 않기 위한 동별 대표 프로필 상한. */
+  maxProfilesPerDong?: number;
+  byDong: Record<string, ResidentialProfile[]>;
+}
+
 export interface Station {
   id: number;
   name: string;
@@ -67,7 +140,7 @@ export interface Edge {
   source: "measured" | "estimated";
 }
 
-/** 동별 평판 점수 (전부 서울 427개 동 내 백분위, 0~100) */
+/** 동별 평판 점수 (전부 대상 547개 동 내 백분위, 0~100) */
 export interface DongScore {
   safety: number;
   price: number;
@@ -134,7 +207,7 @@ export interface DongRawMetrics {
    * "정류장이 많다"를 재는 것이지 "노선이 다양하다"를 재지 않는다.
    */
   busStopPerKm2: number | null;
-  /** 대표점에서 최근접 지하철역까지 도보(분) */
+  /** 100m 거주인구 분포에서 최근접 지하철역까지 도보시간의 중앙값(분) */
   walkToStationMin: number | null;
 }
 
@@ -161,8 +234,18 @@ export interface CommuteResult {
   totalMin: number | null;
   /** 집에서 이용하게 되는 역 */
   viaStation: string | null;
-  /** 집 → 그 역 도보(분) */
+  /** 집 → 그 역 중 실제 걷는 시간. 버스 접근 상세가 없던 구버전 호환 필드다. */
   walkMin: number;
+  /** 집 → 역 전체 접근시간(도보 또는 도보+대기+버스). */
+  accessMin: number;
+  /** 15분 초과 도보를 실제 같은 노선의 버스로 대체했는지. */
+  accessMode: "walk" | "bus";
+  /** 집→역 버스 경로를 거주 좌표 없이 같은 노선으로 복원하기 위한 정적 참조. */
+  accessBusRef?: ResidentialBusReference;
+  /** 구 좌표 포함 프로필 또는 동 대표점 방식에서만 있는 출발 표시 좌표. */
+  origin?: { lat: number; lng: number };
+  /** 거주인구 분포를 쓴 결과면 그 분위수(현재 0.5). */
+  populationPercentile?: number;
   /** 환승 횟수 */
   transfers: number;
   /**
@@ -177,7 +260,7 @@ export interface CommuteResult {
   hasEstimatedLeg: boolean;
   /**
    * 이 동이 실제로 이용한 그래프 노드. 경로를 되짚는 출발점이다.
-   * 427개 동의 경로를 미리 만들지 않고, 사용자가 선택한 동만 이 값으로 복원한다.
+   * 547개 동의 경로를 미리 만들지 않고, 사용자가 선택한 동만 이 값으로 복원한다.
    */
   viaNodeId: number;
 }
@@ -188,6 +271,7 @@ export type RouteLeg =
       kind: "walk";
       minutes: number;
       to: string;
+      toType?: "station" | "busStop" | "destination";
       /**
        * 도보 구간의 양 끝 좌표 (지도에 선으로 그릴 때 사용).
        *
@@ -196,13 +280,19 @@ export type RouteLeg =
        * 계산한 것과 정확히 일치한다. 도로를 따라가는 선을 그리면 소요시간
        * 숫자보다 그림이 더 정밀해 보이는 역전이 생긴다.
        *
-       * 집 쪽 좌표(동 대표점)는 buildRoute 가 모르므로 호출부가 채운다.
-       * 그래서 optional 이다.
+       * 현재 거주 프로필은 좌표를 공개하지 않아 첫 집 쪽 도보선에는 이 값이 없다.
+       * 구 좌표 포함 번들이나 동 대표점 방식에서는 호출부가 채울 수 있어 optional 이다.
        */
       path?: Array<[lng: number, lat: number]>;
     }
   /** 최초 승차 대기 — 이걸 빼면 구간 합이 총 통근시간과 안 맞아 보인다 */
-  | { kind: "wait"; minutes: number; at: string }
+  | {
+      kind: "wait";
+      minutes: number;
+      at: string;
+      vehicle?: "subway" | "bus";
+      routeName?: string;
+    }
   | {
       kind: "ride";
       minutes: number;
@@ -211,6 +301,15 @@ export type RouteLeg =
       from: string;
       to: string;
       /** 역 좌표 순서 (지도에 선으로 그릴 때 사용) */
+      path: Array<[lng: number, lat: number]>;
+    }
+  | {
+      kind: "bus";
+      minutes: number;
+      routeName: string;
+      stops: number;
+      from: string;
+      to: string;
       path: Array<[lng: number, lat: number]>;
     }
   | { kind: "transfer"; minutes: number; at: string; fromLine: string; toLine: string };

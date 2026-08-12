@@ -1,17 +1,46 @@
 import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import type { SubwayGraph, DongMeta } from "../types";
+import type {
+  BusNetwork,
+  DongMeta,
+  ResidentialAccess,
+  SubwayGraph,
+} from "../types";
 import { multiSourceDijkstra } from "./dijkstra";
 import { computeCommute, computeMultiCommute, buildRoute } from "./commute";
-import { FIRST_WAIT_MIN, WALK_DETOUR_FACTOR, WALK_SPEED_M_PER_MIN } from "./constants";
+import {
+  BUS_DEFAULT_HEADWAY_MIN,
+  BUS_DWELL_MIN_PER_STOP,
+  BUS_MAX_WAIT_MIN,
+  BUS_MIN_SAVING_MIN,
+  BUS_MIN_WAIT_MIN,
+  BUS_SPEED_KMH,
+  BUS_STATION_SEARCH_RADIUS_M,
+  BUS_STOP_SEARCH_RADIUS_M,
+  BUS_TRIGGER_WALK_MIN,
+  FIRST_WAIT_MIN,
+  MAX_BUS_STATION_CANDIDATES,
+  MAX_NEARBY_BUS_STOPS,
+  MAX_NEARBY_STATIONS,
+  WALK_DETOUR_FACTOR,
+  WALK_SELECTION_WEIGHT,
+  WALK_SPEED_M_PER_MIN,
+} from "./constants";
 import * as pipelineGeo from "../../scripts/lib/geo.mjs";
+import * as pipelineBus from "../../scripts/lib/bus-access.mjs";
 
 const graph: SubwayGraph = JSON.parse(
   readFileSync(join(__dirname, "../../data/dist/subway-graph.json"), "utf8")
 );
 const dongMeta: { dongs: DongMeta[] } = JSON.parse(
   readFileSync(join(__dirname, "../../data/dist/dong-meta.json"), "utf8")
+);
+const realBus: BusNetwork = JSON.parse(
+  readFileSync(join(__dirname, "../../data/dist/bus-network.json"), "utf8")
+);
+const realResidential: ResidentialAccess = JSON.parse(
+  readFileSync(join(__dirname, "../../data/dist/residential-access.json"), "utf8")
 );
 
 /** 이름으로 역을 찾되, 동명이역은 서울 도심에 가까운 쪽을 고른다. */
@@ -163,6 +192,27 @@ describe("도보 모델 상수가 앱과 파이프라인에서 같다", () => {
       expect(pipelineGeo.walkMinutes(m)).toBeCloseTo((m * WALK_DETOUR_FACTOR) / WALK_SPEED_M_PER_MIN, 10);
     }
   });
+
+  it("버스 접근 상수도 전처리와 런타임에서 일치한다", () => {
+    const pairs = [
+      [pipelineBus.BUS_TRIGGER_WALK_MIN, BUS_TRIGGER_WALK_MIN],
+      [pipelineBus.BUS_STOP_SEARCH_RADIUS_M, BUS_STOP_SEARCH_RADIUS_M],
+      [pipelineBus.MAX_NEARBY_BUS_STOPS, MAX_NEARBY_BUS_STOPS],
+      [pipelineBus.BUS_SPEED_KMH, BUS_SPEED_KMH],
+      [pipelineBus.BUS_DWELL_MIN_PER_STOP, BUS_DWELL_MIN_PER_STOP],
+      [pipelineBus.BUS_DEFAULT_HEADWAY_MIN, BUS_DEFAULT_HEADWAY_MIN],
+      [pipelineBus.BUS_MIN_WAIT_MIN, BUS_MIN_WAIT_MIN],
+      [pipelineBus.BUS_MAX_WAIT_MIN, BUS_MAX_WAIT_MIN],
+      [pipelineBus.BUS_MIN_SAVING_MIN, BUS_MIN_SAVING_MIN],
+      [pipelineBus.BUS_STATION_SEARCH_RADIUS_M, BUS_STATION_SEARCH_RADIUS_M],
+      [pipelineBus.MAX_BUS_STATION_CANDIDATES, MAX_BUS_STATION_CANDIDATES],
+      [pipelineBus.MAX_NEARBY_STATIONS, MAX_NEARBY_STATIONS],
+      [pipelineBus.WALK_SELECTION_WEIGHT, WALK_SELECTION_WEIGHT],
+    ];
+    for (const [pipelineValue, runtimeValue] of pairs) {
+      expect(pipelineValue).toBe(runtimeValue);
+    }
+  });
 });
 
 describe("통근 경로 복원", () => {
@@ -241,6 +291,152 @@ describe("통근 경로 복원", () => {
       checked++;
     }
     expect(checked).toBeGreaterThan(400);
+  });
+});
+
+describe("100m 거주인구 분포와 첫·마지막 버스", () => {
+  const localGraph: SubwayGraph = {
+    version: "test",
+    generatedAt: "2026-08-12T00:00:00.000Z",
+    stations: [
+      { id: 0, name: "출발", lat: 37.5, lng: 127, nodeIds: [0], lines: ["T"] },
+      { id: 1, name: "도착", lat: 37.5, lng: 127.1, nodeIds: [1], lines: ["T"] },
+    ],
+    nodes: [
+      { id: 0, stationId: 0, line: "T" },
+      { id: 1, stationId: 1, line: "T" },
+    ],
+    edges: [
+      [{ to: 1, min: 10, kind: "ride", source: "estimated" }],
+      [{ to: 0, min: 10, kind: "ride", source: "estimated" }],
+    ],
+  };
+  const localDong: DongMeta = {
+    code: "1111111111",
+    name: "테스트구 테스트동",
+    gu: "테스트구",
+    guCode: "11111",
+    dong: "테스트동",
+    areaKm2: 1,
+    lat: 37.5,
+    lng: 126.98,
+  };
+
+  it("동 중심점 대신 인구가 절반을 넘는 실제 100m 표본의 접근시간을 쓴다", () => {
+    const residential: ResidentialAccess = {
+      version: "test",
+      generatedAt: "2026-08-12T00:00:00.000Z",
+      resolutionM: 100,
+      percentile: 0.5,
+      byDong: {
+        [localDong.code]: [
+          [60, 126.999, 37.5, [[0, 5, 7, 0]]],
+          [40, 126.98, 37.5, [[0, 30, 42, 0]]],
+        ],
+      },
+    };
+    const ctx = computeCommute(
+      localGraph,
+      [localDong],
+      localGraph.stations[1],
+      undefined,
+      residential
+    );
+    const result = ctx.byDong.get(localDong.code)!;
+
+    expect(result.accessMin).toBe(5);
+    expect(result.totalMin).toBe(18); // 접근 5 + 승차 대기 3 + 지하철 10
+    expect(result.populationPercentile).toBe(0.5);
+    expect(result.origin).toEqual({ lng: 126.999, lat: 37.5 });
+  });
+
+  it("15분 초과 접근에 실제 정방향 버스가 있으면 도보 대신 채택하고 경로 합을 보존한다", () => {
+    const bus: BusNetwork = {
+      version: "test",
+      generatedAt: "2026-08-12T00:00:00.000Z",
+      defaultHeadwayMin: 8,
+      sources: {},
+      stops: [
+        ["집앞", 37.5, 126.98],
+        ["중간", 37.5, 126.99],
+        ["출발역", 37.5, 127],
+      ],
+      routes: [["마을버스", 8, [0, 1, 2], [0, 1100, 2200]]],
+    };
+    const ctx = computeCommute(localGraph, [localDong], localGraph.stations[1], bus);
+    const result = ctx.byDong.get(localDong.code)!;
+    const legs = buildRoute(localGraph, ctx, result, localDong);
+
+    expect(result.accessMode).toBe("bus");
+    expect(legs.some((leg) => leg.kind === "bus")).toBe(true);
+    expect(legs.filter((leg) => leg.kind === "wait")).toHaveLength(2);
+    expect(legs.reduce((sum, leg) => sum + leg.minutes, 0)).toBeCloseTo(
+      result.totalMin!,
+      8
+    );
+  });
+});
+
+describe("판교 목적지 통합 회귀", () => {
+  const skAx = { name: "SK AX 판교캠퍼스 B", lat: 37.40587, lng: 127.09981 };
+  const legacy = computeCommute(graph, dongMeta.dongs, skAx);
+  const improved = computeCommute(graph, dongMeta.dongs, skAx, realBus, realResidential);
+
+  it("목적지 34분 도보 고정비를 실제 정방향 버스 접근으로 대체한다", () => {
+    const jeongja = dongMeta.dongs.find(
+      (dong) => dong.gu.includes("분당구") && dong.dong.includes("정자")
+    );
+    expect(jeongja).toBeDefined();
+    const result = improved.byDong.get(jeongja!.code)!;
+    const route = buildRoute(graph, improved, result, jeongja);
+    const destinationBus = route.find((leg) => leg.kind === "bus");
+
+    expect(destinationBus, "목적지 마지막 버스 구간이 없음").toBeDefined();
+    expect(route.reduce((sum, leg) => sum + leg.minutes, 0)).toBeCloseTo(
+      result.totalMin!,
+      7
+    );
+  });
+
+  it("거주분포·버스를 쓴 모든 도달 경로에서 상세 구간 합이 총시간과 일치한다", () => {
+    let checked = 0;
+    for (const dong of dongMeta.dongs) {
+      const result = improved.byDong.get(dong.code)!;
+      if (result.totalMin === null) continue;
+      const route = buildRoute(graph, improved, result, dong);
+      expect(route.length, `${dong.name} 경로가 비었음`).toBeGreaterThan(0);
+      expect(
+        route.reduce((sum, leg) => sum + leg.minutes, 0),
+        `${dong.name} 구간 합 불일치`
+      ).toBeCloseTo(result.totalMin, 7);
+      checked += 1;
+    }
+    expect(checked).toBeGreaterThan(500);
+  });
+
+  it("55분 통근권이 목적지 도보 고정비 때문에 사라지지 않는다", () => {
+    const count = (ctx: ReturnType<typeof computeCommute>, limit: number) =>
+      [...ctx.byDong.values()].filter(
+        (result) => result.totalMin != null && result.totalMin <= limit
+      ).length;
+    const legacy55 = count(legacy, 55);
+    const improved55 = count(improved, 55);
+
+    expect(improved55).toBeGreaterThan(legacy55 * 5);
+    expect(improved55).toBeGreaterThan(50);
+  });
+
+  it("산지 쪽 동 중심점 때문에 밀렸던 양재 생활권을 100m 거주분포로 복원한다", () => {
+    for (const name of ["양재1동", "양재2동", "서초2동"]) {
+      const dong = dongMeta.dongs.find((candidate) => candidate.dong === name);
+      expect(dong, `${name} 없음`).toBeDefined();
+      const before = legacy.byDong.get(dong!.code)!;
+      const after = improved.byDong.get(dong!.code)!;
+
+      expect(after.populationPercentile, `${name} 인구분포 미사용`).toBe(0.5);
+      expect(after.totalMin!, `${name} 개선 없음`).toBeLessThan(before.totalMin! - 10);
+      expect(after.totalMin!, `${name} 55분 통근권 밖`).toBeLessThanOrEqual(55);
+    }
   });
 });
 

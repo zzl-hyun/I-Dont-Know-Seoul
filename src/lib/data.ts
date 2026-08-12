@@ -1,15 +1,24 @@
 import type {
   AxisName,
   AxisWeight,
+  BusNetwork,
   DongMeta,
   DongScore,
   MetricKey,
+  ResidentialAccess,
   SubwayGraph,
 } from "../types";
+// 이 모듈은 Node API를 import하지 않는 순수 ESM이며 데이터 생성기·시드도 함께 쓴다.
+// @ts-expect-error 파이프라인용 .mjs의 별도 타입 선언을 브라우저 소스에 중복하지 않는다.
+import { assertValidCommuteBundle } from "../../scripts/lib/bundle-validation.mjs";
 
 export interface AppData {
   dongs: DongMeta[];
   graph: SubwayGraph;
+  /** 새 번들이 제공할 때만 활성화한다. 구 KV·브라우저 캐시는 도보 모델로 폴백한다. */
+  bus?: BusNetwork;
+  /** 100m 거주인구 분포 기반 집→역 접근 프로필. */
+  residential?: ResidentialAccess;
   scores: Map<string, DongScore>;
   /** `DongScore.pct` 배열의 순서를 정하는 지표 키 목록 */
   pctKeys: MetricKey[];
@@ -18,6 +27,8 @@ export interface AppData {
   meta: {
     boundaryVersion: string;
     graphVersion: string;
+    busVersion?: string | number;
+    residentialVersion?: string;
     scoreVersion: string;
     /** 실제로 수집된 지표 (키가 없어 빠진 지표를 UI에 알리기 위함) */
     availableMetrics: string[];
@@ -31,6 +42,8 @@ interface RawBundle {
   axisWeights: Record<AxisName, AxisWeight[]>;
   dongs: DongMeta[];
   graph: SubwayGraph;
+  bus?: BusNetwork;
+  residential?: ResidentialAccess;
   scores: Record<string, DongScore>;
 }
 
@@ -50,6 +63,8 @@ export async function loadAppData(signal?: AbortSignal): Promise<AppData> {
   return {
     dongs: raw.dongs,
     graph: raw.graph,
+    bus: raw.bus,
+    residential: raw.residential,
     scores: new Map(Object.entries(raw.scores)),
     pctKeys: raw.pctKeys ?? [],
     axisWeights: raw.axisWeights ?? { safety: [], price: [], convenience: [] },
@@ -66,8 +81,8 @@ export async function loadAppData(signal?: AbortSignal): Promise<AppData> {
  * 못 잡는다. 여기서 걸러야 하위 컴포넌트들이 `undefined.map()` 같은
  * 알아보기 힘든 에러 대신 원인이 분명한 메시지로 죽는다.
  *
- * 모든 필드를 깊게 검증하지는 않는다 — 파이프라인 자체 검증(verify())을
- * 신뢰하고, 여기서는 나머지 코드가 곧바로 의존하는 최상위 구조만 본다.
+ * 점수·그래프의 기본 구조뿐 아니라 브라우저 계산이 인덱스로 직접 참조하는
+ * 버스 노선·거주 접근 튜플도 생성기·시드와 같은 공용 검증기로 깊게 확인한다.
  */
 export function assertValidBundle(raw: RawBundle): void {
   if (!Array.isArray(raw?.dongs) || raw.dongs.length < 400) {
@@ -88,4 +103,5 @@ export function assertValidBundle(raw: RawBundle): void {
   if (!raw.meta?.scoreVersion) {
     throw new Error("데이터가 손상되었습니다 — 버전 정보가 없습니다");
   }
+  assertValidCommuteBundle(raw);
 }
