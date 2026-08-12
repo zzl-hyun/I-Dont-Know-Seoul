@@ -236,8 +236,11 @@ export default function DongDetail({
             </div>
           ))}
           <p className="metric-note">
-            지하철 기준 추정치입니다. 역간 소요시간은 실측이 아니라 거리와 노선
-            특성으로 계산한 값입니다.
+            국가데이터처 SGIS 2024년 100m 인구 분포를 동별 대표 생활권으로 집약한
+            중앙 통근시간 기준입니다. 도보 15분 초과 접근은 실제 같은 노선이
+            이어질 때 버스 정류장 간 거리·배차간격으로 환산하며, 실시간 교통상황은
+            반영하지 않습니다. 거주 좌표는 공개하지 않아 거주지에서 첫 역·정류장까지의
+            지도선은 생략합니다. 지하철 역간 시간도 거리와 노선 특성 기반 추정치입니다.
           </p>
         </div>
       )}
@@ -292,9 +295,15 @@ function MetricRow({ m, single }: { m: MetricExplanation; single: boolean }) {
 function legText(leg: RouteLeg): string {
   switch (leg.kind) {
     case "walk":
-      return leg.to === "목적지" ? "목적지까지 도보" : `${leg.to}역까지 도보`;
+      if (leg.toType === "destination") return "목적지까지 도보";
+      if (leg.toType === "busStop") return `${leg.to} 정류장까지 도보`;
+      return `${leg.to}역까지 도보`;
     case "wait":
-      return "승차 대기";
+      return leg.vehicle === "bus"
+        ? `${leg.routeName ?? "버스"} 승차 대기 · ${leg.at}`
+        : "지하철 승차 대기";
+    case "bus":
+      return `${leg.routeName} ${leg.stops > 0 ? `${leg.stops}정류장 · ` : ""}${leg.from} → ${leg.to}`;
     case "ride":
       return `${lineName(leg.line)} ${leg.stops}정거장 · ${leg.from} → ${leg.to}`;
     case "transfer":
