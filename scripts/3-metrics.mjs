@@ -53,7 +53,15 @@ const OUT = join(ROOT, "data/dist/metrics.json");
 const POI_CACHE = join(ROOT, "data/raw/osm-poi.json");
 const SBIZ_CACHE = join(ROOT, "data/raw/sbiz-seoul.json");
 
-const SEOUL_BBOX = "37.41,126.75,37.72,127.20";
+/*
+ * OSM POI 수집 범위. 대상 547개 동의 대표점이 위도 37.232~37.684,
+ * 경도 126.795~127.182 에 걸쳐 있어 여유를 두고 잡는다. 동 폴리곤은
+ * 대표점보다 넓으므로 경계에서 잘리지 않게 넉넉히 둔다.
+ *
+ * 서울만 볼 때(37.41~37.72)보다 남쪽으로 20km 정도 넓어져 수집량이 늘고
+ * data/raw/osm-poi.json 이 커진다. 캐시라 한 번만 받으면 된다.
+ */
+const TARGET_BBOX = "37.19,126.72,37.73,127.25";
 
 const OVERPASS_MIRRORS = [
   "https://overpass-api.de/api/interpreter",
@@ -98,7 +106,7 @@ async function main() {
     await readFile(join(ROOT, "data/dist/dong-meta.json"), "utf8")
   );
   const boundaries = JSON.parse(
-    await readFile(join(ROOT, "public/seoul-dong.geojson"), "utf8")
+    await readFile(join(ROOT, "public/dong.geojson"), "utf8")
   );
   const graph = JSON.parse(
     await readFile(join(ROOT, "data/dist/subway-graph.json"), "utf8")
@@ -167,11 +175,13 @@ async function main() {
 
   /* ---- 2. 최근접역 도보시간 (자체 그래프) ---- */
   console.log("\n[2/6] 최근접 지하철역 도보시간...");
+  const livingPoint = await buildLivingPoints(dongs, sbiz.stores, index);
   const walkMin = new Map();
   for (const d of dongs) {
+    const p = livingPoint.get(d.code) ?? d; // 폴백: 폴리곤 내부점
     let best = Infinity;
     for (const s of graph.stations) {
-      const dist = haversineM(d.lat, d.lng, s.lat, s.lng);
+      const dist = haversineM(p.lat, p.lng, s.lat, s.lng);
       if (dist < best) best = dist;
     }
     // 보정 계수는 geo.mjs 한 곳에서만 정의한다 — 여기 숫자를 다시 적으면
@@ -258,7 +268,7 @@ async function main() {
       cctvPerKm2: cctvOk ? round2(c.cctv / area) : null,
       // 자치구 단위 — 같은 구 안의 동들은 전부 같은 값을 갖는다. 월세의
       // 법정동 해상도 한계(자치구 중앙값 대체)와 같은 성격의 제약이다.
-      crimePer1k: crimeByGu.get(d.gu) ?? null,
+      crimePer1k: crimeRateFor(crimeByGu, d.gu),
       trafficAccidentPerKm2: accidentOk ? round2(c.trafficAccident / area) : null,
       monthlyRentMan: r?.median ?? null,
       rentSamples: r?.samples ?? 0,
@@ -383,7 +393,7 @@ async function fetchPois() {
   const filters = [];
   for (const rules of Object.values(POI_GROUPS)) {
     for (const [key, values] of Object.entries(rules)) {
-      filters.push(`nwr["${key}"~"^(${values.join("|")})$"](${SEOUL_BBOX});`);
+      filters.push(`nwr["${key}"~"^(${values.join("|")})$"](${TARGET_BBOX});`);
     }
   }
   const query = `[out:json][timeout:300];(${filters.join("")});out center tags;`;
@@ -429,8 +439,8 @@ async function overpass(query) {
 
 /* ---- 경찰청 5대범죄 + 행안부 인구 (자치구, 연 1회 CSV 스냅샷) ---- */
 
-const CRIME_CSV = join(ROOT, "data/raw/police-crime-by-gu-20241231.csv");
-const POPULATION_CSV = join(ROOT, "data/raw/population-by-gu-20260630.csv");
+const CRIME_CSV = join(ROOT, "data/raw/police-crime-20241231.csv");
+const POPULATION_CSV = join(ROOT, "data/raw/population-20260630.csv");
 
 /**
  * "5대범죄"(살인·강도·강간강제추행·절도·폭력)에 대응하는 원본 CSV의
@@ -463,6 +473,83 @@ function parseCsv(text) {
  * 인코딩이라(정부 CSV 흔한 함정) 그대로 커밋하지 않고 이 단계에서 이미
  * 변환해뒀다.
  */
+/* ---- 생활 중심점: 인구 격자로 가중한 상가업소 좌표의 무게중심 ---- */
+
+const GRID_POP = join(ROOT, "data/raw/grid-population-2024.json");
+/** 격자가 1km 라 인덱싱 셀도 0.01도(≈1.1km)로 맞춘다 */
+const GRID_CELL_DEG = 0.01;
+
+/**
+ * 동마다 "사람이 실제로 사는 쪽"의 대표 좌표를 만든다.
+ *
+ * 원래는 폴리곤 내부점(`-points inner`)을 썼다. 서울은 동이 작아(중앙 0.99km²)
+ * 그럭저럭 맞았지만, 경기를 넣으면서 깨졌다 — 용인 수지구 동천동은 16.5km² 라
+ * 내부점이 산속에 찍혀 **동천역을 품고 있는데도 역까지 84분**으로 계산됐다.
+ * 성남 서현1동 50분, 분당 구미1동 50분도 같은 이유다.
+ *
+ * 해법: 상가업소 좌표를 **그 자리의 격자 인구로 가중**해 무게중심을 잡는다.
+ *   - 인구 격자(1km)만 쓰면 1km² 미만 동 248개에서 해상도가 모자란다.
+ *   - 상가 좌표만 쓰면 상권이 역 반대편인 동에서 반대로 밀린다.
+ *   - 곱하면 서로 메워진다. 산·농지의 상가는 인구가 0이라 자동으로 빠진다.
+ *
+ * 실측(547개 동): 역 도보 중앙값 12.4 → 9.7분, 30분 초과 73 → 45개,
+ * 60분 초과 14 → 5개. 동천동 84.3 → 14.3분, 서현1동 49.9 → 2.2분.
+ *
+ * 인구나 상가가 하나도 안 잡히는 동은 기존 내부점으로 폴백한다(현재 0개).
+ */
+async function buildLivingPoints(dongs, stores, index) {
+  let grids;
+  try {
+    grids = JSON.parse(await readFile(GRID_POP, "utf8")).grids;
+  } catch {
+    console.log("  격자 인구 파일 없음 → 폴리곤 내부점을 그대로 씁니다");
+    return new Map();
+  }
+
+  const popCell = new Map();
+  for (const [lng, lat, pop] of grids) {
+    const k = `${Math.round(lat / GRID_CELL_DEG)},${Math.round(lng / GRID_CELL_DEG)}`;
+    popCell.set(k, (popCell.get(k) ?? 0) + pop);
+  }
+
+  const acc = new Map(dongs.map((d) => [d.code, { w: 0, lat: 0, lng: 0 }]));
+  for (const [lng, lat] of stores) {
+    const w = popCell.get(`${Math.round(lat / GRID_CELL_DEG)},${Math.round(lng / GRID_CELL_DEG)}`) ?? 0;
+    if (!(w > 0)) continue;
+    const code = index.lookup(lng, lat);
+    if (!code) continue;
+    const a = acc.get(code);
+    a.w += w; a.lat += lat * w; a.lng += lng * w;
+  }
+
+  const out = new Map();
+  let fallback = 0;
+  for (const d of dongs) {
+    const a = acc.get(d.code);
+    if (a.w > 0) out.set(d.code, { lat: a.lat / a.w, lng: a.lng / a.w });
+    else fallback++;
+  }
+  console.log(`  생활 중심점 ${out.size}개 (격자 ${grids.length}개 사용, 내부점 폴백 ${fallback}개)`);
+  return out;
+}
+
+/**
+ * 자치구 이름으로 5대범죄율을 찾되, 없으면 **시 단위로 폴백**한다.
+ *
+ * 경찰청 공개 통계의 공간 단위가 지역마다 다르다. 서울은 자치구별(종로구·중구
+ * …)로 나오는데 경기 특례시는 **시 단위**(수원시·성남시·용인시)까지만 나온다.
+ * 분당구·수지구 같은 일반구는 별도 행이 없다.
+ *
+ * 그래서 "성남시 분당구" 로 먼저 찾아보고, 없으면 "성남시" 로 다시 찾는다.
+ * 결과적으로 성남시의 세 구는 같은 값을 공유한다 — 서울에서 같은 자치구의
+ * 동들이 같은 값을 갖는 것과 같은 성격의 한계이고, 한 단계 더 거칠 뿐이다.
+ */
+function crimeRateFor(crimeByGu, gu) {
+  if (crimeByGu.has(gu)) return crimeByGu.get(gu);
+  const city = String(gu).split(" ")[0]; // "성남시 분당구" → "성남시"
+  return crimeByGu.get(city) ?? null;
+}
+
 async function loadCrimePer1k() {
   const [crimeText, popText] = await Promise.all([
     readFile(CRIME_CSV, "utf8"),
@@ -492,7 +579,7 @@ async function loadCrimePer1k() {
 
 /* ---- 전국교통사고다발지역표준데이터: 서울 취약계층 사고다발지점 (점 데이터) ---- */
 
-const TRAFFIC_CSV = join(ROOT, "data/raw/traffic-accident-hotspots-seoul-2012-2024.csv");
+const TRAFFIC_CSV = join(ROOT, "data/raw/traffic-accident-hotspots-2012-2024.csv");
 
 /**
  * "사고지역위치명" 일부 필드에 콤마가 섞여 있어(3건 확인됨) 위 parseCsv로는

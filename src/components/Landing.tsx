@@ -79,7 +79,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
             어디 살아야<br />할지 모르겠다면
           </h1>
           <p className="hero-lead">
-            회사나 학교를 검색하면, 통근 가능한 서울 동네가
+            회사나 학교를 검색하면, 통근 가능한 동네가
             <br />
             평판 등급으로 칠해진 지도가 나옵니다.
           </p>
@@ -251,7 +251,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
             <div className="split-text">
               <h2>왜 그 등급인지 전부 보여줍니다</h2>
               <p className="landing-note">
-                점수만 던지지 않습니다. 원지표가 서울 중앙값 대비 어디쯤인지,
+                점수만 던지지 않습니다. 원지표가 전체 중앙값 대비 어디쯤인지,
                 백분위가 몇 점인지, 가중치가 얼마인지, 그게 어떻게 합산됐는지
                 마지막 덧셈까지 펼쳐서 보여줍니다.
               </p>
@@ -282,7 +282,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
                         <b>{r.value}</b>
                       </div>
                       <div className="metric-row-note">
-                        서울 중앙값 {r.median} · 이 동은 {r.rank} <b>({r.point}점)</b> ·
+                        전체 중앙값 {r.median} · 이 동은 {r.rank} <b>({r.point}점)</b> ·
                         가중치 {r.weight}
                       </div>
                     </div>
@@ -318,7 +318,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
                 </span>
               </div>
               <p className="rank-line">
-                서울 427개 동 중 <b>48위</b> · 상위 11%
+                수도권 547개 동 중 <b>100위</b> · 상위 18%
               </p>
               <p className="summary">
                 월세가 60만원으로 싸고 범죄는 적지만, 교통사고 다발지점이 많습니다.
@@ -386,10 +386,10 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
             </p>
 
             <p className="summary">
-              등급은 절대 평가가 아니라 서울 안에서의 상대 평가입니다. 상위{" "}
+              등급은 절대 평가가 아니라 대상 지역 안에서의 상대 평가입니다. 상위{" "}
               {pct(GRADE_CUT.best)}%가 Best, 하위 {pct(1 - GRADE_CUT.normal)}%가
               Bad입니다. &ldquo;Bad&rdquo;는 살 수 없는 동네라는 뜻이 아니라,
-              같은 조건에서 비교했을 때 서울 하위권이라는 뜻입니다.
+              같은 조건에서 비교했을 때 하위권이라는 뜻입니다.
             </p>
           </section>
         </Reveal>
@@ -439,7 +439,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
       </section>
 
       <p className="disclaimer landing-foot">
-        등급은 공공·공개 데이터로 계산한 <b>서울 내 상대 평가</b>이며, 특정
+        등급은 공공·공개 데이터로 계산한 <b>대상 지역 내 상대 평가</b>이며, 특정
         지역에 대한 가치판단이 아닙니다. 통근시간은 지하철 기준 추정치로 실제
         소요시간과 다를 수 있습니다.
         <br />
@@ -688,16 +688,16 @@ const MODE_SHOTS = [
  * 히어로 아래 숫자 띠.
  *
  * 427·623·9 는 파이프라인 산출물과 대조한 값이다(bundle.json 의 dongs
- * 427개, graph.stations 623개, meta.availableMetrics 9개). 데이터가 바뀌면
+ * 547개, graph.stations 623개, meta.availableMetrics 9개). 데이터가 바뀌면
  * 같이 고쳐야 한다.
  *
- * "0" 은 계산이 아니라 설계다. 목적지 하나를 잡으면 427개 동의 통근시간이
+ * "0" 은 계산이 아니라 설계다. 목적지 하나를 잡으면 547개 동의 통근시간이
  * 전부 필요한데, 길찾기 API 로 하면 요청 한 번에 427콜이라 무료 한도로는
  * 하루 두 명도 못 받는다. 그래서 지하철 그래프를 직접 들고 브라우저에서
  * 탐색한다.
  */
 const STATS = [
-  { value: 427, unit: "개", label: "행정동을 전부 등급화" },
+  { value: 547, unit: "개", label: "행정동을 전부 등급화" },
   { value: 623, unit: "역", label: "지하철 21개 노선" },
   { value: 9, unit: "개", label: "등급에 쓰는 공공데이터 지표" },
   { value: 0, unit: "회", label: "외부 길찾기 API 호출" },
@@ -750,8 +750,8 @@ const SHOT_MARKS = [
 /* README 상단의 기능 목록을 그대로 옮긴 것 */
 const FEATURES = [
   {
-    title: "427개 행정동 등급화",
-    body: "서울 전체를 Best / Normal / Bad 로 나눕니다.",
+    title: "547개 행정동 등급화",
+    body: "서울과 신분당선 축(수원·성남·용인)을 Best / Normal / Bad 로 나눕니다.",
   },
   {
     title: "가중치 조절",

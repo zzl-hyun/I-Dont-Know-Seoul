@@ -184,13 +184,16 @@ describe("동점 때문에 백분위가 뭉치는 것을 설명할 수 있다", 
     // 지표 백분위의 가중합과 일치한다" 테스트가 이미 모든 동에 대해 검증한다.
   });
 
-  it("유흥업소 밀도는 427개 동에서 유효한 비음수 값이다", () => {
+  it("유흥업소 밀도는 모든 동에서 유효한 비음수 값이다", () => {
     const values = bundle.dongs.map(
       (d) => bundle.scores[d.code].raw.nightlifePerKm2
     );
-    expect(values).toHaveLength(427);
+    // 동 수를 박아두지 않는다 — 대상 지역이 넓어지면(서울 → 수도권) 같이 늘어난다.
+    expect(values).toHaveLength(bundle.dongs.length);
+    expect(values.length).toBeGreaterThan(400);
     expect(values.every((v) => typeof v === "number" && Number.isFinite(v) && v >= 0)).toBe(true);
-    expect(values.filter((v) => (v ?? 0) > 0).length).toBeGreaterThan(200);
+    // 유흥업소가 하나도 없는 동이 많아 비율로 본다(서울만일 때 200/427 이었다).
+    expect(values.filter((v) => (v ?? 0) > 0).length).toBeGreaterThan(values.length * 0.4);
   });
 });
 

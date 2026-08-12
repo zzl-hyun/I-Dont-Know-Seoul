@@ -3,7 +3,7 @@
  *
  * 입력: data/raw/hangjeongdong_20260701.geojson  (전국 3,558개 행정동, 34MB)
  * 출력:
- *   public/seoul-dong.geojson   지도 렌더용 (서울 427개, 위상보존 단순화)
+ *   public/dong.geojson         지도 렌더용 (547개, 위상보존 단순화)
  *   data/dist/dong-meta.json    동별 메타 (내부점 좌표, 면적, 자치구)
  *
  * 왜 mapshaper인가: 인접한 폴리곤을 각각 독립적으로 단순화하면(turf/simplify 등)
@@ -21,12 +21,36 @@ import mapshaper from "mapshaper";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SRC = join(ROOT, "data/raw/hangjeongdong_20260701.geojson");
-const OUT_GEO = join(ROOT, "public/seoul-dong.geojson");
+const OUT_GEO = join(ROOT, "public/dong.geojson");
 const OUT_META = join(ROOT, "data/dist/dong-meta.json");
 
 // 행정동 경계는 매년 바뀐다. 버전을 고정해두고, 바꿀 때는 의식적으로 바꾼다.
 const BOUNDARY_VERSION = "20260701";
+
+/**
+ * 대상 지역. 서울 전체 + 신분당선 축의 경기 3개 시.
+ *
+ * 시도 코드 하나로 자르던 것을 시군구 화이트리스트로 바꿨다. 경기도를 통째로
+ * 넣으면 560개 동이 더 붙어 번들이 2배가 되는데, 실제로 필요한 건 신분당선이
+ * 지나는 축이기 때문이다.
+ *
+ * **용인 처인구(41461)는 일부러 뺐다.** 신분당선 역이 하나도 없고(동천·
+ * 수지구청·성복·상현이 전부 수지구), 용인경전철이 지하철 그래프에 없어서
+ * 13개 동이 전부 통근 불가로 나온다. 면적도 468km² 로 나머지 9개 구를 합친
+ * 것보다 큰데 대부분 읍·면이라, 넣으면 개/km² 밀도 지표의 분포가 왜곡되고
+ * 통합 상대평가라 서울 동들의 백분위까지 밀린다.
+ */
 const SEOUL_SIDO = "11";
+const GYEONGGI_SGG = [
+  "41111", "41113", "41115", "41117", // 수원 장안·권선·팔달·영통
+  "41131", "41133", "41135",          // 성남 수정·중원·분당
+  "41463", "41465",                   // 용인 기흥·수지 (처인 41461 제외)
+];
+
+/** mapshaper -filter 에 그대로 넣을 식 */
+const AREA_FILTER =
+  `sido === "${SEOUL_SIDO}" || ` +
+  `[${GYEONGGI_SGG.map((c) => `"${c}"`).join(",")}].indexOf(String(adm_cd2).substr(0,5)) > -1`;
 
 // EPSG:5179 (Korea 2000 / Unified CS). 면적을 m² 로 얻으려면 투영이 필요하다.
 // WGS84 상태에서 계산하면 "제곱 도(degree²)"가 나와 아무 의미가 없다.
@@ -52,8 +76,7 @@ async function main() {
   await mapshaper.runCommands(
     [
       `-i "${SRC}"`,
-      // sido === "11" 이 서울특별시. adm_cd2 앞 2자리로도 되지만 명시 필드를 쓴다.
-      `-filter 'sido === "${SEOUL_SIDO}"'`,
+      `-filter '${AREA_FILTER}'`,
       // 원본에 있을 수 있는 자기교차/슬리버를 정리한다.
       `-clean`,
       // 지도에 필요한 필드만 남긴다. 원본의 adm_cd/sgg 등은 메타 파일로 간다.
@@ -69,7 +92,7 @@ async function main() {
   const metaJson = await mapshaper.applyCommands(
     [
       `-i "${SRC}"`,
-      `-filter 'sido === "${SEOUL_SIDO}"'`,
+      `-filter '${AREA_FILTER}'`,
       `-proj "${KOREA_2000}"`,
       `-each 'area_km2 = Math.round(this.area / 1e6 * 10000) / 10000'`,
       // inner: 반드시 폴리곤 내부에 떨어지는 대표점(아이콘 위치용)
@@ -90,9 +113,11 @@ async function main() {
   console.log("[3/3] 검증 및 저장...");
   const meta = rows.map((r) => ({
     code: String(r.adm_cd2),
-    name: String(r.adm_nm).replace(/^서울특별시\s+/, ""), // "종로구 사직동"
-    dong: String(r.adm_nm).split(" ").pop(), // "사직동"
-    gu: r.sggnm,
+    // "서울특별시 종로구 사직동" → "종로구 사직동"
+    // "경기도 성남시분당구 정자1동" → "성남시 분당구 정자1동"
+    name: displayName(r.adm_nm),
+    dong: String(r.adm_nm).split(" ").pop(), // "사직동" / "정자1동"
+    gu: splitCity(r.sggnm), // "종로구" / "성남시 분당구"
     guCode: String(r.sgg),
     areaKm2: r.area_km2,
     lng: r.lng,
@@ -124,32 +149,59 @@ async function main() {
   console.log(`  자치구 ${new Set(meta.map((d) => d.gu)).size}개`);
 }
 
+/**
+ * 원본의 시군구명은 서울이 "종로구" 인데 경기 특례시는 "성남시분당구" 처럼
+ * 시와 구가 붙어 나온다. 그대로 두면 화면에 "성남시분당구 정자1동" 이 찍힌다.
+ * 시와 구 사이를 띄워 "성남시 분당구" 로 만든다.
+ */
+function splitCity(sggnm) {
+  return String(sggnm).replace(/^(.+?시)(.+구)$/, "$1 $2");
+}
+
+/** "경기도 성남시분당구 정자1동" → "성남시 분당구 정자1동" (시도명 제거) */
+function displayName(admNm) {
+  const parts = String(admNm).split(" ");
+  const dong = parts.pop();
+  const sgg = parts.pop(); // 시도명은 버린다
+  return `${splitCity(sgg)} ${dong}`;
+}
+
 /** 조용히 틀리는 것을 막기 위한 방어. 여기서 걸리면 이후 전부가 잘못된다. */
 function verify(meta) {
   const problems = [];
 
-  if (meta.length < 400 || meta.length > 450) {
-    problems.push(`행정동 수가 이상함: ${meta.length} (서울은 420~430 범위여야 함)`);
+  // 서울 427 + 경기 3개 시 120 = 547. 경계 버전이 바뀌면 몇 개는 움직인다.
+  if (meta.length < 520 || meta.length > 570) {
+    problems.push(`행정동 수가 이상함: ${meta.length} (서울 427 + 경기 120 = 547 근처여야 함)`);
   }
 
+  // 서울 25개 구 + 경기 9개 구(수원 4 · 성남 3 · 용인 2) = 34
   const guCount = new Set(meta.map((d) => d.gu)).size;
-  if (guCount !== 25) {
-    problems.push(`자치구 수가 25가 아님: ${guCount}`);
+  if (guCount !== 34) {
+    problems.push(`자치구 수가 34가 아님: ${guCount} — ${[...new Set(meta.map((d) => d.gu))].join(", ")}`);
+  }
+
+  // 처인구가 섞여 들어오면 밀도 지표가 통째로 왜곡된다. 코드로 못박아 막는다.
+  const cheoin = meta.filter((d) => d.guCode === "41461");
+  if (cheoin.length) {
+    problems.push(`용인 처인구가 포함됨(${cheoin.length}개) — 의도적으로 제외한 지역이다`);
   }
 
   const dupes = meta.map((d) => d.code).filter((c, i, a) => a.indexOf(c) !== i);
   if (dupes.length) problems.push(`행정동 코드 중복: ${dupes.join(", ")}`);
 
-  // 서울 경계 대략: 경도 126.76~127.19, 위도 37.42~37.70
+  // 서울(북위 37.70)부터 수원 남단(37.20)까지, 강화 쪽 126.7 ~ 용인 동단 127.25
   const outOfBounds = meta.filter(
-    (d) => d.lng < 126.7 || d.lng > 127.25 || d.lat < 37.4 || d.lat > 37.72
+    (d) => d.lng < 126.7 || d.lng > 127.25 || d.lat < 37.15 || d.lat > 37.72
   );
   if (outOfBounds.length) {
     problems.push(
-      `대표점이 서울 밖: ${outOfBounds.map((d) => `${d.name}(${d.lng},${d.lat})`).join(", ")}`
+      `대표점이 대상 범위 밖: ${outOfBounds.map((d) => `${d.name}(${d.lng},${d.lat})`).join(", ")}`
     );
   }
 
+  // 서울 최대는 20km² 대인데 경기는 성남 운중동 18 · 용인 기흥동 12 수준이라
+  // 60km² 기준을 그대로 쓴다. 처인구를 뺐으므로 여기 걸리는 동이 없어야 한다.
   const badArea = meta.filter((d) => !(d.areaKm2 > 0) || d.areaKm2 > 60);
   if (badArea.length) {
     problems.push(`면적 이상: ${badArea.map((d) => `${d.name}=${d.areaKm2}km²`).join(", ")}`);
@@ -162,10 +214,14 @@ function verify(meta) {
   }
 
   const totalArea = meta.reduce((s, d) => s + d.areaKm2, 0);
-  // 서울시 면적은 605.2 km². 여기서 크게 벗어나면 투영이나 필터가 잘못된 것이다.
-  console.log(`  총면적 ${totalArea.toFixed(1)} km² (실제 605.2 km²)`);
-  if (Math.abs(totalArea - 605.2) > 30) {
-    console.error(`✗ 총면적이 실제와 너무 다름 — 투영 설정을 의심할 것`);
+  /*
+   * 서울 605.2 + 수원 121.1 + 성남 141.7 + 용인 기흥 81.7·수지 42.2 = 약 992 km².
+   * 여기서 크게 벗어나면 투영이나 필터가 잘못된 것이다 (처인구가 섞이면 +468).
+   */
+  const EXPECTED_AREA = 992;
+  console.log(`  총면적 ${totalArea.toFixed(1)} km² (기대 약 ${EXPECTED_AREA} km²)`);
+  if (Math.abs(totalArea - EXPECTED_AREA) > 50) {
+    console.error(`✗ 총면적이 기대와 너무 다름 — 투영 설정이나 지역 필터를 의심할 것`);
     process.exit(1);
   }
 }

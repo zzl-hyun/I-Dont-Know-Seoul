@@ -23,13 +23,17 @@ node_modules/
 # 지워야 파일 단위 예외가 동작한다.
 data/raw/*
 
-# 예외: 자치구 25개 단위의 작은 정적 스냅샷(각 수 KB). 연 1회 갱신되는
-# 파일데이터라 스크립트가 자동으로 다시 받을 수 없어(수동/브라우저 다운로드),
-# 재현성을 위해 커밋한다. 서울분만 추출한 UTF-8 파생 파일이다(원본은
-# 전국 데이터에 CP949 인코딩이라 그대로 커밋하지 않았다).
-!data/raw/police-crime-by-gu-*.csv
-!data/raw/population-by-gu-*.csv
-!data/raw/traffic-accident-hotspots-seoul-*.csv
+# 예외: 대상 지역분만 추출한 작은 정적 스냅샷. 연 1회 갱신되는 파일데이터라
+# 스크립트가 자동으로 다시 받을 수 없어(로그인·수동 다운로드), 재현성을 위해
+# 커밋한다. 전국 원본에서 서울 25개 자치구 + 경기 3개 시(수원·성남·용인)만
+# 뽑은 UTF-8 파생 파일이다 — 원본은 CP949 에 수십 MB라 그대로 안 넣는다.
+# 교통사고만 지점 단위라 565KB 이고 나머지 둘은 각 수 KB.
+!data/raw/police-crime-*.csv
+!data/raw/population-*.csv
+!data/raw/traffic-accident-hotspots-*.csv
+# 격자 인구: SGIS 원본은 전국 278MB(shp+csv 수백 개)라 못 넣고, 대상 범위
+# 격자 3,139개만 좌표+총인구로 뽑은 78KB 파생 파일을 커밋한다.
+!data/raw/grid-population-*.json
 
 .DS_Store
 *.log
