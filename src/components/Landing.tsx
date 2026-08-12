@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import "./Landing.css";
 import DestinationSearch from "./DestinationSearch";
+import SearchGuide from "./SearchGuide";
 import WeightPlayground from "./WeightPlayground";
 import type { Theme } from "./MapView";
 import type { Destination } from "../types";
@@ -79,9 +80,9 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
             어디 살아야<br />할지 모르겠다면
           </h1>
           <p className="hero-lead">
-            회사나 학교를 검색하면, 통근 가능한 동네가
+            강남·판교 같은 회사나 학교를 검색하면,
             <br />
-            평판 등급으로 칠해진 지도가 나옵니다.
+            서울과 신분당선 생활권의 동네를 한눈에 비교합니다.
           </p>
 
           <div className="hero-search">
@@ -105,6 +106,10 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
       <StatBand />
 
       <div className="landing-inner">
+        <Reveal>
+          <SearchGuide />
+        </Reveal>
+
         {/* ---------------- 기능 ---------------- */}
         <Reveal>
           <section className="landing-section">
@@ -687,13 +692,13 @@ const MODE_SHOTS = [
 /*
  * 히어로 아래 숫자 띠.
  *
- * 427·623·9 는 파이프라인 산출물과 대조한 값이다(bundle.json 의 dongs
+ * 547·623·9 는 파이프라인 산출물과 대조한 값이다(bundle.json 의 dongs
  * 547개, graph.stations 623개, meta.availableMetrics 9개). 데이터가 바뀌면
  * 같이 고쳐야 한다.
  *
  * "0" 은 계산이 아니라 설계다. 목적지 하나를 잡으면 547개 동의 통근시간이
- * 전부 필요한데, 길찾기 API 로 하면 요청 한 번에 427콜이라 무료 한도로는
- * 하루 두 명도 못 받는다. 그래서 지하철 그래프를 직접 들고 브라우저에서
+ * 전부 필요한데, 길찾기 API 로 하면 요청 한 번에 547콜이라 무료 한도로는
+ * 하루 한 명도 못 받는다. 그래서 지하철 그래프를 직접 들고 브라우저에서
  * 탐색한다.
  */
 const STATS = [
