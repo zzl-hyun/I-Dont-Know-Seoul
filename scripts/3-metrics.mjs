@@ -25,6 +25,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { haversineM, pointInGeometry, bbox, walkMinutes } from "./lib/geo.mjs";
 import { SBIZ_GROUPS } from "./lib/sbiz.mjs";
+import { CACHE_SCHEMA, checkCache } from "./lib/cache.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -51,7 +52,7 @@ async function loadEnv() {
 await loadEnv();
 const OUT = join(ROOT, "data/dist/metrics.json");
 const POI_CACHE = join(ROOT, "data/raw/osm-poi.json");
-const SBIZ_CACHE = join(ROOT, "data/raw/sbiz-seoul.json");
+const SBIZ_CACHE = join(ROOT, "data/raw/sbiz-stores.json");
 
 /*
  * OSM POI 수집 범위. 대상 547개 동의 대표점이 위도 37.232~37.684,
@@ -382,10 +383,20 @@ function classify(tags) {
 /* ------------------------------------------------------------------ */
 
 async function fetchPois() {
+  /*
+   * 캐시가 **지금 bbox 로 받은 것인지** 확인한다. 대상 지역을 넓혔는데 옛
+   * 캐시를 그대로 쓰면 새로 들어온 동들의 버스 정류장·유흥업소가 전부 0 이
+   * 되는데, 결측이 아니라 0 이라 이후 검사에도 안 걸린다.
+   */
+  const want = { schema: CACHE_SCHEMA, bbox: TARGET_BBOX };
   try {
-    const cached = await readFile(POI_CACHE, "utf8");
-    console.log("  OSM POI 캐시 사용 (다시 받으려면 data/raw/osm-poi.json 삭제)");
-    return JSON.parse(cached).elements;
+    const cached = JSON.parse(await readFile(POI_CACHE, "utf8"));
+    const { usable, reason } = checkCache(cached, want);
+    if (usable) {
+      console.log(`  OSM POI 캐시 사용 ${cached.elements.length.toLocaleString()}개`);
+      return cached.elements;
+    }
+    console.log(`  OSM POI 캐시 버림 — ${reason}. 다시 받습니다`);
   } catch {
     /* 캐시 없음 */
   }
@@ -400,7 +411,10 @@ async function fetchPois() {
 
   const json = await overpass(query);
   await mkdir(dirname(POI_CACHE), { recursive: true });
-  await writeFile(POI_CACHE, JSON.stringify(json));
+  await writeFile(
+    POI_CACHE,
+    JSON.stringify({ ...want, fetchedAt: new Date().toISOString(), elements: json.elements })
+  );
   return json.elements;
 }
 
@@ -647,10 +661,20 @@ const SBIZ_GAP_MS = 120;
  * 다 들고 있으면 500MB 가 넘는데, 우리가 쓰는 건 이 셋뿐이다.
  */
 async function fetchSbizStores(key, guCodes) {
+  /*
+   * 캐시에 **어떤 구를 요청해 받은 것인지**를 함께 저장해 두고 대조한다.
+   * 대상 지역이 넓어졌는데 옛 캐시를 그대로 쓰면 새 구의 편의점·음식점·의료·
+   * 유흥업소가 전부 0 이 된다 — 결측이 아니라 0 이라 조용히 통과한다.
+   */
+  const want = { schema: CACHE_SCHEMA, guCodes: [...guCodes].map(String).sort() };
   try {
     const cached = JSON.parse(await readFile(SBIZ_CACHE, "utf8"));
-    console.log(`  상가업소 캐시 사용 ${cached.stores.length.toLocaleString()}건 (다시 받으려면 ${SBIZ_CACHE} 삭제)`);
-    return cached;
+    const { usable, reason } = checkCache(cached, want);
+    if (usable) {
+      console.log(`  상가업소 캐시 사용 ${cached.stores.length.toLocaleString()}건 (${cached.guCodes.length}개 구)`);
+      return cached;
+    }
+    console.log(`  상가업소 캐시 버림 — ${reason}. 다시 받습니다`);
   } catch {
     /* 캐시 없음 → 받는다 */
   }
@@ -705,7 +729,8 @@ async function fetchSbizStores(key, guCodes) {
     process.stdout.write(`\r  상가업소 수집 ${stores.length.toLocaleString()}건 · 호출 ${calls}회   `);
   }
   console.log();
-  const out = { source: "소상공인시장진흥공단 상가업소정보 (data.go.kr 15012005)",
+  const out = { ...want,
+                source: "소상공인시장진흥공단 상가업소정보 (data.go.kr 15012005)",
                 fetchedAt: new Date().toISOString(), calls, names, stores };
   await writeFile(SBIZ_CACHE, JSON.stringify(out));
   return out;
