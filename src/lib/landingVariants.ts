@@ -55,7 +55,7 @@ export const LANDING_VARIANTS: Record<LandingVariantKey, LandingVariant> = {
     cards: [
       {
         title: "출근지 기준 통근 비교",
-        body: "회사·학교 주소를 목적지로 넣고 지하철과 도보를 합산한 예상 통근시간으로 후보를 좁힙니다.",
+        body: "회사·학교 주소를 목적지로 넣고 지하철·도보·버스를 합산한 예상 통근시간으로 후보를 좁힙니다.",
       },
       {
         title: "월세 예산별 자취 추천",
@@ -76,7 +76,7 @@ export const LANDING_VARIANTS: Record<LandingVariantKey, LandingVariant> = {
       {
         question: "판교나 강남 출근에 맞는 동네도 찾을 수 있나요?",
         answer:
-          "판교역이나 강남역, 실제 회사 주소를 목적지로 넣으면 지하철과 도보를 합산한 예상 통근시간으로 서울과 인접 경기 지역의 후보를 좁힐 수 있습니다.",
+          "판교역이나 강남역, 실제 회사 주소를 목적지로 넣으면 지하철·도보·버스를 합산한 예상 통근시간으로 서울과 인접 경기 지역의 후보를 좁힐 수 있습니다.",
       },
       {
         question: "월세 예산을 정해서 추천받을 수 있나요?",
@@ -117,7 +117,7 @@ export const LANDING_VARIANTS: Record<LandingVariantKey, LandingVariant> = {
     cards: [
       {
         title: "분당·판교 인접 생활권",
-        body: "판교와의 거리뿐 아니라 이용 가능한 역, 도보시간과 환산월세를 함께 확인해 가까움의 실제 비용을 비교합니다.",
+        body: "판교와의 거리뿐 아니라 이용 가능한 역까지의 도보·버스 접근시간과 환산월세를 함께 확인해 가까움의 실제 비용을 비교합니다.",
       },
       {
         title: "수지·신분당선 생활권",
@@ -133,7 +133,7 @@ export const LANDING_VARIANTS: Record<LandingVariantKey, LandingVariant> = {
       {
         question: "판교역이 아니라 실제 회사 주소도 검색할 수 있나요?",
         answer:
-          "가능합니다. 회사명이나 주소를 검색하면 해당 좌표에서 가까운 역과 도보 구간을 반영해 각 동네의 예상 통근시간을 계산합니다.",
+          "가능합니다. 회사명이나 주소를 검색하면 해당 좌표에서 가까운 역까지의 도보 구간을 반영하고, 도보가 15분을 넘으면 실제 버스 노선까지 계산해 각 동네의 예상 통근시간을 냅니다.",
       },
       {
         question: "분당·수지·광교를 한 번에 비교할 수 있나요?",
@@ -195,7 +195,7 @@ export const LANDING_VARIANTS: Record<LandingVariantKey, LandingVariant> = {
       {
         question: "강남역 외의 회사 주소도 목적지로 넣을 수 있나요?",
         answer:
-          "가능합니다. 회사명이나 도로명주소를 검색하면 목적지 좌표를 기준으로 가까운 역과 마지막 도보시간까지 계산합니다.",
+          "가능합니다. 회사명이나 도로명주소를 검색하면 목적지 좌표를 기준으로 가까운 역까지의 도보시간과, 도보가 15분을 넘는 구간의 버스 접근시간까지 계산합니다.",
       },
       {
         question: "서울 밖의 신분당선 지역도 비교되나요?",
