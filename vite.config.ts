@@ -1,5 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { fileURLToPath } from "node:url";
+
+const html = (relativePath: string) =>
+  fileURLToPath(new URL(relativePath, import.meta.url));
 
 export default defineConfig({
   plugins: [react()],
@@ -7,6 +11,15 @@ export default defineConfig({
     outDir: "dist",
     // 경계 GeoJSON은 public/ 에서 그대로 복사된다. 인라인되면 안 되므로 0으로 둔다.
     assetsInlineLimit: 0,
+    // 검색어별 HTML이 고유 메타데이터를 가진 채 같은 React 앱을 공유한다.
+    rollupOptions: {
+      input: {
+        main: html("index.html"),
+        pangyo: html("guide/pangyo-commute/index.html"),
+        gangnam: html("guide/gangnam-commute/index.html"),
+        sinbundang: html("guide/sinbundang/index.html"),
+      },
+    },
   },
   server: {
     // `vite dev` 단독 실행 시 /api 는 `wrangler dev`(8787)로 넘긴다.

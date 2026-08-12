@@ -15,6 +15,7 @@ import { gradeAll, rebalanceWeights } from "./lib/score";
 import { buildDistributions, summarize } from "./lib/explain";
 import { buildSubwayLayers, LINE_COLOR, lineName } from "./lib/subwayLines";
 import { decodeShareState, encodeShareState } from "./lib/shareUrl";
+import { getLandingVariant } from "./lib/landingVariants";
 import {
   BUDGET_MIN,
   BUDGET_OFF,
@@ -56,6 +57,8 @@ type SidebarTab = "detail" | "recommendations";
 export default function App() {
   const [data, setData] = useState<AppData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  /** 검색 유입 경로는 랜딩을 보는 동안만 유지하고 앱 URL에는 남기지 않는다. */
+  const [landingVariant] = useState(() => getLandingVariant(window.location.pathname));
 
   // 링크로 들어온 경우 그 상태에서 시작한다 (최초 1회만 읽는다)
   const [initial] = useState(() => decodeShareState(window.location.search));
@@ -316,9 +319,23 @@ export default function App() {
       showSubway,
       hiddenLines: [...hiddenLines],
     });
-    const url = qs ? `${window.location.pathname}?${qs}` : window.location.pathname;
+    // 검색 랜딩은 고유 경로를 유지하되, 지도에 들어간 뒤의 공유 URL은 기존
+    // `/?to=...` 형식으로 통일한다. 가이드 URL에 목적지 상태가 붙어 들어와도
+    // 첫 effect에서 곧장 루트 앱 URL로 정규화된다.
+    const pathname = showLanding ? landingVariant.path : "/";
+    const url = qs ? `${pathname}?${qs}` : pathname;
     window.history.replaceState(null, "", url);
-  }, [destinations, maxCommute, weights, budget, mapMode, showSubway, hiddenLines]);
+  }, [
+    destinations,
+    maxCommute,
+    weights,
+    budget,
+    mapMode,
+    showSubway,
+    hiddenLines,
+    showLanding,
+    landingVariant.path,
+  ]);
 
   const copyShareLink = async () => {
     try {
@@ -363,9 +380,14 @@ export default function App() {
       return [...prev, d];
     });
 
-  /** 소개 페이지의 검색에서 목적지를 고르면 곧장 도구로 넘어간다 */
+  /** 소개 페이지의 검색에서 목적지를 고르면 기존 공유 URL 형식으로 앱을 연다. */
   const startWithDestination = (d: Destination) => {
     addDestination(d);
+    setShowLanding(false);
+  };
+
+  /** 검색 유입 경로를 결과 URL로 오인하지 않도록 빈 지도도 루트에서 연다. */
+  const skipLanding = () => {
     setShowLanding(false);
   };
 
@@ -395,9 +417,10 @@ export default function App() {
     return (
       <Landing
         onPick={startWithDestination}
-        onSkip={() => setShowLanding(false)}
+        onSkip={skipLanding}
         theme={theme}
         onToggleTheme={() => setTheme(theme === "dark" ? "light" : "dark")}
+        variant={landingVariant}
       />
     );
   }

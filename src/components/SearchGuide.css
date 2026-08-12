@@ -36,6 +36,35 @@
   color: var(--text-faint);
 }
 
+.search-guide-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 20px;
+}
+
+.search-guide-nav a {
+  padding: 7px 11px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text-dim);
+  font-size: 12px;
+  text-decoration: none;
+  transition: border-color 0.18s, color 0.18s, background 0.18s;
+}
+
+.search-guide-nav a:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.search-guide-nav a[aria-current="page"] {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+  background: color-mix(in srgb, var(--accent) 12%, var(--panel));
+  color: var(--text);
+  font-weight: 700;
+}
+
 .search-guide-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
