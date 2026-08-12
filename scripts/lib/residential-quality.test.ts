@@ -18,6 +18,9 @@ const read = <T>(path: string): T => JSON.parse(readFileSync(path, "utf8"));
 describe.skipIf(!existsSync(POPULATION_PATH))(
   "SGIS 원자료가 있을 때 거주 프로필 집약 품질",
   () => {
+    // 43,780개 셀을 집약 전후로 각각 28개 목적지에 대해 다시 계산하는 무거운
+    // 검증이라 실제 실행시간이 기본 5000ms 타임아웃과 거의 같다(4,996~5,361ms
+    // 실측). 시스템 부하가 조금만 늘어도 로직과 무관하게 timeout으로 실패한다.
     it("좌표를 제거해도 통근 오차·필터 경계·경로 복원이 품질 게이트 안이다", () => {
       const graph = read<SubwayGraph>(join(ROOT, "data/dist/subway-graph.json"));
       const dongs = read<{ dongs: DongMeta[] }>(
@@ -114,6 +117,6 @@ describe.skipIf(!existsSync(POPULATION_PATH))(
       ).toBe(true);
       expect(fallbacks).toBe(0);
       expect(routeSumMismatches).toBe(0);
-    });
+    }, 20_000);
   },
 );
