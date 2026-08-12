@@ -1,13 +1,14 @@
 {
   "version": "2026-08-12",
-  "generatedAt": "2026-08-12T01:49:12.332Z",
+  "generatedAt": "2026-08-12T03:35:11.333Z",
   "sources": {
     "poi": "OpenStreetMap (ODbL) — 버스 정류장",
     "store": "소상공인시장진흥공단 상가업소정보 (공공누리 제1유형) — 편의점·음식점·의료·유흥업소",
     "cctv": null,
     "crime": "경찰청 범죄 발생 지역별 통계 + 행안부 주민등록인구",
     "trafficAccident": "도로교통공단 전국교통사고다발지역표준데이터",
-    "rent": "국토교통부 실거래가"
+    "rent": "국토교통부 실거래가",
+    "walkToStation": "SGIS 2024 100m population-weighted median direct walk to nearest subway station"
   },
   "available": [
     "storePerKm2",
@@ -39,7 +40,7 @@
       "trafficAccidentPerKm2": 9.44,
       "monthlyRentMan": 114.83,
       "rentSamples": 21,
-      "walkToStationMin": 4.5
+      "walkToStationMin": 8
     },
     {
       "code": "1111054000",
@@ -56,7 +57,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 80.63,
       "rentSamples": 10,
-      "walkToStationMin": 11.05
+      "walkToStationMin": 17.24
     },
     {
       "code": "1111055000",
@@ -73,7 +74,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 62.08,
       "rentSamples": 36,
-      "walkToStationMin": 40.58
+      "walkToStationMin": 41.22
     },
     {
       "code": "1111056000",
@@ -90,7 +91,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 69.58,
       "rentSamples": 21,
-      "walkToStationMin": 53.18
+      "walkToStationMin": 55.91
     },
     {
       "code": "1111057000",
@@ -107,7 +108,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 231.67,
       "rentSamples": 23,
-      "walkToStationMin": 1.98
+      "walkToStationMin": 5.21
     },
     {
       "code": "1111058000",
@@ -124,7 +125,7 @@
       "trafficAccidentPerKm2": 8.68,
       "monthlyRentMan": 69.58,
       "rentSamples": 0,
-      "walkToStationMin": 11.06
+      "walkToStationMin": 9.67
     },
     {
       "code": "1111060000",
@@ -141,7 +142,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 69.58,
       "rentSamples": 0,
-      "walkToStationMin": 10.32
+      "walkToStationMin": 12.6
     },
     {
       "code": "1111061500",
@@ -158,7 +159,7 @@
       "trafficAccidentPerKm2": 58.1,
       "monthlyRentMan": 69.58,
       "rentSamples": 0,
-      "walkToStationMin": 5.89
+      "walkToStationMin": 6.56
     },
     {
       "code": "1111063000",
@@ -175,7 +176,7 @@
       "trafficAccidentPerKm2": 82.15,
       "monthlyRentMan": 69.58,
       "rentSamples": 0,
-      "walkToStationMin": 5.68
+      "walkToStationMin": 9.43
     },
     {
       "code": "1111064000",
@@ -192,7 +193,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 59.58,
       "rentSamples": 25,
-      "walkToStationMin": 5.78
+      "walkToStationMin": 8.66
     },
     {
       "code": "1111067000",
@@ -209,7 +210,7 @@
       "trafficAccidentPerKm2": 105.23,
       "monthlyRentMan": 54.58,
       "rentSamples": 246,
-      "walkToStationMin": 3.8
+      "walkToStationMin": 5.61
     },
     {
       "code": "1111068000",
@@ -226,7 +227,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 54.58,
       "rentSamples": 246,
-      "walkToStationMin": 7.94
+      "walkToStationMin": 9.78
     },
     {
       "code": "1111069000",
@@ -243,7 +244,7 @@
       "trafficAccidentPerKm2": 13.62,
       "monthlyRentMan": 54.58,
       "rentSamples": 246,
-      "walkToStationMin": 3.2
+      "walkToStationMin": 5.57
     },
     {
       "code": "1111070000",
@@ -260,7 +261,7 @@
       "trafficAccidentPerKm2": 46.43,
       "monthlyRentMan": 69.58,
       "rentSamples": 1402,
-      "walkToStationMin": 6.4
+      "walkToStationMin": 3.56
     },
     {
       "code": "1111071000",
@@ -277,7 +278,7 @@
       "trafficAccidentPerKm2": 233.5,
       "monthlyRentMan": 69.58,
       "rentSamples": 1402,
-      "walkToStationMin": 7.69
+      "walkToStationMin": 7.21
     },
     {
       "code": "1111051500",
@@ -294,7 +295,7 @@
       "trafficAccidentPerKm2": 2.05,
       "monthlyRentMan": 69.58,
       "rentSamples": 0,
-      "walkToStationMin": 14.74
+      "walkToStationMin": 18.52
     },
     {
       "code": "1111065000",
@@ -311,7 +312,7 @@
       "trafficAccidentPerKm2": 6.01,
       "monthlyRentMan": 79.58,
       "rentSamples": 162,
-      "walkToStationMin": 10.47
+      "walkToStationMin": 12.97
     },
     {
       "code": "1114052000",
@@ -328,7 +329,7 @@
       "trafficAccidentPerKm2": 12.83,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 1.93
+      "walkToStationMin": 8.53
     },
     {
       "code": "1114054000",
@@ -345,7 +346,7 @@
       "trafficAccidentPerKm2": 72.85,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 3.36
+      "walkToStationMin": 6.55
     },
     {
       "code": "1114055000",
@@ -362,7 +363,7 @@
       "trafficAccidentPerKm2": 4.97,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 3.44
+      "walkToStationMin": 6.55
     },
     {
       "code": "1114057000",
@@ -379,7 +380,7 @@
       "trafficAccidentPerKm2": 4.74,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 6.15
+      "walkToStationMin": 9.05
     },
     {
       "code": "1114058000",
@@ -396,7 +397,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 4.37
+      "walkToStationMin": 6.84
     },
     {
       "code": "1114059000",
@@ -413,7 +414,7 @@
       "trafficAccidentPerKm2": 6.65,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 6.88
+      "walkToStationMin": 5.06
     },
     {
       "code": "1114060500",
@@ -430,7 +431,7 @@
       "trafficAccidentPerKm2": 26.71,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 2.42
+      "walkToStationMin": 4.63
     },
     {
       "code": "1114065000",
@@ -447,7 +448,7 @@
       "trafficAccidentPerKm2": 76.09,
       "monthlyRentMan": 78.71,
       "rentSamples": 1134,
-      "walkToStationMin": 5.49
+      "walkToStationMin": 7.92
     },
     {
       "code": "1114067000",
@@ -464,7 +465,7 @@
       "trafficAccidentPerKm2": 63.57,
       "monthlyRentMan": 84.58,
       "rentSamples": 749,
-      "walkToStationMin": 6.05
+      "walkToStationMin": 8.97
     },
     {
       "code": "1114068000",
@@ -481,7 +482,7 @@
       "trafficAccidentPerKm2": 16.26,
       "monthlyRentMan": 117.88,
       "rentSamples": 228,
-      "walkToStationMin": 6.04
+      "walkToStationMin": 9.09
     },
     {
       "code": "1114061500",
@@ -498,7 +499,7 @@
       "trafficAccidentPerKm2": 73.95,
       "monthlyRentMan": 78.71,
       "rentSamples": 1134,
-      "walkToStationMin": 6.31
+      "walkToStationMin": 5.83
     },
     {
       "code": "1114062500",
@@ -515,7 +516,7 @@
       "trafficAccidentPerKm2": 9.15,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 2.5
+      "walkToStationMin": 6.41
     },
     {
       "code": "1114063500",
@@ -532,7 +533,7 @@
       "trafficAccidentPerKm2": 91.87,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 5.34
+      "walkToStationMin": 7.08
     },
     {
       "code": "1114064500",
@@ -549,7 +550,7 @@
       "trafficAccidentPerKm2": 12.13,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 6.7
+      "walkToStationMin": 7.14
     },
     {
       "code": "1114066500",
@@ -566,7 +567,7 @@
       "trafficAccidentPerKm2": 29.01,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 7.7
+      "walkToStationMin": 9
     },
     {
       "code": "1117051000",
@@ -583,7 +584,7 @@
       "trafficAccidentPerKm2": 5.81,
       "monthlyRentMan": 59.29,
       "rentSamples": 173,
-      "walkToStationMin": 14.93
+      "walkToStationMin": 15.04
     },
     {
       "code": "1117052000",
@@ -600,7 +601,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 92.57,
       "rentSamples": 0,
-      "walkToStationMin": 21.74
+      "walkToStationMin": 20.64
     },
     {
       "code": "1117053000",
@@ -617,7 +618,7 @@
       "trafficAccidentPerKm2": 7.73,
       "monthlyRentMan": 71.44,
       "rentSamples": 10,
-      "walkToStationMin": 3.63
+      "walkToStationMin": 6.67
     },
     {
       "code": "1117057000",
@@ -634,7 +635,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 92.57,
       "rentSamples": 0,
-      "walkToStationMin": 17.1
+      "walkToStationMin": 14.94
     },
     {
       "code": "1117058000",
@@ -651,7 +652,7 @@
       "trafficAccidentPerKm2": 9.58,
       "monthlyRentMan": 128.83,
       "rentSamples": 136,
-      "walkToStationMin": 6.27
+      "walkToStationMin": 8.04
     },
     {
       "code": "1117059000",
@@ -668,7 +669,7 @@
       "trafficAccidentPerKm2": 22.4,
       "monthlyRentMan": 76.27,
       "rentSamples": 51,
-      "walkToStationMin": 5.45
+      "walkToStationMin": 8.79
     },
     {
       "code": "1117063000",
@@ -685,7 +686,7 @@
       "trafficAccidentPerKm2": 9.69,
       "monthlyRentMan": 263.33,
       "rentSamples": 283,
-      "walkToStationMin": 5.43
+      "walkToStationMin": 10.09
     },
     {
       "code": "1117064000",
@@ -702,7 +703,7 @@
       "trafficAccidentPerKm2": 6.8,
       "monthlyRentMan": 263.33,
       "rentSamples": 283,
-      "walkToStationMin": 18.46
+      "walkToStationMin": 19.64
     },
     {
       "code": "1117065000",
@@ -719,7 +720,7 @@
       "trafficAccidentPerKm2": 3.75,
       "monthlyRentMan": 74.58,
       "rentSamples": 276,
-      "walkToStationMin": 2.16
+      "walkToStationMin": 6.37
     },
     {
       "code": "1117066000",
@@ -736,7 +737,7 @@
       "trafficAccidentPerKm2": 7.86,
       "monthlyRentMan": 74.58,
       "rentSamples": 276,
-      "walkToStationMin": 9.23
+      "walkToStationMin": 11.77
     },
     {
       "code": "1117069000",
@@ -753,7 +754,7 @@
       "trafficAccidentPerKm2": 13.02,
       "monthlyRentMan": 167.29,
       "rentSamples": 13,
-      "walkToStationMin": 15.51
+      "walkToStationMin": 13.76
     },
     {
       "code": "1117070000",
@@ -770,7 +771,7 @@
       "trafficAccidentPerKm2": 19.49,
       "monthlyRentMan": 52.29,
       "rentSamples": 50,
-      "walkToStationMin": 17.96
+      "walkToStationMin": 15.51
     },
     {
       "code": "1117055500",
@@ -787,7 +788,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 92.57,
       "rentSamples": 0,
-      "walkToStationMin": 11.77
+      "walkToStationMin": 11.42
     },
     {
       "code": "1117056000",
@@ -804,7 +805,7 @@
       "trafficAccidentPerKm2": 19.52,
       "monthlyRentMan": 92.57,
       "rentSamples": 0,
-      "walkToStationMin": 6.97
+      "walkToStationMin": 8.09
     },
     {
       "code": "1117062500",
@@ -821,7 +822,7 @@
       "trafficAccidentPerKm2": 13.46,
       "monthlyRentMan": 92.57,
       "rentSamples": 0,
-      "walkToStationMin": 2.9
+      "walkToStationMin": 6.23
     },
     {
       "code": "1117068500",
@@ -838,7 +839,7 @@
       "trafficAccidentPerKm2": 12.84,
       "monthlyRentMan": 184.58,
       "rentSamples": 185,
-      "walkToStationMin": 14.05
+      "walkToStationMin": 10.22
     },
     {
       "code": "1120052000",
@@ -855,7 +856,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 4.81
+      "walkToStationMin": 7.39
     },
     {
       "code": "1120054000",
@@ -872,7 +873,7 @@
       "trafficAccidentPerKm2": 76.35,
       "monthlyRentMan": 64.58,
       "rentSamples": 1021,
-      "walkToStationMin": 6
+      "walkToStationMin": 7.34
     },
     {
       "code": "1120055000",
@@ -889,7 +890,7 @@
       "trafficAccidentPerKm2": 9.54,
       "monthlyRentMan": 58.75,
       "rentSamples": 355,
-      "walkToStationMin": 9.09
+      "walkToStationMin": 7.06
     },
     {
       "code": "1120056000",
@@ -906,7 +907,7 @@
       "trafficAccidentPerKm2": 58.28,
       "monthlyRentMan": 78.58,
       "rentSamples": 1080,
-      "walkToStationMin": 5.99
+      "walkToStationMin": 9.34
     },
     {
       "code": "1120057000",
@@ -923,7 +924,7 @@
       "trafficAccidentPerKm2": 39.65,
       "monthlyRentMan": 78.58,
       "rentSamples": 1080,
-      "walkToStationMin": 1.4
+      "walkToStationMin": 6.04
     },
     {
       "code": "1120058000",
@@ -940,7 +941,7 @@
       "trafficAccidentPerKm2": 17.77,
       "monthlyRentMan": 222.92,
       "rentSamples": 100,
-      "walkToStationMin": 5.24
+      "walkToStationMin": 7.77
     },
     {
       "code": "1120059000",
@@ -957,7 +958,7 @@
       "trafficAccidentPerKm2": 7.37,
       "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 10.55
+      "walkToStationMin": 9.99
     },
     {
       "code": "1120062000",
@@ -974,7 +975,7 @@
       "trafficAccidentPerKm2": 47.53,
       "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 10.64
+      "walkToStationMin": 10.96
     },
     {
       "code": "1120065000",
@@ -991,7 +992,7 @@
       "trafficAccidentPerKm2": 37.56,
       "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 6.83
+      "walkToStationMin": 8.85
     },
     {
       "code": "1120066000",
@@ -1008,7 +1009,7 @@
       "trafficAccidentPerKm2": 49.17,
       "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 2.51
+      "walkToStationMin": 6.2
     },
     {
       "code": "1120067000",
@@ -1025,7 +1026,7 @@
       "trafficAccidentPerKm2": 79.16,
       "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 12.47
+      "walkToStationMin": 17.38
     },
     {
       "code": "1120069000",
@@ -1042,7 +1043,7 @@
       "trafficAccidentPerKm2": 51.65,
       "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 2.99
+      "walkToStationMin": 8.2
     },
     {
       "code": "1120072000",
@@ -1059,7 +1060,7 @@
       "trafficAccidentPerKm2": 39.17,
       "monthlyRentMan": 56.58,
       "rentSamples": 428,
-      "walkToStationMin": 14.45
+      "walkToStationMin": 16.08
     },
     {
       "code": "1120079000",
@@ -1076,7 +1077,7 @@
       "trafficAccidentPerKm2": 18.14,
       "monthlyRentMan": 69.35,
       "rentSamples": 750,
-      "walkToStationMin": 7.77
+      "walkToStationMin": 5.36
     },
     {
       "code": "1120053500",
@@ -1093,7 +1094,7 @@
       "trafficAccidentPerKm2": 70.71,
       "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 3.86
+      "walkToStationMin": 8.94
     },
     {
       "code": "1120061500",
@@ -1110,7 +1111,7 @@
       "trafficAccidentPerKm2": 21.05,
       "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 7.73
+      "walkToStationMin": 6.78
     },
     {
       "code": "1120064500",
@@ -1127,7 +1128,7 @@
       "trafficAccidentPerKm2": 2.59,
       "monthlyRentMan": 325,
       "rentSamples": 335,
-      "walkToStationMin": 6.72
+      "walkToStationMin": 7.86
     },
     {
       "code": "1121571000",
@@ -1144,7 +1145,7 @@
       "trafficAccidentPerKm2": 36.53,
       "monthlyRentMan": 69.58,
       "rentSamples": 3081,
-      "walkToStationMin": 6.18
+      "walkToStationMin": 7.91
     },
     {
       "code": "1121573000",
@@ -1161,7 +1162,7 @@
       "trafficAccidentPerKm2": 46.33,
       "monthlyRentMan": 64.58,
       "rentSamples": 1282,
-      "walkToStationMin": 5.89
+      "walkToStationMin": 10.5
     },
     {
       "code": "1121574000",
@@ -1178,7 +1179,7 @@
       "trafficAccidentPerKm2": 60.98,
       "monthlyRentMan": 64.58,
       "rentSamples": 1919,
-      "walkToStationMin": 10.45
+      "walkToStationMin": 10.51
     },
     {
       "code": "1121575000",
@@ -1195,7 +1196,7 @@
       "trafficAccidentPerKm2": 42.27,
       "monthlyRentMan": 64.58,
       "rentSamples": 1919,
-      "walkToStationMin": 9.04
+      "walkToStationMin": 10.13
     },
     {
       "code": "1121576000",
@@ -1212,7 +1213,7 @@
       "trafficAccidentPerKm2": 6.64,
       "monthlyRentMan": 64.58,
       "rentSamples": 1919,
-      "walkToStationMin": 5.3
+      "walkToStationMin": 7.94
     },
     {
       "code": "1121577000",
@@ -1229,7 +1230,7 @@
       "trafficAccidentPerKm2": 8.76,
       "monthlyRentMan": 64.58,
       "rentSamples": 1919,
-      "walkToStationMin": 14.67
+      "walkToStationMin": 11.86
     },
     {
       "code": "1121578000",
@@ -1246,7 +1247,7 @@
       "trafficAccidentPerKm2": 17.55,
       "monthlyRentMan": 64.58,
       "rentSamples": 541,
-      "walkToStationMin": 7.35
+      "walkToStationMin": 8.71
     },
     {
       "code": "1121585000",
@@ -1263,7 +1264,7 @@
       "trafficAccidentPerKm2": 52.55,
       "monthlyRentMan": 75.83,
       "rentSamples": 2016,
-      "walkToStationMin": 7.33
+      "walkToStationMin": 11.08
     },
     {
       "code": "1121586000",
@@ -1280,7 +1281,7 @@
       "trafficAccidentPerKm2": 36.24,
       "monthlyRentMan": 75.83,
       "rentSamples": 2016,
-      "walkToStationMin": 4.18
+      "walkToStationMin": 10.08
     },
     {
       "code": "1121587000",
@@ -1297,7 +1298,7 @@
       "trafficAccidentPerKm2": 25.53,
       "monthlyRentMan": 75.83,
       "rentSamples": 2016,
-      "walkToStationMin": 6.8
+      "walkToStationMin": 9.41
     },
     {
       "code": "1121581000",
@@ -1314,7 +1315,7 @@
       "trafficAccidentPerKm2": 9.44,
       "monthlyRentMan": 192.92,
       "rentSamples": 193,
-      "walkToStationMin": 6.93
+      "walkToStationMin": 10.39
     },
     {
       "code": "1121582000",
@@ -1331,7 +1332,7 @@
       "trafficAccidentPerKm2": 26.57,
       "monthlyRentMan": 69.58,
       "rentSamples": 2497,
-      "walkToStationMin": 10.25
+      "walkToStationMin": 12.75
     },
     {
       "code": "1121583000",
@@ -1348,7 +1349,7 @@
       "trafficAccidentPerKm2": 42.95,
       "monthlyRentMan": 69.58,
       "rentSamples": 2497,
-      "walkToStationMin": 6.47
+      "walkToStationMin": 18.82
     },
     {
       "code": "1121584000",
@@ -1365,7 +1366,7 @@
       "trafficAccidentPerKm2": 71.43,
       "monthlyRentMan": 69.58,
       "rentSamples": 2497,
-      "walkToStationMin": 14.16
+      "walkToStationMin": 10.36
     },
     {
       "code": "1121584700",
@@ -1382,7 +1383,7 @@
       "trafficAccidentPerKm2": 34.65,
       "monthlyRentMan": 69.58,
       "rentSamples": 2497,
-      "walkToStationMin": 14.23
+      "walkToStationMin": 9.84
     },
     {
       "code": "1123071000",
@@ -1399,7 +1400,7 @@
       "trafficAccidentPerKm2": 12.45,
       "monthlyRentMan": 62.58,
       "rentSamples": 834,
-      "walkToStationMin": 10.65
+      "walkToStationMin": 12.17
     },
     {
       "code": "1123072000",
@@ -1416,7 +1417,7 @@
       "trafficAccidentPerKm2": 164.71,
       "monthlyRentMan": 62.29,
       "rentSamples": 2806,
-      "walkToStationMin": 2.28
+      "walkToStationMin": 6.62
     },
     {
       "code": "1123073000",
@@ -1433,7 +1434,7 @@
       "trafficAccidentPerKm2": 39.34,
       "monthlyRentMan": 62.29,
       "rentSamples": 2806,
-      "walkToStationMin": 5.25
+      "walkToStationMin": 14.02
     },
     {
       "code": "1123070500",
@@ -1450,7 +1451,7 @@
       "trafficAccidentPerKm2": 84.21,
       "monthlyRentMan": 102.92,
       "rentSamples": 455,
-      "walkToStationMin": 8.36
+      "walkToStationMin": 12.21
     },
     {
       "code": "1123051500",
@@ -1467,7 +1468,7 @@
       "trafficAccidentPerKm2": 173.85,
       "monthlyRentMan": 81.13,
       "rentSamples": 543,
-      "walkToStationMin": 4.78
+      "walkToStationMin": 10.53
     },
     {
       "code": "1123054500",
@@ -1484,7 +1485,7 @@
       "trafficAccidentPerKm2": 393.12,
       "monthlyRentMan": 59.58,
       "rentSamples": 819,
-      "walkToStationMin": 10.69
+      "walkToStationMin": 8.39
     },
     {
       "code": "1123056000",
@@ -1501,7 +1502,7 @@
       "trafficAccidentPerKm2": 119.27,
       "monthlyRentMan": 79.58,
       "rentSamples": 1041,
-      "walkToStationMin": 6.51
+      "walkToStationMin": 11.15
     },
     {
       "code": "1123057000",
@@ -1518,7 +1519,7 @@
       "trafficAccidentPerKm2": 9.05,
       "monthlyRentMan": 79.58,
       "rentSamples": 1041,
-      "walkToStationMin": 21.67
+      "walkToStationMin": 25.37
     },
     {
       "code": "1123061000",
@@ -1535,7 +1536,7 @@
       "trafficAccidentPerKm2": 40.03,
       "monthlyRentMan": 74.17,
       "rentSamples": 1528,
-      "walkToStationMin": 14.21
+      "walkToStationMin": 17.4
     },
     {
       "code": "1123065000",
@@ -1552,7 +1553,7 @@
       "trafficAccidentPerKm2": 144.4,
       "monthlyRentMan": 63.29,
       "rentSamples": 1925,
-      "walkToStationMin": 10.59
+      "walkToStationMin": 16.6
     },
     {
       "code": "1123066000",
@@ -1569,7 +1570,7 @@
       "trafficAccidentPerKm2": 121.01,
       "monthlyRentMan": 63.29,
       "rentSamples": 1925,
-      "walkToStationMin": 20.5
+      "walkToStationMin": 24.8
     },
     {
       "code": "1123074000",
@@ -1586,7 +1587,7 @@
       "trafficAccidentPerKm2": 34.85,
       "monthlyRentMan": 58.38,
       "rentSamples": 1691,
-      "walkToStationMin": 6.17
+      "walkToStationMin": 8.59
     },
     {
       "code": "1123075000",
@@ -1603,7 +1604,7 @@
       "trafficAccidentPerKm2": 24.86,
       "monthlyRentMan": 58.38,
       "rentSamples": 1691,
-      "walkToStationMin": 8.6
+      "walkToStationMin": 6.3
     },
     {
       "code": "1123060000",
@@ -1620,7 +1621,7 @@
       "trafficAccidentPerKm2": 142.88,
       "monthlyRentMan": 74.17,
       "rentSamples": 1528,
-      "walkToStationMin": 7.53
+      "walkToStationMin": 8.76
     },
     {
       "code": "1126052000",
@@ -1637,7 +1638,7 @@
       "trafficAccidentPerKm2": 167.92,
       "monthlyRentMan": 54.17,
       "rentSamples": 2415,
-      "walkToStationMin": 13.08
+      "walkToStationMin": 11.71
     },
     {
       "code": "1126054000",
@@ -1654,7 +1655,7 @@
       "trafficAccidentPerKm2": 22.39,
       "monthlyRentMan": 54.17,
       "rentSamples": 2415,
-      "walkToStationMin": 5.12
+      "walkToStationMin": 7.15
     },
     {
       "code": "1126055000",
@@ -1671,7 +1672,7 @@
       "trafficAccidentPerKm2": 172.79,
       "monthlyRentMan": 54.17,
       "rentSamples": 2415,
-      "walkToStationMin": 15.75
+      "walkToStationMin": 14.9
     },
     {
       "code": "1126057000",
@@ -1688,7 +1689,7 @@
       "trafficAccidentPerKm2": 41.53,
       "monthlyRentMan": 54.17,
       "rentSamples": 2415,
-      "walkToStationMin": 4.51
+      "walkToStationMin": 8.54
     },
     {
       "code": "1126058000",
@@ -1705,7 +1706,7 @@
       "trafficAccidentPerKm2": 97.53,
       "monthlyRentMan": 84.83,
       "rentSamples": 1757,
-      "walkToStationMin": 4.42
+      "walkToStationMin": 7.08
     },
     {
       "code": "1126059000",
@@ -1722,7 +1723,7 @@
       "trafficAccidentPerKm2": 241.18,
       "monthlyRentMan": 84.83,
       "rentSamples": 1757,
-      "walkToStationMin": 4.48
+      "walkToStationMin": 6.79
     },
     {
       "code": "1126060000",
@@ -1739,7 +1740,7 @@
       "trafficAccidentPerKm2": 46.35,
       "monthlyRentMan": 57.08,
       "rentSamples": 837,
-      "walkToStationMin": 4.6
+      "walkToStationMin": 7.6
     },
     {
       "code": "1126061000",
@@ -1756,7 +1757,7 @@
       "trafficAccidentPerKm2": 178.66,
       "monthlyRentMan": 57.08,
       "rentSamples": 837,
-      "walkToStationMin": 5.41
+      "walkToStationMin": 7.04
     },
     {
       "code": "1126062000",
@@ -1773,7 +1774,7 @@
       "trafficAccidentPerKm2": 37.29,
       "monthlyRentMan": 65.58,
       "rentSamples": 1312,
-      "walkToStationMin": 7.72
+      "walkToStationMin": 7.27
     },
     {
       "code": "1126063000",
@@ -1790,7 +1791,7 @@
       "trafficAccidentPerKm2": 22.47,
       "monthlyRentMan": 65.58,
       "rentSamples": 1312,
-      "walkToStationMin": 4.24
+      "walkToStationMin": 7.65
     },
     {
       "code": "1126066000",
@@ -1807,7 +1808,7 @@
       "trafficAccidentPerKm2": 21.2,
       "monthlyRentMan": 54.58,
       "rentSamples": 1273,
-      "walkToStationMin": 19.72
+      "walkToStationMin": 20.67
     },
     {
       "code": "1126068000",
@@ -1824,7 +1825,7 @@
       "trafficAccidentPerKm2": 16.48,
       "monthlyRentMan": 56.73,
       "rentSamples": 1236,
-      "walkToStationMin": 15.45
+      "walkToStationMin": 13.58
     },
     {
       "code": "1126069000",
@@ -1841,7 +1842,7 @@
       "trafficAccidentPerKm2": 23.54,
       "monthlyRentMan": 56.73,
       "rentSamples": 1236,
-      "walkToStationMin": 17.01
+      "walkToStationMin": 12.29
     },
     {
       "code": "1126056500",
@@ -1858,7 +1859,7 @@
       "trafficAccidentPerKm2": 132.96,
       "monthlyRentMan": 62.31,
       "rentSamples": 0,
-      "walkToStationMin": 3.29
+      "walkToStationMin": 8.28
     },
     {
       "code": "1126057500",
@@ -1875,7 +1876,7 @@
       "trafficAccidentPerKm2": 28.57,
       "monthlyRentMan": 54.17,
       "rentSamples": 2415,
-      "walkToStationMin": 7.81
+      "walkToStationMin": 11.79
     },
     {
       "code": "1126065500",
@@ -1892,7 +1893,7 @@
       "trafficAccidentPerKm2": 53.3,
       "monthlyRentMan": 62.31,
       "rentSamples": 0,
-      "walkToStationMin": 13.33
+      "walkToStationMin": 10.49
     },
     {
       "code": "1129058000",
@@ -1909,7 +1910,7 @@
       "trafficAccidentPerKm2": 17.36,
       "monthlyRentMan": 152.92,
       "rentSamples": 186,
-      "walkToStationMin": 9.4
+      "walkToStationMin": 9.3
     },
     {
       "code": "1129059000",
@@ -1926,7 +1927,7 @@
       "trafficAccidentPerKm2": 11.47,
       "monthlyRentMan": 152.92,
       "rentSamples": 186,
-      "walkToStationMin": 9.99
+      "walkToStationMin": 11.76
     },
     {
       "code": "1129060000",
@@ -1943,7 +1944,7 @@
       "trafficAccidentPerKm2": 16.49,
       "monthlyRentMan": 64.58,
       "rentSamples": 0,
-      "walkToStationMin": 4.89
+      "walkToStationMin": 8.39
     },
     {
       "code": "1129061000",
@@ -1960,7 +1961,7 @@
       "trafficAccidentPerKm2": 5.09,
       "monthlyRentMan": 64.58,
       "rentSamples": 0,
-      "walkToStationMin": 5.62
+      "walkToStationMin": 5.8
     },
     {
       "code": "1129062000",
@@ -1977,7 +1978,7 @@
       "trafficAccidentPerKm2": 23.11,
       "monthlyRentMan": 58.75,
       "rentSamples": 863,
-      "walkToStationMin": 6.85
+      "walkToStationMin": 8.75
     },
     {
       "code": "1129063000",
@@ -1994,7 +1995,7 @@
       "trafficAccidentPerKm2": 26.66,
       "monthlyRentMan": 58.75,
       "rentSamples": 863,
-      "walkToStationMin": 6.86
+      "walkToStationMin": 9.62
     },
     {
       "code": "1129064000",
@@ -2011,7 +2012,7 @@
       "trafficAccidentPerKm2": 3.28,
       "monthlyRentMan": 58.75,
       "rentSamples": 863,
-      "walkToStationMin": 7.23
+      "walkToStationMin": 10.84
     },
     {
       "code": "1129065000",
@@ -2028,7 +2029,7 @@
       "trafficAccidentPerKm2": 4.85,
       "monthlyRentMan": 58.75,
       "rentSamples": 863,
-      "walkToStationMin": 3.94
+      "walkToStationMin": 10.21
     },
     {
       "code": "1129066000",
@@ -2045,7 +2046,7 @@
       "trafficAccidentPerKm2": 51.36,
       "monthlyRentMan": 191.13,
       "rentSamples": 600,
-      "walkToStationMin": 7.98
+      "walkToStationMin": 13.7
     },
     {
       "code": "1129068500",
@@ -2062,7 +2063,7 @@
       "trafficAccidentPerKm2": 94.2,
       "monthlyRentMan": 191.13,
       "rentSamples": 600,
-      "walkToStationMin": 11.82
+      "walkToStationMin": 9.85
     },
     {
       "code": "1129071500",
@@ -2079,7 +2080,7 @@
       "trafficAccidentPerKm2": 62.81,
       "monthlyRentMan": 64.58,
       "rentSamples": 0,
-      "walkToStationMin": 15.92
+      "walkToStationMin": 14.2
     },
     {
       "code": "1129072500",
@@ -2096,7 +2097,7 @@
       "trafficAccidentPerKm2": 53.26,
       "monthlyRentMan": 64.58,
       "rentSamples": 0,
-      "walkToStationMin": 6.43
+      "walkToStationMin": 6.48
     },
     {
       "code": "1129076000",
@@ -2113,7 +2114,7 @@
       "trafficAccidentPerKm2": 37.3,
       "monthlyRentMan": 74.58,
       "rentSamples": 718,
-      "walkToStationMin": 22.8
+      "walkToStationMin": 21.59
     },
     {
       "code": "1129077000",
@@ -2130,7 +2131,7 @@
       "trafficAccidentPerKm2": 73.65,
       "monthlyRentMan": 74.58,
       "rentSamples": 718,
-      "walkToStationMin": 8.77
+      "walkToStationMin": 9.63
     },
     {
       "code": "1129078000",
@@ -2147,7 +2148,7 @@
       "trafficAccidentPerKm2": 67.41,
       "monthlyRentMan": 74.58,
       "rentSamples": 718,
-      "walkToStationMin": 20.56
+      "walkToStationMin": 20.24
     },
     {
       "code": "1129052500",
@@ -2164,7 +2165,7 @@
       "trafficAccidentPerKm2": 6.21,
       "monthlyRentMan": 67.92,
       "rentSamples": 79,
-      "walkToStationMin": 6.2
+      "walkToStationMin": 10.65
     },
     {
       "code": "1129055500",
@@ -2181,7 +2182,7 @@
       "trafficAccidentPerKm2": 61.44,
       "monthlyRentMan": 64.58,
       "rentSamples": 0,
-      "walkToStationMin": 11.24
+      "walkToStationMin": 8.63
     },
     {
       "code": "1129057500",
@@ -2198,7 +2199,7 @@
       "trafficAccidentPerKm2": 91.62,
       "monthlyRentMan": 64.58,
       "rentSamples": 0,
-      "walkToStationMin": 2.27
+      "walkToStationMin": 7.86
     },
     {
       "code": "1129070500",
@@ -2215,7 +2216,7 @@
       "trafficAccidentPerKm2": 67.81,
       "monthlyRentMan": 59.58,
       "rentSamples": 519,
-      "walkToStationMin": 15.05
+      "walkToStationMin": 11.62
     },
     {
       "code": "1129081000",
@@ -2232,7 +2233,7 @@
       "trafficAccidentPerKm2": 36.42,
       "monthlyRentMan": 54.58,
       "rentSamples": 718,
-      "walkToStationMin": 8.06
+      "walkToStationMin": 8.93
     },
     {
       "code": "1130559500",
@@ -2249,7 +2250,7 @@
       "trafficAccidentPerKm2": 159.61,
       "monthlyRentMan": 52.75,
       "rentSamples": 734,
-      "walkToStationMin": 4.53
+      "walkToStationMin": 10.23
     },
     {
       "code": "1130560300",
@@ -2266,7 +2267,7 @@
       "trafficAccidentPerKm2": 30.64,
       "monthlyRentMan": 52.75,
       "rentSamples": 734,
-      "walkToStationMin": 18.93
+      "walkToStationMin": 18.46
     },
     {
       "code": "1130560800",
@@ -2283,7 +2284,7 @@
       "trafficAccidentPerKm2": 41.28,
       "monthlyRentMan": 52.75,
       "rentSamples": 734,
-      "walkToStationMin": 29.94
+      "walkToStationMin": 28.55
     },
     {
       "code": "1130561500",
@@ -2300,7 +2301,7 @@
       "trafficAccidentPerKm2": 20.27,
       "monthlyRentMan": 57.29,
       "rentSamples": 2239,
-      "walkToStationMin": 6.65
+      "walkToStationMin": 7.69
     },
     {
       "code": "1130562500",
@@ -2317,7 +2318,7 @@
       "trafficAccidentPerKm2": 110.63,
       "monthlyRentMan": 57.29,
       "rentSamples": 2239,
-      "walkToStationMin": 7.9
+      "walkToStationMin": 8.5
     },
     {
       "code": "1130563500",
@@ -2334,7 +2335,7 @@
       "trafficAccidentPerKm2": 206.82,
       "monthlyRentMan": 57.29,
       "rentSamples": 2239,
-      "walkToStationMin": 5.26
+      "walkToStationMin": 8.55
     },
     {
       "code": "1130553400",
@@ -2351,7 +2352,7 @@
       "trafficAccidentPerKm2": 41.01,
       "monthlyRentMan": 54.58,
       "rentSamples": 0,
-      "walkToStationMin": 6.06
+      "walkToStationMin": 5.73
     },
     {
       "code": "1130553500",
@@ -2368,7 +2369,7 @@
       "trafficAccidentPerKm2": 138.3,
       "monthlyRentMan": 54.58,
       "rentSamples": 1664,
-      "walkToStationMin": 4.71
+      "walkToStationMin": 7.91
     },
     {
       "code": "1130554500",
@@ -2385,7 +2386,7 @@
       "trafficAccidentPerKm2": 119.69,
       "monthlyRentMan": 54.58,
       "rentSamples": 0,
-      "walkToStationMin": 6.51
+      "walkToStationMin": 12.21
     },
     {
       "code": "1130555500",
@@ -2402,7 +2403,7 @@
       "trafficAccidentPerKm2": 42.61,
       "monthlyRentMan": 54.58,
       "rentSamples": 0,
-      "walkToStationMin": 8.83
+      "walkToStationMin": 8.91
     },
     {
       "code": "1130557500",
@@ -2419,7 +2420,7 @@
       "trafficAccidentPerKm2": 20.47,
       "monthlyRentMan": 54.58,
       "rentSamples": 0,
-      "walkToStationMin": 7.65
+      "walkToStationMin": 8.38
     },
     {
       "code": "1130564500",
@@ -2436,7 +2437,7 @@
       "trafficAccidentPerKm2": 2.43,
       "monthlyRentMan": 44.38,
       "rentSamples": 112,
-      "walkToStationMin": 2.63
+      "walkToStationMin": 6.5
     },
     {
       "code": "1130566000",
@@ -2453,7 +2454,7 @@
       "trafficAccidentPerKm2": 10.5,
       "monthlyRentMan": 54.58,
       "rentSamples": 0,
-      "walkToStationMin": 9.21
+      "walkToStationMin": 8.4
     },
     {
       "code": "1132066000",
@@ -2470,7 +2471,7 @@
       "trafficAccidentPerKm2": 25.86,
       "monthlyRentMan": 56.38,
       "rentSamples": 690,
-      "walkToStationMin": 16.17
+      "walkToStationMin": 14.49
     },
     {
       "code": "1132067000",
@@ -2487,7 +2488,7 @@
       "trafficAccidentPerKm2": 54.55,
       "monthlyRentMan": 56.38,
       "rentSamples": 690,
-      "walkToStationMin": 20.69
+      "walkToStationMin": 19.04
     },
     {
       "code": "1132068000",
@@ -2504,7 +2505,7 @@
       "trafficAccidentPerKm2": 40.07,
       "monthlyRentMan": 56.38,
       "rentSamples": 690,
-      "walkToStationMin": 4.58
+      "walkToStationMin": 8.27
     },
     {
       "code": "1132068100",
@@ -2521,7 +2522,7 @@
       "trafficAccidentPerKm2": 12.14,
       "monthlyRentMan": 56.38,
       "rentSamples": 690,
-      "walkToStationMin": 21.68
+      "walkToStationMin": 20.93
     },
     {
       "code": "1132069000",
@@ -2538,7 +2539,7 @@
       "trafficAccidentPerKm2": 127.38,
       "monthlyRentMan": 62.29,
       "rentSamples": 762,
-      "walkToStationMin": 6.45
+      "walkToStationMin": 8.23
     },
     {
       "code": "1132070000",
@@ -2555,7 +2556,7 @@
       "trafficAccidentPerKm2": 26.18,
       "monthlyRentMan": 62.29,
       "rentSamples": 762,
-      "walkToStationMin": 18.6
+      "walkToStationMin": 20.09
     },
     {
       "code": "1132071000",
@@ -2572,7 +2573,7 @@
       "trafficAccidentPerKm2": 5.92,
       "monthlyRentMan": 62.29,
       "rentSamples": 762,
-      "walkToStationMin": 31.03
+      "walkToStationMin": 25.15
     },
     {
       "code": "1132051100",
@@ -2589,7 +2590,7 @@
       "trafficAccidentPerKm2": 16.48,
       "monthlyRentMan": 74.58,
       "rentSamples": 1789,
-      "walkToStationMin": 5.74
+      "walkToStationMin": 7.79
     },
     {
       "code": "1132051200",
@@ -2606,7 +2607,7 @@
       "trafficAccidentPerKm2": 52.77,
       "monthlyRentMan": 74.58,
       "rentSamples": 1789,
-      "walkToStationMin": 14.95
+      "walkToStationMin": 14.17
     },
     {
       "code": "1132051300",
@@ -2623,7 +2624,7 @@
       "trafficAccidentPerKm2": 23.54,
       "monthlyRentMan": 74.58,
       "rentSamples": 1789,
-      "walkToStationMin": 26.63
+      "walkToStationMin": 25.23
     },
     {
       "code": "1132051400",
@@ -2640,7 +2641,7 @@
       "trafficAccidentPerKm2": 37.71,
       "monthlyRentMan": 74.58,
       "rentSamples": 1789,
-      "walkToStationMin": 3.29
+      "walkToStationMin": 10.19
     },
     {
       "code": "1132051500",
@@ -2657,7 +2658,7 @@
       "trafficAccidentPerKm2": 63.8,
       "monthlyRentMan": 74.58,
       "rentSamples": 1789,
-      "walkToStationMin": 9
+      "walkToStationMin": 12.36
     },
     {
       "code": "1132052100",
@@ -2674,7 +2675,7 @@
       "trafficAccidentPerKm2": 6.94,
       "monthlyRentMan": 52.29,
       "rentSamples": 605,
-      "walkToStationMin": 5.53
+      "walkToStationMin": 9.79
     },
     {
       "code": "1132052200",
@@ -2691,7 +2692,7 @@
       "trafficAccidentPerKm2": 34.33,
       "monthlyRentMan": 52.29,
       "rentSamples": 605,
-      "walkToStationMin": 5.71
+      "walkToStationMin": 9.34
     },
     {
       "code": "1135056000",
@@ -2708,7 +2709,7 @@
       "trafficAccidentPerKm2": 26.32,
       "monthlyRentMan": 64.58,
       "rentSamples": 1066,
-      "walkToStationMin": 7.39
+      "walkToStationMin": 9.29
     },
     {
       "code": "1135057000",
@@ -2725,7 +2726,7 @@
       "trafficAccidentPerKm2": 6.03,
       "monthlyRentMan": 64.58,
       "rentSamples": 1066,
-      "walkToStationMin": 10.38
+      "walkToStationMin": 15.51
     },
     {
       "code": "1135058000",
@@ -2742,7 +2743,7 @@
       "trafficAccidentPerKm2": 10.28,
       "monthlyRentMan": 64.58,
       "rentSamples": 1066,
-      "walkToStationMin": 11.09
+      "walkToStationMin": 7.83
     },
     {
       "code": "1135060000",
@@ -2759,7 +2760,7 @@
       "trafficAccidentPerKm2": 0.96,
       "monthlyRentMan": 49.58,
       "rentSamples": 2373,
-      "walkToStationMin": 13.65
+      "walkToStationMin": 11.78
     },
     {
       "code": "1135061100",
@@ -2776,7 +2777,7 @@
       "trafficAccidentPerKm2": 14.58,
       "monthlyRentMan": 82.83,
       "rentSamples": 449,
-      "walkToStationMin": 6.84
+      "walkToStationMin": 11.87
     },
     {
       "code": "1135061200",
@@ -2793,7 +2794,7 @@
       "trafficAccidentPerKm2": 41.55,
       "monthlyRentMan": 82.83,
       "rentSamples": 449,
-      "walkToStationMin": 7.34
+      "walkToStationMin": 7.47
     },
     {
       "code": "1135061900",
@@ -2810,7 +2811,7 @@
       "trafficAccidentPerKm2": 7.28,
       "monthlyRentMan": 65.58,
       "rentSamples": 0,
-      "walkToStationMin": 39.38
+      "walkToStationMin": 30.32
     },
     {
       "code": "1135062100",
@@ -2827,7 +2828,7 @@
       "trafficAccidentPerKm2": 123.36,
       "monthlyRentMan": 94.38,
       "rentSamples": 810,
-      "walkToStationMin": 19.42
+      "walkToStationMin": 18.71
     },
     {
       "code": "1135062400",
@@ -2844,7 +2845,7 @@
       "trafficAccidentPerKm2": 30.2,
       "monthlyRentMan": 94.38,
       "rentSamples": 810,
-      "walkToStationMin": 3.82
+      "walkToStationMin": 9.9
     },
     {
       "code": "1135063000",
@@ -2861,7 +2862,7 @@
       "trafficAccidentPerKm2": 11,
       "monthlyRentMan": 74.5,
       "rentSamples": 2902,
-      "walkToStationMin": 3.68
+      "walkToStationMin": 9.87
     },
     {
       "code": "1135064000",
@@ -2878,7 +2879,7 @@
       "trafficAccidentPerKm2": 160.88,
       "monthlyRentMan": 74.5,
       "rentSamples": 2902,
-      "walkToStationMin": 6.32
+      "walkToStationMin": 11.85
     },
     {
       "code": "1135067000",
@@ -2895,7 +2896,7 @@
       "trafficAccidentPerKm2": 77.27,
       "monthlyRentMan": 74.5,
       "rentSamples": 2902,
-      "walkToStationMin": 7.19
+      "walkToStationMin": 9.78
     },
     {
       "code": "1135070000",
@@ -2912,7 +2913,7 @@
       "trafficAccidentPerKm2": 40.82,
       "monthlyRentMan": 74.5,
       "rentSamples": 2902,
-      "walkToStationMin": 3.1
+      "walkToStationMin": 8.49
     },
     {
       "code": "1135071000",
@@ -2929,7 +2930,7 @@
       "trafficAccidentPerKm2": 3.58,
       "monthlyRentMan": 74.5,
       "rentSamples": 2902,
-      "walkToStationMin": 8.74
+      "walkToStationMin": 11.89
     },
     {
       "code": "1135072000",
@@ -2946,7 +2947,7 @@
       "trafficAccidentPerKm2": 42.3,
       "monthlyRentMan": 74.5,
       "rentSamples": 2902,
-      "walkToStationMin": 7.77
+      "walkToStationMin": 9.04
     },
     {
       "code": "1135066500",
@@ -2963,7 +2964,7 @@
       "trafficAccidentPerKm2": 8.13,
       "monthlyRentMan": 74.5,
       "rentSamples": 2902,
-      "walkToStationMin": 7.51
+      "walkToStationMin": 8.72
     },
     {
       "code": "1135069500",
@@ -2980,7 +2981,7 @@
       "trafficAccidentPerKm2": 68.09,
       "monthlyRentMan": 74.5,
       "rentSamples": 2902,
-      "walkToStationMin": 7.33
+      "walkToStationMin": 10.25
     },
     {
       "code": "1135062500",
@@ -2997,7 +2998,7 @@
       "trafficAccidentPerKm2": 74.01,
       "monthlyRentMan": 94.38,
       "rentSamples": 810,
-      "walkToStationMin": 10.43
+      "walkToStationMin": 9.8
     },
     {
       "code": "1135059500",
@@ -3014,7 +3015,7 @@
       "trafficAccidentPerKm2": 68.73,
       "monthlyRentMan": 49.58,
       "rentSamples": 2373,
-      "walkToStationMin": 8.16
+      "walkToStationMin": 7.18
     },
     {
       "code": "1138051000",
@@ -3031,7 +3032,7 @@
       "trafficAccidentPerKm2": 39.19,
       "monthlyRentMan": 62.58,
       "rentSamples": 585,
-      "walkToStationMin": 11.54
+      "walkToStationMin": 7.98
     },
     {
       "code": "1138052000",
@@ -3048,7 +3049,7 @@
       "trafficAccidentPerKm2": 13.46,
       "monthlyRentMan": 65.08,
       "rentSamples": 943,
-      "walkToStationMin": 10.04
+      "walkToStationMin": 8.72
     },
     {
       "code": "1138055100",
@@ -3065,7 +3066,7 @@
       "trafficAccidentPerKm2": 52.48,
       "monthlyRentMan": 60.25,
       "rentSamples": 422,
-      "walkToStationMin": 6.84
+      "walkToStationMin": 14.46
     },
     {
       "code": "1138055200",
@@ -3082,7 +3083,7 @@
       "trafficAccidentPerKm2": 87.4,
       "monthlyRentMan": 60.25,
       "rentSamples": 422,
-      "walkToStationMin": 8.74
+      "walkToStationMin": 12.95
     },
     {
       "code": "1138056000",
@@ -3099,7 +3100,7 @@
       "trafficAccidentPerKm2": 19.24,
       "monthlyRentMan": 63.29,
       "rentSamples": 190,
-      "walkToStationMin": 7.97
+      "walkToStationMin": 15.62
     },
     {
       "code": "1138057000",
@@ -3116,7 +3117,7 @@
       "trafficAccidentPerKm2": 106.85,
       "monthlyRentMan": 66.23,
       "rentSamples": 1226,
-      "walkToStationMin": 12.69
+      "walkToStationMin": 7.24
     },
     {
       "code": "1138058000",
@@ -3133,7 +3134,7 @@
       "trafficAccidentPerKm2": 19.84,
       "monthlyRentMan": 64.58,
       "rentSamples": 1410,
-      "walkToStationMin": 13.4
+      "walkToStationMin": 10.67
     },
     {
       "code": "1138059000",
@@ -3150,7 +3151,7 @@
       "trafficAccidentPerKm2": 17.42,
       "monthlyRentMan": 64.58,
       "rentSamples": 1410,
-      "walkToStationMin": 12.41
+      "walkToStationMin": 16.45
     },
     {
       "code": "1138063100",
@@ -3167,7 +3168,7 @@
       "trafficAccidentPerKm2": 94.01,
       "monthlyRentMan": 58.46,
       "rentSamples": 394,
-      "walkToStationMin": 7.16
+      "walkToStationMin": 10.31
     },
     {
       "code": "1138063200",
@@ -3184,7 +3185,7 @@
       "trafficAccidentPerKm2": 29.8,
       "monthlyRentMan": 58.46,
       "rentSamples": 394,
-      "walkToStationMin": 7.33
+      "walkToStationMin": 13.8
     },
     {
       "code": "1138064000",
@@ -3201,7 +3202,7 @@
       "trafficAccidentPerKm2": 57.66,
       "monthlyRentMan": 64.58,
       "rentSamples": 149,
-      "walkToStationMin": 4.22
+      "walkToStationMin": 7.72
     },
     {
       "code": "1138065000",
@@ -3218,7 +3219,7 @@
       "trafficAccidentPerKm2": 1.76,
       "monthlyRentMan": 137.77,
       "rentSamples": 244,
-      "walkToStationMin": 11.88
+      "walkToStationMin": 12.26
     },
     {
       "code": "1138069000",
@@ -3235,7 +3236,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 66.58,
       "rentSamples": 1828,
-      "walkToStationMin": 3.89
+      "walkToStationMin": 16.83
     },
     {
       "code": "1138053000",
@@ -3252,7 +3253,7 @@
       "trafficAccidentPerKm2": 63.56,
       "monthlyRentMan": 65.08,
       "rentSamples": 943,
-      "walkToStationMin": 9.65
+      "walkToStationMin": 13.81
     },
     {
       "code": "1138060000",
@@ -3269,7 +3270,7 @@
       "trafficAccidentPerKm2": 96.89,
       "monthlyRentMan": 64.58,
       "rentSamples": 1410,
-      "walkToStationMin": 9.03
+      "walkToStationMin": 10.58
     },
     {
       "code": "1138062500",
@@ -3286,7 +3287,7 @@
       "trafficAccidentPerKm2": 104.95,
       "monthlyRentMan": 54.58,
       "rentSamples": 372,
-      "walkToStationMin": 11.65
+      "walkToStationMin": 9.78
     },
     {
       "code": "1141052000",
@@ -3303,7 +3304,7 @@
       "trafficAccidentPerKm2": 23.51,
       "monthlyRentMan": 118.33,
       "rentSamples": 95,
-      "walkToStationMin": 12.23
+      "walkToStationMin": 10.45
     },
     {
       "code": "1141062000",
@@ -3320,7 +3321,7 @@
       "trafficAccidentPerKm2": 34.61,
       "monthlyRentMan": 75.83,
       "rentSamples": 582,
-      "walkToStationMin": 4.29
+      "walkToStationMin": 7.97
     },
     {
       "code": "1141064000",
@@ -3337,7 +3338,7 @@
       "trafficAccidentPerKm2": 42.69,
       "monthlyRentMan": 75.83,
       "rentSamples": 582,
-      "walkToStationMin": 8.49
+      "walkToStationMin": 11.88
     },
     {
       "code": "1141065500",
@@ -3354,7 +3355,7 @@
       "trafficAccidentPerKm2": 30.9,
       "monthlyRentMan": 75.83,
       "rentSamples": 582,
-      "walkToStationMin": 8.18
+      "walkToStationMin": 7.49
     },
     {
       "code": "1141066000",
@@ -3371,7 +3372,7 @@
       "trafficAccidentPerKm2": 28.4,
       "monthlyRentMan": 53.75,
       "rentSamples": 564,
-      "walkToStationMin": 17.84
+      "walkToStationMin": 19.14
     },
     {
       "code": "1141068500",
@@ -3388,7 +3389,7 @@
       "trafficAccidentPerKm2": 19.54,
       "monthlyRentMan": 53.75,
       "rentSamples": 564,
-      "walkToStationMin": 30.8
+      "walkToStationMin": 24.03
     },
     {
       "code": "1141069000",
@@ -3405,7 +3406,7 @@
       "trafficAccidentPerKm2": 47,
       "monthlyRentMan": 57.29,
       "rentSamples": 942,
-      "walkToStationMin": 5.13
+      "walkToStationMin": 9.52
     },
     {
       "code": "1141070000",
@@ -3422,7 +3423,7 @@
       "trafficAccidentPerKm2": 28.33,
       "monthlyRentMan": 57.29,
       "rentSamples": 942,
-      "walkToStationMin": 26.06
+      "walkToStationMin": 21.57
     },
     {
       "code": "1141071000",
@@ -3439,7 +3440,7 @@
       "trafficAccidentPerKm2": 10.33,
       "monthlyRentMan": 54.58,
       "rentSamples": 337,
-      "walkToStationMin": 13.03
+      "walkToStationMin": 13.4
     },
     {
       "code": "1141072000",
@@ -3456,7 +3457,7 @@
       "trafficAccidentPerKm2": 61.66,
       "monthlyRentMan": 54.58,
       "rentSamples": 337,
-      "walkToStationMin": 10.16
+      "walkToStationMin": 12.39
     },
     {
       "code": "1141056500",
@@ -3473,7 +3474,7 @@
       "trafficAccidentPerKm2": 7.92,
       "monthlyRentMan": 68.75,
       "rentSamples": 0,
-      "walkToStationMin": 9.49
+      "walkToStationMin": 12.86
     },
     {
       "code": "1141055500",
@@ -3490,7 +3491,7 @@
       "trafficAccidentPerKm2": 31.5,
       "monthlyRentMan": 127.58,
       "rentSamples": 479,
-      "walkToStationMin": 2.83
+      "walkToStationMin": 6.86
     },
     {
       "code": "1141058500",
@@ -3507,7 +3508,7 @@
       "trafficAccidentPerKm2": 12.09,
       "monthlyRentMan": 62.29,
       "rentSamples": 67,
-      "walkToStationMin": 7.08
+      "walkToStationMin": 11.41
     },
     {
       "code": "1141061500",
@@ -3524,7 +3525,7 @@
       "trafficAccidentPerKm2": 6.37,
       "monthlyRentMan": 64.58,
       "rentSamples": 1684,
-      "walkToStationMin": 27.97
+      "walkToStationMin": 25.24
     },
     {
       "code": "1144059000",
@@ -3541,7 +3542,7 @@
       "trafficAccidentPerKm2": 18.06,
       "monthlyRentMan": 296.67,
       "rentSamples": 66,
-      "walkToStationMin": 6.11
+      "walkToStationMin": 8.03
     },
     {
       "code": "1144060000",
@@ -3558,7 +3559,7 @@
       "trafficAccidentPerKm2": 4.79,
       "monthlyRentMan": 94.17,
       "rentSamples": 478,
-      "walkToStationMin": 10.29
+      "walkToStationMin": 5.07
     },
     {
       "code": "1144061000",
@@ -3575,7 +3576,7 @@
       "trafficAccidentPerKm2": 9.27,
       "monthlyRentMan": 84.58,
       "rentSamples": 393,
-      "walkToStationMin": 8.74
+      "walkToStationMin": 9.4
     },
     {
       "code": "1144063000",
@@ -3592,7 +3593,7 @@
       "trafficAccidentPerKm2": 3.66,
       "monthlyRentMan": 69.17,
       "rentSamples": 529,
-      "walkToStationMin": 7.95
+      "walkToStationMin": 8.27
     },
     {
       "code": "1144066000",
@@ -3609,7 +3610,7 @@
       "trafficAccidentPerKm2": 49.81,
       "monthlyRentMan": 78.4,
       "rentSamples": 1266,
-      "walkToStationMin": 4.42
+      "walkToStationMin": 7.18
     },
     {
       "code": "1144068000",
@@ -3626,7 +3627,7 @@
       "trafficAccidentPerKm2": 13.81,
       "monthlyRentMan": 94.17,
       "rentSamples": 321,
-      "walkToStationMin": 3.34
+      "walkToStationMin": 8.88
     },
     {
       "code": "1144069000",
@@ -3643,7 +3644,7 @@
       "trafficAccidentPerKm2": 31.22,
       "monthlyRentMan": 69.58,
       "rentSamples": 575,
-      "walkToStationMin": 5.09
+      "walkToStationMin": 11.56
     },
     {
       "code": "1144070000",
@@ -3660,7 +3661,7 @@
       "trafficAccidentPerKm2": 91.73,
       "monthlyRentMan": 69.58,
       "rentSamples": 575,
-      "walkToStationMin": 10.3
+      "walkToStationMin": 10.81
     },
     {
       "code": "1144071000",
@@ -3677,7 +3678,7 @@
       "trafficAccidentPerKm2": 15.46,
       "monthlyRentMan": 72.58,
       "rentSamples": 460,
-      "walkToStationMin": 14.26
+      "walkToStationMin": 13.37
     },
     {
       "code": "1144072000",
@@ -3694,7 +3695,7 @@
       "trafficAccidentPerKm2": 10.42,
       "monthlyRentMan": 84.17,
       "rentSamples": 2821,
-      "walkToStationMin": 12.93
+      "walkToStationMin": 9.86
     },
     {
       "code": "1144073000",
@@ -3711,7 +3712,7 @@
       "trafficAccidentPerKm2": 15.8,
       "monthlyRentMan": 84.17,
       "rentSamples": 2821,
-      "walkToStationMin": 11.25
+      "walkToStationMin": 7.81
     },
     {
       "code": "1144074000",
@@ -3728,7 +3729,7 @@
       "trafficAccidentPerKm2": 1.28,
       "monthlyRentMan": 70.83,
       "rentSamples": 1643,
-      "walkToStationMin": 12
+      "walkToStationMin": 20.67
     },
     {
       "code": "1144058500",
@@ -3745,7 +3746,7 @@
       "trafficAccidentPerKm2": 43.03,
       "monthlyRentMan": 98.75,
       "rentSamples": 499,
-      "walkToStationMin": 5.74
+      "walkToStationMin": 8.25
     },
     {
       "code": "1144065500",
@@ -3762,7 +3763,7 @@
       "trafficAccidentPerKm2": 12.8,
       "monthlyRentMan": 81.42,
       "rentSamples": 0,
-      "walkToStationMin": 7.19
+      "walkToStationMin": 6.35
     },
     {
       "code": "1144056500",
@@ -3779,7 +3780,7 @@
       "trafficAccidentPerKm2": 16.7,
       "monthlyRentMan": 97.83,
       "rentSamples": 684,
-      "walkToStationMin": 13.1
+      "walkToStationMin": 8.36
     },
     {
       "code": "1144055500",
@@ -3796,7 +3797,7 @@
       "trafficAccidentPerKm2": 4.11,
       "monthlyRentMan": 111.67,
       "rentSamples": 633,
-      "walkToStationMin": 10.85
+      "walkToStationMin": 7.95
     },
     {
       "code": "1147051000",
@@ -3813,7 +3814,7 @@
       "trafficAccidentPerKm2": 70.35,
       "monthlyRentMan": 74.58,
       "rentSamples": 1125,
-      "walkToStationMin": 6.81
+      "walkToStationMin": 7.05
     },
     {
       "code": "1147052000",
@@ -3830,7 +3831,7 @@
       "trafficAccidentPerKm2": 29.43,
       "monthlyRentMan": 74.58,
       "rentSamples": 1125,
-      "walkToStationMin": 10
+      "walkToStationMin": 12.64
     },
     {
       "code": "1147053000",
@@ -3847,7 +3848,7 @@
       "trafficAccidentPerKm2": 71.94,
       "monthlyRentMan": 74.58,
       "rentSamples": 1125,
-      "walkToStationMin": 9.61
+      "walkToStationMin": 15.67
     },
     {
       "code": "1147054000",
@@ -3864,7 +3865,7 @@
       "trafficAccidentPerKm2": 49.88,
       "monthlyRentMan": 74.58,
       "rentSamples": 1125,
-      "walkToStationMin": 20.54
+      "walkToStationMin": 22.1
     },
     {
       "code": "1147056000",
@@ -3881,7 +3882,7 @@
       "trafficAccidentPerKm2": 81.2,
       "monthlyRentMan": 52.29,
       "rentSamples": 959,
-      "walkToStationMin": 20.26
+      "walkToStationMin": 21.69
     },
     {
       "code": "1147057000",
@@ -3898,7 +3899,7 @@
       "trafficAccidentPerKm2": 78.2,
       "monthlyRentMan": 52.29,
       "rentSamples": 959,
-      "walkToStationMin": 16.68
+      "walkToStationMin": 14.3
     },
     {
       "code": "1147058000",
@@ -3915,7 +3916,7 @@
       "trafficAccidentPerKm2": 18.33,
       "monthlyRentMan": 52.29,
       "rentSamples": 959,
-      "walkToStationMin": 29.85
+      "walkToStationMin": 31.07
     },
     {
       "code": "1147059000",
@@ -3932,7 +3933,7 @@
       "trafficAccidentPerKm2": 24.21,
       "monthlyRentMan": 52.29,
       "rentSamples": 959,
-      "walkToStationMin": 22.37
+      "walkToStationMin": 22.65
     },
     {
       "code": "1147060000",
@@ -3949,7 +3950,7 @@
       "trafficAccidentPerKm2": 50.06,
       "monthlyRentMan": 52.29,
       "rentSamples": 959,
-      "walkToStationMin": 19.37
+      "walkToStationMin": 19.42
     },
     {
       "code": "1147061000",
@@ -3966,7 +3967,7 @@
       "trafficAccidentPerKm2": 48.62,
       "monthlyRentMan": 52.29,
       "rentSamples": 959,
-      "walkToStationMin": 21.78
+      "walkToStationMin": 22.03
     },
     {
       "code": "1147061100",
@@ -3983,7 +3984,7 @@
       "trafficAccidentPerKm2": 31.01,
       "monthlyRentMan": 52.29,
       "rentSamples": 959,
-      "walkToStationMin": 33.24
+      "walkToStationMin": 34.11
     },
     {
       "code": "1147062000",
@@ -4000,7 +4001,7 @@
       "trafficAccidentPerKm2": 39.23,
       "monthlyRentMan": 57.72,
       "rentSamples": 2360,
-      "walkToStationMin": 9.49
+      "walkToStationMin": 11.59
     },
     {
       "code": "1147063000",
@@ -4017,7 +4018,7 @@
       "trafficAccidentPerKm2": 70.97,
       "monthlyRentMan": 57.72,
       "rentSamples": 2360,
-      "walkToStationMin": 11.81
+      "walkToStationMin": 12.43
     },
     {
       "code": "1147064000",
@@ -4034,7 +4035,7 @@
       "trafficAccidentPerKm2": 10.24,
       "monthlyRentMan": 57.72,
       "rentSamples": 2360,
-      "walkToStationMin": 7.53
+      "walkToStationMin": 24.75
     },
     {
       "code": "1147067000",
@@ -4051,7 +4052,7 @@
       "trafficAccidentPerKm2": 48.59,
       "monthlyRentMan": 57.72,
       "rentSamples": 2360,
-      "walkToStationMin": 16.63
+      "walkToStationMin": 10.78
     },
     {
       "code": "1147068000",
@@ -4068,7 +4069,7 @@
       "trafficAccidentPerKm2": 17.5,
       "monthlyRentMan": 57.72,
       "rentSamples": 2360,
-      "walkToStationMin": 5.95
+      "walkToStationMin": 10.16
     },
     {
       "code": "1147055000",
@@ -4085,7 +4086,7 @@
       "trafficAccidentPerKm2": 34.93,
       "monthlyRentMan": 74.58,
       "rentSamples": 1125,
-      "walkToStationMin": 24.49
+      "walkToStationMin": 18.12
     },
     {
       "code": "1147065000",
@@ -4102,7 +4103,7 @@
       "trafficAccidentPerKm2": 89.4,
       "monthlyRentMan": 57.72,
       "rentSamples": 2360,
-      "walkToStationMin": 7.03
+      "walkToStationMin": 6.19
     },
     {
       "code": "1150051000",
@@ -4119,7 +4120,7 @@
       "trafficAccidentPerKm2": 34.57,
       "monthlyRentMan": 102.92,
       "rentSamples": 805,
-      "walkToStationMin": 10.15
+      "walkToStationMin": 9.6
     },
     {
       "code": "1150052000",
@@ -4136,7 +4137,7 @@
       "trafficAccidentPerKm2": 53.15,
       "monthlyRentMan": 74.58,
       "rentSamples": 2087,
-      "walkToStationMin": 5.55
+      "walkToStationMin": 6.48
     },
     {
       "code": "1150053000",
@@ -4153,7 +4154,7 @@
       "trafficAccidentPerKm2": 31.3,
       "monthlyRentMan": 74.58,
       "rentSamples": 2087,
-      "walkToStationMin": 13.11
+      "walkToStationMin": 16.06
     },
     {
       "code": "1150053500",
@@ -4170,7 +4171,7 @@
       "trafficAccidentPerKm2": 27.83,
       "monthlyRentMan": 74.58,
       "rentSamples": 2087,
-      "walkToStationMin": 16.14
+      "walkToStationMin": 12.1
     },
     {
       "code": "1150059000",
@@ -4187,7 +4188,7 @@
       "trafficAccidentPerKm2": 48.91,
       "monthlyRentMan": 74.58,
       "rentSamples": 0,
-      "walkToStationMin": 9.55
+      "walkToStationMin": 15.05
     },
     {
       "code": "1150055000",
@@ -4204,7 +4205,7 @@
       "trafficAccidentPerKm2": 72.27,
       "monthlyRentMan": 64.58,
       "rentSamples": 3791,
-      "walkToStationMin": 14.68
+      "walkToStationMin": 14.02
     },
     {
       "code": "1150056000",
@@ -4221,7 +4222,7 @@
       "trafficAccidentPerKm2": 51.71,
       "monthlyRentMan": 64.58,
       "rentSamples": 3791,
-      "walkToStationMin": 8.66
+      "walkToStationMin": 9.99
     },
     {
       "code": "1150057000",
@@ -4238,7 +4239,7 @@
       "trafficAccidentPerKm2": 66.64,
       "monthlyRentMan": 64.58,
       "rentSamples": 3791,
-      "walkToStationMin": 17.05
+      "walkToStationMin": 20.36
     },
     {
       "code": "1150059100",
@@ -4255,7 +4256,7 @@
       "trafficAccidentPerKm2": 48.96,
       "monthlyRentMan": 64.58,
       "rentSamples": 3791,
-      "walkToStationMin": 22.09
+      "walkToStationMin": 20.74
     },
     {
       "code": "1150059300",
@@ -4272,7 +4273,7 @@
       "trafficAccidentPerKm2": 90.42,
       "monthlyRentMan": 64.58,
       "rentSamples": 3791,
-      "walkToStationMin": 3.08
+      "walkToStationMin": 8.89
     },
     {
       "code": "1150060300",
@@ -4289,7 +4290,7 @@
       "trafficAccidentPerKm2": 4.51,
       "monthlyRentMan": 96.79,
       "rentSamples": 1090,
-      "walkToStationMin": 11.29
+      "walkToStationMin": 8.51
     },
     {
       "code": "1150060400",
@@ -4306,7 +4307,7 @@
       "trafficAccidentPerKm2": 15.73,
       "monthlyRentMan": 96.79,
       "rentSamples": 1090,
-      "walkToStationMin": 6.41
+      "walkToStationMin": 9.27
     },
     {
       "code": "1150060500",
@@ -4323,7 +4324,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 96.79,
       "rentSamples": 1090,
-      "walkToStationMin": 6.75
+      "walkToStationMin": 6.55
     },
     {
       "code": "1150061100",
@@ -4340,7 +4341,7 @@
       "trafficAccidentPerKm2": 19.95,
       "monthlyRentMan": 74.58,
       "rentSamples": 0,
-      "walkToStationMin": 14.63
+      "walkToStationMin": 12.82
     },
     {
       "code": "1150062000",
@@ -4357,7 +4358,7 @@
       "trafficAccidentPerKm2": 1.92,
       "monthlyRentMan": 52.29,
       "rentSamples": 365,
-      "walkToStationMin": 3.81
+      "walkToStationMin": 9.41
     },
     {
       "code": "1150063000",
@@ -4374,7 +4375,7 @@
       "trafficAccidentPerKm2": 20.95,
       "monthlyRentMan": 54.58,
       "rentSamples": 1219,
-      "walkToStationMin": 10.43
+      "walkToStationMin": 8.1
     },
     {
       "code": "1150064000",
@@ -4391,7 +4392,7 @@
       "trafficAccidentPerKm2": 0.81,
       "monthlyRentMan": 54.58,
       "rentSamples": 1219,
-      "walkToStationMin": 10.24
+      "walkToStationMin": 7.46
     },
     {
       "code": "1150064100",
@@ -4408,7 +4409,7 @@
       "trafficAccidentPerKm2": 9.01,
       "monthlyRentMan": 54.58,
       "rentSamples": 1219,
-      "walkToStationMin": 0.56
+      "walkToStationMin": 6.65
     },
     {
       "code": "1150054000",
@@ -4425,7 +4426,7 @@
       "trafficAccidentPerKm2": 60.42,
       "monthlyRentMan": 64.58,
       "rentSamples": 3791,
-      "walkToStationMin": 8.85
+      "walkToStationMin": 9.78
     },
     {
       "code": "1150061500",
@@ -4442,7 +4443,7 @@
       "trafficAccidentPerKm2": 30.54,
       "monthlyRentMan": 74.58,
       "rentSamples": 0,
-      "walkToStationMin": 6.74
+      "walkToStationMin": 8.42
     },
     {
       "code": "1153051000",
@@ -4459,7 +4460,7 @@
       "trafficAccidentPerKm2": 39.26,
       "monthlyRentMan": 114.58,
       "rentSamples": 736,
-      "walkToStationMin": 11.4
+      "walkToStationMin": 8.59
     },
     {
       "code": "1153052000",
@@ -4476,7 +4477,7 @@
       "trafficAccidentPerKm2": 1.85,
       "monthlyRentMan": 64.17,
       "rentSamples": 3876,
-      "walkToStationMin": 12.92
+      "walkToStationMin": 12.35
     },
     {
       "code": "1153054000",
@@ -4493,7 +4494,7 @@
       "trafficAccidentPerKm2": 128.55,
       "monthlyRentMan": 64.17,
       "rentSamples": 3876,
-      "walkToStationMin": 11.38
+      "walkToStationMin": 9.56
     },
     {
       "code": "1153055000",
@@ -4510,7 +4511,7 @@
       "trafficAccidentPerKm2": 249.95,
       "monthlyRentMan": 64.17,
       "rentSamples": 3876,
-      "walkToStationMin": 12.78
+      "walkToStationMin": 8.48
     },
     {
       "code": "1153056000",
@@ -4527,7 +4528,7 @@
       "trafficAccidentPerKm2": 99.76,
       "monthlyRentMan": 64.17,
       "rentSamples": 3876,
-      "walkToStationMin": 11.92
+      "walkToStationMin": 11.48
     },
     {
       "code": "1153072000",
@@ -4544,7 +4545,7 @@
       "trafficAccidentPerKm2": 22.08,
       "monthlyRentMan": 54.58,
       "rentSamples": 619,
-      "walkToStationMin": 15.21
+      "walkToStationMin": 14.79
     },
     {
       "code": "1153073000",
@@ -4561,7 +4562,7 @@
       "trafficAccidentPerKm2": 15.05,
       "monthlyRentMan": 54.58,
       "rentSamples": 619,
-      "walkToStationMin": 24.61
+      "walkToStationMin": 23.35
     },
     {
       "code": "1153075000",
@@ -4578,7 +4579,7 @@
       "trafficAccidentPerKm2": 89.56,
       "monthlyRentMan": 59.17,
       "rentSamples": 673,
-      "walkToStationMin": 7.46
+      "walkToStationMin": 9.27
     },
     {
       "code": "1153076000",
@@ -4595,7 +4596,7 @@
       "trafficAccidentPerKm2": 27.12,
       "monthlyRentMan": 59.17,
       "rentSamples": 673,
-      "walkToStationMin": 17.34
+      "walkToStationMin": 14.83
     },
     {
       "code": "1153077000",
@@ -4612,7 +4613,7 @@
       "trafficAccidentPerKm2": 81.69,
       "monthlyRentMan": 62.1,
       "rentSamples": 1467,
-      "walkToStationMin": 4.94
+      "walkToStationMin": 9.39
     },
     {
       "code": "1153080000",
@@ -4629,7 +4630,7 @@
       "trafficAccidentPerKm2": 1.4,
       "monthlyRentMan": 61.3,
       "rentSamples": 426,
-      "walkToStationMin": 20.9
+      "walkToStationMin": 24.65
     },
     {
       "code": "1153079000",
@@ -4646,7 +4647,7 @@
       "trafficAccidentPerKm2": 4.52,
       "monthlyRentMan": 60.91,
       "rentSamples": 0,
-      "walkToStationMin": 6.27
+      "walkToStationMin": 14.69
     },
     {
       "code": "1153059500",
@@ -4663,7 +4664,7 @@
       "trafficAccidentPerKm2": 83.33,
       "monthlyRentMan": 52.29,
       "rentSamples": 613,
-      "walkToStationMin": 8.08
+      "walkToStationMin": 8.97
     },
     {
       "code": "1153053000",
@@ -4680,7 +4681,7 @@
       "trafficAccidentPerKm2": 60.27,
       "monthlyRentMan": 64.17,
       "rentSamples": 3876,
-      "walkToStationMin": 16.66
+      "walkToStationMin": 13.99
     },
     {
       "code": "1153074000",
@@ -4697,7 +4698,7 @@
       "trafficAccidentPerKm2": 23.98,
       "monthlyRentMan": 59.17,
       "rentSamples": 673,
-      "walkToStationMin": 17.79
+      "walkToStationMin": 15.06
     },
     {
       "code": "1154551000",
@@ -4714,7 +4715,7 @@
       "trafficAccidentPerKm2": 11.15,
       "monthlyRentMan": 63.63,
       "rentSamples": 2528,
-      "walkToStationMin": 10.98
+      "walkToStationMin": 17.36
     },
     {
       "code": "1154561000",
@@ -4731,7 +4732,7 @@
       "trafficAccidentPerKm2": 30.06,
       "monthlyRentMan": 64.58,
       "rentSamples": 3354,
-      "walkToStationMin": 7.7
+      "walkToStationMin": 10.14
     },
     {
       "code": "1154562000",
@@ -4748,7 +4749,7 @@
       "trafficAccidentPerKm2": 25.99,
       "monthlyRentMan": 64.58,
       "rentSamples": 3354,
-      "walkToStationMin": 21.59
+      "walkToStationMin": 21.68
     },
     {
       "code": "1154563000",
@@ -4765,7 +4766,7 @@
       "trafficAccidentPerKm2": 17.98,
       "monthlyRentMan": 64.58,
       "rentSamples": 3354,
-      "walkToStationMin": 18.75
+      "walkToStationMin": 21.89
     },
     {
       "code": "1154564000",
@@ -4782,7 +4783,7 @@
       "trafficAccidentPerKm2": 42,
       "monthlyRentMan": 64.58,
       "rentSamples": 3354,
-      "walkToStationMin": 32.03
+      "walkToStationMin": 27
     },
     {
       "code": "1154567000",
@@ -4799,7 +4800,7 @@
       "trafficAccidentPerKm2": 77.92,
       "monthlyRentMan": 51.29,
       "rentSamples": 1265,
-      "walkToStationMin": 14.66
+      "walkToStationMin": 18.67
     },
     {
       "code": "1154568000",
@@ -4816,7 +4817,7 @@
       "trafficAccidentPerKm2": 5.94,
       "monthlyRentMan": 51.29,
       "rentSamples": 1265,
-      "walkToStationMin": 40.38
+      "walkToStationMin": 42.57
     },
     {
       "code": "1154569000",
@@ -4833,7 +4834,7 @@
       "trafficAccidentPerKm2": 6.74,
       "monthlyRentMan": 51.29,
       "rentSamples": 1265,
-      "walkToStationMin": 15.64
+      "walkToStationMin": 15.85
     },
     {
       "code": "1154570000",
@@ -4850,7 +4851,7 @@
       "trafficAccidentPerKm2": 10.38,
       "monthlyRentMan": 51.29,
       "rentSamples": 1265,
-      "walkToStationMin": 25.38
+      "walkToStationMin": 27.85
     },
     {
       "code": "1154571000",
@@ -4867,7 +4868,7 @@
       "trafficAccidentPerKm2": 24.55,
       "monthlyRentMan": 51.29,
       "rentSamples": 1265,
-      "walkToStationMin": 29.15
+      "walkToStationMin": 30.47
     },
     {
       "code": "1156054000",
@@ -4884,7 +4885,7 @@
       "trafficAccidentPerKm2": 26.09,
       "monthlyRentMan": 78.92,
       "rentSamples": 0,
-      "walkToStationMin": 6.45
+      "walkToStationMin": 7.76
     },
     {
       "code": "1156055000",
@@ -4901,7 +4902,7 @@
       "trafficAccidentPerKm2": 82.1,
       "monthlyRentMan": 71.71,
       "rentSamples": 750,
-      "walkToStationMin": 5.21
+      "walkToStationMin": 6.62
     },
     {
       "code": "1156056000",
@@ -4918,7 +4919,7 @@
       "trafficAccidentPerKm2": 86.91,
       "monthlyRentMan": 71.71,
       "rentSamples": 750,
-      "walkToStationMin": 14.14
+      "walkToStationMin": 9.87
     },
     {
       "code": "1156061000",
@@ -4935,7 +4936,7 @@
       "trafficAccidentPerKm2": 61.34,
       "monthlyRentMan": 78.92,
       "rentSamples": 0,
-      "walkToStationMin": 4.23
+      "walkToStationMin": 6.52
     },
     {
       "code": "1156062000",
@@ -4952,7 +4953,7 @@
       "trafficAccidentPerKm2": 41.15,
       "monthlyRentMan": 78.92,
       "rentSamples": 0,
-      "walkToStationMin": 4.92
+      "walkToStationMin": 8.41
     },
     {
       "code": "1156063000",
@@ -4969,7 +4970,7 @@
       "trafficAccidentPerKm2": 49.31,
       "monthlyRentMan": 60.83,
       "rentSamples": 2331,
-      "walkToStationMin": 11.98
+      "walkToStationMin": 9.52
     },
     {
       "code": "1156065000",
@@ -4986,7 +4987,7 @@
       "trafficAccidentPerKm2": 81.23,
       "monthlyRentMan": 60.83,
       "rentSamples": 2331,
-      "walkToStationMin": 15.35
+      "walkToStationMin": 16.26
     },
     {
       "code": "1156066000",
@@ -5003,7 +5004,7 @@
       "trafficAccidentPerKm2": 59.01,
       "monthlyRentMan": 60.83,
       "rentSamples": 2331,
-      "walkToStationMin": 17.94
+      "walkToStationMin": 15.34
     },
     {
       "code": "1156067000",
@@ -5020,7 +5021,7 @@
       "trafficAccidentPerKm2": 77.29,
       "monthlyRentMan": 60.83,
       "rentSamples": 2331,
-      "walkToStationMin": 2.4
+      "walkToStationMin": 8.41
     },
     {
       "code": "1156068000",
@@ -5037,7 +5038,7 @@
       "trafficAccidentPerKm2": 79.49,
       "monthlyRentMan": 60.83,
       "rentSamples": 2331,
-      "walkToStationMin": 9.73
+      "walkToStationMin": 7.78
     },
     {
       "code": "1156069000",
@@ -5054,7 +5055,7 @@
       "trafficAccidentPerKm2": 21.91,
       "monthlyRentMan": 60.83,
       "rentSamples": 2331,
-      "walkToStationMin": 2.09
+      "walkToStationMin": 8.45
     },
     {
       "code": "1156070000",
@@ -5071,7 +5072,7 @@
       "trafficAccidentPerKm2": 81.01,
       "monthlyRentMan": 52.29,
       "rentSamples": 1790,
-      "walkToStationMin": 15.4
+      "walkToStationMin": 14.12
     },
     {
       "code": "1156071000",
@@ -5088,7 +5089,7 @@
       "trafficAccidentPerKm2": 165.95,
       "monthlyRentMan": 52.29,
       "rentSamples": 1790,
-      "walkToStationMin": 10.87
+      "walkToStationMin": 8.12
     },
     {
       "code": "1156072000",
@@ -5105,7 +5106,7 @@
       "trafficAccidentPerKm2": 146.24,
       "monthlyRentMan": 52.29,
       "rentSamples": 1790,
-      "walkToStationMin": 15.85
+      "walkToStationMin": 13
     },
     {
       "code": "1156051500",
@@ -5122,7 +5123,7 @@
       "trafficAccidentPerKm2": 43.34,
       "monthlyRentMan": 78.92,
       "rentSamples": 0,
-      "walkToStationMin": 6.64
+      "walkToStationMin": 9.42
     },
     {
       "code": "1156053500",
@@ -5139,7 +5140,7 @@
       "trafficAccidentPerKm2": 171.76,
       "monthlyRentMan": 54.58,
       "rentSamples": 222,
-      "walkToStationMin": 4.64
+      "walkToStationMin": 8.54
     },
     {
       "code": "1156058500",
@@ -5156,7 +5157,7 @@
       "trafficAccidentPerKm2": 54.61,
       "monthlyRentMan": 65.44,
       "rentSamples": 620,
-      "walkToStationMin": 12.18
+      "walkToStationMin": 13.13
     },
     {
       "code": "1156060500",
@@ -5173,7 +5174,7 @@
       "trafficAccidentPerKm2": 66.6,
       "monthlyRentMan": 78.92,
       "rentSamples": 0,
-      "walkToStationMin": 10.11
+      "walkToStationMin": 9.17
     },
     {
       "code": "1159052000",
@@ -5190,7 +5191,7 @@
       "trafficAccidentPerKm2": 35.47,
       "monthlyRentMan": 59.53,
       "rentSamples": 1725,
-      "walkToStationMin": 6.85
+      "walkToStationMin": 9.67
     },
     {
       "code": "1159053000",
@@ -5207,7 +5208,7 @@
       "trafficAccidentPerKm2": 12.59,
       "monthlyRentMan": 59.58,
       "rentSamples": 3198,
-      "walkToStationMin": 9.18
+      "walkToStationMin": 7.99
     },
     {
       "code": "1159054000",
@@ -5224,7 +5225,7 @@
       "trafficAccidentPerKm2": 61.82,
       "monthlyRentMan": 59.17,
       "rentSamples": 2656,
-      "walkToStationMin": 4.88
+      "walkToStationMin": 6.99
     },
     {
       "code": "1159055000",
@@ -5241,7 +5242,7 @@
       "trafficAccidentPerKm2": 117.44,
       "monthlyRentMan": 59.17,
       "rentSamples": 2656,
-      "walkToStationMin": 7.08
+      "walkToStationMin": 11.14
     },
     {
       "code": "1159056000",
@@ -5258,7 +5259,7 @@
       "trafficAccidentPerKm2": 24.8,
       "monthlyRentMan": 59.17,
       "rentSamples": 2656,
-      "walkToStationMin": 13.07
+      "walkToStationMin": 14.54
     },
     {
       "code": "1159062000",
@@ -5275,7 +5276,7 @@
       "trafficAccidentPerKm2": 50.61,
       "monthlyRentMan": 69.17,
       "rentSamples": 2500,
-      "walkToStationMin": 14.98
+      "walkToStationMin": 10.56
     },
     {
       "code": "1159064000",
@@ -5292,7 +5293,7 @@
       "trafficAccidentPerKm2": 7.83,
       "monthlyRentMan": 69.17,
       "rentSamples": 2500,
-      "walkToStationMin": 4
+      "walkToStationMin": 9.78
     },
     {
       "code": "1159065000",
@@ -5309,7 +5310,7 @@
       "trafficAccidentPerKm2": 11.71,
       "monthlyRentMan": 69.17,
       "rentSamples": 2500,
-      "walkToStationMin": 4.71
+      "walkToStationMin": 9.28
     },
     {
       "code": "1159065100",
@@ -5326,7 +5327,7 @@
       "trafficAccidentPerKm2": 6.05,
       "monthlyRentMan": 69.17,
       "rentSamples": 2500,
-      "walkToStationMin": 8.62
+      "walkToStationMin": 14.69
     },
     {
       "code": "1159066000",
@@ -5343,7 +5344,7 @@
       "trafficAccidentPerKm2": 35.93,
       "monthlyRentMan": 61.48,
       "rentSamples": 775,
-      "walkToStationMin": 8.71
+      "walkToStationMin": 6.67
     },
     {
       "code": "1159067000",
@@ -5360,7 +5361,7 @@
       "trafficAccidentPerKm2": 96.56,
       "monthlyRentMan": 53.75,
       "rentSamples": 1170,
-      "walkToStationMin": 8.23
+      "walkToStationMin": 9.37
     },
     {
       "code": "1159068000",
@@ -5377,7 +5378,7 @@
       "trafficAccidentPerKm2": 58.12,
       "monthlyRentMan": 53.75,
       "rentSamples": 1170,
-      "walkToStationMin": 6.55
+      "walkToStationMin": 6.15
     },
     {
       "code": "1159060500",
@@ -5394,7 +5395,7 @@
       "trafficAccidentPerKm2": 48.14,
       "monthlyRentMan": 60.29,
       "rentSamples": 685,
-      "walkToStationMin": 5.13
+      "walkToStationMin": 12.9
     },
     {
       "code": "1159051000",
@@ -5411,7 +5412,7 @@
       "trafficAccidentPerKm2": 63.94,
       "monthlyRentMan": 59.53,
       "rentSamples": 1725,
-      "walkToStationMin": 9.77
+      "walkToStationMin": 9.31
     },
     {
       "code": "1159063000",
@@ -5428,7 +5429,7 @@
       "trafficAccidentPerKm2": 40.82,
       "monthlyRentMan": 69.17,
       "rentSamples": 2500,
-      "walkToStationMin": 16.58
+      "walkToStationMin": 13
     },
     {
       "code": "1162052500",
@@ -5445,7 +5446,7 @@
       "trafficAccidentPerKm2": 80.09,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 3.78
+      "walkToStationMin": 9.26
     },
     {
       "code": "1162054500",
@@ -5462,7 +5463,7 @@
       "trafficAccidentPerKm2": 18.97,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 18.18
+      "walkToStationMin": 16.91
     },
     {
       "code": "1162057500",
@@ -5479,7 +5480,7 @@
       "trafficAccidentPerKm2": 15.21,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 10.13
+      "walkToStationMin": 9.16
     },
     {
       "code": "1162058500",
@@ -5496,7 +5497,7 @@
       "trafficAccidentPerKm2": 7.69,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 8.14
+      "walkToStationMin": 10.9
     },
     {
       "code": "1162061500",
@@ -5513,7 +5514,7 @@
       "trafficAccidentPerKm2": 89.54,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 6.7
+      "walkToStationMin": 8.45
     },
     {
       "code": "1162062500",
@@ -5530,7 +5531,7 @@
       "trafficAccidentPerKm2": 31.17,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 5.95
+      "walkToStationMin": 12.62
     },
     {
       "code": "1162063000",
@@ -5547,7 +5548,7 @@
       "trafficAccidentPerKm2": 3.07,
       "monthlyRentMan": 69.17,
       "rentSamples": 461,
-      "walkToStationMin": 15.24
+      "walkToStationMin": 12.23
     },
     {
       "code": "1162064500",
@@ -5564,7 +5565,7 @@
       "trafficAccidentPerKm2": 61.85,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 6.23
+      "walkToStationMin": 6.14
     },
     {
       "code": "1162065500",
@@ -5581,7 +5582,7 @@
       "trafficAccidentPerKm2": 13.88,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 9.48
+      "walkToStationMin": 9.79
     },
     {
       "code": "1162066500",
@@ -5598,7 +5599,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 7.97
+      "walkToStationMin": 9.62
     },
     {
       "code": "1162068500",
@@ -5615,7 +5616,7 @@
       "trafficAccidentPerKm2": 29.73,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 9.56
+      "walkToStationMin": 10.98
     },
     {
       "code": "1162069500",
@@ -5632,7 +5633,7 @@
       "trafficAccidentPerKm2": 74.91,
       "monthlyRentMan": 57.92,
       "rentSamples": 7410,
-      "walkToStationMin": 4.14
+      "walkToStationMin": 6.12
     },
     {
       "code": "1162071500",
@@ -5649,7 +5650,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 35.01
+      "walkToStationMin": 38.11
     },
     {
       "code": "1162072500",
@@ -5666,7 +5667,7 @@
       "trafficAccidentPerKm2": 117.32,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 11.63
+      "walkToStationMin": 10.12
     },
     {
       "code": "1162073500",
@@ -5683,7 +5684,7 @@
       "trafficAccidentPerKm2": 2,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 10.08
+      "walkToStationMin": 10.87
     },
     {
       "code": "1162060500",
@@ -5700,7 +5701,7 @@
       "trafficAccidentPerKm2": 42.22,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 5.55
+      "walkToStationMin": 12.11
     },
     {
       "code": "1162056500",
@@ -5717,7 +5718,7 @@
       "trafficAccidentPerKm2": 4.37,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 16.52
+      "walkToStationMin": 15.23
     },
     {
       "code": "1162059500",
@@ -5734,7 +5735,7 @@
       "trafficAccidentPerKm2": 51.77,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 10.04
+      "walkToStationMin": 8.15
     },
     {
       "code": "1162077500",
@@ -5751,7 +5752,7 @@
       "trafficAccidentPerKm2": 44.37,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 24.7
+      "walkToStationMin": 22.68
     },
     {
       "code": "1162074500",
@@ -5768,7 +5769,7 @@
       "trafficAccidentPerKm2": 7.34,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 7.59
+      "walkToStationMin": 17.74
     },
     {
       "code": "1162076500",
@@ -5785,7 +5786,7 @@
       "trafficAccidentPerKm2": 35.82,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 22.31
+      "walkToStationMin": 23.47
     },
     {
       "code": "1165051000",
@@ -5802,7 +5803,7 @@
       "trafficAccidentPerKm2": 4.38,
       "monthlyRentMan": 106.83,
       "rentSamples": 2781,
-      "walkToStationMin": 10.41
+      "walkToStationMin": 10.3
     },
     {
       "code": "1165052000",
@@ -5819,7 +5820,7 @@
       "trafficAccidentPerKm2": 10.53,
       "monthlyRentMan": 106.83,
       "rentSamples": 2781,
-      "walkToStationMin": 14.9
+      "walkToStationMin": 13.7
     },
     {
       "code": "1165053000",
@@ -5836,7 +5837,7 @@
       "trafficAccidentPerKm2": 3.66,
       "monthlyRentMan": 106.83,
       "rentSamples": 2781,
-      "walkToStationMin": 8.74
+      "walkToStationMin": 10.45
     },
     {
       "code": "1165053100",
@@ -5853,7 +5854,7 @@
       "trafficAccidentPerKm2": 15.99,
       "monthlyRentMan": 106.83,
       "rentSamples": 2781,
-      "walkToStationMin": 13.24
+      "walkToStationMin": 10.62
     },
     {
       "code": "1165054000",
@@ -5870,7 +5871,7 @@
       "trafficAccidentPerKm2": 11.98,
       "monthlyRentMan": 158.35,
       "rentSamples": 462,
-      "walkToStationMin": 6.54
+      "walkToStationMin": 8.38
     },
     {
       "code": "1165055000",
@@ -5887,7 +5888,7 @@
       "trafficAccidentPerKm2": 18.17,
       "monthlyRentMan": 93.6,
       "rentSamples": 0,
-      "walkToStationMin": 2.2
+      "walkToStationMin": 4.04
     },
     {
       "code": "1165056000",
@@ -5904,7 +5905,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 84.58,
       "rentSamples": 953,
-      "walkToStationMin": 10
+      "walkToStationMin": 6.21
     },
     {
       "code": "1165057000",
@@ -5921,7 +5922,7 @@
       "trafficAccidentPerKm2": 8.42,
       "monthlyRentMan": 84.58,
       "rentSamples": 953,
-      "walkToStationMin": 5.59
+      "walkToStationMin": 7.1
     },
     {
       "code": "1165058000",
@@ -5938,7 +5939,7 @@
       "trafficAccidentPerKm2": 21.4,
       "monthlyRentMan": 84.58,
       "rentSamples": 953,
-      "walkToStationMin": 6.5
+      "walkToStationMin": 8.12
     },
     {
       "code": "1165058100",
@@ -5955,7 +5956,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 84.58,
       "rentSamples": 953,
-      "walkToStationMin": 5.11
+      "walkToStationMin": 13.04
     },
     {
       "code": "1165059000",
@@ -5972,7 +5973,7 @@
       "trafficAccidentPerKm2": 10.62,
       "monthlyRentMan": 93.6,
       "rentSamples": 0,
-      "walkToStationMin": 16.8
+      "walkToStationMin": 14.21
     },
     {
       "code": "1165060000",
@@ -5989,7 +5990,7 @@
       "trafficAccidentPerKm2": 8.6,
       "monthlyRentMan": 79.38,
       "rentSamples": 722,
-      "walkToStationMin": 7.65
+      "walkToStationMin": 7.17
     },
     {
       "code": "1165061000",
@@ -6006,7 +6007,7 @@
       "trafficAccidentPerKm2": 10.35,
       "monthlyRentMan": 79.38,
       "rentSamples": 722,
-      "walkToStationMin": 12.75
+      "walkToStationMin": 8.42
     },
     {
       "code": "1165062000",
@@ -6023,7 +6024,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 79.38,
       "rentSamples": 722,
-      "walkToStationMin": 6.92
+      "walkToStationMin": 13.56
     },
     {
       "code": "1165062100",
@@ -6040,7 +6041,7 @@
       "trafficAccidentPerKm2": 20.2,
       "monthlyRentMan": 79.38,
       "rentSamples": 722,
-      "walkToStationMin": 6
+      "walkToStationMin": 8.47
     },
     {
       "code": "1165065100",
@@ -6057,7 +6058,7 @@
       "trafficAccidentPerKm2": 1.92,
       "monthlyRentMan": 73.58,
       "rentSamples": 741,
-      "walkToStationMin": 12.83
+      "walkToStationMin": 23.99
     },
     {
       "code": "1165065200",
@@ -6074,7 +6075,7 @@
       "trafficAccidentPerKm2": 0.4,
       "monthlyRentMan": 73.58,
       "rentSamples": 741,
-      "walkToStationMin": 9.53
+      "walkToStationMin": 14.09
     },
     {
       "code": "1165066000",
@@ -6091,7 +6092,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 60.73,
       "rentSamples": 86,
-      "walkToStationMin": 8.15
+      "walkToStationMin": 18.74
     },
     {
       "code": "1168051000",
@@ -6108,7 +6109,7 @@
       "trafficAccidentPerKm2": 13.21,
       "monthlyRentMan": 79.58,
       "rentSamples": 247,
-      "walkToStationMin": 14.3
+      "walkToStationMin": 11.63
     },
     {
       "code": "1168052100",
@@ -6125,7 +6126,7 @@
       "trafficAccidentPerKm2": 7.23,
       "monthlyRentMan": 84.38,
       "rentSamples": 1218,
-      "walkToStationMin": 7.23
+      "walkToStationMin": 7.44
     },
     {
       "code": "1168053100",
@@ -6142,7 +6143,7 @@
       "trafficAccidentPerKm2": 4.17,
       "monthlyRentMan": 84.38,
       "rentSamples": 1218,
-      "walkToStationMin": 9.49
+      "walkToStationMin": 8.28
     },
     {
       "code": "1168058000",
@@ -6159,7 +6160,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 120.08,
       "rentSamples": 533,
-      "walkToStationMin": 5.82
+      "walkToStationMin": 7.56
     },
     {
       "code": "1168059000",
@@ -6176,7 +6177,7 @@
       "trafficAccidentPerKm2": 5.57,
       "monthlyRentMan": 120.08,
       "rentSamples": 533,
-      "walkToStationMin": 9.18
+      "walkToStationMin": 6.7
     },
     {
       "code": "1168060000",
@@ -6193,7 +6194,7 @@
       "trafficAccidentPerKm2": 43.36,
       "monthlyRentMan": 99.58,
       "rentSamples": 799,
-      "walkToStationMin": 9.64
+      "walkToStationMin": 6.44
     },
     {
       "code": "1168063000",
@@ -6210,7 +6211,7 @@
       "trafficAccidentPerKm2": 44.12,
       "monthlyRentMan": 99.58,
       "rentSamples": 799,
-      "walkToStationMin": 11.28
+      "walkToStationMin": 10.6
     },
     {
       "code": "1168064000",
@@ -6227,7 +6228,7 @@
       "trafficAccidentPerKm2": 7.19,
       "monthlyRentMan": 100.79,
       "rentSamples": 2988,
-      "walkToStationMin": 3
+      "walkToStationMin": 9.1
     },
     {
       "code": "1168065000",
@@ -6244,7 +6245,7 @@
       "trafficAccidentPerKm2": 13.36,
       "monthlyRentMan": 100.79,
       "rentSamples": 2988,
-      "walkToStationMin": 13.55
+      "walkToStationMin": 10.17
     },
     {
       "code": "1168065500",
@@ -6261,7 +6262,7 @@
       "trafficAccidentPerKm2": 15.85,
       "monthlyRentMan": 108.67,
       "rentSamples": 386,
-      "walkToStationMin": 10.23
+      "walkToStationMin": 11.58
     },
     {
       "code": "1168065600",
@@ -6278,7 +6279,7 @@
       "trafficAccidentPerKm2": 20.37,
       "monthlyRentMan": 108.67,
       "rentSamples": 386,
-      "walkToStationMin": 1.78
+      "walkToStationMin": 7.42
     },
     {
       "code": "1168066000",
@@ -6295,7 +6296,7 @@
       "trafficAccidentPerKm2": 2.3,
       "monthlyRentMan": 136.42,
       "rentSamples": 686,
-      "walkToStationMin": 9.88
+      "walkToStationMin": 15.61
     },
     {
       "code": "1168069000",
@@ -6312,7 +6313,7 @@
       "trafficAccidentPerKm2": 3.16,
       "monthlyRentMan": 136.42,
       "rentSamples": 686,
-      "walkToStationMin": 22.04
+      "walkToStationMin": 22.12
     },
     {
       "code": "1168072000",
@@ -6329,7 +6330,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 95.58,
       "rentSamples": 0,
-      "walkToStationMin": 2.91
+      "walkToStationMin": 6.91
     },
     {
       "code": "1168073000",
@@ -6346,7 +6347,7 @@
       "trafficAccidentPerKm2": 10.58,
       "monthlyRentMan": 74.44,
       "rentSamples": 494,
-      "walkToStationMin": 8.64
+      "walkToStationMin": 13.13
     },
     {
       "code": "1168067500",
@@ -6363,7 +6364,7 @@
       "trafficAccidentPerKm2": 11.61,
       "monthlyRentMan": 136.42,
       "rentSamples": 686,
-      "walkToStationMin": 2.2
+      "walkToStationMin": 6.61
     },
     {
       "code": "1168075000",
@@ -6380,7 +6381,7 @@
       "trafficAccidentPerKm2": 28.34,
       "monthlyRentMan": 157.88,
       "rentSamples": 256,
-      "walkToStationMin": 1.94
+      "walkToStationMin": 7.63
     },
     {
       "code": "1168070000",
@@ -6397,7 +6398,7 @@
       "trafficAccidentPerKm2": 2.03,
       "monthlyRentMan": 85.9,
       "rentSamples": 164,
-      "walkToStationMin": 38.33
+      "walkToStationMin": 31.24
     },
     {
       "code": "1168054500",
@@ -6414,7 +6415,7 @@
       "trafficAccidentPerKm2": 3,
       "monthlyRentMan": 240.63,
       "rentSamples": 8,
-      "walkToStationMin": 11.3
+      "walkToStationMin": 9.34
     },
     {
       "code": "1168056500",
@@ -6431,7 +6432,7 @@
       "trafficAccidentPerKm2": 6.32,
       "monthlyRentMan": 100.92,
       "rentSamples": 371,
-      "walkToStationMin": 12.82
+      "walkToStationMin": 11.07
     },
     {
       "code": "1168061000",
@@ -6448,7 +6449,7 @@
       "trafficAccidentPerKm2": 8.74,
       "monthlyRentMan": 99.58,
       "rentSamples": 799,
-      "walkToStationMin": 15.94
+      "walkToStationMin": 7.38
     },
     {
       "code": "1168067000",
@@ -6465,7 +6466,7 @@
       "trafficAccidentPerKm2": 5.05,
       "monthlyRentMan": 136.42,
       "rentSamples": 686,
-      "walkToStationMin": 9.78
+      "walkToStationMin": 9.82
     },
     {
       "code": "1171051000",
@@ -6482,7 +6483,7 @@
       "trafficAccidentPerKm2": 50.14,
       "monthlyRentMan": 64.58,
       "rentSamples": 474,
-      "walkToStationMin": 6.88
+      "walkToStationMin": 9.93
     },
     {
       "code": "1171052000",
@@ -6499,7 +6500,7 @@
       "trafficAccidentPerKm2": 22.6,
       "monthlyRentMan": 64.58,
       "rentSamples": 474,
-      "walkToStationMin": 9.08
+      "walkToStationMin": 11.52
     },
     {
       "code": "1171053100",
@@ -6516,7 +6517,7 @@
       "trafficAccidentPerKm2": 98.83,
       "monthlyRentMan": 89.38,
       "rentSamples": 685,
-      "walkToStationMin": 5.03
+      "walkToStationMin": 7.12
     },
     {
       "code": "1171053200",
@@ -6533,7 +6534,7 @@
       "trafficAccidentPerKm2": 75.16,
       "monthlyRentMan": 89.38,
       "rentSamples": 685,
-      "walkToStationMin": 4.81
+      "walkToStationMin": 8.08
     },
     {
       "code": "1171054000",
@@ -6550,7 +6551,7 @@
       "trafficAccidentPerKm2": 32.74,
       "monthlyRentMan": 46.55,
       "rentSamples": 370,
-      "walkToStationMin": 0.97
+      "walkToStationMin": 6.5
     },
     {
       "code": "1171055000",
@@ -6567,7 +6568,7 @@
       "trafficAccidentPerKm2": 54.32,
       "monthlyRentMan": 46.55,
       "rentSamples": 370,
-      "walkToStationMin": 11.47
+      "walkToStationMin": 13.26
     },
     {
       "code": "1171056100",
@@ -6584,7 +6585,7 @@
       "trafficAccidentPerKm2": 30.77,
       "monthlyRentMan": 94.58,
       "rentSamples": 1976,
-      "walkToStationMin": 7.13
+      "walkToStationMin": 8.86
     },
     {
       "code": "1171056200",
@@ -6601,7 +6602,7 @@
       "trafficAccidentPerKm2": 151.24,
       "monthlyRentMan": 94.58,
       "rentSamples": 1976,
-      "walkToStationMin": 5.68
+      "walkToStationMin": 6.08
     },
     {
       "code": "1171056600",
@@ -6618,7 +6619,7 @@
       "trafficAccidentPerKm2": 65.38,
       "monthlyRentMan": 95.58,
       "rentSamples": 0,
-      "walkToStationMin": 1.45
+      "walkToStationMin": 8.35
     },
     {
       "code": "1171057000",
@@ -6635,7 +6636,7 @@
       "trafficAccidentPerKm2": 43.87,
       "monthlyRentMan": 69.58,
       "rentSamples": 219,
-      "walkToStationMin": 11.74
+      "walkToStationMin": 10.05
     },
     {
       "code": "1171058000",
@@ -6652,7 +6653,7 @@
       "trafficAccidentPerKm2": 129.27,
       "monthlyRentMan": 79.13,
       "rentSamples": 360,
-      "walkToStationMin": 7.19
+      "walkToStationMin": 8.21
     },
     {
       "code": "1171059000",
@@ -6669,7 +6670,7 @@
       "trafficAccidentPerKm2": 116.9,
       "monthlyRentMan": 79.13,
       "rentSamples": 360,
-      "walkToStationMin": 9.24
+      "walkToStationMin": 12.94
     },
     {
       "code": "1171060000",
@@ -6686,7 +6687,7 @@
       "trafficAccidentPerKm2": 129.87,
       "monthlyRentMan": 72.29,
       "rentSamples": 569,
-      "walkToStationMin": 8.19
+      "walkToStationMin": 7.42
     },
     {
       "code": "1171061000",
@@ -6703,7 +6704,7 @@
       "trafficAccidentPerKm2": 121.24,
       "monthlyRentMan": 69.58,
       "rentSamples": 341,
-      "walkToStationMin": 8.77
+      "walkToStationMin": 7.65
     },
     {
       "code": "1171062000",
@@ -6720,7 +6721,7 @@
       "trafficAccidentPerKm2": 96.29,
       "monthlyRentMan": 95.58,
       "rentSamples": 0,
-      "walkToStationMin": 5.64
+      "walkToStationMin": 8.02
     },
     {
       "code": "1171063100",
@@ -6737,7 +6738,7 @@
       "trafficAccidentPerKm2": 109,
       "monthlyRentMan": 108.65,
       "rentSamples": 823,
-      "walkToStationMin": 14.64
+      "walkToStationMin": 11.6
     },
     {
       "code": "1171063200",
@@ -6754,7 +6755,7 @@
       "trafficAccidentPerKm2": 29.76,
       "monthlyRentMan": 108.65,
       "rentSamples": 823,
-      "walkToStationMin": 9.43
+      "walkToStationMin": 7.32
     },
     {
       "code": "1171064100",
@@ -6771,7 +6772,7 @@
       "trafficAccidentPerKm2": 38.96,
       "monthlyRentMan": 101.33,
       "rentSamples": 3145,
-      "walkToStationMin": 6.79
+      "walkToStationMin": 10.82
     },
     {
       "code": "1171064200",
@@ -6788,7 +6789,7 @@
       "trafficAccidentPerKm2": 16.56,
       "monthlyRentMan": 101.33,
       "rentSamples": 3145,
-      "walkToStationMin": 6.3
+      "walkToStationMin": 8.35
     },
     {
       "code": "1171065000",
@@ -6805,7 +6806,7 @@
       "trafficAccidentPerKm2": 142.19,
       "monthlyRentMan": 95.58,
       "rentSamples": 0,
-      "walkToStationMin": 7.64
+      "walkToStationMin": 7.72
     },
     {
       "code": "1171069000",
@@ -6822,7 +6823,7 @@
       "trafficAccidentPerKm2": 33.35,
       "monthlyRentMan": 97.92,
       "rentSamples": 1095,
-      "walkToStationMin": 5.41
+      "walkToStationMin": 8.96
     },
     {
       "code": "1171071000",
@@ -6839,7 +6840,7 @@
       "trafficAccidentPerKm2": 67.27,
       "monthlyRentMan": 97.92,
       "rentSamples": 1095,
-      "walkToStationMin": 4.19
+      "walkToStationMin": 7.21
     },
     {
       "code": "1171072000",
@@ -6856,7 +6857,7 @@
       "trafficAccidentPerKm2": 19.11,
       "monthlyRentMan": 97.92,
       "rentSamples": 1095,
-      "walkToStationMin": 6.5
+      "walkToStationMin": 10.8
     },
     {
       "code": "1171067000",
@@ -6873,7 +6874,7 @@
       "trafficAccidentPerKm2": 54.61,
       "monthlyRentMan": 97.92,
       "rentSamples": 1095,
-      "walkToStationMin": 2.36
+      "walkToStationMin": 9.29
     },
     {
       "code": "1171068000",
@@ -6890,7 +6891,7 @@
       "trafficAccidentPerKm2": 94.5,
       "monthlyRentMan": 97.92,
       "rentSamples": 1095,
-      "walkToStationMin": 15.25
+      "walkToStationMin": 12.51
     },
     {
       "code": "1171064600",
@@ -6907,7 +6908,7 @@
       "trafficAccidentPerKm2": 19.66,
       "monthlyRentMan": 55.49,
       "rentSamples": 474,
-      "walkToStationMin": 12.66
+      "walkToStationMin": 11.5
     },
     {
       "code": "1171064700",
@@ -6924,7 +6925,7 @@
       "trafficAccidentPerKm2": 1.53,
       "monthlyRentMan": 95.58,
       "rentSamples": 0,
-      "walkToStationMin": 30.03
+      "walkToStationMin": 23.57
     },
     {
       "code": "1174052600",
@@ -6941,7 +6942,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 64.88,
       "rentSamples": 0,
-      "walkToStationMin": 11.98
+      "walkToStationMin": 12.79
     },
     {
       "code": "1174052500",
@@ -6958,7 +6959,7 @@
       "trafficAccidentPerKm2": 5.06,
       "monthlyRentMan": 64.88,
       "rentSamples": 0,
-      "walkToStationMin": 18.05
+      "walkToStationMin": 12.23
     },
     {
       "code": "1174053000",
@@ -6975,7 +6976,7 @@
       "trafficAccidentPerKm2": 37.05,
       "monthlyRentMan": 82,
       "rentSamples": 554,
-      "walkToStationMin": 5
+      "walkToStationMin": 6.47
     },
     {
       "code": "1174054000",
@@ -6992,7 +6993,7 @@
       "trafficAccidentPerKm2": 22.42,
       "monthlyRentMan": 82,
       "rentSamples": 554,
-      "walkToStationMin": 8.64
+      "walkToStationMin": 11.25
     },
     {
       "code": "1174055000",
@@ -7009,7 +7010,7 @@
       "trafficAccidentPerKm2": 2.62,
       "monthlyRentMan": 131.5,
       "rentSamples": 539,
-      "walkToStationMin": 10.78
+      "walkToStationMin": 13.23
     },
     {
       "code": "1174056000",
@@ -7026,7 +7027,7 @@
       "trafficAccidentPerKm2": 7.98,
       "monthlyRentMan": 131.5,
       "rentSamples": 539,
-      "walkToStationMin": 7.03
+      "walkToStationMin": 8.86
     },
     {
       "code": "1174058000",
@@ -7043,7 +7044,7 @@
       "trafficAccidentPerKm2": 11.06,
       "monthlyRentMan": 59.58,
       "rentSamples": 755,
-      "walkToStationMin": 3.21
+      "walkToStationMin": 6.95
     },
     {
       "code": "1174059000",
@@ -7060,7 +7061,7 @@
       "trafficAccidentPerKm2": 2.23,
       "monthlyRentMan": 59.58,
       "rentSamples": 755,
-      "walkToStationMin": 4.43
+      "walkToStationMin": 8.13
     },
     {
       "code": "1174060000",
@@ -7077,7 +7078,7 @@
       "trafficAccidentPerKm2": 64.24,
       "monthlyRentMan": 74.17,
       "rentSamples": 2827,
-      "walkToStationMin": 8.51
+      "walkToStationMin": 9.51
     },
     {
       "code": "1174062000",
@@ -7094,7 +7095,7 @@
       "trafficAccidentPerKm2": 96.58,
       "monthlyRentMan": 74.17,
       "rentSamples": 2827,
-      "walkToStationMin": 7.35
+      "walkToStationMin": 8.41
     },
     {
       "code": "1174064000",
@@ -7111,7 +7112,7 @@
       "trafficAccidentPerKm2": 87.73,
       "monthlyRentMan": 67.5,
       "rentSamples": 1689,
-      "walkToStationMin": 9.75
+      "walkToStationMin": 11.92
     },
     {
       "code": "1174065000",
@@ -7128,7 +7129,7 @@
       "trafficAccidentPerKm2": 185.27,
       "monthlyRentMan": 67.5,
       "rentSamples": 1689,
-      "walkToStationMin": 9.45
+      "walkToStationMin": 8.19
     },
     {
       "code": "1174066000",
@@ -7145,7 +7146,7 @@
       "trafficAccidentPerKm2": 140.27,
       "monthlyRentMan": 67.5,
       "rentSamples": 1689,
-      "walkToStationMin": 4.21
+      "walkToStationMin": 8.23
     },
     {
       "code": "1174069000",
@@ -7162,7 +7163,7 @@
       "trafficAccidentPerKm2": 39.08,
       "monthlyRentMan": 67.06,
       "rentSamples": 230,
-      "walkToStationMin": 2.78
+      "walkToStationMin": 8.51
     },
     {
       "code": "1174070000",
@@ -7179,7 +7180,7 @@
       "trafficAccidentPerKm2": 27,
       "monthlyRentMan": 67.06,
       "rentSamples": 230,
-      "walkToStationMin": 13.42
+      "walkToStationMin": 10.88
     },
     {
       "code": "1174057000",
@@ -7196,7 +7197,7 @@
       "trafficAccidentPerKm2": 58.93,
       "monthlyRentMan": 59.58,
       "rentSamples": 755,
-      "walkToStationMin": 10.51
+      "walkToStationMin": 9.95
     },
     {
       "code": "1174061000",
@@ -7213,7 +7214,7 @@
       "trafficAccidentPerKm2": 95.77,
       "monthlyRentMan": 74.17,
       "rentSamples": 2827,
-      "walkToStationMin": 9.98
+      "walkToStationMin": 9.89
     },
     {
       "code": "1174068500",
@@ -7230,7 +7231,7 @@
       "trafficAccidentPerKm2": 68.13,
       "monthlyRentMan": 63.83,
       "rentSamples": 1456,
-      "walkToStationMin": 1.04
+      "walkToStationMin": 8.2
     },
     {
       "code": "4111156000",
@@ -7247,7 +7248,7 @@
       "trafficAccidentPerKm2": 2.34,
       "monthlyRentMan": 42.29,
       "rentSamples": 146,
-      "walkToStationMin": 46.06
+      "walkToStationMin": 48.56
     },
     {
       "code": "4111156600",
@@ -7264,7 +7265,7 @@
       "trafficAccidentPerKm2": 5.19,
       "monthlyRentMan": 47.67,
       "rentSamples": 0,
-      "walkToStationMin": 22.18
+      "walkToStationMin": 12.83
     },
     {
       "code": "4111157100",
@@ -7281,7 +7282,7 @@
       "trafficAccidentPerKm2": 35.39,
       "monthlyRentMan": 85,
       "rentSamples": 662,
-      "walkToStationMin": 40.54
+      "walkToStationMin": 37.4
     },
     {
       "code": "4111157200",
@@ -7298,7 +7299,7 @@
       "trafficAccidentPerKm2": 62.92,
       "monthlyRentMan": 85,
       "rentSamples": 662,
-      "walkToStationMin": 27.72
+      "walkToStationMin": 24.49
     },
     {
       "code": "4111158000",
@@ -7315,7 +7316,7 @@
       "trafficAccidentPerKm2": 115.75,
       "monthlyRentMan": 40.42,
       "rentSamples": 346,
-      "walkToStationMin": 40.8
+      "walkToStationMin": 40.72
     },
     {
       "code": "4111159100",
@@ -7332,7 +7333,7 @@
       "trafficAccidentPerKm2": 19.82,
       "monthlyRentMan": 52.29,
       "rentSamples": 133,
-      "walkToStationMin": 50.17
+      "walkToStationMin": 50.13
     },
     {
       "code": "4111159700",
@@ -7349,7 +7350,7 @@
       "trafficAccidentPerKm2": 21.23,
       "monthlyRentMan": 47.29,
       "rentSamples": 366,
-      "walkToStationMin": 54.83
+      "walkToStationMin": 49.82
     },
     {
       "code": "4111160000",
@@ -7366,7 +7367,7 @@
       "trafficAccidentPerKm2": 3.85,
       "monthlyRentMan": 44.29,
       "rentSamples": 388,
-      "walkToStationMin": 34.8
+      "walkToStationMin": 32.01
     },
     {
       "code": "4111157300",
@@ -7383,7 +7384,7 @@
       "trafficAccidentPerKm2": 27.05,
       "monthlyRentMan": 85,
       "rentSamples": 662,
-      "walkToStationMin": 30.53
+      "walkToStationMin": 23.04
     },
     {
       "code": "4111159800",
@@ -7400,7 +7401,7 @@
       "trafficAccidentPerKm2": 7.83,
       "monthlyRentMan": 47.29,
       "rentSamples": 366,
-      "walkToStationMin": 57.8
+      "walkToStationMin": 60.21
     },
     {
       "code": "4111352000",
@@ -7417,7 +7418,7 @@
       "trafficAccidentPerKm2": 7.7,
       "monthlyRentMan": 42.38,
       "rentSamples": 519,
-      "walkToStationMin": 16.06
+      "walkToStationMin": 14.31
     },
     {
       "code": "4111353000",
@@ -7434,7 +7435,7 @@
       "trafficAccidentPerKm2": 13.35,
       "monthlyRentMan": 42.38,
       "rentSamples": 519,
-      "walkToStationMin": 22.85
+      "walkToStationMin": 19.66
     },
     {
       "code": "4111354000",
@@ -7451,7 +7452,7 @@
       "trafficAccidentPerKm2": 18.33,
       "monthlyRentMan": 42.38,
       "rentSamples": 519,
-      "walkToStationMin": 15.52
+      "walkToStationMin": 14.65
     },
     {
       "code": "4111355000",
@@ -7468,7 +7469,7 @@
       "trafficAccidentPerKm2": 0.46,
       "monthlyRentMan": 49.29,
       "rentSamples": 0,
-      "walkToStationMin": 2.71
+      "walkToStationMin": 8.07
     },
     {
       "code": "4111356000",
@@ -7485,7 +7486,7 @@
       "trafficAccidentPerKm2": 1.45,
       "monthlyRentMan": 64.58,
       "rentSamples": 275,
-      "walkToStationMin": 33.43
+      "walkToStationMin": 33.37
     },
     {
       "code": "4111365000",
@@ -7502,7 +7503,7 @@
       "trafficAccidentPerKm2": 1.46,
       "monthlyRentMan": 42.29,
       "rentSamples": 273,
-      "walkToStationMin": 26.52
+      "walkToStationMin": 28.97
     },
     {
       "code": "4111366400",
@@ -7519,7 +7520,7 @@
       "trafficAccidentPerKm2": 0.84,
       "monthlyRentMan": 57.58,
       "rentSamples": 402,
-      "walkToStationMin": 43.76
+      "walkToStationMin": 49.94
     },
     {
       "code": "4111369000",
@@ -7536,7 +7537,7 @@
       "trafficAccidentPerKm2": 1.39,
       "monthlyRentMan": 49.29,
       "rentSamples": 0,
-      "walkToStationMin": 25.04
+      "walkToStationMin": 27.99
     },
     {
       "code": "4111370000",
@@ -7553,7 +7554,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 54.58,
       "rentSamples": 9,
-      "walkToStationMin": 52.52
+      "walkToStationMin": 58.68
     },
     {
       "code": "4111366200",
@@ -7570,7 +7571,7 @@
       "trafficAccidentPerKm2": 1.96,
       "monthlyRentMan": 54.17,
       "rentSamples": 993,
-      "walkToStationMin": 75.38
+      "walkToStationMin": 72.07
     },
     {
       "code": "4111368000",
@@ -7587,7 +7588,7 @@
       "trafficAccidentPerKm2": 10.48,
       "monthlyRentMan": 57.29,
       "rentSamples": 1318,
-      "walkToStationMin": 26.29
+      "walkToStationMin": 23.78
     },
     {
       "code": "4111570000",
@@ -7604,7 +7605,7 @@
       "trafficAccidentPerKm2": 33.16,
       "monthlyRentMan": 37.29,
       "rentSamples": 211,
-      "walkToStationMin": 37.04
+      "walkToStationMin": 41.03
     },
     {
       "code": "4111571000",
@@ -7621,7 +7622,7 @@
       "trafficAccidentPerKm2": 7.96,
       "monthlyRentMan": 52.29,
       "rentSamples": 971,
-      "walkToStationMin": 38.86
+      "walkToStationMin": 38.46
     },
     {
       "code": "4111572000",
@@ -7638,7 +7639,7 @@
       "trafficAccidentPerKm2": 24.46,
       "monthlyRentMan": 52.29,
       "rentSamples": 971,
-      "walkToStationMin": 32.44
+      "walkToStationMin": 34.38
     },
     {
       "code": "4111573000",
@@ -7655,7 +7656,7 @@
       "trafficAccidentPerKm2": 33.7,
       "monthlyRentMan": 54.44,
       "rentSamples": 1264,
-      "walkToStationMin": 10.01
+      "walkToStationMin": 16.99
     },
     {
       "code": "4111565000",
@@ -7672,7 +7673,7 @@
       "trafficAccidentPerKm2": 35.51,
       "monthlyRentMan": 166.54,
       "rentSamples": 180,
-      "walkToStationMin": 9.25
+      "walkToStationMin": 9.84
     },
     {
       "code": "4111566000",
@@ -7689,7 +7690,7 @@
       "trafficAccidentPerKm2": 55.35,
       "monthlyRentMan": 52.29,
       "rentSamples": 0,
-      "walkToStationMin": 7.48
+      "walkToStationMin": 12.53
     },
     {
       "code": "4111567000",
@@ -7706,7 +7707,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 49.17,
       "rentSamples": 181,
-      "walkToStationMin": 16.33
+      "walkToStationMin": 20.91
     },
     {
       "code": "4111568000",
@@ -7723,7 +7724,7 @@
       "trafficAccidentPerKm2": 44.06,
       "monthlyRentMan": 52.29,
       "rentSamples": 454,
-      "walkToStationMin": 23.19
+      "walkToStationMin": 22.77
     },
     {
       "code": "4111569000",
@@ -7740,7 +7741,7 @@
       "trafficAccidentPerKm2": 7.69,
       "monthlyRentMan": 52.29,
       "rentSamples": 454,
-      "walkToStationMin": 5.8
+      "walkToStationMin": 14.2
     },
     {
       "code": "4111574000",
@@ -7757,7 +7758,7 @@
       "trafficAccidentPerKm2": 93.91,
       "monthlyRentMan": 52.29,
       "rentSamples": 0,
-      "walkToStationMin": 36.09
+      "walkToStationMin": 39.22
     },
     {
       "code": "4111751000",
@@ -7774,7 +7775,7 @@
       "trafficAccidentPerKm2": 42.01,
       "monthlyRentMan": 50.29,
       "rentSamples": 1416,
-      "walkToStationMin": 32.95
+      "walkToStationMin": 28.71
     },
     {
       "code": "4111752000",
@@ -7791,7 +7792,7 @@
       "trafficAccidentPerKm2": 17.83,
       "monthlyRentMan": 50.29,
       "rentSamples": 1416,
-      "walkToStationMin": 38.71
+      "walkToStationMin": 39.91
     },
     {
       "code": "4111753000",
@@ -7808,7 +7809,7 @@
       "trafficAccidentPerKm2": 5.26,
       "monthlyRentMan": 50.29,
       "rentSamples": 1416,
-      "walkToStationMin": 14.8
+      "walkToStationMin": 16.08
     },
     {
       "code": "4111754000",
@@ -7825,7 +7826,7 @@
       "trafficAccidentPerKm2": 18.42,
       "monthlyRentMan": 50.29,
       "rentSamples": 1416,
-      "walkToStationMin": 28.88
+      "walkToStationMin": 29.52
     },
     {
       "code": "4111757000",
@@ -7842,7 +7843,7 @@
       "trafficAccidentPerKm2": 1.86,
       "monthlyRentMan": 74.58,
       "rentSamples": 2132,
-      "walkToStationMin": 5.95
+      "walkToStationMin": 9.91
     },
     {
       "code": "4111758000",
@@ -7859,7 +7860,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 74.58,
       "rentSamples": 2132,
-      "walkToStationMin": 15.63
+      "walkToStationMin": 13.05
     },
     {
       "code": "4111759300",
@@ -7876,7 +7877,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 44.58,
       "rentSamples": 291,
-      "walkToStationMin": 15.92
+      "walkToStationMin": 16.55
     },
     {
       "code": "4111755000",
@@ -7893,7 +7894,7 @@
       "trafficAccidentPerKm2": 3.73,
       "monthlyRentMan": 53.35,
       "rentSamples": 1392,
-      "walkToStationMin": 32.92
+      "walkToStationMin": 30.12
     },
     {
       "code": "4111760000",
@@ -7910,7 +7911,7 @@
       "trafficAccidentPerKm2": 0.76,
       "monthlyRentMan": 72.29,
       "rentSamples": 0,
-      "walkToStationMin": 8.65
+      "walkToStationMin": 10.76
     },
     {
       "code": "4111761000",
@@ -7927,7 +7928,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 72.29,
       "rentSamples": 0,
-      "walkToStationMin": 13.02
+      "walkToStationMin": 18.98
     },
     {
       "code": "4113151000",
@@ -7944,7 +7945,7 @@
       "trafficAccidentPerKm2": 52.68,
       "monthlyRentMan": 67.82,
       "rentSamples": 911,
-      "walkToStationMin": 7.12
+      "walkToStationMin": 8.48
     },
     {
       "code": "4113152000",
@@ -7961,7 +7962,7 @@
       "trafficAccidentPerKm2": 17,
       "monthlyRentMan": 67.82,
       "rentSamples": 911,
-      "walkToStationMin": 16.3
+      "walkToStationMin": 12.39
     },
     {
       "code": "4113153000",
@@ -7978,7 +7979,7 @@
       "trafficAccidentPerKm2": 135.05,
       "monthlyRentMan": 67.82,
       "rentSamples": 911,
-      "walkToStationMin": 7.43
+      "walkToStationMin": 6.54
     },
     {
       "code": "4113154000",
@@ -7995,7 +7996,7 @@
       "trafficAccidentPerKm2": 23.8,
       "monthlyRentMan": 47.29,
       "rentSamples": 1494,
-      "walkToStationMin": 8.44
+      "walkToStationMin": 7.29
     },
     {
       "code": "4113155000",
@@ -8012,7 +8013,7 @@
       "trafficAccidentPerKm2": 29.18,
       "monthlyRentMan": 47.29,
       "rentSamples": 1494,
-      "walkToStationMin": 19.23
+      "walkToStationMin": 17.59
     },
     {
       "code": "4113156000",
@@ -8029,7 +8030,7 @@
       "trafficAccidentPerKm2": 94.32,
       "monthlyRentMan": 47.29,
       "rentSamples": 1494,
-      "walkToStationMin": 13.26
+      "walkToStationMin": 11.04
     },
     {
       "code": "4113156100",
@@ -8046,7 +8047,7 @@
       "trafficAccidentPerKm2": 31.64,
       "monthlyRentMan": 47.29,
       "rentSamples": 1494,
-      "walkToStationMin": 19.75
+      "walkToStationMin": 19.19
     },
     {
       "code": "4113157000",
@@ -8063,7 +8064,7 @@
       "trafficAccidentPerKm2": 110.21,
       "monthlyRentMan": 47.29,
       "rentSamples": 540,
-      "walkToStationMin": 12.3
+      "walkToStationMin": 10.06
     },
     {
       "code": "4113158000",
@@ -8080,7 +8081,7 @@
       "trafficAccidentPerKm2": 57.9,
       "monthlyRentMan": 47.29,
       "rentSamples": 540,
-      "walkToStationMin": 4.73
+      "walkToStationMin": 6.76
     },
     {
       "code": "4113159000",
@@ -8097,7 +8098,7 @@
       "trafficAccidentPerKm2": 8.76,
       "monthlyRentMan": 59.58,
       "rentSamples": 85,
-      "walkToStationMin": 3.83
+      "walkToStationMin": 7.66
     },
     {
       "code": "4113160000",
@@ -8114,7 +8115,7 @@
       "trafficAccidentPerKm2": 12.05,
       "monthlyRentMan": 52.29,
       "rentSamples": 13,
-      "walkToStationMin": 12.98
+      "walkToStationMin": 8.66
     },
     {
       "code": "4113161000",
@@ -8131,7 +8132,7 @@
       "trafficAccidentPerKm2": 5.2,
       "monthlyRentMan": 44.58,
       "rentSamples": 101,
-      "walkToStationMin": 18.48
+      "walkToStationMin": 17.05
     },
     {
       "code": "4113162000",
@@ -8148,7 +8149,7 @@
       "trafficAccidentPerKm2": 3,
       "monthlyRentMan": 58.75,
       "rentSamples": 1020,
-      "walkToStationMin": 19.33
+      "walkToStationMin": 15.61
     },
     {
       "code": "4113163000",
@@ -8165,7 +8166,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 259.38,
       "rentSamples": 8,
-      "walkToStationMin": 44.95
+      "walkToStationMin": 44.8
     },
     {
       "code": "4113164000",
@@ -8182,7 +8183,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 60.55,
       "rentSamples": 327,
-      "walkToStationMin": 56.49
+      "walkToStationMin": 59.27
     },
     {
       "code": "4113165000",
@@ -8199,7 +8200,7 @@
       "trafficAccidentPerKm2": 0.23,
       "monthlyRentMan": 132.58,
       "rentSamples": 220,
-      "walkToStationMin": 45.67
+      "walkToStationMin": 48.59
     },
     {
       "code": "4113351000",
@@ -8216,7 +8217,7 @@
       "trafficAccidentPerKm2": 96.16,
       "monthlyRentMan": 75.13,
       "rentSamples": 1239,
-      "walkToStationMin": 10.43
+      "walkToStationMin": 7.97
     },
     {
       "code": "4113353000",
@@ -8233,7 +8234,7 @@
       "trafficAccidentPerKm2": 19.18,
       "monthlyRentMan": 57.29,
       "rentSamples": 577,
-      "walkToStationMin": 15.09
+      "walkToStationMin": 14.83
     },
     {
       "code": "4113354000",
@@ -8250,7 +8251,7 @@
       "trafficAccidentPerKm2": 8.7,
       "monthlyRentMan": 57.29,
       "rentSamples": 577,
-      "walkToStationMin": 9.73
+      "walkToStationMin": 10.71
     },
     {
       "code": "4113355000",
@@ -8267,7 +8268,7 @@
       "trafficAccidentPerKm2": 3.71,
       "monthlyRentMan": 44.58,
       "rentSamples": 163,
-      "walkToStationMin": 13.81
+      "walkToStationMin": 13.32
     },
     {
       "code": "4113356000",
@@ -8284,7 +8285,7 @@
       "trafficAccidentPerKm2": 4.88,
       "monthlyRentMan": 44.58,
       "rentSamples": 163,
-      "walkToStationMin": 16.39
+      "walkToStationMin": 20.44
     },
     {
       "code": "4113357000",
@@ -8301,7 +8302,7 @@
       "trafficAccidentPerKm2": 0.44,
       "monthlyRentMan": 43.21,
       "rentSamples": 651,
-      "walkToStationMin": 29.36
+      "walkToStationMin": 26.85
     },
     {
       "code": "4113358000",
@@ -8318,7 +8319,7 @@
       "trafficAccidentPerKm2": 52.31,
       "monthlyRentMan": 43.21,
       "rentSamples": 651,
-      "walkToStationMin": 17.95
+      "walkToStationMin": 16.08
     },
     {
       "code": "4113359000",
@@ -8335,7 +8336,7 @@
       "trafficAccidentPerKm2": 49.87,
       "monthlyRentMan": 43.21,
       "rentSamples": 651,
-      "walkToStationMin": 17.61
+      "walkToStationMin": 19.95
     },
     {
       "code": "4113366000",
@@ -8352,7 +8353,7 @@
       "trafficAccidentPerKm2": 10.42,
       "monthlyRentMan": 50.73,
       "rentSamples": 128,
-      "walkToStationMin": 19.47
+      "walkToStationMin": 24.26
     },
     {
       "code": "4113367000",
@@ -8369,7 +8370,7 @@
       "trafficAccidentPerKm2": 0.32,
       "monthlyRentMan": 45.54,
       "rentSamples": 269,
-      "walkToStationMin": 15.85
+      "walkToStationMin": 39.99
     },
     {
       "code": "4113352500",
@@ -8386,7 +8387,7 @@
       "trafficAccidentPerKm2": 51.39,
       "monthlyRentMan": 177.35,
       "rentSamples": 142,
-      "walkToStationMin": 4.96
+      "walkToStationMin": 8.15
     },
     {
       "code": "4113551000",
@@ -8403,7 +8404,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 52.96,
       "rentSamples": 422,
-      "walkToStationMin": 43.79
+      "walkToStationMin": 45.47
     },
     {
       "code": "4113554000",
@@ -8420,7 +8421,7 @@
       "trafficAccidentPerKm2": 3.76,
       "monthlyRentMan": 79.58,
       "rentSamples": 880,
-      "walkToStationMin": 32.57
+      "walkToStationMin": 31.99
     },
     {
       "code": "4113552000",
@@ -8437,7 +8438,7 @@
       "trafficAccidentPerKm2": 8.82,
       "monthlyRentMan": 79.58,
       "rentSamples": 880,
-      "walkToStationMin": 3.5
+      "walkToStationMin": 8.44
     },
     {
       "code": "4113553000",
@@ -8454,7 +8455,7 @@
       "trafficAccidentPerKm2": 8.31,
       "monthlyRentMan": 79.58,
       "rentSamples": 880,
-      "walkToStationMin": 20.32
+      "walkToStationMin": 20.21
     },
     {
       "code": "4113556000",
@@ -8471,7 +8472,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 98.79,
       "rentSamples": 2312,
-      "walkToStationMin": 18.9
+      "walkToStationMin": 19.57
     },
     {
       "code": "4113557000",
@@ -8488,7 +8489,7 @@
       "trafficAccidentPerKm2": 2.15,
       "monthlyRentMan": 98.79,
       "rentSamples": 2312,
-      "walkToStationMin": 28.82
+      "walkToStationMin": 25.48
     },
     {
       "code": "4113558000",
@@ -8505,7 +8506,7 @@
       "trafficAccidentPerKm2": 3.4,
       "monthlyRentMan": 89.58,
       "rentSamples": 862,
-      "walkToStationMin": 2.24
+      "walkToStationMin": 14.58
     },
     {
       "code": "4113559000",
@@ -8522,7 +8523,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 89.58,
       "rentSamples": 862,
-      "walkToStationMin": 34.94
+      "walkToStationMin": 35.13
     },
     {
       "code": "4113560000",
@@ -8539,7 +8540,7 @@
       "trafficAccidentPerKm2": 1.95,
       "monthlyRentMan": 138.33,
       "rentSamples": 183,
-      "walkToStationMin": 4.66
+      "walkToStationMin": 11
     },
     {
       "code": "4113561000",
@@ -8556,7 +8557,7 @@
       "trafficAccidentPerKm2": 6.72,
       "monthlyRentMan": 138.33,
       "rentSamples": 183,
-      "walkToStationMin": 14.36
+      "walkToStationMin": 14.09
     },
     {
       "code": "4113562000",
@@ -8573,7 +8574,7 @@
       "trafficAccidentPerKm2": 33.51,
       "monthlyRentMan": 79.58,
       "rentSamples": 1069,
-      "walkToStationMin": 1.4
+      "walkToStationMin": 10.68
     },
     {
       "code": "4113564000",
@@ -8590,7 +8591,7 @@
       "trafficAccidentPerKm2": 0.55,
       "monthlyRentMan": 79.58,
       "rentSamples": 1069,
-      "walkToStationMin": 15.48
+      "walkToStationMin": 23.45
     },
     {
       "code": "4113563000",
@@ -8607,7 +8608,7 @@
       "trafficAccidentPerKm2": 12.89,
       "monthlyRentMan": 79.58,
       "rentSamples": 1069,
-      "walkToStationMin": 10.6
+      "walkToStationMin": 11.3
     },
     {
       "code": "4113567000",
@@ -8624,7 +8625,7 @@
       "trafficAccidentPerKm2": 1.56,
       "monthlyRentMan": 79.58,
       "rentSamples": 850,
-      "walkToStationMin": 5.5
+      "walkToStationMin": 17.72
     },
     {
       "code": "4113568000",
@@ -8641,7 +8642,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 225.83,
       "rentSamples": 75,
-      "walkToStationMin": 64.8
+      "walkToStationMin": 72.62
     },
     {
       "code": "4113566200",
@@ -8658,7 +8659,7 @@
       "trafficAccidentPerKm2": 2.72,
       "monthlyRentMan": 89.58,
       "rentSamples": 542,
-      "walkToStationMin": 2.95
+      "walkToStationMin": 10.29
     },
     {
       "code": "4113566500",
@@ -8675,7 +8676,7 @@
       "trafficAccidentPerKm2": 1.98,
       "monthlyRentMan": 79.58,
       "rentSamples": 850,
-      "walkToStationMin": 2.79
+      "walkToStationMin": 11.69
     },
     {
       "code": "4113565500",
@@ -8692,7 +8693,7 @@
       "trafficAccidentPerKm2": 1.71,
       "monthlyRentMan": 89.58,
       "rentSamples": 510,
-      "walkToStationMin": 12.8
+      "walkToStationMin": 15.91
     },
     {
       "code": "4113565000",
@@ -8709,7 +8710,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 237.5,
       "rentSamples": 47,
-      "walkToStationMin": 35.94
+      "walkToStationMin": 37.02
     },
     {
       "code": "4113565700",
@@ -8726,7 +8727,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 62.07,
       "rentSamples": 383,
-      "walkToStationMin": 9.78
+      "walkToStationMin": 10.31
     },
     {
       "code": "4113555000",
@@ -8743,7 +8744,7 @@
       "trafficAccidentPerKm2": 3.46,
       "monthlyRentMan": 98.79,
       "rentSamples": 2312,
-      "walkToStationMin": 2.89
+      "walkToStationMin": 11.67
     },
     {
       "code": "4113554500",
@@ -8760,7 +8761,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 98.79,
       "rentSamples": 2312,
-      "walkToStationMin": 9.7
+      "walkToStationMin": 11.64
     },
     {
       "code": "4146352000",
@@ -8777,7 +8778,7 @@
       "trafficAccidentPerKm2": 1.92,
       "monthlyRentMan": 49.29,
       "rentSamples": 1246,
-      "walkToStationMin": 4.87
+      "walkToStationMin": 10.63
     },
     {
       "code": "4146353500",
@@ -8794,7 +8795,7 @@
       "trafficAccidentPerKm2": 0.2,
       "monthlyRentMan": 49.73,
       "rentSamples": 278,
-      "walkToStationMin": 17.79
+      "walkToStationMin": 27.59
     },
     {
       "code": "4146354000",
@@ -8811,7 +8812,7 @@
       "trafficAccidentPerKm2": 0.69,
       "monthlyRentMan": 50.29,
       "rentSamples": 0,
-      "walkToStationMin": 66.71
+      "walkToStationMin": 51.08
     },
     {
       "code": "4146355000",
@@ -8828,7 +8829,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 50.29,
       "rentSamples": 0,
-      "walkToStationMin": 33
+      "walkToStationMin": 26.55
     },
     {
       "code": "4146356000",
@@ -8845,7 +8846,7 @@
       "trafficAccidentPerKm2": 0.75,
       "monthlyRentMan": 50.29,
       "rentSamples": 0,
-      "walkToStationMin": 25.96
+      "walkToStationMin": 34.81
     },
     {
       "code": "4146357000",
@@ -8862,7 +8863,7 @@
       "trafficAccidentPerKm2": 4,
       "monthlyRentMan": 89.58,
       "rentSamples": 71,
-      "walkToStationMin": 16.7
+      "walkToStationMin": 19.09
     },
     {
       "code": "4146357700",
@@ -8879,7 +8880,7 @@
       "trafficAccidentPerKm2": 2.05,
       "monthlyRentMan": 47.29,
       "rentSamples": 395,
-      "walkToStationMin": 52.22
+      "walkToStationMin": 59.4
     },
     {
       "code": "4146359000",
@@ -8896,7 +8897,7 @@
       "trafficAccidentPerKm2": 0.89,
       "monthlyRentMan": 59.58,
       "rentSamples": 222,
-      "walkToStationMin": 14.14
+      "walkToStationMin": 14.06
     },
     {
       "code": "4146358600",
@@ -8913,7 +8914,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 43.75,
       "rentSamples": 95,
-      "walkToStationMin": 47.32
+      "walkToStationMin": 53.91
     },
     {
       "code": "4146351000",
@@ -8930,7 +8931,7 @@
       "trafficAccidentPerKm2": 2.59,
       "monthlyRentMan": 60.29,
       "rentSamples": 479,
-      "walkToStationMin": 14.91
+      "walkToStationMin": 14.75
     },
     {
       "code": "4146351700",
@@ -8947,7 +8948,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 49.17,
       "rentSamples": 906,
-      "walkToStationMin": 27.26
+      "walkToStationMin": 25.5
     },
     {
       "code": "4146551000",
@@ -8964,7 +8965,7 @@
       "trafficAccidentPerKm2": 14.09,
       "monthlyRentMan": 62,
       "rentSamples": 1909,
-      "walkToStationMin": 9.94
+      "walkToStationMin": 13.49
     },
     {
       "code": "4146552000",
@@ -8981,7 +8982,7 @@
       "trafficAccidentPerKm2": 4.38,
       "monthlyRentMan": 62,
       "rentSamples": 1909,
-      "walkToStationMin": 7.94
+      "walkToStationMin": 11.34
     },
     {
       "code": "4146553000",
@@ -8998,7 +8999,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 103.96,
       "rentSamples": 146,
-      "walkToStationMin": 27.44
+      "walkToStationMin": 36.88
     },
     {
       "code": "4146555500",
@@ -9015,7 +9016,7 @@
       "trafficAccidentPerKm2": 2.67,
       "monthlyRentMan": 60.75,
       "rentSamples": 1199,
-      "walkToStationMin": 20.31
+      "walkToStationMin": 21.28
     },
     {
       "code": "4146555000",
@@ -9032,7 +9033,7 @@
       "trafficAccidentPerKm2": 15.1,
       "monthlyRentMan": 60.75,
       "rentSamples": 1199,
-      "walkToStationMin": 13.25
+      "walkToStationMin": 11.81
     },
     {
       "code": "4146556000",
@@ -9049,7 +9050,7 @@
       "trafficAccidentPerKm2": 0.18,
       "monthlyRentMan": 79.58,
       "rentSamples": 569,
-      "walkToStationMin": 14.33
+      "walkToStationMin": 20.88
     },
     {
       "code": "4146558500",
@@ -9066,7 +9067,7 @@
       "trafficAccidentPerKm2": 3.88,
       "monthlyRentMan": 78.96,
       "rentSamples": 1284,
-      "walkToStationMin": 5.21
+      "walkToStationMin": 10.35
     },
     {
       "code": "4146558000",
@@ -9083,7 +9084,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 78.96,
       "rentSamples": 1284,
-      "walkToStationMin": 16.32
+      "walkToStationMin": 20.74
     },
     {
       "code": "4146559000",
@@ -9100,7 +9101,7 @@
       "trafficAccidentPerKm2": 0.6,
       "monthlyRentMan": 107.17,
       "rentSamples": 101,
-      "walkToStationMin": 4.15
+      "walkToStationMin": 19.44
     },
     {
       "code": "4113162500",
@@ -9117,7 +9118,7 @@
       "trafficAccidentPerKm2": 0.97,
       "monthlyRentMan": 54.58,
       "rentSamples": 0,
-      "walkToStationMin": 15.65
+      "walkToStationMin": 20.34
     },
     {
       "code": "4111367000",
@@ -9134,7 +9135,7 @@
       "trafficAccidentPerKm2": 36.3,
       "monthlyRentMan": 57.29,
       "rentSamples": 1318,
-      "walkToStationMin": 15.33
+      "walkToStationMin": 13.14
     },
     {
       "code": "4111758500",
@@ -9151,7 +9152,7 @@
       "trafficAccidentPerKm2": 2.94,
       "monthlyRentMan": 74.58,
       "rentSamples": 2132,
-      "walkToStationMin": 5.43
+      "walkToStationMin": 11.18
     },
     {
       "code": "4111759600",
@@ -9168,7 +9169,7 @@
       "trafficAccidentPerKm2": 3.96,
       "monthlyRentMan": 44.58,
       "rentSamples": 291,
-      "walkToStationMin": 14.86
+      "walkToStationMin": 20.89
     },
     {
       "code": "1153078000",
@@ -9185,7 +9186,7 @@
       "trafficAccidentPerKm2": 10.73,
       "monthlyRentMan": 62.1,
       "rentSamples": 1467,
-      "walkToStationMin": 8.16
+      "walkToStationMin": 9.96
     },
     {
       "code": "4146351600",
@@ -9202,7 +9203,7 @@
       "trafficAccidentPerKm2": 0.75,
       "monthlyRentMan": 49.17,
       "rentSamples": 906,
-      "walkToStationMin": 32.22
+      "walkToStationMin": 37.17
     },
     {
       "code": "4146353000",
@@ -9219,7 +9220,7 @@
       "trafficAccidentPerKm2": 1.53,
       "monthlyRentMan": 47.29,
       "rentSamples": 346,
-      "walkToStationMin": 10.89
+      "walkToStationMin": 8.17
     },
     {
       "code": "4146357500",
@@ -9236,7 +9237,7 @@
       "trafficAccidentPerKm2": 1.44,
       "monthlyRentMan": 47.29,
       "rentSamples": 395,
-      "walkToStationMin": 82.58
+      "walkToStationMin": 76.64
     },
     {
       "code": "4146357200",
@@ -9253,7 +9254,7 @@
       "trafficAccidentPerKm2": 0.72,
       "monthlyRentMan": 47.29,
       "rentSamples": 395,
-      "walkToStationMin": 83.51
+      "walkToStationMin": 81.6
     },
     {
       "code": "1174051500",
@@ -9270,7 +9271,7 @@
       "trafficAccidentPerKm2": 3.66,
       "monthlyRentMan": 48.89,
       "rentSamples": 1122,
-      "walkToStationMin": 21.28
+      "walkToStationMin": 23.04
     },
     {
       "code": "4146554000",
@@ -9287,7 +9288,7 @@
       "trafficAccidentPerKm2": 3.04,
       "monthlyRentMan": 60.75,
       "rentSamples": 1199,
-      "walkToStationMin": 28.71
+      "walkToStationMin": 30.02
     },
     {
       "code": "4146557000",
@@ -9304,7 +9305,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 78.96,
       "rentSamples": 1284,
-      "walkToStationMin": 13.16
+      "walkToStationMin": 15.96
     },
     {
       "code": "1123053300",
@@ -9321,7 +9322,7 @@
       "trafficAccidentPerKm2": 252.71,
       "monthlyRentMan": 79.75,
       "rentSamples": 1644,
-      "walkToStationMin": 5.76
+      "walkToStationMin": 6.88
     }
   ]
 }
