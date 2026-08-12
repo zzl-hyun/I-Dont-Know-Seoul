@@ -1,4 +1,4 @@
-node_modules/
+node_modules
 .wrangler/
 *.local
 
@@ -31,9 +31,10 @@ data/raw/*
 !data/raw/police-crime-*.csv
 !data/raw/population-*.csv
 !data/raw/traffic-accident-hotspots-*.csv
-# 격자 인구: SGIS 원본은 전국 278MB(shp+csv 수백 개)라 못 넣고, 대상 범위
-# 격자 3,139개만 좌표+총인구로 뽑은 78KB 파생 파일을 커밋한다.
-!data/raw/grid-population-*.json
+# 격자 인구: 기존 1km 스냅샷만 재현성 때문에 유지한다. SGIS 100m 자료는
+# 승인받은 원자료에 가까워 커밋하지 않고, 공개 번들에는 동별 최대 24개 대표
+# 프로필과 정규화 가중치로 비가역 집약한 결과만 포함한다.
+!data/raw/grid-population-2024.json
 
 .DS_Store
 *.log
