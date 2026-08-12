@@ -54,10 +54,19 @@ const MAP_THEME = {
   },
 } as const;
 
-const SEOUL_CENTER: [number, number] = [126.986, 37.55];
-const SEOUL_BOUNDS: [[number, number], [number, number]] = [
-  [126.55, 37.34],
-  [127.35, 37.78],
+/*
+ * 대상 지역 전체(서울 + 수원·성남·용인)를 담는 범위.
+ *
+ * 폴리곤 실측이 위도 37.216~37.701, 경도 126.765~127.196 이다. 서울만 볼 때의
+ * 남쪽 한계는 37.34 였는데 그대로 두면 수원·용인이 14km 잘린다.
+ *
+ * 중심은 두 지역의 기하학적 중앙(37.458)이 아니라 조금 북쪽으로 둔다 —
+ * 동의 78%가 서울에 있어 첫 화면에서 서울이 너무 작아지면 안 된다.
+ */
+const MAP_CENTER: [number, number] = [126.99, 37.5];
+const MAP_BOUNDS: [[number, number], [number, number]] = [
+  [126.7, 37.16],
+  [127.26, 37.76],
 ];
 
 export type MapMode = "grade" | "commute";
@@ -178,9 +187,10 @@ export default function MapView({
     const map = new maplibregl.Map({
       container: containerRef.current,
       style: BASE_STYLE[themeRef.current],
-      center: SEOUL_CENTER,
-      zoom: 10.4,
-      maxBounds: SEOUL_BOUNDS,
+      center: MAP_CENTER,
+      // 서울만일 때는 10.4 였다. 남북이 14km 늘어 그대로 두면 아래가 잘린다.
+      zoom: 9.9,
+      maxBounds: MAP_BOUNDS,
       attributionControl: false,
     });
     mapRef.current = map;
@@ -248,7 +258,7 @@ export default function MapView({
     /*
      * 색은 전부 feature-state 기반 표현식으로 계산한다.
      * 이렇게 하면 가중치·통근시간 슬라이더를 움직일 때 지오메트리를 다시
-     * 보내지 않고 상태값만 갱신하면 되므로 427개 폴리곤도 즉시 반응한다.
+     * 보내지 않고 상태값만 갱신하면 되므로 547개 폴리곤도 즉시 반응한다.
      */
     map.addLayer({
       id: "dong-fill",

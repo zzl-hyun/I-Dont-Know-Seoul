@@ -233,7 +233,7 @@ export default function App() {
         worstMin: c?.worstMin ?? null,
         reachable,
         overBudget: inTime && !inBudget,
-        // 툴팁용이라 통근권 안인 동만 만든다 (427개 전부 만들 필요 없다)
+        // 툴팁용이라 통근권 안인 동만 만든다 (547개 전부 만들 필요 없다)
         reason: reachable
           ? summarize(s, data.pctKeys, g.grade, weights, data.axisWeights)
           : "",
@@ -693,7 +693,7 @@ export default function App() {
                         ))}
                       </div>
                       <p className="metric-note" style={{ marginTop: 8 }}>
-                        등급은 서울 전체 분포 기준 상대 평가입니다 — 상위 30%가 Best,
+                        등급은 대상 지역 전체 분포 기준 상대 평가입니다 — 상위 30%가 Best,
                         하위 30%가 Bad입니다.
                       </p>
                     </>

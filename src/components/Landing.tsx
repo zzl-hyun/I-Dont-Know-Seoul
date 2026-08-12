@@ -318,7 +318,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
                 </span>
               </div>
               <p className="rank-line">
-                서울 427개 동 중 <b>48위</b> · 상위 11%
+                수도권 547개 동 중 <b>100위</b> · 상위 18%
               </p>
               <p className="summary">
                 월세가 60만원으로 싸고 범죄는 적지만, 교통사고 다발지점이 많습니다.
@@ -688,16 +688,16 @@ const MODE_SHOTS = [
  * 히어로 아래 숫자 띠.
  *
  * 427·623·9 는 파이프라인 산출물과 대조한 값이다(bundle.json 의 dongs
- * 427개, graph.stations 623개, meta.availableMetrics 9개). 데이터가 바뀌면
+ * 547개, graph.stations 623개, meta.availableMetrics 9개). 데이터가 바뀌면
  * 같이 고쳐야 한다.
  *
- * "0" 은 계산이 아니라 설계다. 목적지 하나를 잡으면 427개 동의 통근시간이
+ * "0" 은 계산이 아니라 설계다. 목적지 하나를 잡으면 547개 동의 통근시간이
  * 전부 필요한데, 길찾기 API 로 하면 요청 한 번에 427콜이라 무료 한도로는
  * 하루 두 명도 못 받는다. 그래서 지하철 그래프를 직접 들고 브라우저에서
  * 탐색한다.
  */
 const STATS = [
-  { value: 427, unit: "개", label: "행정동을 전부 등급화" },
+  { value: 547, unit: "개", label: "행정동을 전부 등급화" },
   { value: 623, unit: "역", label: "지하철 21개 노선" },
   { value: 9, unit: "개", label: "등급에 쓰는 공공데이터 지표" },
   { value: 0, unit: "회", label: "외부 길찾기 API 호출" },
@@ -750,8 +750,8 @@ const SHOT_MARKS = [
 /* README 상단의 기능 목록을 그대로 옮긴 것 */
 const FEATURES = [
   {
-    title: "427개 행정동 등급화",
-    body: "서울 전체를 Best / Normal / Bad 로 나눕니다.",
+    title: "547개 행정동 등급화",
+    body: "서울과 신분당선 축(수원·성남·용인)을 Best / Normal / Bad 로 나눕니다.",
   },
   {
     title: "가중치 조절",

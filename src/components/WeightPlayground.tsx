@@ -34,7 +34,7 @@ interface Row {
 }
 
 /*
- * 강남역 기준으로 뽑은 실제 값(2026-08-11 번들).
+ * 강남역 기준으로 뽑은 실제 값(2026-08-12 번들, 수도권 547개 동).
  *
  * 아무 동이나 고르면 슬라이더를 움직여도 순위가 안 바뀌어 데모가 안 된다.
  * 세 축 각각에서 1위가 서로 다르도록 골랐다 —
@@ -42,12 +42,12 @@ interface Row {
  * 데이터를 갱신하면 이 표도 다시 뽑아야 한다.
  */
 const ROWS: Row[] = [
-  { dong: "공릉1동", gu: "노원구", commuteMin: 44, rentMan: 49.58, safety: 60.9, price: 98.9, convenience: 85.3 },
-  { dong: "안암동", gu: "성북구", commuteMin: 41, rentMan: 64.58, safety: 88.0, price: 58.7, convenience: 60.8 },
-  { dong: "창신1동", gu: "종로구", commuteMin: 36, rentMan: 54.58, safety: 4.5, price: 88.8, convenience: 95.7 },
-  { dong: "신림동", gu: "관악구", commuteMin: 26, rentMan: 57.92, safety: 15.2, price: 81.5, convenience: 94.2 },
-  { dong: "상도1동", gu: "동작구", commuteMin: 28, rentMan: 59.58, safety: 75.5, price: 76.6, convenience: 66.8 },
-  { dong: "옥수동", gu: "성동구", commuteMin: 18, rentMan: 325.0, safety: 75.4, price: 0, convenience: 28.5 },
+  { dong: "공릉1동", gu: "노원구", commuteMin: 44, rentMan: 49.58, safety: 57.7, price: 92.4, convenience: 80.6 },
+  { dong: "안암동", gu: "성북구", commuteMin: 41, rentMan: 64.58, safety: 86.3, price: 53.8, convenience: 63.8 },
+  { dong: "창신1동", gu: "종로구", commuteMin: 36, rentMan: 54.58, safety: 3.8, price: 80.5, convenience: 96.3 },
+  { dong: "신림동", gu: "관악구", commuteMin: 26, rentMan: 57.92, safety: 12.1, price: 73.6, convenience: 95.7 },
+  { dong: "상도1동", gu: "동작구", commuteMin: 28, rentMan: 59.58, safety: 71.3, price: 69.2, convenience: 65.0 },
+  { dong: "옥수동", gu: "성동구", commuteMin: 18, rentMan: 325.0, safety: 75.2, price: 0, convenience: 27.2 },
 ];
 
 const AXES = [
