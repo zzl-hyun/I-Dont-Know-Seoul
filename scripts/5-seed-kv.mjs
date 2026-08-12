@@ -1,11 +1,12 @@
 /**
  * 5-seed-kv.mjs — 데이터 번들을 Cloudflare KV에 올린다.
  *
- * KV에 번들이 있으면 Worker가 그걸 우선 서빙한다. 즉 데이터만 갱신할 때는
- * 프론트를 다시 빌드·배포하지 않고 이 스크립트만 돌리면 된다.
+ * KV에 번들이 있으면 Worker가 그걸 우선 서빙한다. 기술적으로 데이터만 갱신할
+ * 수도 있지만, 현재 운영 절차는 코드·정적 번들과 KV 버전이 어긋나지 않도록
+ * 같은 clean commit에서 data:seed → cf:deploy를 항상 함께 실행한다.
  *
  * 사용법:
- *   npm run data:seed              # 원격 KV (배포용)
+ *   npm run data:seed              # 원격 KV (명시적 배포 승인 필요)
  *   npm run data:seed -- --local   # 로컬 wrangler dev용 KV
  *
  * 사전 준비:
@@ -16,6 +17,7 @@ import { readFile, stat } from "node:fs/promises";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { assertValidCommuteBundle } from "./lib/bundle-validation.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const BUNDLE = join(ROOT, "public/data/bundle.json");
@@ -34,7 +36,9 @@ async function main() {
     fail(
       `번들을 읽을 수 없습니다: ${BUNDLE}\n` +
         `  먼저 파이프라인을 실행하세요:\n` +
-        `    npm run data:boundaries && npm run data:subway && npm run data:metrics && npm run data:score`
+        `    npm run data:boundaries && npm run data:subway\n` +
+        `    npm run data:population && npm run data:bus && npm run data:metrics\n` +
+        `    npm run data:access && npm run data:score`
     );
   }
 
@@ -49,6 +53,11 @@ async function main() {
     );
   }
   if (problems.length) fail("번들 검증 실패:\n  - " + problems.join("\n  - "));
+  try {
+    assertValidCommuteBundle(bundle, { required: true });
+  } catch (err) {
+    fail(err instanceof Error ? err.message : String(err));
+  }
 
   // 네임스페이스 id 가 placeholder 인 채로 원격에 올리려 하면 미리 막는다
   if (!isLocal) {
@@ -66,7 +75,10 @@ async function main() {
   const size = (await stat(BUNDLE)).size;
   console.log(`번들 ${(size / 1024).toFixed(0)} KB`);
   console.log(`  행정동 ${bundle.dongs.length}개 · 역 ${bundle.graph.stations.length}개`);
-  console.log(`  데이터 버전: 경계 ${bundle.meta.boundaryVersion} · 지하철 ${bundle.meta.graphVersion} · 지표 ${bundle.meta.scoreVersion}`);
+  console.log(
+    `  데이터 버전: 경계 ${bundle.meta.boundaryVersion} · 지하철 ${bundle.meta.graphVersion} · ` +
+      `버스 ${bundle.meta.busVersion} · 거주분포 ${bundle.meta.residentialVersion} · 지표 ${bundle.meta.scoreVersion}`
+  );
   if (bundle.meta.missingMetrics?.length) {
     console.log(`  미수집 지표: ${bundle.meta.missingMetrics.join(", ")}`);
   }

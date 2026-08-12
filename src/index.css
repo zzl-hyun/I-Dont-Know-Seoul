@@ -720,6 +720,10 @@ input[type="range"] {
   background: var(--accent);
 }
 
+.leg-bus::before {
+  background: #2f9e82;
+}
+
 .leg-transfer::before {
   background: var(--normal);
 }
@@ -735,7 +739,8 @@ input[type="range"] {
   color: var(--text-dim);
 }
 
-.leg-ride .leg-text {
+.leg-ride .leg-text,
+.leg-bus .leg-text {
   color: var(--text);
 }
 

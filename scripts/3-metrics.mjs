@@ -23,9 +23,10 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { haversineM, pointInGeometry, bbox, walkMinutes } from "./lib/geo.mjs";
+import { haversineM, pointInGeometry, bbox } from "./lib/geo.mjs";
 import { SBIZ_GROUPS } from "./lib/sbiz.mjs";
 import { CACHE_SCHEMA, checkCache } from "./lib/cache.mjs";
+import { populationWalkByDong } from "./lib/population-access.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -176,19 +177,7 @@ async function main() {
 
   /* ---- 2. 최근접역 도보시간 (자체 그래프) ---- */
   console.log("\n[2/6] 최근접 지하철역 도보시간...");
-  const livingPoint = await buildLivingPoints(dongs, sbiz.stores, index);
-  const walkMin = new Map();
-  for (const d of dongs) {
-    const p = livingPoint.get(d.code) ?? d; // 폴백: 폴리곤 내부점
-    let best = Infinity;
-    for (const s of graph.stations) {
-      const dist = haversineM(p.lat, p.lng, s.lat, s.lng);
-      if (dist < best) best = dist;
-    }
-    // 보정 계수는 geo.mjs 한 곳에서만 정의한다 — 여기 숫자를 다시 적으면
-    // 상수를 바꿀 때 이쪽만 남아 지표와 모델이 어긋난다.
-    walkMin.set(d.code, walkMinutes(best));
-  }
+  const walkMin = await buildPopulationMedianWalk(dongs, graph.stations);
   const walkVals = [...walkMin.values()].sort((a, b) => a - b);
   console.log(`  중앙값 ${walkVals[Math.floor(walkVals.length / 2)].toFixed(1)}분 · 최대 ${walkVals.at(-1).toFixed(1)}분`);
 
@@ -304,6 +293,8 @@ async function main() {
           crime: crimeByGu.size > 0 ? "경찰청 범죄 발생 지역별 통계 + 행안부 주민등록인구" : null,
           trafficAccident: accidentOk ? "도로교통공단 전국교통사고다발지역표준데이터" : null,
           rent: rent.size > 0 ? "국토교통부 실거래가" : null,
+          walkToStation:
+            "SGIS 2024 100m population-weighted median direct walk to nearest subway station",
         },
         available,
         missing,
@@ -323,7 +314,7 @@ async function main() {
 }
 
 /* ------------------------------------------------------------------ */
-/* 공간 인덱스 — 427개 폴리곤에 6만 개 POI를 배정하려면 필요하다.        */
+/* 공간 인덱스 — 547개 폴리곤에 대량 POI를 배정하려면 필요하다.          */
 /* 격자 버킷으로 후보를 줄인 뒤 point-in-polygon 을 돌린다.             */
 /* ------------------------------------------------------------------ */
 
@@ -553,64 +544,33 @@ function verifyCoverage(rows) {
   console.log(`  지역별 검증 통과 — ${byGu.size}개 구 (${summary})`);
 }
 
-/* ---- 생활 중심점: 인구 격자로 가중한 상가업소 좌표의 무게중심 ---- */
+/* ---- SGIS 100m 거주인구 분포의 중앙 최근접역 도보시간 ---- */
 
-const GRID_POP = join(ROOT, "data/raw/grid-population-2024.json");
-/** 격자가 1km 라 인덱싱 셀도 0.01도(≈1.1km)로 맞춘다 */
-const GRID_CELL_DEG = 0.01;
+const GRID_POP_100M = join(ROOT, "data/raw/grid-population-100m-2024.json");
 
 /**
- * 동마다 "사람이 실제로 사는 쪽"의 대표 좌표를 만든다.
+ * 동을 대표점 하나로 접지 않고 SGIS 100m 총인구 격자 각각에서 최근접역까지
+ * 계산한 뒤, 인구 가중 중앙값을 쓴다. 양재처럼 생활권과 산지가 한 행정동에
+ * 함께 있는 곳에서 산 쪽 중심점 하나가 전체 주민을 대표하던 오류를 피한다.
  *
- * 원래는 폴리곤 내부점(`-points inner`)을 썼다. 서울은 동이 작아(중앙 0.99km²)
- * 그럭저럭 맞았지만, 경기를 넣으면서 깨졌다 — 용인 수지구 동천동은 16.5km² 라
- * 내부점이 산속에 찍혀 **동천역을 품고 있는데도 역까지 84분**으로 계산됐다.
- * 성남 서현1동 50분, 분당 구미1동 50분도 같은 이유다.
- *
- * 해법: 상가업소 좌표를 **그 자리의 격자 인구로 가중**해 무게중심을 잡는다.
- *   - 인구 격자(1km)만 쓰면 1km² 미만 동 248개에서 해상도가 모자란다.
- *   - 상가 좌표만 쓰면 상권이 역 반대편인 동에서 반대로 밀린다.
- *   - 곱하면 서로 메워진다. 산·농지의 상가는 인구가 0이라 자동으로 빠진다.
- *
- * 실측(547개 동): 역 도보 중앙값 12.4 → 9.7분, 30분 초과 73 → 45개,
- * 60분 초과 14 → 5개. 동천동 84.3 → 14.3분, 서현1동 49.9 → 2.2분.
- *
- * 인구나 상가가 하나도 안 잡히는 동은 기존 내부점으로 폴백한다(현재 0개).
+ * 인구격자가 없는 동은 내부점으로 폴백하지만 전처리 검증상 현재 547/547개
+ * 동에 양수 인구격자가 있다.
  */
-async function buildLivingPoints(dongs, stores, index) {
-  let grids;
+async function buildPopulationMedianWalk(dongs, stations) {
+  let byDong;
   try {
-    grids = JSON.parse(await readFile(GRID_POP, "utf8")).grids;
+    byDong = JSON.parse(await readFile(GRID_POP_100M, "utf8")).dongs;
   } catch {
-    console.log("  격자 인구 파일 없음 → 폴리곤 내부점을 그대로 씁니다");
-    return new Map();
+    console.log("  100m 격자 인구 파일 없음 → 폴리곤 내부점을 그대로 씁니다");
+    byDong = {};
   }
 
-  const popCell = new Map();
-  for (const [lng, lat, pop] of grids) {
-    const k = `${Math.round(lat / GRID_CELL_DEG)},${Math.round(lng / GRID_CELL_DEG)}`;
-    popCell.set(k, (popCell.get(k) ?? 0) + pop);
-  }
-
-  const acc = new Map(dongs.map((d) => [d.code, { w: 0, lat: 0, lng: 0 }]));
-  for (const [lng, lat] of stores) {
-    const w = popCell.get(`${Math.round(lat / GRID_CELL_DEG)},${Math.round(lng / GRID_CELL_DEG)}`) ?? 0;
-    if (!(w > 0)) continue;
-    const code = index.lookup(lng, lat);
-    if (!code) continue;
-    const a = acc.get(code);
-    a.w += w; a.lat += lat * w; a.lng += lng * w;
-  }
-
-  const out = new Map();
-  let fallback = 0;
-  for (const d of dongs) {
-    const a = acc.get(d.code);
-    if (a.w > 0) out.set(d.code, { lat: a.lat / a.w, lng: a.lng / a.w });
-    else fallback++;
-  }
-  console.log(`  생활 중심점 ${out.size}개 (격자 ${grids.length}개 사용, 내부점 폴백 ${fallback}개)`);
-  return out;
+  const result = populationWalkByDong(dongs, stations, byDong, 0.5);
+  console.log(
+    `  100m 인구격자 ${result.cellCount.toLocaleString()}개 · ` +
+      `인구 가중 중앙값 ${result.values.size}개 동 (내부점 폴백 ${result.fallbackCount}개)`
+  );
+  return result.values;
 }
 
 /**

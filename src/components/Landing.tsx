@@ -455,11 +455,13 @@ export default function Landing({
 
       <p className="disclaimer landing-foot">
         등급은 공공·공개 데이터로 계산한 <b>대상 지역 내 상대 평가</b>이며, 특정
-        지역에 대한 가치판단이 아닙니다. 통근시간은 지하철 기준 추정치로 실제
-        소요시간과 다를 수 있습니다.
+        지역에 대한 가치판단이 아닙니다. 통근시간은 정적 지하철·버스 모델
+        추정치이며 실시간 교통상황에 따라 달라질 수 있습니다.
         <br />
-        경계 © 통계청 SGIS · 지하철·버스 정류장 © OpenStreetMap contributors ·
-        상가업소 © 소상공인시장진흥공단 · 월세 © 국토교통부 실거래가
+        경계 © SGIS/vuski · 100m 인구(2024) © 국가데이터처 SGIS ·
+        지하철·편의지표 정류장 © OpenStreetMap contributors · 통근 버스노선 ©
+        서울특별시·경기도 · 상가업소 © 소상공인시장진흥공단 · 월세 © 국토교통부
+        실거래가
       </p>
     </div>
   );

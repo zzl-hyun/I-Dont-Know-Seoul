@@ -13,14 +13,15 @@
 > ("등록되지 않은 서비스키")가 오는데, 이건 URL이 틀렸다는 뜻이 아니라 그 API만
 > 승인이 안 됐다는 뜻입니다.
 
-### 1. 공공데이터포털 — 상가업소 + 실거래가
+### 1. 공공데이터포털 — 상가업소 + 실거래가 + 경기 버스
 
-[공공데이터포털](https://www.data.go.kr/)에서 아래 네 API를 활용신청합니다.
+[공공데이터포털](https://www.data.go.kr/)에서 아래 API를 활용신청합니다.
 
 - [소상공인시장진흥공단_상가(상권)정보_API](https://www.data.go.kr/data/15012005/openapi.do) — 편의·음식·의료·유흥업소 지표 (자동승인)
 - 국토교통부_단독/다가구 전월세 실거래가 자료
 - 국토교통부_오피스텔 전월세 실거래가 자료
 - 국토교통부_아파트 전월세 실거래가 자료
+- 경기도 버스 기반정보(노선·경유정류소)
 
 실거래가 쪽은 승인에 최대 24시간이 걸릴 수 있습니다. 상가업소는 자동승인입니다.
 
@@ -28,7 +29,17 @@
 `%2B`·`%3D` 가 들어간 Encoding 값을 넣으면 스크립트가 다시 URL 인코딩해서
 이중 인코딩이 되고 전부 인증에 실패합니다.
 
-### 2. Kakao Local — 자유 주소·장소 검색
+### 2. 서울 열린데이터광장 — 서울 버스 경유정류소
+
+계정 키 하나로 `busRteInfo`를 조회합니다. `.env`의 `SEOUL_OPEN_DATA_KEY`에
+넣습니다. 경기 BMS 노선 경유정류소 CSV와 SGIS 100m 인구 CSV 3개는 로그인 후
+수동 다운로드한 원본을 사용하며 Git에는 넣지 않습니다. 저장 위치는 각각
+`data/raw/BMS_info.csv`, `data/raw/_census_reqdoc_1786503689774/`입니다.
+`data:population`이 만드는 대상 지역 100m 스냅샷도 로컬 중간물로만 두고,
+Git에는 `data:access`가 만든 동별 최대 24개 집약 프로필만 포함합니다. 운영 결과가
+완성되면 신청 동의조건에 따라 출처를 표시하고 SGIS에 운영 URL 사본을 제출합니다.
+
+### 3. Kakao Local — 자유 주소·장소 검색
 
 [Kakao Developers](https://developers.kakao.com/)에서 앱 생성 → REST API 키.
 월 300만 호출 무료이며 **회사명·학교명 키워드 검색**을 지원합니다
@@ -49,7 +60,7 @@
 ```bash
 # 파이프라인 — .env 파일에 넣으면 스크립트가 읽습니다 (.gitignore 로 제외됨)
 cp .env.example .env      # DATA_GO_KR_KEY 를 채우세요
-npm run data:metrics && npm run data:score
+# 이어지는 "파이프라인" 절의 순서대로 원천·산출물을 생성하세요
 
 # Worker — 절대 코드나 설정 파일에 넣지 마세요
 npx wrangler secret put KAKAO_REST_KEY
@@ -70,10 +81,22 @@ npm run data:boundaries
 # 2) 지하철 그래프 (OpenStreetMap, 키 불필요)
 npm run data:subway
 
-# 3) 동별 원지표 (상가업소·월세 API 키 필요)
+# 3) SGIS 100m 인구 원본 → 로컬 전용 대상 547개 동 스냅샷
+npm run data:population
+
+# 4) 서울·경기 공식 버스 노선 → 정적 버스망
+npm run data:bus
+
+# 5) 동별 원지표 (상가업소·월세 API 키 필요, 최근접역은 100m 인구 중앙값)
 npm run data:metrics
 
-# 4) 정규화 + 등급 + 앱 번들
+# 기존 지표는 유지하고 100m 최근접역 값만 갱신할 때
+npm run data:metric-access
+
+# 6) 100m 분포 → 동별 최대 24개 도보·버스 역 접근 프로필
+npm run data:access
+
+# 7) 정규화 + 등급 + 앱 번들
 npm run data:score
 ```
 
@@ -109,7 +132,7 @@ OSM POI(`osm-poi.json`) 캐시에는 "어떤 범위로 받았는지"(`guCodes` �
 
 ```bash
 npm run cf:dev   # Worker + 정적자산 통합 → http://localhost:8787 (실환경에 가장 가까움)
-npm test         # 회귀 테스트 86개
+npm test         # 회귀 테스트
 npm run typecheck
 ```
 
@@ -127,16 +150,18 @@ npx wrangler kv namespace create ONEDAY_KV
 # 2) 지오코딩 키 등록
 npx wrangler secret put KAKAO_REST_KEY
 
-# 3) 배포
-npm run cf:deploy
-
-# 4) 데이터 스냅샷을 KV에 업로드 (이후 데이터 갱신은 이 명령만 실행)
+# 3) 데이터 스냅샷을 KV에 먼저 업로드
 npm run data:seed
+
+# 4) 검증된 같은 커밋의 Worker·정적자산 배포
+npm run cf:deploy
 ```
 
-`/api/data` 는 KV에 스냅샷이 있으면 그걸, 없으면 정적 자산을 서빙합니다(응답
-헤더 `X-Oneday-Source` 로 확인). 덕분에 **데이터만 갱신할 때는 프론트를 다시
-빌드·배포할 필요가 없습니다.**
+`/api/data`는 KV에 스냅샷이 있으면 그걸, 없으면 정적 자산을 서빙합니다(응답
+헤더 `X-Oneday-Source`로 확인). 기술적으로 KV만 바꿀 수 있지만, 이 저장소의
+운영 절차는 코드·정적 번들과 KV의 버전 어긋남을 막기 위해 매 배포마다
+**`data:seed` → `cf:deploy`** 순서를 사용합니다. 둘 다 원격 변경이므로 현재 SHA와
+clean 상태를 확인하고 사용자 승인을 새로 받은 뒤 실행합니다.
 
 > 반대로, **번들을 바꿨으면 `npm run data:seed` 를 잊지 마세요.** `/api/data` 는
 > KV를 먼저 보므로 시드하지 않으면 배포해도 옛 데이터가 나갑니다.
@@ -159,7 +184,8 @@ Worker 이름(`wrangler.jsonc` 의 `name`)이 곧 workers.dev 주소가 됩니�
 src/
   lib/
     dijkstra.ts      다중 출발점 최단경로 (이진 힙) + 경로 복원용 prev
-    commute.ts       좌표 → 동별 통근시간, 선택된 동의 경로 복원
+    bus.ts           같은 방향 직행 버스의 첫·마지막 접근시간
+    commute.ts       100m 거주분포 → 동별 통근시간, 선택된 동의 경로 복원
     score.ts         가중합 + 상대 컷 등급화 (등급 컷 점수도 함께 반환)
     explain.ts       분포 통계 · 요약 문장 · 계산 과정 — "왜 이 등급인지"
     subwayLines.ts   노선 색 + 노선도 GeoJSON 생성
@@ -174,6 +200,9 @@ src/
 worker/
   index.ts           지오코딩 프록시(키 은닉) + 데이터 스냅샷 서빙
 scripts/
+  prepare-population-grid.mjs  SGIS 100m 인구를 행정동에 배정
+  prepare-bus-network.mjs      서울·경기 노선·정류장·거리를 정규화
+  6-bus-access.mjs             100m 분포를 동별 대표 역 접근 프로필로 집약
   1-boundaries.mjs → 2-subway.mjs → 3-metrics.mjs → 4-score.mjs → 5-seed-kv.mjs
 ```
 
@@ -185,7 +214,7 @@ scripts/
 
 ```
 dong-fill → dong-outline → subway-line → subway-hit → subway-station
-→ dong-icon → dong-label → route-line-casing → route-walk-line → route-line
+→ dong-icon → dong-label → route-line-casing → route-walk-line → route-bus-line → route-line
 → subway-label → dest-marker
 ```
 
@@ -195,9 +224,10 @@ dong-fill → dong-outline → subway-line → subway-hit → subway-station
 `route-line-casing` 은 경로선 아래 깔리는 배경색 테두리입니다. 1호선 남색처럼
 어두운 노선색과 파란 경로 점선이 겹치면 안 보이는 문제 때문에 추가했습니다.
 
-경로선이 **두 레이어로 갈려 있습니다**(`route-walk-line` = 도보, `route-line` =
-지하철). MapLibre 의 `line-dasharray` 는 data-driven 표현식을 못 받아서 한 레이어
-안에서 점선 모양을 구간별로 다르게 줄 수 없기 때문입니다.
+경로선이 **세 레이어로 갈려 있습니다**(`route-walk-line` = 도보,
+`route-bus-line` = 버스, `route-line` = 지하철). MapLibre의 `line-dasharray`는
+data-driven 표현식을 못 받아서 한 레이어 안에서 점선 모양을 구간별로 다르게
+줄 수 없기 때문입니다.
 
 ### 테마를 바꾸면 레이어가 전부 날아갑니다
 

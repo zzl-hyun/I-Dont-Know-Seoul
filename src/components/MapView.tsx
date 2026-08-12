@@ -74,13 +74,13 @@ export type MapMode = "grade" | "commute";
 /**
  * 통근 경로를 이루는 선분 하나.
  *
- * 지하철과 도보를 나눠 넘기는 이유: MapLibre 의 line-dasharray 는
+ * 지하철·버스·도보를 나눠 넘기는 이유: MapLibre 의 line-dasharray 는
  * data-driven 표현식을 못 받아서 한 레이어 안에서 점선 모양을 구간별로
  * 다르게 줄 수 없다. 그래서 kind 를 피처 속성으로 싣고 레이어를 갈라
  * filter 로 나눠 그린다.
  */
 export interface RouteSegment {
-  kind: "ride" | "walk";
+  kind: "ride" | "bus" | "walk";
   coords: Array<[number, number]>;
 }
 
@@ -210,7 +210,7 @@ export default function MapView({
       new maplibregl.AttributionControl({
         compact: true,
         customAttribution:
-          '경계 © 통계청 SGIS · 지하철 © OpenStreetMap',
+          "경계 © SGIS/vuski · 100m 인구(2024) © 국가데이터처 SGIS · 지하철 © OpenStreetMap · 버스 © 서울특별시·경기도",
       }),
       "bottom-right"
     );
@@ -446,6 +446,19 @@ export default function MapView({
         "line-width": ["interpolate", ["linear"], ["zoom"], 10, 1.6, 14, 2.6],
         "line-dasharray": [0.6, 1.8],
         "line-opacity": 0.75,
+      },
+    });
+    map.addLayer({
+      id: "route-bus-line",
+      type: "line",
+      source: SRC_ROUTE,
+      filter: ["==", ["get", "kind"], "bus"],
+      layout: { "line-cap": "round", "line-join": "round" },
+      paint: {
+        "line-color": "#2f9e82",
+        "line-width": ["interpolate", ["linear"], ["zoom"], 10, 2, 14, 4],
+        "line-dasharray": [0.9, 1.2],
+        "line-opacity": 0.95,
       },
     });
     map.addLayer({
@@ -789,7 +802,7 @@ export default function MapView({
           .map((seg) => ({
             type: "Feature",
             geometry: { type: "LineString", coordinates: seg.coords },
-            // 레이어가 이 값으로 갈린다 (route-line / route-walk-line)
+            // 레이어가 이 값으로 갈린다 (지하철 / 버스 / 도보)
             properties: { kind: seg.kind },
           })),
       });

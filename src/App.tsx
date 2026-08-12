@@ -47,6 +47,8 @@ const NO_COMMUTE: CommuteResult = {
   totalMin: null,
   viaStation: null,
   walkMin: 0,
+  accessMin: 0,
+  accessMode: "walk",
   transfers: 0,
   hasEstimatedLeg: false,
   viaNodeId: -1,
@@ -181,10 +183,16 @@ export default function App() {
    */
   const commute = useMemo(() => {
     if (!data || destinations.length === 0) return null;
-    return computeMultiCommute(data.graph, data.dongs, destinations);
+    return computeMultiCommute(
+      data.graph,
+      data.dongs,
+      destinations,
+      data.bus,
+      data.residential
+    );
   }, [data, destinations]);
 
-  /* 등급은 가중치가 바뀔 때만 다시 매긴다 (427회 곱셈 — 사실상 즉시). */
+  /* 등급은 가중치가 바뀔 때만 다시 매긴다 (547회 곱셈 — 사실상 즉시). */
   const graded = useMemo(() => {
     if (!data) return null;
     return gradeAll(data.scores, weights);
@@ -286,7 +294,7 @@ export default function App() {
   /**
    * 선택된 동의 경로를 지도에 그릴 선분들.
    *
-   * 지하철과 도보를 구분해서 넘긴다 — MapLibre 의 line-dasharray 는
+   * 지하철·버스·도보를 구분해서 넘긴다 — MapLibre 의 line-dasharray 는
    * data-driven 이 아니라 한 레이어에서 점선 모양을 나눌 수 없어서,
    * MapView 가 kind 로 레이어를 갈라 그린다.
    */
@@ -295,6 +303,7 @@ export default function App() {
     return selected.commutes.flatMap((c) =>
       c.route.flatMap((leg): RouteSegment[] => {
         if (leg.kind === "ride") return [{ kind: "ride", coords: leg.path }];
+        if (leg.kind === "bus") return [{ kind: "bus", coords: leg.path }];
         if (leg.kind === "walk" && leg.path) return [{ kind: "walk", coords: leg.path }];
         return [];
       })
@@ -776,13 +785,17 @@ export default function App() {
 
         <div className="disclaimer">
           등급은 공공·공개 데이터로 계산한 <b>대상 지역 내 상대 평가</b>이며, 특정 지역에
-          대한 가치판단이 아닙니다. 통근시간은 지하철 기준 추정치로 실제 소요시간과
-          다를 수 있습니다.
+          대한 가치판단이 아닙니다. 통근시간은 정적 지하철·버스 모델 추정치이며
+          실시간 교통상황에 따라 달라질 수 있습니다.
           {data && (
             <>
               <br />
               데이터 기준 · 경계 {data.meta.boundaryVersion} · 지하철{" "}
-              {data.meta.graphVersion} · 지표 {data.meta.scoreVersion}
+              {data.meta.graphVersion}
+              {data.meta.busVersion != null && <> · 버스 {data.meta.busVersion}</>}
+              {data.meta.residentialVersion &&
+                <> · 거주분포 {data.meta.residentialVersion}</>}
+              {" · "}지표 {data.meta.scoreVersion}
               {data.meta.missingMetrics.length > 0 && (
                 <>
                   <br />

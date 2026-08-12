@@ -1,7 +1,8 @@
 /**
  * 4-score.mjs — 원지표 → 축 점수(백분위) → 앱 번들
  *
- * 입력: data/dist/metrics.json, dong-meta.json, subway-graph.json
+ * 입력: data/dist/metrics.json, dong-meta.json, subway-graph.json,
+ *       bus-network.json, residential-access.json
  * 출력: data/dist/scores.json, public/data/bundle.json
  *
  * 정규화 방식:
@@ -18,6 +19,7 @@
 import { mkdir, readFile, writeFile, stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { assertValidCommuteBundle } from "./lib/bundle-validation.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT_SCORES = join(ROOT, "data/dist/scores.json");
@@ -74,9 +76,15 @@ const AXES = {
 const MIN_RENT_SAMPLES = 5;
 
 async function main() {
-  const metrics = JSON.parse(await readFile(join(ROOT, "data/dist/metrics.json"), "utf8"));
-  const dongMeta = JSON.parse(await readFile(join(ROOT, "data/dist/dong-meta.json"), "utf8"));
-  const graph = JSON.parse(await readFile(join(ROOT, "data/dist/subway-graph.json"), "utf8"));
+  const [metrics, dongMeta, graph, bus, residential] = await Promise.all(
+    [
+      "data/dist/metrics.json",
+      "data/dist/dong-meta.json",
+      "data/dist/subway-graph.json",
+      "data/dist/bus-network.json",
+      "data/dist/residential-access.json",
+    ].map(async (path) => JSON.parse(await readFile(join(ROOT, path), "utf8")))
+  );
 
   const rows = metrics.dongs;
   console.log(`행정동 ${rows.length}개`);
@@ -220,6 +228,10 @@ async function main() {
     meta: {
       boundaryVersion: dongMeta.version,
       graphVersion: graph.version,
+      // `bus.version`은 압축 스키마 버전(현재 1)이라 사용자에게 데이터 기준일로
+      // 보여주기엔 의미가 없다. 실제 정적 노선 스냅샷 생성일을 노출한다.
+      busVersion: bus.generatedAt?.slice(0, 10) ?? bus.version,
+      residentialVersion: residential.version,
       scoreVersion: scoreDoc.version,
       availableMetrics: metrics.available,
       missingMetrics: metrics.missing,
@@ -229,8 +241,11 @@ async function main() {
     unavailableAxes,
     dongs: dongMeta.dongs,
     graph,
+    bus,
+    residential,
     scores,
   };
+  assertValidCommuteBundle(bundle, { required: true });
   await mkdir(dirname(OUT_BUNDLE), { recursive: true });
   await writeFile(OUT_BUNDLE, JSON.stringify(bundle));
 
