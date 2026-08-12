@@ -1,6 +1,6 @@
 {
-  "version": "2026-08-11",
-  "generatedAt": "2026-08-11T06:49:51.863Z",
+  "version": "2026-08-12",
+  "generatedAt": "2026-08-12T01:16:18.319Z",
   "sources": {
     "poi": "OpenStreetMap (ODbL) — 버스 정류장",
     "store": "소상공인시장진흥공단 상가업소정보 (공공누리 제1유형) — 편의점·음식점·의료·유흥업소",
@@ -39,7 +39,7 @@
       "trafficAccidentPerKm2": 9.44,
       "monthlyRentMan": 114.83,
       "rentSamples": 21,
-      "walkToStationMin": 7.95
+      "walkToStationMin": 4.5
     },
     {
       "code": "1111054000",
@@ -56,7 +56,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 80.63,
       "rentSamples": 10,
-      "walkToStationMin": 32.14
+      "walkToStationMin": 11.05
     },
     {
       "code": "1111055000",
@@ -73,7 +73,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 62.08,
       "rentSamples": 36,
-      "walkToStationMin": 38.84
+      "walkToStationMin": 40.58
     },
     {
       "code": "1111056000",
@@ -90,7 +90,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 69.58,
       "rentSamples": 21,
-      "walkToStationMin": 66.25
+      "walkToStationMin": 53.18
     },
     {
       "code": "1111057000",
@@ -107,7 +107,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 231.67,
       "rentSamples": 23,
-      "walkToStationMin": 8.56
+      "walkToStationMin": 1.98
     },
     {
       "code": "1111058000",
@@ -124,7 +124,7 @@
       "trafficAccidentPerKm2": 8.68,
       "monthlyRentMan": 69.58,
       "rentSamples": 0,
-      "walkToStationMin": 13.37
+      "walkToStationMin": 11.06
     },
     {
       "code": "1111060000",
@@ -141,7 +141,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 69.58,
       "rentSamples": 0,
-      "walkToStationMin": 13.44
+      "walkToStationMin": 10.32
     },
     {
       "code": "1111061500",
@@ -158,7 +158,7 @@
       "trafficAccidentPerKm2": 58.1,
       "monthlyRentMan": 69.58,
       "rentSamples": 0,
-      "walkToStationMin": 3.83
+      "walkToStationMin": 5.89
     },
     {
       "code": "1111063000",
@@ -175,7 +175,7 @@
       "trafficAccidentPerKm2": 82.15,
       "monthlyRentMan": 69.58,
       "rentSamples": 0,
-      "walkToStationMin": 6.04
+      "walkToStationMin": 5.68
     },
     {
       "code": "1111064000",
@@ -192,7 +192,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 59.58,
       "rentSamples": 25,
-      "walkToStationMin": 6.6
+      "walkToStationMin": 5.78
     },
     {
       "code": "1111067000",
@@ -203,13 +203,13 @@
       "foodPerKm2": 711.1,
       "medicalPerKm2": 178.57,
       "nightlifePerKm2": 47.83,
-      "busStopPerKm2": 38.27,
+      "busStopPerKm2": 35.08,
       "cctvPerKm2": null,
       "crimePer1k": 20.27,
       "trafficAccidentPerKm2": 105.23,
       "monthlyRentMan": 54.58,
-      "rentSamples": 245,
-      "walkToStationMin": 5.29
+      "rentSamples": 246,
+      "walkToStationMin": 3.8
     },
     {
       "code": "1111068000",
@@ -225,8 +225,8 @@
       "crimePer1k": 20.27,
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 54.58,
-      "rentSamples": 245,
-      "walkToStationMin": 8.46
+      "rentSamples": 246,
+      "walkToStationMin": 7.94
     },
     {
       "code": "1111069000",
@@ -242,8 +242,8 @@
       "crimePer1k": 20.27,
       "trafficAccidentPerKm2": 13.62,
       "monthlyRentMan": 54.58,
-      "rentSamples": 245,
-      "walkToStationMin": 4.4
+      "rentSamples": 246,
+      "walkToStationMin": 3.2
     },
     {
       "code": "1111070000",
@@ -254,13 +254,13 @@
       "foodPerKm2": 211.06,
       "medicalPerKm2": 71.76,
       "nightlifePerKm2": 0,
-      "busStopPerKm2": 50.65,
+      "busStopPerKm2": 46.43,
       "cctvPerKm2": null,
       "crimePer1k": 20.27,
       "trafficAccidentPerKm2": 46.43,
       "monthlyRentMan": 69.58,
-      "rentSamples": 1399,
-      "walkToStationMin": 7.53
+      "rentSamples": 1402,
+      "walkToStationMin": 6.4
     },
     {
       "code": "1111071000",
@@ -271,13 +271,13 @@
       "foodPerKm2": 479.45,
       "medicalPerKm2": 40.47,
       "nightlifePerKm2": 18.68,
-      "busStopPerKm2": 18.68,
+      "busStopPerKm2": 21.79,
       "cctvPerKm2": null,
       "crimePer1k": 20.27,
       "trafficAccidentPerKm2": 233.5,
       "monthlyRentMan": 69.58,
-      "rentSamples": 1399,
-      "walkToStationMin": 7.3
+      "rentSamples": 1402,
+      "walkToStationMin": 7.69
     },
     {
       "code": "1111051500",
@@ -294,7 +294,7 @@
       "trafficAccidentPerKm2": 2.05,
       "monthlyRentMan": 69.58,
       "rentSamples": 0,
-      "walkToStationMin": 23.16
+      "walkToStationMin": 14.74
     },
     {
       "code": "1111065000",
@@ -311,7 +311,7 @@
       "trafficAccidentPerKm2": 6.01,
       "monthlyRentMan": 79.58,
       "rentSamples": 162,
-      "walkToStationMin": 15.25
+      "walkToStationMin": 10.47
     },
     {
       "code": "1114052000",
@@ -328,7 +328,7 @@
       "trafficAccidentPerKm2": 12.83,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 4.79
+      "walkToStationMin": 1.93
     },
     {
       "code": "1114054000",
@@ -345,7 +345,7 @@
       "trafficAccidentPerKm2": 72.85,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 3.04
+      "walkToStationMin": 3.36
     },
     {
       "code": "1114055000",
@@ -356,13 +356,13 @@
       "foodPerKm2": 1146.01,
       "medicalPerKm2": 235.56,
       "nightlifePerKm2": 10.93,
-      "busStopPerKm2": 32.8,
+      "busStopPerKm2": 33.79,
       "cctvPerKm2": null,
       "crimePer1k": 25.4,
       "trafficAccidentPerKm2": 4.97,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 2.89
+      "walkToStationMin": 3.44
     },
     {
       "code": "1114057000",
@@ -379,7 +379,7 @@
       "trafficAccidentPerKm2": 4.74,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 10.63
+      "walkToStationMin": 6.15
     },
     {
       "code": "1114058000",
@@ -396,7 +396,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 2.28
+      "walkToStationMin": 4.37
     },
     {
       "code": "1114059000",
@@ -413,7 +413,7 @@
       "trafficAccidentPerKm2": 6.65,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 4.15
+      "walkToStationMin": 6.88
     },
     {
       "code": "1114060500",
@@ -430,7 +430,7 @@
       "trafficAccidentPerKm2": 26.71,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 2.59
+      "walkToStationMin": 2.42
     },
     {
       "code": "1114065000",
@@ -446,8 +446,8 @@
       "crimePer1k": 25.4,
       "trafficAccidentPerKm2": 76.09,
       "monthlyRentMan": 78.71,
-      "rentSamples": 1133,
-      "walkToStationMin": 10.8
+      "rentSamples": 1134,
+      "walkToStationMin": 5.49
     },
     {
       "code": "1114067000",
@@ -464,7 +464,7 @@
       "trafficAccidentPerKm2": 63.57,
       "monthlyRentMan": 84.58,
       "rentSamples": 749,
-      "walkToStationMin": 7.44
+      "walkToStationMin": 6.05
     },
     {
       "code": "1114068000",
@@ -479,9 +479,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 25.4,
       "trafficAccidentPerKm2": 16.26,
-      "monthlyRentMan": 117.83,
-      "rentSamples": 227,
-      "walkToStationMin": 7.53
+      "monthlyRentMan": 117.88,
+      "rentSamples": 228,
+      "walkToStationMin": 6.04
     },
     {
       "code": "1114061500",
@@ -497,8 +497,8 @@
       "crimePer1k": 25.4,
       "trafficAccidentPerKm2": 73.95,
       "monthlyRentMan": 78.71,
-      "rentSamples": 1133,
-      "walkToStationMin": 6.06
+      "rentSamples": 1134,
+      "walkToStationMin": 6.31
     },
     {
       "code": "1114062500",
@@ -515,7 +515,7 @@
       "trafficAccidentPerKm2": 9.15,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 4.67
+      "walkToStationMin": 2.5
     },
     {
       "code": "1114063500",
@@ -532,7 +532,7 @@
       "trafficAccidentPerKm2": 91.87,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 7.69
+      "walkToStationMin": 5.34
     },
     {
       "code": "1114064500",
@@ -549,7 +549,7 @@
       "trafficAccidentPerKm2": 12.13,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 7.93
+      "walkToStationMin": 6.7
     },
     {
       "code": "1114066500",
@@ -566,7 +566,7 @@
       "trafficAccidentPerKm2": 29.01,
       "monthlyRentMan": 89.71,
       "rentSamples": 0,
-      "walkToStationMin": 8.94
+      "walkToStationMin": 7.7
     },
     {
       "code": "1117051000",
@@ -583,7 +583,7 @@
       "trafficAccidentPerKm2": 5.81,
       "monthlyRentMan": 59.29,
       "rentSamples": 173,
-      "walkToStationMin": 19.3
+      "walkToStationMin": 14.93
     },
     {
       "code": "1117052000",
@@ -598,9 +598,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 16.5,
       "trafficAccidentPerKm2": 0,
-      "monthlyRentMan": 92.58,
+      "monthlyRentMan": 92.57,
       "rentSamples": 0,
-      "walkToStationMin": 17.47
+      "walkToStationMin": 21.74
     },
     {
       "code": "1117053000",
@@ -611,13 +611,13 @@
       "foodPerKm2": 359.14,
       "medicalPerKm2": 38.66,
       "nightlifePerKm2": 9.45,
-      "busStopPerKm2": 19.76,
+      "busStopPerKm2": 18.9,
       "cctvPerKm2": null,
       "crimePer1k": 16.5,
       "trafficAccidentPerKm2": 7.73,
       "monthlyRentMan": 71.44,
       "rentSamples": 10,
-      "walkToStationMin": 9.24
+      "walkToStationMin": 3.63
     },
     {
       "code": "1117057000",
@@ -632,9 +632,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 16.5,
       "trafficAccidentPerKm2": 0,
-      "monthlyRentMan": 92.58,
+      "monthlyRentMan": 92.57,
       "rentSamples": 0,
-      "walkToStationMin": 18.06
+      "walkToStationMin": 17.1
     },
     {
       "code": "1117058000",
@@ -651,7 +651,7 @@
       "trafficAccidentPerKm2": 9.58,
       "monthlyRentMan": 128.83,
       "rentSamples": 136,
-      "walkToStationMin": 8.94
+      "walkToStationMin": 6.27
     },
     {
       "code": "1117059000",
@@ -668,7 +668,7 @@
       "trafficAccidentPerKm2": 22.4,
       "monthlyRentMan": 76.27,
       "rentSamples": 51,
-      "walkToStationMin": 6.66
+      "walkToStationMin": 5.45
     },
     {
       "code": "1117063000",
@@ -683,9 +683,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 16.5,
       "trafficAccidentPerKm2": 9.69,
-      "monthlyRentMan": 263.54,
-      "rentSamples": 282,
-      "walkToStationMin": 16.41
+      "monthlyRentMan": 263.33,
+      "rentSamples": 283,
+      "walkToStationMin": 5.43
     },
     {
       "code": "1117064000",
@@ -700,9 +700,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 16.5,
       "trafficAccidentPerKm2": 6.8,
-      "monthlyRentMan": 263.54,
-      "rentSamples": 282,
-      "walkToStationMin": 19.06
+      "monthlyRentMan": 263.33,
+      "rentSamples": 283,
+      "walkToStationMin": 18.46
     },
     {
       "code": "1117065000",
@@ -718,8 +718,8 @@
       "crimePer1k": 16.5,
       "trafficAccidentPerKm2": 3.75,
       "monthlyRentMan": 74.58,
-      "rentSamples": 275,
-      "walkToStationMin": 3.55
+      "rentSamples": 276,
+      "walkToStationMin": 2.16
     },
     {
       "code": "1117066000",
@@ -735,8 +735,8 @@
       "crimePer1k": 16.5,
       "trafficAccidentPerKm2": 7.86,
       "monthlyRentMan": 74.58,
-      "rentSamples": 275,
-      "walkToStationMin": 16.72
+      "rentSamples": 276,
+      "walkToStationMin": 9.23
     },
     {
       "code": "1117069000",
@@ -747,13 +747,13 @@
       "foodPerKm2": 20.41,
       "medicalPerKm2": 0.35,
       "nightlifePerKm2": 0,
-      "busStopPerKm2": 7.04,
+      "busStopPerKm2": 6.69,
       "cctvPerKm2": null,
       "crimePer1k": 16.5,
       "trafficAccidentPerKm2": 13.02,
       "monthlyRentMan": 167.29,
       "rentSamples": 13,
-      "walkToStationMin": 5.14
+      "walkToStationMin": 15.51
     },
     {
       "code": "1117070000",
@@ -770,7 +770,7 @@
       "trafficAccidentPerKm2": 19.49,
       "monthlyRentMan": 52.29,
       "rentSamples": 50,
-      "walkToStationMin": 17.5
+      "walkToStationMin": 17.96
     },
     {
       "code": "1117055500",
@@ -785,9 +785,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 16.5,
       "trafficAccidentPerKm2": 0,
-      "monthlyRentMan": 92.58,
+      "monthlyRentMan": 92.57,
       "rentSamples": 0,
-      "walkToStationMin": 10.31
+      "walkToStationMin": 11.77
     },
     {
       "code": "1117056000",
@@ -802,9 +802,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 16.5,
       "trafficAccidentPerKm2": 19.52,
-      "monthlyRentMan": 92.58,
+      "monthlyRentMan": 92.57,
       "rentSamples": 0,
-      "walkToStationMin": 10.27
+      "walkToStationMin": 6.97
     },
     {
       "code": "1117062500",
@@ -819,9 +819,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 16.5,
       "trafficAccidentPerKm2": 13.46,
-      "monthlyRentMan": 92.58,
+      "monthlyRentMan": 92.57,
       "rentSamples": 0,
-      "walkToStationMin": 2.65
+      "walkToStationMin": 2.9
     },
     {
       "code": "1117068500",
@@ -838,7 +838,7 @@
       "trafficAccidentPerKm2": 12.84,
       "monthlyRentMan": 184.58,
       "rentSamples": 185,
-      "walkToStationMin": 7.89
+      "walkToStationMin": 14.05
     },
     {
       "code": "1120052000",
@@ -853,9 +853,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.76,
       "trafficAccidentPerKm2": 0,
-      "monthlyRentMan": 79.94,
+      "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 5.85
+      "walkToStationMin": 4.81
     },
     {
       "code": "1120054000",
@@ -871,8 +871,8 @@
       "crimePer1k": 7.76,
       "trafficAccidentPerKm2": 76.35,
       "monthlyRentMan": 64.58,
-      "rentSamples": 1020,
-      "walkToStationMin": 4.38
+      "rentSamples": 1021,
+      "walkToStationMin": 6
     },
     {
       "code": "1120055000",
@@ -887,9 +887,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.76,
       "trafficAccidentPerKm2": 9.54,
-      "monthlyRentMan": 58.96,
-      "rentSamples": 354,
-      "walkToStationMin": 5.33
+      "monthlyRentMan": 58.75,
+      "rentSamples": 355,
+      "walkToStationMin": 9.09
     },
     {
       "code": "1120056000",
@@ -904,9 +904,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.76,
       "trafficAccidentPerKm2": 58.28,
-      "monthlyRentMan": 78.75,
-      "rentSamples": 1079,
-      "walkToStationMin": 5.79
+      "monthlyRentMan": 78.58,
+      "rentSamples": 1080,
+      "walkToStationMin": 5.99
     },
     {
       "code": "1120057000",
@@ -921,9 +921,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.76,
       "trafficAccidentPerKm2": 39.65,
-      "monthlyRentMan": 78.75,
-      "rentSamples": 1079,
-      "walkToStationMin": 3.64
+      "monthlyRentMan": 78.58,
+      "rentSamples": 1080,
+      "walkToStationMin": 1.4
     },
     {
       "code": "1120058000",
@@ -940,7 +940,7 @@
       "trafficAccidentPerKm2": 17.77,
       "monthlyRentMan": 222.92,
       "rentSamples": 100,
-      "walkToStationMin": 2.51
+      "walkToStationMin": 5.24
     },
     {
       "code": "1120059000",
@@ -955,9 +955,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.76,
       "trafficAccidentPerKm2": 7.37,
-      "monthlyRentMan": 79.94,
+      "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 12.53
+      "walkToStationMin": 10.55
     },
     {
       "code": "1120062000",
@@ -972,9 +972,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.76,
       "trafficAccidentPerKm2": 47.53,
-      "monthlyRentMan": 79.94,
+      "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 15.56
+      "walkToStationMin": 10.64
     },
     {
       "code": "1120065000",
@@ -985,13 +985,13 @@
       "foodPerKm2": 125.01,
       "medicalPerKm2": 9.66,
       "nightlifePerKm2": 0.54,
-      "busStopPerKm2": 13.95,
+      "busStopPerKm2": 14.49,
       "cctvPerKm2": null,
       "crimePer1k": 7.76,
       "trafficAccidentPerKm2": 37.56,
-      "monthlyRentMan": 79.94,
+      "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 8.12
+      "walkToStationMin": 6.83
     },
     {
       "code": "1120066000",
@@ -1006,9 +1006,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.76,
       "trafficAccidentPerKm2": 49.17,
-      "monthlyRentMan": 79.94,
+      "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 8.38
+      "walkToStationMin": 2.51
     },
     {
       "code": "1120067000",
@@ -1023,9 +1023,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.76,
       "trafficAccidentPerKm2": 79.16,
-      "monthlyRentMan": 79.94,
+      "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 18.46
+      "walkToStationMin": 12.47
     },
     {
       "code": "1120069000",
@@ -1040,9 +1040,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.76,
       "trafficAccidentPerKm2": 51.65,
-      "monthlyRentMan": 79.94,
+      "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 3.84
+      "walkToStationMin": 2.99
     },
     {
       "code": "1120072000",
@@ -1059,7 +1059,7 @@
       "trafficAccidentPerKm2": 39.17,
       "monthlyRentMan": 56.58,
       "rentSamples": 428,
-      "walkToStationMin": 16.69
+      "walkToStationMin": 14.45
     },
     {
       "code": "1120079000",
@@ -1074,9 +1074,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.76,
       "trafficAccidentPerKm2": 18.14,
-      "monthlyRentMan": 69.42,
-      "rentSamples": 749,
-      "walkToStationMin": 16.19
+      "monthlyRentMan": 69.35,
+      "rentSamples": 750,
+      "walkToStationMin": 7.77
     },
     {
       "code": "1120053500",
@@ -1091,9 +1091,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.76,
       "trafficAccidentPerKm2": 70.71,
-      "monthlyRentMan": 79.94,
+      "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 6.09
+      "walkToStationMin": 3.86
     },
     {
       "code": "1120061500",
@@ -1104,13 +1104,13 @@
       "foodPerKm2": 317.2,
       "medicalPerKm2": 75.17,
       "nightlifePerKm2": 3.01,
-      "busStopPerKm2": 19.54,
+      "busStopPerKm2": 21.05,
       "cctvPerKm2": null,
       "crimePer1k": 7.76,
       "trafficAccidentPerKm2": 21.05,
-      "monthlyRentMan": 79.94,
+      "monthlyRentMan": 79.59,
       "rentSamples": 0,
-      "walkToStationMin": 7.06
+      "walkToStationMin": 7.73
     },
     {
       "code": "1120064500",
@@ -1127,7 +1127,7 @@
       "trafficAccidentPerKm2": 2.59,
       "monthlyRentMan": 325,
       "rentSamples": 335,
-      "walkToStationMin": 0.47
+      "walkToStationMin": 6.72
     },
     {
       "code": "1121571000",
@@ -1143,8 +1143,8 @@
       "crimePer1k": 8.69,
       "trafficAccidentPerKm2": 36.53,
       "monthlyRentMan": 69.58,
-      "rentSamples": 3072,
-      "walkToStationMin": 8.47
+      "rentSamples": 3081,
+      "walkToStationMin": 6.18
     },
     {
       "code": "1121573000",
@@ -1161,7 +1161,7 @@
       "trafficAccidentPerKm2": 46.33,
       "monthlyRentMan": 64.58,
       "rentSamples": 1282,
-      "walkToStationMin": 12.52
+      "walkToStationMin": 5.89
     },
     {
       "code": "1121574000",
@@ -1177,8 +1177,8 @@
       "crimePer1k": 8.69,
       "trafficAccidentPerKm2": 60.98,
       "monthlyRentMan": 64.58,
-      "rentSamples": 1918,
-      "walkToStationMin": 11.56
+      "rentSamples": 1919,
+      "walkToStationMin": 10.45
     },
     {
       "code": "1121575000",
@@ -1194,8 +1194,8 @@
       "crimePer1k": 8.69,
       "trafficAccidentPerKm2": 42.27,
       "monthlyRentMan": 64.58,
-      "rentSamples": 1918,
-      "walkToStationMin": 9.24
+      "rentSamples": 1919,
+      "walkToStationMin": 9.04
     },
     {
       "code": "1121576000",
@@ -1211,8 +1211,8 @@
       "crimePer1k": 8.69,
       "trafficAccidentPerKm2": 6.64,
       "monthlyRentMan": 64.58,
-      "rentSamples": 1918,
-      "walkToStationMin": 6.04
+      "rentSamples": 1919,
+      "walkToStationMin": 5.3
     },
     {
       "code": "1121577000",
@@ -1228,8 +1228,8 @@
       "crimePer1k": 8.69,
       "trafficAccidentPerKm2": 8.76,
       "monthlyRentMan": 64.58,
-      "rentSamples": 1918,
-      "walkToStationMin": 18.81
+      "rentSamples": 1919,
+      "walkToStationMin": 14.67
     },
     {
       "code": "1121578000",
@@ -1245,8 +1245,8 @@
       "crimePer1k": 8.69,
       "trafficAccidentPerKm2": 17.55,
       "monthlyRentMan": 64.58,
-      "rentSamples": 540,
-      "walkToStationMin": 15.11
+      "rentSamples": 541,
+      "walkToStationMin": 7.35
     },
     {
       "code": "1121585000",
@@ -1261,9 +1261,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 8.69,
       "trafficAccidentPerKm2": 52.55,
-      "monthlyRentMan": 75.92,
-      "rentSamples": 2013,
-      "walkToStationMin": 10.3
+      "monthlyRentMan": 75.83,
+      "rentSamples": 2016,
+      "walkToStationMin": 7.33
     },
     {
       "code": "1121586000",
@@ -1278,9 +1278,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 8.69,
       "trafficAccidentPerKm2": 36.24,
-      "monthlyRentMan": 75.92,
-      "rentSamples": 2013,
-      "walkToStationMin": 8.54
+      "monthlyRentMan": 75.83,
+      "rentSamples": 2016,
+      "walkToStationMin": 4.18
     },
     {
       "code": "1121587000",
@@ -1295,9 +1295,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 8.69,
       "trafficAccidentPerKm2": 25.53,
-      "monthlyRentMan": 75.92,
-      "rentSamples": 2013,
-      "walkToStationMin": 2.24
+      "monthlyRentMan": 75.83,
+      "rentSamples": 2016,
+      "walkToStationMin": 6.8
     },
     {
       "code": "1121581000",
@@ -1314,7 +1314,7 @@
       "trafficAccidentPerKm2": 9.44,
       "monthlyRentMan": 192.92,
       "rentSamples": 193,
-      "walkToStationMin": 7.3
+      "walkToStationMin": 6.93
     },
     {
       "code": "1121582000",
@@ -1330,8 +1330,8 @@
       "crimePer1k": 8.69,
       "trafficAccidentPerKm2": 26.57,
       "monthlyRentMan": 69.58,
-      "rentSamples": 2494,
-      "walkToStationMin": 11.43
+      "rentSamples": 2497,
+      "walkToStationMin": 10.25
     },
     {
       "code": "1121583000",
@@ -1347,8 +1347,8 @@
       "crimePer1k": 8.69,
       "trafficAccidentPerKm2": 42.95,
       "monthlyRentMan": 69.58,
-      "rentSamples": 2494,
-      "walkToStationMin": 22.09
+      "rentSamples": 2497,
+      "walkToStationMin": 6.47
     },
     {
       "code": "1121584000",
@@ -1364,8 +1364,8 @@
       "crimePer1k": 8.69,
       "trafficAccidentPerKm2": 71.43,
       "monthlyRentMan": 69.58,
-      "rentSamples": 2494,
-      "walkToStationMin": 8
+      "rentSamples": 2497,
+      "walkToStationMin": 14.16
     },
     {
       "code": "1121584700",
@@ -1381,8 +1381,8 @@
       "crimePer1k": 8.69,
       "trafficAccidentPerKm2": 34.65,
       "monthlyRentMan": 69.58,
-      "rentSamples": 2494,
-      "walkToStationMin": 7.87
+      "rentSamples": 2497,
+      "walkToStationMin": 14.23
     },
     {
       "code": "1123071000",
@@ -1398,8 +1398,8 @@
       "crimePer1k": 9.14,
       "trafficAccidentPerKm2": 12.45,
       "monthlyRentMan": 62.58,
-      "rentSamples": 833,
-      "walkToStationMin": 14.96
+      "rentSamples": 834,
+      "walkToStationMin": 10.65
     },
     {
       "code": "1123072000",
@@ -1410,13 +1410,13 @@
       "foodPerKm2": 266.67,
       "medicalPerKm2": 64.71,
       "nightlifePerKm2": 5.88,
-      "busStopPerKm2": 27.45,
+      "busStopPerKm2": 29.41,
       "cctvPerKm2": null,
       "crimePer1k": 9.14,
       "trafficAccidentPerKm2": 164.71,
       "monthlyRentMan": 62.29,
-      "rentSamples": 2802,
-      "walkToStationMin": 9.2
+      "rentSamples": 2806,
+      "walkToStationMin": 2.28
     },
     {
       "code": "1123073000",
@@ -1432,8 +1432,8 @@
       "crimePer1k": 9.14,
       "trafficAccidentPerKm2": 39.34,
       "monthlyRentMan": 62.29,
-      "rentSamples": 2802,
-      "walkToStationMin": 16.99
+      "rentSamples": 2806,
+      "walkToStationMin": 5.25
     },
     {
       "code": "1123070500",
@@ -1450,7 +1450,7 @@
       "trafficAccidentPerKm2": 84.21,
       "monthlyRentMan": 102.92,
       "rentSamples": 455,
-      "walkToStationMin": 16.05
+      "walkToStationMin": 8.36
     },
     {
       "code": "1123051500",
@@ -1461,13 +1461,13 @@
       "foodPerKm2": 388.19,
       "medicalPerKm2": 46.44,
       "nightlifePerKm2": 5.95,
-      "busStopPerKm2": 26.2,
+      "busStopPerKm2": 27.39,
       "cctvPerKm2": null,
       "crimePer1k": 9.14,
       "trafficAccidentPerKm2": 173.85,
-      "monthlyRentMan": 81.15,
-      "rentSamples": 542,
-      "walkToStationMin": 5.04
+      "monthlyRentMan": 81.13,
+      "rentSamples": 543,
+      "walkToStationMin": 4.78
     },
     {
       "code": "1123054500",
@@ -1483,8 +1483,8 @@
       "crimePer1k": 9.14,
       "trafficAccidentPerKm2": 393.12,
       "monthlyRentMan": 59.58,
-      "rentSamples": 817,
-      "walkToStationMin": 11.87
+      "rentSamples": 819,
+      "walkToStationMin": 10.69
     },
     {
       "code": "1123056000",
@@ -1500,8 +1500,8 @@
       "crimePer1k": 9.14,
       "trafficAccidentPerKm2": 119.27,
       "monthlyRentMan": 79.58,
-      "rentSamples": 1040,
-      "walkToStationMin": 8.35
+      "rentSamples": 1041,
+      "walkToStationMin": 6.51
     },
     {
       "code": "1123057000",
@@ -1517,8 +1517,8 @@
       "crimePer1k": 9.14,
       "trafficAccidentPerKm2": 9.05,
       "monthlyRentMan": 79.58,
-      "rentSamples": 1040,
-      "walkToStationMin": 21.93
+      "rentSamples": 1041,
+      "walkToStationMin": 21.67
     },
     {
       "code": "1123061000",
@@ -1535,7 +1535,7 @@
       "trafficAccidentPerKm2": 40.03,
       "monthlyRentMan": 74.17,
       "rentSamples": 1528,
-      "walkToStationMin": 18.24
+      "walkToStationMin": 14.21
     },
     {
       "code": "1123065000",
@@ -1552,7 +1552,7 @@
       "trafficAccidentPerKm2": 144.4,
       "monthlyRentMan": 63.29,
       "rentSamples": 1925,
-      "walkToStationMin": 8.41
+      "walkToStationMin": 10.59
     },
     {
       "code": "1123066000",
@@ -1569,7 +1569,7 @@
       "trafficAccidentPerKm2": 121.01,
       "monthlyRentMan": 63.29,
       "rentSamples": 1925,
-      "walkToStationMin": 26.27
+      "walkToStationMin": 20.5
     },
     {
       "code": "1123074000",
@@ -1580,13 +1580,13 @@
       "foodPerKm2": 331.57,
       "medicalPerKm2": 74.68,
       "nightlifePerKm2": 1.99,
-      "busStopPerKm2": 30.87,
+      "busStopPerKm2": 28.88,
       "cctvPerKm2": null,
       "crimePer1k": 9.14,
       "trafficAccidentPerKm2": 34.85,
       "monthlyRentMan": 58.38,
-      "rentSamples": 1687,
-      "walkToStationMin": 7.64
+      "rentSamples": 1691,
+      "walkToStationMin": 6.17
     },
     {
       "code": "1123075000",
@@ -1602,8 +1602,8 @@
       "crimePer1k": 9.14,
       "trafficAccidentPerKm2": 24.86,
       "monthlyRentMan": 58.38,
-      "rentSamples": 1687,
-      "walkToStationMin": 1.16
+      "rentSamples": 1691,
+      "walkToStationMin": 8.6
     },
     {
       "code": "1123060000",
@@ -1620,7 +1620,7 @@
       "trafficAccidentPerKm2": 142.88,
       "monthlyRentMan": 74.17,
       "rentSamples": 1528,
-      "walkToStationMin": 8.7
+      "walkToStationMin": 7.53
     },
     {
       "code": "1126052000",
@@ -1636,8 +1636,8 @@
       "crimePer1k": 8.44,
       "trafficAccidentPerKm2": 167.92,
       "monthlyRentMan": 54.17,
-      "rentSamples": 2409,
-      "walkToStationMin": 13.11
+      "rentSamples": 2415,
+      "walkToStationMin": 13.08
     },
     {
       "code": "1126054000",
@@ -1653,8 +1653,8 @@
       "crimePer1k": 8.44,
       "trafficAccidentPerKm2": 22.39,
       "monthlyRentMan": 54.17,
-      "rentSamples": 2409,
-      "walkToStationMin": 0.15
+      "rentSamples": 2415,
+      "walkToStationMin": 5.12
     },
     {
       "code": "1126055000",
@@ -1670,8 +1670,8 @@
       "crimePer1k": 8.44,
       "trafficAccidentPerKm2": 172.79,
       "monthlyRentMan": 54.17,
-      "rentSamples": 2409,
-      "walkToStationMin": 17.17
+      "rentSamples": 2415,
+      "walkToStationMin": 15.75
     },
     {
       "code": "1126057000",
@@ -1687,8 +1687,8 @@
       "crimePer1k": 8.44,
       "trafficAccidentPerKm2": 41.53,
       "monthlyRentMan": 54.17,
-      "rentSamples": 2409,
-      "walkToStationMin": 15.85
+      "rentSamples": 2415,
+      "walkToStationMin": 4.51
     },
     {
       "code": "1126058000",
@@ -1704,8 +1704,8 @@
       "crimePer1k": 8.44,
       "trafficAccidentPerKm2": 97.53,
       "monthlyRentMan": 84.83,
-      "rentSamples": 1756,
-      "walkToStationMin": 3.83
+      "rentSamples": 1757,
+      "walkToStationMin": 4.42
     },
     {
       "code": "1126059000",
@@ -1721,8 +1721,8 @@
       "crimePer1k": 8.44,
       "trafficAccidentPerKm2": 241.18,
       "monthlyRentMan": 84.83,
-      "rentSamples": 1756,
-      "walkToStationMin": 6.49
+      "rentSamples": 1757,
+      "walkToStationMin": 4.48
     },
     {
       "code": "1126060000",
@@ -1737,9 +1737,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 8.44,
       "trafficAccidentPerKm2": 46.35,
-      "monthlyRentMan": 56.92,
-      "rentSamples": 836,
-      "walkToStationMin": 6.95
+      "monthlyRentMan": 57.08,
+      "rentSamples": 837,
+      "walkToStationMin": 4.6
     },
     {
       "code": "1126061000",
@@ -1754,9 +1754,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 8.44,
       "trafficAccidentPerKm2": 178.66,
-      "monthlyRentMan": 56.92,
-      "rentSamples": 836,
-      "walkToStationMin": 7.62
+      "monthlyRentMan": 57.08,
+      "rentSamples": 837,
+      "walkToStationMin": 5.41
     },
     {
       "code": "1126062000",
@@ -1772,8 +1772,8 @@
       "crimePer1k": 8.44,
       "trafficAccidentPerKm2": 37.29,
       "monthlyRentMan": 65.58,
-      "rentSamples": 1309,
-      "walkToStationMin": 9.9
+      "rentSamples": 1312,
+      "walkToStationMin": 7.72
     },
     {
       "code": "1126063000",
@@ -1789,8 +1789,8 @@
       "crimePer1k": 8.44,
       "trafficAccidentPerKm2": 22.47,
       "monthlyRentMan": 65.58,
-      "rentSamples": 1309,
-      "walkToStationMin": 5.86
+      "rentSamples": 1312,
+      "walkToStationMin": 4.24
     },
     {
       "code": "1126066000",
@@ -1806,8 +1806,8 @@
       "crimePer1k": 8.44,
       "trafficAccidentPerKm2": 21.2,
       "monthlyRentMan": 54.58,
-      "rentSamples": 1270,
-      "walkToStationMin": 27.48
+      "rentSamples": 1273,
+      "walkToStationMin": 19.72
     },
     {
       "code": "1126068000",
@@ -1824,7 +1824,7 @@
       "trafficAccidentPerKm2": 16.48,
       "monthlyRentMan": 56.73,
       "rentSamples": 1236,
-      "walkToStationMin": 14.45
+      "walkToStationMin": 15.45
     },
     {
       "code": "1126069000",
@@ -1841,7 +1841,7 @@
       "trafficAccidentPerKm2": 23.54,
       "monthlyRentMan": 56.73,
       "rentSamples": 1236,
-      "walkToStationMin": 12.4
+      "walkToStationMin": 17.01
     },
     {
       "code": "1126056500",
@@ -1856,9 +1856,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 8.44,
       "trafficAccidentPerKm2": 132.96,
-      "monthlyRentMan": 62.29,
+      "monthlyRentMan": 62.31,
       "rentSamples": 0,
-      "walkToStationMin": 3.45
+      "walkToStationMin": 3.29
     },
     {
       "code": "1126057500",
@@ -1874,8 +1874,8 @@
       "crimePer1k": 8.44,
       "trafficAccidentPerKm2": 28.57,
       "monthlyRentMan": 54.17,
-      "rentSamples": 2409,
-      "walkToStationMin": 20.98
+      "rentSamples": 2415,
+      "walkToStationMin": 7.81
     },
     {
       "code": "1126065500",
@@ -1890,9 +1890,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 8.44,
       "trafficAccidentPerKm2": 53.3,
-      "monthlyRentMan": 62.29,
+      "monthlyRentMan": 62.31,
       "rentSamples": 0,
-      "walkToStationMin": 11.61
+      "walkToStationMin": 13.33
     },
     {
       "code": "1129058000",
@@ -1908,8 +1908,8 @@
       "crimePer1k": 5.19,
       "trafficAccidentPerKm2": 17.36,
       "monthlyRentMan": 152.92,
-      "rentSamples": 185,
-      "walkToStationMin": 9.37
+      "rentSamples": 186,
+      "walkToStationMin": 9.4
     },
     {
       "code": "1129059000",
@@ -1925,8 +1925,8 @@
       "crimePer1k": 5.19,
       "trafficAccidentPerKm2": 11.47,
       "monthlyRentMan": 152.92,
-      "rentSamples": 185,
-      "walkToStationMin": 13.5
+      "rentSamples": 186,
+      "walkToStationMin": 9.99
     },
     {
       "code": "1129060000",
@@ -1943,7 +1943,7 @@
       "trafficAccidentPerKm2": 16.49,
       "monthlyRentMan": 64.58,
       "rentSamples": 0,
-      "walkToStationMin": 4.67
+      "walkToStationMin": 4.89
     },
     {
       "code": "1129061000",
@@ -1960,7 +1960,7 @@
       "trafficAccidentPerKm2": 5.09,
       "monthlyRentMan": 64.58,
       "rentSamples": 0,
-      "walkToStationMin": 6.12
+      "walkToStationMin": 5.62
     },
     {
       "code": "1129062000",
@@ -1977,7 +1977,7 @@
       "trafficAccidentPerKm2": 23.11,
       "monthlyRentMan": 58.75,
       "rentSamples": 863,
-      "walkToStationMin": 5.46
+      "walkToStationMin": 6.85
     },
     {
       "code": "1129063000",
@@ -1994,7 +1994,7 @@
       "trafficAccidentPerKm2": 26.66,
       "monthlyRentMan": 58.75,
       "rentSamples": 863,
-      "walkToStationMin": 10.72
+      "walkToStationMin": 6.86
     },
     {
       "code": "1129064000",
@@ -2011,7 +2011,7 @@
       "trafficAccidentPerKm2": 3.28,
       "monthlyRentMan": 58.75,
       "rentSamples": 863,
-      "walkToStationMin": 26.13
+      "walkToStationMin": 7.23
     },
     {
       "code": "1129065000",
@@ -2028,7 +2028,7 @@
       "trafficAccidentPerKm2": 4.85,
       "monthlyRentMan": 58.75,
       "rentSamples": 863,
-      "walkToStationMin": 38.41
+      "walkToStationMin": 3.94
     },
     {
       "code": "1129066000",
@@ -2045,7 +2045,7 @@
       "trafficAccidentPerKm2": 51.36,
       "monthlyRentMan": 191.13,
       "rentSamples": 600,
-      "walkToStationMin": 14.9
+      "walkToStationMin": 7.98
     },
     {
       "code": "1129068500",
@@ -2062,7 +2062,7 @@
       "trafficAccidentPerKm2": 94.2,
       "monthlyRentMan": 191.13,
       "rentSamples": 600,
-      "walkToStationMin": 11.57
+      "walkToStationMin": 11.82
     },
     {
       "code": "1129071500",
@@ -2079,7 +2079,7 @@
       "trafficAccidentPerKm2": 62.81,
       "monthlyRentMan": 64.58,
       "rentSamples": 0,
-      "walkToStationMin": 16
+      "walkToStationMin": 15.92
     },
     {
       "code": "1129072500",
@@ -2096,7 +2096,7 @@
       "trafficAccidentPerKm2": 53.26,
       "monthlyRentMan": 64.58,
       "rentSamples": 0,
-      "walkToStationMin": 7.56
+      "walkToStationMin": 6.43
     },
     {
       "code": "1129076000",
@@ -2113,7 +2113,7 @@
       "trafficAccidentPerKm2": 37.3,
       "monthlyRentMan": 74.58,
       "rentSamples": 718,
-      "walkToStationMin": 21.03
+      "walkToStationMin": 22.8
     },
     {
       "code": "1129077000",
@@ -2130,7 +2130,7 @@
       "trafficAccidentPerKm2": 73.65,
       "monthlyRentMan": 74.58,
       "rentSamples": 718,
-      "walkToStationMin": 8.83
+      "walkToStationMin": 8.77
     },
     {
       "code": "1129078000",
@@ -2147,7 +2147,7 @@
       "trafficAccidentPerKm2": 67.41,
       "monthlyRentMan": 74.58,
       "rentSamples": 718,
-      "walkToStationMin": 18.65
+      "walkToStationMin": 20.56
     },
     {
       "code": "1129052500",
@@ -2158,13 +2158,13 @@
       "foodPerKm2": 98.16,
       "medicalPerKm2": 18.22,
       "nightlifePerKm2": 0,
-      "busStopPerKm2": 7.87,
+      "busStopPerKm2": 7.46,
       "cctvPerKm2": null,
       "crimePer1k": 5.19,
       "trafficAccidentPerKm2": 6.21,
       "monthlyRentMan": 67.92,
       "rentSamples": 79,
-      "walkToStationMin": 29.66
+      "walkToStationMin": 6.2
     },
     {
       "code": "1129055500",
@@ -2175,13 +2175,13 @@
       "foodPerKm2": 450.95,
       "medicalPerKm2": 75.71,
       "nightlifePerKm2": 5.49,
-      "busStopPerKm2": 13.17,
+      "busStopPerKm2": 14.26,
       "cctvPerKm2": null,
       "crimePer1k": 5.19,
       "trafficAccidentPerKm2": 61.44,
       "monthlyRentMan": 64.58,
       "rentSamples": 0,
-      "walkToStationMin": 9.88
+      "walkToStationMin": 11.24
     },
     {
       "code": "1129057500",
@@ -2198,7 +2198,7 @@
       "trafficAccidentPerKm2": 91.62,
       "monthlyRentMan": 64.58,
       "rentSamples": 0,
-      "walkToStationMin": 6.91
+      "walkToStationMin": 2.27
     },
     {
       "code": "1129070500",
@@ -2209,13 +2209,13 @@
       "foodPerKm2": 182.37,
       "medicalPerKm2": 43.45,
       "nightlifePerKm2": 0.66,
-      "busStopPerKm2": 11.19,
+      "busStopPerKm2": 12.51,
       "cctvPerKm2": null,
       "crimePer1k": 5.19,
       "trafficAccidentPerKm2": 67.81,
       "monthlyRentMan": 59.58,
       "rentSamples": 519,
-      "walkToStationMin": 17.99
+      "walkToStationMin": 15.05
     },
     {
       "code": "1129081000",
@@ -2232,7 +2232,7 @@
       "trafficAccidentPerKm2": 36.42,
       "monthlyRentMan": 54.58,
       "rentSamples": 718,
-      "walkToStationMin": 9.99
+      "walkToStationMin": 8.06
     },
     {
       "code": "1130559500",
@@ -2248,8 +2248,8 @@
       "crimePer1k": 8.23,
       "trafficAccidentPerKm2": 159.61,
       "monthlyRentMan": 52.75,
-      "rentSamples": 732,
-      "walkToStationMin": 8.67
+      "rentSamples": 734,
+      "walkToStationMin": 4.53
     },
     {
       "code": "1130560300",
@@ -2265,8 +2265,8 @@
       "crimePer1k": 8.23,
       "trafficAccidentPerKm2": 30.64,
       "monthlyRentMan": 52.75,
-      "rentSamples": 732,
-      "walkToStationMin": 19.34
+      "rentSamples": 734,
+      "walkToStationMin": 18.93
     },
     {
       "code": "1130560800",
@@ -2282,8 +2282,8 @@
       "crimePer1k": 8.23,
       "trafficAccidentPerKm2": 41.28,
       "monthlyRentMan": 52.75,
-      "rentSamples": 732,
-      "walkToStationMin": 30.99
+      "rentSamples": 734,
+      "walkToStationMin": 29.94
     },
     {
       "code": "1130561500",
@@ -2294,13 +2294,13 @@
       "foodPerKm2": 108.29,
       "medicalPerKm2": 16.21,
       "nightlifePerKm2": 0,
-      "busStopPerKm2": 9.27,
+      "busStopPerKm2": 9.84,
       "cctvPerKm2": null,
       "crimePer1k": 8.23,
       "trafficAccidentPerKm2": 20.27,
       "monthlyRentMan": 57.29,
-      "rentSamples": 2233,
-      "walkToStationMin": 18.24
+      "rentSamples": 2239,
+      "walkToStationMin": 6.65
     },
     {
       "code": "1130562500",
@@ -2316,8 +2316,8 @@
       "crimePer1k": 8.23,
       "trafficAccidentPerKm2": 110.63,
       "monthlyRentMan": 57.29,
-      "rentSamples": 2233,
-      "walkToStationMin": 9.76
+      "rentSamples": 2239,
+      "walkToStationMin": 7.9
     },
     {
       "code": "1130563500",
@@ -2333,8 +2333,8 @@
       "crimePer1k": 8.23,
       "trafficAccidentPerKm2": 206.82,
       "monthlyRentMan": 57.29,
-      "rentSamples": 2233,
-      "walkToStationMin": 6.1
+      "rentSamples": 2239,
+      "walkToStationMin": 5.26
     },
     {
       "code": "1130553400",
@@ -2351,7 +2351,7 @@
       "trafficAccidentPerKm2": 41.01,
       "monthlyRentMan": 54.58,
       "rentSamples": 0,
-      "walkToStationMin": 8.16
+      "walkToStationMin": 6.06
     },
     {
       "code": "1130553500",
@@ -2367,8 +2367,8 @@
       "crimePer1k": 8.23,
       "trafficAccidentPerKm2": 138.3,
       "monthlyRentMan": 54.58,
-      "rentSamples": 1662,
-      "walkToStationMin": 4.39
+      "rentSamples": 1664,
+      "walkToStationMin": 4.71
     },
     {
       "code": "1130554500",
@@ -2379,13 +2379,13 @@
       "foodPerKm2": 365.66,
       "medicalPerKm2": 69.74,
       "nightlifePerKm2": 8.48,
-      "busStopPerKm2": 16.96,
+      "busStopPerKm2": 16.02,
       "cctvPerKm2": null,
       "crimePer1k": 8.23,
       "trafficAccidentPerKm2": 119.69,
       "monthlyRentMan": 54.58,
       "rentSamples": 0,
-      "walkToStationMin": 11.96
+      "walkToStationMin": 6.51
     },
     {
       "code": "1130555500",
@@ -2396,13 +2396,13 @@
       "foodPerKm2": 325.95,
       "medicalPerKm2": 68.17,
       "nightlifePerKm2": 1.07,
-      "busStopPerKm2": 18.11,
+      "busStopPerKm2": 19.17,
       "cctvPerKm2": null,
       "crimePer1k": 8.23,
       "trafficAccidentPerKm2": 42.61,
       "monthlyRentMan": 54.58,
       "rentSamples": 0,
-      "walkToStationMin": 11.06
+      "walkToStationMin": 8.83
     },
     {
       "code": "1130557500",
@@ -2419,7 +2419,7 @@
       "trafficAccidentPerKm2": 20.47,
       "monthlyRentMan": 54.58,
       "rentSamples": 0,
-      "walkToStationMin": 8.71
+      "walkToStationMin": 7.65
     },
     {
       "code": "1130564500",
@@ -2436,7 +2436,7 @@
       "trafficAccidentPerKm2": 2.43,
       "monthlyRentMan": 44.38,
       "rentSamples": 112,
-      "walkToStationMin": 27.41
+      "walkToStationMin": 2.63
     },
     {
       "code": "1130566000",
@@ -2447,13 +2447,13 @@
       "foodPerKm2": 65.43,
       "medicalPerKm2": 12.95,
       "nightlifePerKm2": 2.1,
-      "busStopPerKm2": 7.35,
+      "busStopPerKm2": 7.7,
       "cctvPerKm2": null,
       "crimePer1k": 8.23,
       "trafficAccidentPerKm2": 10.5,
       "monthlyRentMan": 54.58,
       "rentSamples": 0,
-      "walkToStationMin": 16.34
+      "walkToStationMin": 9.21
     },
     {
       "code": "1132066000",
@@ -2469,8 +2469,8 @@
       "crimePer1k": 5.85,
       "trafficAccidentPerKm2": 25.86,
       "monthlyRentMan": 56.38,
-      "rentSamples": 689,
-      "walkToStationMin": 9.83
+      "rentSamples": 690,
+      "walkToStationMin": 16.17
     },
     {
       "code": "1132067000",
@@ -2486,8 +2486,8 @@
       "crimePer1k": 5.85,
       "trafficAccidentPerKm2": 54.55,
       "monthlyRentMan": 56.38,
-      "rentSamples": 689,
-      "walkToStationMin": 22.05
+      "rentSamples": 690,
+      "walkToStationMin": 20.69
     },
     {
       "code": "1132068000",
@@ -2503,8 +2503,8 @@
       "crimePer1k": 5.85,
       "trafficAccidentPerKm2": 40.07,
       "monthlyRentMan": 56.38,
-      "rentSamples": 689,
-      "walkToStationMin": 8.33
+      "rentSamples": 690,
+      "walkToStationMin": 4.58
     },
     {
       "code": "1132068100",
@@ -2520,8 +2520,8 @@
       "crimePer1k": 5.85,
       "trafficAccidentPerKm2": 12.14,
       "monthlyRentMan": 56.38,
-      "rentSamples": 689,
-      "walkToStationMin": 18.55
+      "rentSamples": 690,
+      "walkToStationMin": 21.68
     },
     {
       "code": "1132069000",
@@ -2537,8 +2537,8 @@
       "crimePer1k": 5.85,
       "trafficAccidentPerKm2": 127.38,
       "monthlyRentMan": 62.29,
-      "rentSamples": 759,
-      "walkToStationMin": 3.95
+      "rentSamples": 762,
+      "walkToStationMin": 6.45
     },
     {
       "code": "1132070000",
@@ -2554,8 +2554,8 @@
       "crimePer1k": 5.85,
       "trafficAccidentPerKm2": 26.18,
       "monthlyRentMan": 62.29,
-      "rentSamples": 759,
-      "walkToStationMin": 21.52
+      "rentSamples": 762,
+      "walkToStationMin": 18.6
     },
     {
       "code": "1132071000",
@@ -2571,8 +2571,8 @@
       "crimePer1k": 5.85,
       "trafficAccidentPerKm2": 5.92,
       "monthlyRentMan": 62.29,
-      "rentSamples": 759,
-      "walkToStationMin": 20.12
+      "rentSamples": 762,
+      "walkToStationMin": 31.03
     },
     {
       "code": "1132051100",
@@ -2588,8 +2588,8 @@
       "crimePer1k": 5.85,
       "trafficAccidentPerKm2": 16.48,
       "monthlyRentMan": 74.58,
-      "rentSamples": 1786,
-      "walkToStationMin": 13.38
+      "rentSamples": 1789,
+      "walkToStationMin": 5.74
     },
     {
       "code": "1132051200",
@@ -2605,8 +2605,8 @@
       "crimePer1k": 5.85,
       "trafficAccidentPerKm2": 52.77,
       "monthlyRentMan": 74.58,
-      "rentSamples": 1786,
-      "walkToStationMin": 13.21
+      "rentSamples": 1789,
+      "walkToStationMin": 14.95
     },
     {
       "code": "1132051300",
@@ -2622,8 +2622,8 @@
       "crimePer1k": 5.85,
       "trafficAccidentPerKm2": 23.54,
       "monthlyRentMan": 74.58,
-      "rentSamples": 1786,
-      "walkToStationMin": 25.55
+      "rentSamples": 1789,
+      "walkToStationMin": 26.63
     },
     {
       "code": "1132051400",
@@ -2639,8 +2639,8 @@
       "crimePer1k": 5.85,
       "trafficAccidentPerKm2": 37.71,
       "monthlyRentMan": 74.58,
-      "rentSamples": 1786,
-      "walkToStationMin": 6.02
+      "rentSamples": 1789,
+      "walkToStationMin": 3.29
     },
     {
       "code": "1132051500",
@@ -2656,8 +2656,8 @@
       "crimePer1k": 5.85,
       "trafficAccidentPerKm2": 63.8,
       "monthlyRentMan": 74.58,
-      "rentSamples": 1786,
-      "walkToStationMin": 9.95
+      "rentSamples": 1789,
+      "walkToStationMin": 9
     },
     {
       "code": "1132052100",
@@ -2673,8 +2673,8 @@
       "crimePer1k": 5.85,
       "trafficAccidentPerKm2": 6.94,
       "monthlyRentMan": 52.29,
-      "rentSamples": 604,
-      "walkToStationMin": 38.7
+      "rentSamples": 605,
+      "walkToStationMin": 5.53
     },
     {
       "code": "1132052200",
@@ -2690,8 +2690,8 @@
       "crimePer1k": 5.85,
       "trafficAccidentPerKm2": 34.33,
       "monthlyRentMan": 52.29,
-      "rentSamples": 604,
-      "walkToStationMin": 7.92
+      "rentSamples": 605,
+      "walkToStationMin": 5.71
     },
     {
       "code": "1135056000",
@@ -2708,7 +2708,7 @@
       "trafficAccidentPerKm2": 26.32,
       "monthlyRentMan": 64.58,
       "rentSamples": 1066,
-      "walkToStationMin": 7.96
+      "walkToStationMin": 7.39
     },
     {
       "code": "1135057000",
@@ -2725,7 +2725,7 @@
       "trafficAccidentPerKm2": 6.03,
       "monthlyRentMan": 64.58,
       "rentSamples": 1066,
-      "walkToStationMin": 14
+      "walkToStationMin": 10.38
     },
     {
       "code": "1135058000",
@@ -2742,7 +2742,7 @@
       "trafficAccidentPerKm2": 10.28,
       "monthlyRentMan": 64.58,
       "rentSamples": 1066,
-      "walkToStationMin": 7.74
+      "walkToStationMin": 11.09
     },
     {
       "code": "1135060000",
@@ -2753,13 +2753,13 @@
       "foodPerKm2": 54.55,
       "medicalPerKm2": 6.75,
       "nightlifePerKm2": 0.14,
-      "busStopPerKm2": 6.75,
+      "busStopPerKm2": 7.03,
       "cctvPerKm2": null,
       "crimePer1k": 6.45,
       "trafficAccidentPerKm2": 0.96,
       "monthlyRentMan": 49.58,
-      "rentSamples": 2367,
-      "walkToStationMin": 28.89
+      "rentSamples": 2373,
+      "walkToStationMin": 13.65
     },
     {
       "code": "1135061100",
@@ -2770,13 +2770,13 @@
       "foodPerKm2": 121.54,
       "medicalPerKm2": 16.67,
       "nightlifePerKm2": 0,
-      "busStopPerKm2": 27.09,
+      "busStopPerKm2": 27.78,
       "cctvPerKm2": null,
       "crimePer1k": 6.45,
       "trafficAccidentPerKm2": 14.58,
       "monthlyRentMan": 82.83,
       "rentSamples": 449,
-      "walkToStationMin": 13.6
+      "walkToStationMin": 6.84
     },
     {
       "code": "1135061200",
@@ -2787,13 +2787,13 @@
       "foodPerKm2": 57.38,
       "medicalPerKm2": 21.76,
       "nightlifePerKm2": 0,
-      "busStopPerKm2": 23.74,
+      "busStopPerKm2": 21.76,
       "cctvPerKm2": null,
       "crimePer1k": 6.45,
       "trafficAccidentPerKm2": 41.55,
       "monthlyRentMan": 82.83,
       "rentSamples": 449,
-      "walkToStationMin": 6.43
+      "walkToStationMin": 7.34
     },
     {
       "code": "1135061900",
@@ -2804,13 +2804,13 @@
       "foodPerKm2": 83.49,
       "medicalPerKm2": 15.53,
       "nightlifePerKm2": 0.49,
-      "busStopPerKm2": 8.74,
+      "busStopPerKm2": 8.25,
       "cctvPerKm2": null,
       "crimePer1k": 6.45,
       "trafficAccidentPerKm2": 7.28,
       "monthlyRentMan": 65.58,
       "rentSamples": 0,
-      "walkToStationMin": 34.54
+      "walkToStationMin": 39.38
     },
     {
       "code": "1135062100",
@@ -2825,9 +2825,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 6.45,
       "trafficAccidentPerKm2": 123.36,
-      "monthlyRentMan": 94.17,
-      "rentSamples": 809,
-      "walkToStationMin": 19.4
+      "monthlyRentMan": 94.38,
+      "rentSamples": 810,
+      "walkToStationMin": 19.42
     },
     {
       "code": "1135062400",
@@ -2842,9 +2842,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 6.45,
       "trafficAccidentPerKm2": 30.2,
-      "monthlyRentMan": 94.17,
-      "rentSamples": 809,
-      "walkToStationMin": 17.01
+      "monthlyRentMan": 94.38,
+      "rentSamples": 810,
+      "walkToStationMin": 3.82
     },
     {
       "code": "1135063000",
@@ -2861,7 +2861,7 @@
       "trafficAccidentPerKm2": 11,
       "monthlyRentMan": 74.5,
       "rentSamples": 2902,
-      "walkToStationMin": 19.76
+      "walkToStationMin": 3.68
     },
     {
       "code": "1135064000",
@@ -2878,7 +2878,7 @@
       "trafficAccidentPerKm2": 160.88,
       "monthlyRentMan": 74.5,
       "rentSamples": 2902,
-      "walkToStationMin": 11.47
+      "walkToStationMin": 6.32
     },
     {
       "code": "1135067000",
@@ -2895,7 +2895,7 @@
       "trafficAccidentPerKm2": 77.27,
       "monthlyRentMan": 74.5,
       "rentSamples": 2902,
-      "walkToStationMin": 9.45
+      "walkToStationMin": 7.19
     },
     {
       "code": "1135070000",
@@ -2912,7 +2912,7 @@
       "trafficAccidentPerKm2": 40.82,
       "monthlyRentMan": 74.5,
       "rentSamples": 2902,
-      "walkToStationMin": 7.42
+      "walkToStationMin": 3.1
     },
     {
       "code": "1135071000",
@@ -2929,7 +2929,7 @@
       "trafficAccidentPerKm2": 3.58,
       "monthlyRentMan": 74.5,
       "rentSamples": 2902,
-      "walkToStationMin": 11.08
+      "walkToStationMin": 8.74
     },
     {
       "code": "1135072000",
@@ -2946,7 +2946,7 @@
       "trafficAccidentPerKm2": 42.3,
       "monthlyRentMan": 74.5,
       "rentSamples": 2902,
-      "walkToStationMin": 10.29
+      "walkToStationMin": 7.77
     },
     {
       "code": "1135066500",
@@ -2963,7 +2963,7 @@
       "trafficAccidentPerKm2": 8.13,
       "monthlyRentMan": 74.5,
       "rentSamples": 2902,
-      "walkToStationMin": 8.84
+      "walkToStationMin": 7.51
     },
     {
       "code": "1135069500",
@@ -2980,7 +2980,7 @@
       "trafficAccidentPerKm2": 68.09,
       "monthlyRentMan": 74.5,
       "rentSamples": 2902,
-      "walkToStationMin": 12.82
+      "walkToStationMin": 7.33
     },
     {
       "code": "1135062500",
@@ -2995,9 +2995,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 6.45,
       "trafficAccidentPerKm2": 74.01,
-      "monthlyRentMan": 94.17,
-      "rentSamples": 809,
-      "walkToStationMin": 6.3
+      "monthlyRentMan": 94.38,
+      "rentSamples": 810,
+      "walkToStationMin": 10.43
     },
     {
       "code": "1135059500",
@@ -3013,8 +3013,8 @@
       "crimePer1k": 6.45,
       "trafficAccidentPerKm2": 68.73,
       "monthlyRentMan": 49.58,
-      "rentSamples": 2367,
-      "walkToStationMin": 2.67
+      "rentSamples": 2373,
+      "walkToStationMin": 8.16
     },
     {
       "code": "1138051000",
@@ -3030,8 +3030,8 @@
       "crimePer1k": 7.13,
       "trafficAccidentPerKm2": 39.19,
       "monthlyRentMan": 62.58,
-      "rentSamples": 584,
-      "walkToStationMin": 10.35
+      "rentSamples": 585,
+      "walkToStationMin": 11.54
     },
     {
       "code": "1138052000",
@@ -3047,8 +3047,8 @@
       "crimePer1k": 7.13,
       "trafficAccidentPerKm2": 13.46,
       "monthlyRentMan": 65.08,
-      "rentSamples": 942,
-      "walkToStationMin": 19.27
+      "rentSamples": 943,
+      "walkToStationMin": 10.04
     },
     {
       "code": "1138055100",
@@ -3065,7 +3065,7 @@
       "trafficAccidentPerKm2": 52.48,
       "monthlyRentMan": 60.25,
       "rentSamples": 422,
-      "walkToStationMin": 19.38
+      "walkToStationMin": 6.84
     },
     {
       "code": "1138055200",
@@ -3082,7 +3082,7 @@
       "trafficAccidentPerKm2": 87.4,
       "monthlyRentMan": 60.25,
       "rentSamples": 422,
-      "walkToStationMin": 16
+      "walkToStationMin": 8.74
     },
     {
       "code": "1138056000",
@@ -3099,7 +3099,7 @@
       "trafficAccidentPerKm2": 19.24,
       "monthlyRentMan": 63.29,
       "rentSamples": 190,
-      "walkToStationMin": 17.64
+      "walkToStationMin": 7.97
     },
     {
       "code": "1138057000",
@@ -3116,7 +3116,7 @@
       "trafficAccidentPerKm2": 106.85,
       "monthlyRentMan": 66.23,
       "rentSamples": 1226,
-      "walkToStationMin": 11.12
+      "walkToStationMin": 12.69
     },
     {
       "code": "1138058000",
@@ -3132,8 +3132,8 @@
       "crimePer1k": 7.13,
       "trafficAccidentPerKm2": 19.84,
       "monthlyRentMan": 64.58,
-      "rentSamples": 1408,
-      "walkToStationMin": 15.35
+      "rentSamples": 1410,
+      "walkToStationMin": 13.4
     },
     {
       "code": "1138059000",
@@ -3149,8 +3149,8 @@
       "crimePer1k": 7.13,
       "trafficAccidentPerKm2": 17.42,
       "monthlyRentMan": 64.58,
-      "rentSamples": 1408,
-      "walkToStationMin": 16.02
+      "rentSamples": 1410,
+      "walkToStationMin": 12.41
     },
     {
       "code": "1138063100",
@@ -3165,9 +3165,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.13,
       "trafficAccidentPerKm2": 94.01,
-      "monthlyRentMan": 58.75,
-      "rentSamples": 392,
-      "walkToStationMin": 10.28
+      "monthlyRentMan": 58.46,
+      "rentSamples": 394,
+      "walkToStationMin": 7.16
     },
     {
       "code": "1138063200",
@@ -3182,9 +3182,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.13,
       "trafficAccidentPerKm2": 29.8,
-      "monthlyRentMan": 58.75,
-      "rentSamples": 392,
-      "walkToStationMin": 14.4
+      "monthlyRentMan": 58.46,
+      "rentSamples": 394,
+      "walkToStationMin": 7.33
     },
     {
       "code": "1138064000",
@@ -3201,7 +3201,7 @@
       "trafficAccidentPerKm2": 57.66,
       "monthlyRentMan": 64.58,
       "rentSamples": 149,
-      "walkToStationMin": 7.66
+      "walkToStationMin": 4.22
     },
     {
       "code": "1138065000",
@@ -3218,7 +3218,7 @@
       "trafficAccidentPerKm2": 1.76,
       "monthlyRentMan": 137.77,
       "rentSamples": 244,
-      "walkToStationMin": 10.04
+      "walkToStationMin": 11.88
     },
     {
       "code": "1138069000",
@@ -3234,8 +3234,8 @@
       "crimePer1k": 7.13,
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 66.58,
-      "rentSamples": 1827,
-      "walkToStationMin": 41.16
+      "rentSamples": 1828,
+      "walkToStationMin": 3.89
     },
     {
       "code": "1138053000",
@@ -3251,8 +3251,8 @@
       "crimePer1k": 7.13,
       "trafficAccidentPerKm2": 63.56,
       "monthlyRentMan": 65.08,
-      "rentSamples": 942,
-      "walkToStationMin": 17.21
+      "rentSamples": 943,
+      "walkToStationMin": 9.65
     },
     {
       "code": "1138060000",
@@ -3268,8 +3268,8 @@
       "crimePer1k": 7.13,
       "trafficAccidentPerKm2": 96.89,
       "monthlyRentMan": 64.58,
-      "rentSamples": 1408,
-      "walkToStationMin": 14.9
+      "rentSamples": 1410,
+      "walkToStationMin": 9.03
     },
     {
       "code": "1138062500",
@@ -3285,8 +3285,8 @@
       "crimePer1k": 7.13,
       "trafficAccidentPerKm2": 104.95,
       "monthlyRentMan": 54.58,
-      "rentSamples": 371,
-      "walkToStationMin": 13.14
+      "rentSamples": 372,
+      "walkToStationMin": 11.65
     },
     {
       "code": "1141052000",
@@ -3301,9 +3301,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 6.83,
       "trafficAccidentPerKm2": 23.51,
-      "monthlyRentMan": 118.75,
-      "rentSamples": 94,
-      "walkToStationMin": 8.56
+      "monthlyRentMan": 118.33,
+      "rentSamples": 95,
+      "walkToStationMin": 12.23
     },
     {
       "code": "1141062000",
@@ -3319,8 +3319,8 @@
       "crimePer1k": 6.83,
       "trafficAccidentPerKm2": 34.61,
       "monthlyRentMan": 75.83,
-      "rentSamples": 581,
-      "walkToStationMin": 7.92
+      "rentSamples": 582,
+      "walkToStationMin": 4.29
     },
     {
       "code": "1141064000",
@@ -3336,8 +3336,8 @@
       "crimePer1k": 6.83,
       "trafficAccidentPerKm2": 42.69,
       "monthlyRentMan": 75.83,
-      "rentSamples": 581,
-      "walkToStationMin": 14.31
+      "rentSamples": 582,
+      "walkToStationMin": 8.49
     },
     {
       "code": "1141065500",
@@ -3353,8 +3353,8 @@
       "crimePer1k": 6.83,
       "trafficAccidentPerKm2": 30.9,
       "monthlyRentMan": 75.83,
-      "rentSamples": 581,
-      "walkToStationMin": 7.14
+      "rentSamples": 582,
+      "walkToStationMin": 8.18
     },
     {
       "code": "1141066000",
@@ -3370,8 +3370,8 @@
       "crimePer1k": 6.83,
       "trafficAccidentPerKm2": 28.4,
       "monthlyRentMan": 53.75,
-      "rentSamples": 562,
-      "walkToStationMin": 19.14
+      "rentSamples": 564,
+      "walkToStationMin": 17.84
     },
     {
       "code": "1141068500",
@@ -3387,8 +3387,8 @@
       "crimePer1k": 6.83,
       "trafficAccidentPerKm2": 19.54,
       "monthlyRentMan": 53.75,
-      "rentSamples": 562,
-      "walkToStationMin": 28.49
+      "rentSamples": 564,
+      "walkToStationMin": 30.8
     },
     {
       "code": "1141069000",
@@ -3404,8 +3404,8 @@
       "crimePer1k": 6.83,
       "trafficAccidentPerKm2": 47,
       "monthlyRentMan": 57.29,
-      "rentSamples": 941,
-      "walkToStationMin": 7.22
+      "rentSamples": 942,
+      "walkToStationMin": 5.13
     },
     {
       "code": "1141070000",
@@ -3421,8 +3421,8 @@
       "crimePer1k": 6.83,
       "trafficAccidentPerKm2": 28.33,
       "monthlyRentMan": 57.29,
-      "rentSamples": 941,
-      "walkToStationMin": 22.76
+      "rentSamples": 942,
+      "walkToStationMin": 26.06
     },
     {
       "code": "1141071000",
@@ -3438,8 +3438,8 @@
       "crimePer1k": 6.83,
       "trafficAccidentPerKm2": 10.33,
       "monthlyRentMan": 54.58,
-      "rentSamples": 336,
-      "walkToStationMin": 13.92
+      "rentSamples": 337,
+      "walkToStationMin": 13.03
     },
     {
       "code": "1141072000",
@@ -3455,8 +3455,8 @@
       "crimePer1k": 6.83,
       "trafficAccidentPerKm2": 61.66,
       "monthlyRentMan": 54.58,
-      "rentSamples": 336,
-      "walkToStationMin": 9.19
+      "rentSamples": 337,
+      "walkToStationMin": 10.16
     },
     {
       "code": "1141056500",
@@ -3473,7 +3473,7 @@
       "trafficAccidentPerKm2": 7.92,
       "monthlyRentMan": 68.75,
       "rentSamples": 0,
-      "walkToStationMin": 17.11
+      "walkToStationMin": 9.49
     },
     {
       "code": "1141055500",
@@ -3488,9 +3488,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 6.83,
       "trafficAccidentPerKm2": 31.5,
-      "monthlyRentMan": 127.96,
-      "rentSamples": 478,
-      "walkToStationMin": 4.84
+      "monthlyRentMan": 127.58,
+      "rentSamples": 479,
+      "walkToStationMin": 2.83
     },
     {
       "code": "1141058500",
@@ -3507,7 +3507,7 @@
       "trafficAccidentPerKm2": 12.09,
       "monthlyRentMan": 62.29,
       "rentSamples": 67,
-      "walkToStationMin": 7.23
+      "walkToStationMin": 7.08
     },
     {
       "code": "1141061500",
@@ -3523,8 +3523,8 @@
       "crimePer1k": 6.83,
       "trafficAccidentPerKm2": 6.37,
       "monthlyRentMan": 64.58,
-      "rentSamples": 1680,
-      "walkToStationMin": 33.73
+      "rentSamples": 1684,
+      "walkToStationMin": 27.97
     },
     {
       "code": "1144059000",
@@ -3541,7 +3541,7 @@
       "trafficAccidentPerKm2": 18.06,
       "monthlyRentMan": 296.67,
       "rentSamples": 66,
-      "walkToStationMin": 8.47
+      "walkToStationMin": 6.11
     },
     {
       "code": "1144060000",
@@ -3558,7 +3558,7 @@
       "trafficAccidentPerKm2": 4.79,
       "monthlyRentMan": 94.17,
       "rentSamples": 478,
-      "walkToStationMin": 10.35
+      "walkToStationMin": 10.29
     },
     {
       "code": "1144061000",
@@ -3575,7 +3575,7 @@
       "trafficAccidentPerKm2": 9.27,
       "monthlyRentMan": 84.58,
       "rentSamples": 393,
-      "walkToStationMin": 10.98
+      "walkToStationMin": 8.74
     },
     {
       "code": "1144063000",
@@ -3591,7 +3591,7 @@
       "crimePer1k": 10.94,
       "trafficAccidentPerKm2": 3.66,
       "monthlyRentMan": 69.17,
-      "rentSamples": 528,
+      "rentSamples": 529,
       "walkToStationMin": 7.95
     },
     {
@@ -3608,8 +3608,8 @@
       "crimePer1k": 10.94,
       "trafficAccidentPerKm2": 49.81,
       "monthlyRentMan": 78.4,
-      "rentSamples": 1264,
-      "walkToStationMin": 9.94
+      "rentSamples": 1266,
+      "walkToStationMin": 4.42
     },
     {
       "code": "1144068000",
@@ -3625,8 +3625,8 @@
       "crimePer1k": 10.94,
       "trafficAccidentPerKm2": 13.81,
       "monthlyRentMan": 94.17,
-      "rentSamples": 320,
-      "walkToStationMin": 12.96
+      "rentSamples": 321,
+      "walkToStationMin": 3.34
     },
     {
       "code": "1144069000",
@@ -3642,8 +3642,8 @@
       "crimePer1k": 10.94,
       "trafficAccidentPerKm2": 31.22,
       "monthlyRentMan": 69.58,
-      "rentSamples": 572,
-      "walkToStationMin": 21.21
+      "rentSamples": 575,
+      "walkToStationMin": 5.09
     },
     {
       "code": "1144070000",
@@ -3659,8 +3659,8 @@
       "crimePer1k": 10.94,
       "trafficAccidentPerKm2": 91.73,
       "monthlyRentMan": 69.58,
-      "rentSamples": 572,
-      "walkToStationMin": 11.29
+      "rentSamples": 575,
+      "walkToStationMin": 10.3
     },
     {
       "code": "1144071000",
@@ -3677,7 +3677,7 @@
       "trafficAccidentPerKm2": 15.46,
       "monthlyRentMan": 72.58,
       "rentSamples": 460,
-      "walkToStationMin": 15.12
+      "walkToStationMin": 14.26
     },
     {
       "code": "1144072000",
@@ -3693,8 +3693,8 @@
       "crimePer1k": 10.94,
       "trafficAccidentPerKm2": 10.42,
       "monthlyRentMan": 84.17,
-      "rentSamples": 2817,
-      "walkToStationMin": 14.3
+      "rentSamples": 2821,
+      "walkToStationMin": 12.93
     },
     {
       "code": "1144073000",
@@ -3710,8 +3710,8 @@
       "crimePer1k": 10.94,
       "trafficAccidentPerKm2": 15.8,
       "monthlyRentMan": 84.17,
-      "rentSamples": 2817,
-      "walkToStationMin": 6.44
+      "rentSamples": 2821,
+      "walkToStationMin": 11.25
     },
     {
       "code": "1144074000",
@@ -3728,7 +3728,7 @@
       "trafficAccidentPerKm2": 1.28,
       "monthlyRentMan": 70.83,
       "rentSamples": 1643,
-      "walkToStationMin": 38.45
+      "walkToStationMin": 12
     },
     {
       "code": "1144058500",
@@ -3744,8 +3744,8 @@
       "crimePer1k": 10.94,
       "trafficAccidentPerKm2": 43.03,
       "monthlyRentMan": 98.75,
-      "rentSamples": 498,
-      "walkToStationMin": 7.39
+      "rentSamples": 499,
+      "walkToStationMin": 5.74
     },
     {
       "code": "1144065500",
@@ -3760,9 +3760,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 10.94,
       "trafficAccidentPerKm2": 12.8,
-      "monthlyRentMan": 81.33,
+      "monthlyRentMan": 81.42,
       "rentSamples": 0,
-      "walkToStationMin": 5.83
+      "walkToStationMin": 7.19
     },
     {
       "code": "1144056500",
@@ -3777,9 +3777,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 10.94,
       "trafficAccidentPerKm2": 16.7,
-      "monthlyRentMan": 97.63,
-      "rentSamples": 682,
-      "walkToStationMin": 9.21
+      "monthlyRentMan": 97.83,
+      "rentSamples": 684,
+      "walkToStationMin": 13.1
     },
     {
       "code": "1144055500",
@@ -3795,8 +3795,8 @@
       "crimePer1k": 10.94,
       "trafficAccidentPerKm2": 4.11,
       "monthlyRentMan": 111.67,
-      "rentSamples": 631,
-      "walkToStationMin": 6
+      "rentSamples": 633,
+      "walkToStationMin": 10.85
     },
     {
       "code": "1147051000",
@@ -3812,8 +3812,8 @@
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 70.35,
       "monthlyRentMan": 74.58,
-      "rentSamples": 1123,
-      "walkToStationMin": 5.55
+      "rentSamples": 1125,
+      "walkToStationMin": 6.81
     },
     {
       "code": "1147052000",
@@ -3829,8 +3829,8 @@
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 29.43,
       "monthlyRentMan": 74.58,
-      "rentSamples": 1123,
-      "walkToStationMin": 10.73
+      "rentSamples": 1125,
+      "walkToStationMin": 10
     },
     {
       "code": "1147053000",
@@ -3846,8 +3846,8 @@
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 71.94,
       "monthlyRentMan": 74.58,
-      "rentSamples": 1123,
-      "walkToStationMin": 12.41
+      "rentSamples": 1125,
+      "walkToStationMin": 9.61
     },
     {
       "code": "1147054000",
@@ -3863,8 +3863,8 @@
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 49.88,
       "monthlyRentMan": 74.58,
-      "rentSamples": 1123,
-      "walkToStationMin": 23.2
+      "rentSamples": 1125,
+      "walkToStationMin": 20.54
     },
     {
       "code": "1147056000",
@@ -3880,8 +3880,8 @@
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 81.2,
       "monthlyRentMan": 52.29,
-      "rentSamples": 956,
-      "walkToStationMin": 22.09
+      "rentSamples": 959,
+      "walkToStationMin": 20.26
     },
     {
       "code": "1147057000",
@@ -3897,8 +3897,8 @@
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 78.2,
       "monthlyRentMan": 52.29,
-      "rentSamples": 956,
-      "walkToStationMin": 17.2
+      "rentSamples": 959,
+      "walkToStationMin": 16.68
     },
     {
       "code": "1147058000",
@@ -3914,8 +3914,8 @@
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 18.33,
       "monthlyRentMan": 52.29,
-      "rentSamples": 956,
-      "walkToStationMin": 32.73
+      "rentSamples": 959,
+      "walkToStationMin": 29.85
     },
     {
       "code": "1147059000",
@@ -3931,8 +3931,8 @@
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 24.21,
       "monthlyRentMan": 52.29,
-      "rentSamples": 956,
-      "walkToStationMin": 24.85
+      "rentSamples": 959,
+      "walkToStationMin": 22.37
     },
     {
       "code": "1147060000",
@@ -3948,8 +3948,8 @@
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 50.06,
       "monthlyRentMan": 52.29,
-      "rentSamples": 956,
-      "walkToStationMin": 19.77
+      "rentSamples": 959,
+      "walkToStationMin": 19.37
     },
     {
       "code": "1147061000",
@@ -3965,8 +3965,8 @@
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 48.62,
       "monthlyRentMan": 52.29,
-      "rentSamples": 956,
-      "walkToStationMin": 22.09
+      "rentSamples": 959,
+      "walkToStationMin": 21.78
     },
     {
       "code": "1147061100",
@@ -3982,8 +3982,8 @@
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 31.01,
       "monthlyRentMan": 52.29,
-      "rentSamples": 956,
-      "walkToStationMin": 37.88
+      "rentSamples": 959,
+      "walkToStationMin": 33.24
     },
     {
       "code": "1147062000",
@@ -3994,13 +3994,13 @@
       "foodPerKm2": 302.99,
       "medicalPerKm2": 62.22,
       "nightlifePerKm2": 5.41,
-      "busStopPerKm2": 33.82,
+      "busStopPerKm2": 35.17,
       "cctvPerKm2": null,
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 39.23,
-      "monthlyRentMan": 57.63,
-      "rentSamples": 2354,
-      "walkToStationMin": 12.45
+      "monthlyRentMan": 57.72,
+      "rentSamples": 2360,
+      "walkToStationMin": 9.49
     },
     {
       "code": "1147063000",
@@ -4015,9 +4015,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 70.97,
-      "monthlyRentMan": 57.63,
-      "rentSamples": 2354,
-      "walkToStationMin": 13.28
+      "monthlyRentMan": 57.72,
+      "rentSamples": 2360,
+      "walkToStationMin": 11.81
     },
     {
       "code": "1147064000",
@@ -4032,9 +4032,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 10.24,
-      "monthlyRentMan": 57.63,
-      "rentSamples": 2354,
-      "walkToStationMin": 35.43
+      "monthlyRentMan": 57.72,
+      "rentSamples": 2360,
+      "walkToStationMin": 7.53
     },
     {
       "code": "1147067000",
@@ -4045,13 +4045,13 @@
       "foodPerKm2": 80.98,
       "medicalPerKm2": 8.64,
       "nightlifePerKm2": 0,
-      "busStopPerKm2": 22.68,
+      "busStopPerKm2": 23.76,
       "cctvPerKm2": null,
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 48.59,
-      "monthlyRentMan": 57.63,
-      "rentSamples": 2354,
-      "walkToStationMin": 8.41
+      "monthlyRentMan": 57.72,
+      "rentSamples": 2360,
+      "walkToStationMin": 16.63
     },
     {
       "code": "1147068000",
@@ -4066,9 +4066,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 17.5,
-      "monthlyRentMan": 57.63,
-      "rentSamples": 2354,
-      "walkToStationMin": 7.76
+      "monthlyRentMan": 57.72,
+      "rentSamples": 2360,
+      "walkToStationMin": 5.95
     },
     {
       "code": "1147055000",
@@ -4084,8 +4084,8 @@
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 34.93,
       "monthlyRentMan": 74.58,
-      "rentSamples": 1123,
-      "walkToStationMin": 18.17
+      "rentSamples": 1125,
+      "walkToStationMin": 24.49
     },
     {
       "code": "1147065000",
@@ -4096,13 +4096,13 @@
       "foodPerKm2": 453.04,
       "medicalPerKm2": 103.47,
       "nightlifePerKm2": 6.03,
-      "busStopPerKm2": 16.07,
+      "busStopPerKm2": 17.08,
       "cctvPerKm2": null,
       "crimePer1k": 7.11,
       "trafficAccidentPerKm2": 89.4,
-      "monthlyRentMan": 57.63,
-      "rentSamples": 2354,
-      "walkToStationMin": 3.06
+      "monthlyRentMan": 57.72,
+      "rentSamples": 2360,
+      "walkToStationMin": 7.03
     },
     {
       "code": "1150051000",
@@ -4117,9 +4117,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 34.57,
-      "monthlyRentMan": 102.96,
-      "rentSamples": 804,
-      "walkToStationMin": 17
+      "monthlyRentMan": 102.92,
+      "rentSamples": 805,
+      "walkToStationMin": 10.15
     },
     {
       "code": "1150052000",
@@ -4135,8 +4135,8 @@
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 53.15,
       "monthlyRentMan": 74.58,
-      "rentSamples": 2082,
-      "walkToStationMin": 5.44
+      "rentSamples": 2087,
+      "walkToStationMin": 5.55
     },
     {
       "code": "1150053000",
@@ -4152,8 +4152,8 @@
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 31.3,
       "monthlyRentMan": 74.58,
-      "rentSamples": 2082,
-      "walkToStationMin": 17.51
+      "rentSamples": 2087,
+      "walkToStationMin": 13.11
     },
     {
       "code": "1150053500",
@@ -4169,8 +4169,8 @@
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 27.83,
       "monthlyRentMan": 74.58,
-      "rentSamples": 2082,
-      "walkToStationMin": 16.1
+      "rentSamples": 2087,
+      "walkToStationMin": 16.14
     },
     {
       "code": "1150059000",
@@ -4187,7 +4187,7 @@
       "trafficAccidentPerKm2": 48.91,
       "monthlyRentMan": 74.58,
       "rentSamples": 0,
-      "walkToStationMin": 14.74
+      "walkToStationMin": 9.55
     },
     {
       "code": "1150055000",
@@ -4203,8 +4203,8 @@
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 72.27,
       "monthlyRentMan": 64.58,
-      "rentSamples": 3783,
-      "walkToStationMin": 14.52
+      "rentSamples": 3791,
+      "walkToStationMin": 14.68
     },
     {
       "code": "1150056000",
@@ -4220,8 +4220,8 @@
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 51.71,
       "monthlyRentMan": 64.58,
-      "rentSamples": 3783,
-      "walkToStationMin": 11.16
+      "rentSamples": 3791,
+      "walkToStationMin": 8.66
     },
     {
       "code": "1150057000",
@@ -4237,8 +4237,8 @@
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 66.64,
       "monthlyRentMan": 64.58,
-      "rentSamples": 3783,
-      "walkToStationMin": 24.05
+      "rentSamples": 3791,
+      "walkToStationMin": 17.05
     },
     {
       "code": "1150059100",
@@ -4254,8 +4254,8 @@
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 48.96,
       "monthlyRentMan": 64.58,
-      "rentSamples": 3783,
-      "walkToStationMin": 22.82
+      "rentSamples": 3791,
+      "walkToStationMin": 22.09
     },
     {
       "code": "1150059300",
@@ -4271,8 +4271,8 @@
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 90.42,
       "monthlyRentMan": 64.58,
-      "rentSamples": 3783,
-      "walkToStationMin": 7.33
+      "rentSamples": 3791,
+      "walkToStationMin": 3.08
     },
     {
       "code": "1150060300",
@@ -4283,13 +4283,13 @@
       "foodPerKm2": 271.6,
       "medicalPerKm2": 32.16,
       "nightlifePerKm2": 5.74,
-      "busStopPerKm2": 11.47,
+      "busStopPerKm2": 11.27,
       "cctvPerKm2": null,
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 4.51,
-      "monthlyRentMan": 97.75,
-      "rentSamples": 1087,
-      "walkToStationMin": 17.7
+      "monthlyRentMan": 96.79,
+      "rentSamples": 1090,
+      "walkToStationMin": 11.29
     },
     {
       "code": "1150060400",
@@ -4304,9 +4304,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 15.73,
-      "monthlyRentMan": 97.75,
-      "rentSamples": 1087,
-      "walkToStationMin": 12.64
+      "monthlyRentMan": 96.79,
+      "rentSamples": 1090,
+      "walkToStationMin": 6.41
     },
     {
       "code": "1150060500",
@@ -4321,9 +4321,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 0,
-      "monthlyRentMan": 97.75,
-      "rentSamples": 1087,
-      "walkToStationMin": 9.39
+      "monthlyRentMan": 96.79,
+      "rentSamples": 1090,
+      "walkToStationMin": 6.75
     },
     {
       "code": "1150061100",
@@ -4334,13 +4334,13 @@
       "foodPerKm2": 198.86,
       "medicalPerKm2": 53.1,
       "nightlifePerKm2": 0,
-      "busStopPerKm2": 20.63,
+      "busStopPerKm2": 20.97,
       "cctvPerKm2": null,
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 19.95,
       "monthlyRentMan": 74.58,
       "rentSamples": 0,
-      "walkToStationMin": 17.09
+      "walkToStationMin": 14.63
     },
     {
       "code": "1150062000",
@@ -4351,13 +4351,13 @@
       "foodPerKm2": 29.56,
       "medicalPerKm2": 4.21,
       "nightlifePerKm2": 0.18,
-      "busStopPerKm2": 4.85,
+      "busStopPerKm2": 4.76,
       "cctvPerKm2": null,
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 1.92,
       "monthlyRentMan": 52.29,
       "rentSamples": 365,
-      "walkToStationMin": 23.33
+      "walkToStationMin": 3.81
     },
     {
       "code": "1150063000",
@@ -4373,8 +4373,8 @@
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 20.95,
       "monthlyRentMan": 54.58,
-      "rentSamples": 1216,
-      "walkToStationMin": 2.92
+      "rentSamples": 1219,
+      "walkToStationMin": 10.43
     },
     {
       "code": "1150064000",
@@ -4390,8 +4390,8 @@
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 0.81,
       "monthlyRentMan": 54.58,
-      "rentSamples": 1216,
-      "walkToStationMin": 35.44
+      "rentSamples": 1219,
+      "walkToStationMin": 10.24
     },
     {
       "code": "1150064100",
@@ -4407,8 +4407,8 @@
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 9.01,
       "monthlyRentMan": 54.58,
-      "rentSamples": 1216,
-      "walkToStationMin": 23.71
+      "rentSamples": 1219,
+      "walkToStationMin": 0.56
     },
     {
       "code": "1150054000",
@@ -4424,8 +4424,8 @@
       "crimePer1k": 7.31,
       "trafficAccidentPerKm2": 60.42,
       "monthlyRentMan": 64.58,
-      "rentSamples": 3783,
-      "walkToStationMin": 11.35
+      "rentSamples": 3791,
+      "walkToStationMin": 8.85
     },
     {
       "code": "1150061500",
@@ -4442,7 +4442,7 @@
       "trafficAccidentPerKm2": 30.54,
       "monthlyRentMan": 74.58,
       "rentSamples": 0,
-      "walkToStationMin": 8.88
+      "walkToStationMin": 6.74
     },
     {
       "code": "1153051000",
@@ -4458,8 +4458,8 @@
       "crimePer1k": 8.85,
       "trafficAccidentPerKm2": 39.26,
       "monthlyRentMan": 114.58,
-      "rentSamples": 735,
-      "walkToStationMin": 11.29
+      "rentSamples": 736,
+      "walkToStationMin": 11.4
     },
     {
       "code": "1153052000",
@@ -4475,8 +4475,8 @@
       "crimePer1k": 8.85,
       "trafficAccidentPerKm2": 1.85,
       "monthlyRentMan": 64.17,
-      "rentSamples": 3869,
-      "walkToStationMin": 11.9
+      "rentSamples": 3876,
+      "walkToStationMin": 12.92
     },
     {
       "code": "1153054000",
@@ -4492,8 +4492,8 @@
       "crimePer1k": 8.85,
       "trafficAccidentPerKm2": 128.55,
       "monthlyRentMan": 64.17,
-      "rentSamples": 3869,
-      "walkToStationMin": 11.1
+      "rentSamples": 3876,
+      "walkToStationMin": 11.38
     },
     {
       "code": "1153055000",
@@ -4509,8 +4509,8 @@
       "crimePer1k": 8.85,
       "trafficAccidentPerKm2": 249.95,
       "monthlyRentMan": 64.17,
-      "rentSamples": 3869,
-      "walkToStationMin": 5.55
+      "rentSamples": 3876,
+      "walkToStationMin": 12.78
     },
     {
       "code": "1153056000",
@@ -4526,8 +4526,8 @@
       "crimePer1k": 8.85,
       "trafficAccidentPerKm2": 99.76,
       "monthlyRentMan": 64.17,
-      "rentSamples": 3869,
-      "walkToStationMin": 11.62
+      "rentSamples": 3876,
+      "walkToStationMin": 11.92
     },
     {
       "code": "1153072000",
@@ -4543,8 +4543,8 @@
       "crimePer1k": 8.85,
       "trafficAccidentPerKm2": 22.08,
       "monthlyRentMan": 54.58,
-      "rentSamples": 618,
-      "walkToStationMin": 16.07
+      "rentSamples": 619,
+      "walkToStationMin": 15.21
     },
     {
       "code": "1153073000",
@@ -4560,8 +4560,8 @@
       "crimePer1k": 8.85,
       "trafficAccidentPerKm2": 15.05,
       "monthlyRentMan": 54.58,
-      "rentSamples": 618,
-      "walkToStationMin": 28.06
+      "rentSamples": 619,
+      "walkToStationMin": 24.61
     },
     {
       "code": "1153075000",
@@ -4577,8 +4577,8 @@
       "crimePer1k": 8.85,
       "trafficAccidentPerKm2": 89.56,
       "monthlyRentMan": 59.17,
-      "rentSamples": 672,
-      "walkToStationMin": 8.39
+      "rentSamples": 673,
+      "walkToStationMin": 7.46
     },
     {
       "code": "1153076000",
@@ -4594,8 +4594,8 @@
       "crimePer1k": 8.85,
       "trafficAccidentPerKm2": 27.12,
       "monthlyRentMan": 59.17,
-      "rentSamples": 672,
-      "walkToStationMin": 16.85
+      "rentSamples": 673,
+      "walkToStationMin": 17.34
     },
     {
       "code": "1153077000",
@@ -4612,7 +4612,7 @@
       "trafficAccidentPerKm2": 81.69,
       "monthlyRentMan": 62.1,
       "rentSamples": 1467,
-      "walkToStationMin": 8.11
+      "walkToStationMin": 4.94
     },
     {
       "code": "1153080000",
@@ -4629,7 +4629,7 @@
       "trafficAccidentPerKm2": 1.4,
       "monthlyRentMan": 61.3,
       "rentSamples": 426,
-      "walkToStationMin": 25.69
+      "walkToStationMin": 20.9
     },
     {
       "code": "1153079000",
@@ -4646,7 +4646,7 @@
       "trafficAccidentPerKm2": 4.52,
       "monthlyRentMan": 60.91,
       "rentSamples": 0,
-      "walkToStationMin": 16.1
+      "walkToStationMin": 6.27
     },
     {
       "code": "1153059500",
@@ -4663,7 +4663,7 @@
       "trafficAccidentPerKm2": 83.33,
       "monthlyRentMan": 52.29,
       "rentSamples": 613,
-      "walkToStationMin": 8.35
+      "walkToStationMin": 8.08
     },
     {
       "code": "1153053000",
@@ -4679,8 +4679,8 @@
       "crimePer1k": 8.85,
       "trafficAccidentPerKm2": 60.27,
       "monthlyRentMan": 64.17,
-      "rentSamples": 3869,
-      "walkToStationMin": 20.58
+      "rentSamples": 3876,
+      "walkToStationMin": 16.66
     },
     {
       "code": "1153074000",
@@ -4691,13 +4691,13 @@
       "foodPerKm2": 201.58,
       "medicalPerKm2": 45.29,
       "nightlifePerKm2": 2.66,
-      "busStopPerKm2": 40.85,
+      "busStopPerKm2": 39.96,
       "cctvPerKm2": null,
       "crimePer1k": 8.85,
       "trafficAccidentPerKm2": 23.98,
       "monthlyRentMan": 59.17,
-      "rentSamples": 672,
-      "walkToStationMin": 19.07
+      "rentSamples": 673,
+      "walkToStationMin": 17.79
     },
     {
       "code": "1154551000",
@@ -4708,13 +4708,13 @@
       "foodPerKm2": 597.97,
       "medicalPerKm2": 52.62,
       "nightlifePerKm2": 6.24,
-      "busStopPerKm2": 42.36,
+      "busStopPerKm2": 42.81,
       "cctvPerKm2": null,
       "crimePer1k": 9.08,
       "trafficAccidentPerKm2": 11.15,
       "monthlyRentMan": 63.63,
-      "rentSamples": 2522,
-      "walkToStationMin": 10.85
+      "rentSamples": 2528,
+      "walkToStationMin": 10.98
     },
     {
       "code": "1154561000",
@@ -4730,8 +4730,8 @@
       "crimePer1k": 9.08,
       "trafficAccidentPerKm2": 30.06,
       "monthlyRentMan": 64.58,
-      "rentSamples": 3349,
-      "walkToStationMin": 8.22
+      "rentSamples": 3354,
+      "walkToStationMin": 7.7
     },
     {
       "code": "1154562000",
@@ -4747,8 +4747,8 @@
       "crimePer1k": 9.08,
       "trafficAccidentPerKm2": 25.99,
       "monthlyRentMan": 64.58,
-      "rentSamples": 3349,
-      "walkToStationMin": 25.3
+      "rentSamples": 3354,
+      "walkToStationMin": 21.59
     },
     {
       "code": "1154563000",
@@ -4764,8 +4764,8 @@
       "crimePer1k": 9.08,
       "trafficAccidentPerKm2": 17.98,
       "monthlyRentMan": 64.58,
-      "rentSamples": 3349,
-      "walkToStationMin": 22.17
+      "rentSamples": 3354,
+      "walkToStationMin": 18.75
     },
     {
       "code": "1154564000",
@@ -4781,8 +4781,8 @@
       "crimePer1k": 9.08,
       "trafficAccidentPerKm2": 42,
       "monthlyRentMan": 64.58,
-      "rentSamples": 3349,
-      "walkToStationMin": 27.77
+      "rentSamples": 3354,
+      "walkToStationMin": 32.03
     },
     {
       "code": "1154567000",
@@ -4799,7 +4799,7 @@
       "trafficAccidentPerKm2": 77.92,
       "monthlyRentMan": 51.29,
       "rentSamples": 1265,
-      "walkToStationMin": 13.62
+      "walkToStationMin": 14.66
     },
     {
       "code": "1154568000",
@@ -4816,7 +4816,7 @@
       "trafficAccidentPerKm2": 5.94,
       "monthlyRentMan": 51.29,
       "rentSamples": 1265,
-      "walkToStationMin": 47.88
+      "walkToStationMin": 40.38
     },
     {
       "code": "1154569000",
@@ -4833,7 +4833,7 @@
       "trafficAccidentPerKm2": 6.74,
       "monthlyRentMan": 51.29,
       "rentSamples": 1265,
-      "walkToStationMin": 13.44
+      "walkToStationMin": 15.64
     },
     {
       "code": "1154570000",
@@ -4850,7 +4850,7 @@
       "trafficAccidentPerKm2": 10.38,
       "monthlyRentMan": 51.29,
       "rentSamples": 1265,
-      "walkToStationMin": 29.89
+      "walkToStationMin": 25.38
     },
     {
       "code": "1154571000",
@@ -4867,7 +4867,7 @@
       "trafficAccidentPerKm2": 24.55,
       "monthlyRentMan": 51.29,
       "rentSamples": 1265,
-      "walkToStationMin": 31.95
+      "walkToStationMin": 29.15
     },
     {
       "code": "1156054000",
@@ -4882,9 +4882,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 11.19,
       "trafficAccidentPerKm2": 26.09,
-      "monthlyRentMan": 78.96,
+      "monthlyRentMan": 78.92,
       "rentSamples": 0,
-      "walkToStationMin": 8.18
+      "walkToStationMin": 6.45
     },
     {
       "code": "1156055000",
@@ -4899,9 +4899,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 11.19,
       "trafficAccidentPerKm2": 82.1,
-      "monthlyRentMan": 71.67,
-      "rentSamples": 749,
-      "walkToStationMin": 1.79
+      "monthlyRentMan": 71.71,
+      "rentSamples": 750,
+      "walkToStationMin": 5.21
     },
     {
       "code": "1156056000",
@@ -4916,9 +4916,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 11.19,
       "trafficAccidentPerKm2": 86.91,
-      "monthlyRentMan": 71.67,
-      "rentSamples": 749,
-      "walkToStationMin": 1.28
+      "monthlyRentMan": 71.71,
+      "rentSamples": 750,
+      "walkToStationMin": 14.14
     },
     {
       "code": "1156061000",
@@ -4933,9 +4933,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 11.19,
       "trafficAccidentPerKm2": 61.34,
-      "monthlyRentMan": 78.96,
+      "monthlyRentMan": 78.92,
       "rentSamples": 0,
-      "walkToStationMin": 3.55
+      "walkToStationMin": 4.23
     },
     {
       "code": "1156062000",
@@ -4950,9 +4950,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 11.19,
       "trafficAccidentPerKm2": 41.15,
-      "monthlyRentMan": 78.96,
+      "monthlyRentMan": 78.92,
       "rentSamples": 0,
-      "walkToStationMin": 14.22
+      "walkToStationMin": 4.92
     },
     {
       "code": "1156063000",
@@ -4968,8 +4968,8 @@
       "crimePer1k": 11.19,
       "trafficAccidentPerKm2": 49.31,
       "monthlyRentMan": 60.83,
-      "rentSamples": 2329,
-      "walkToStationMin": 11.63
+      "rentSamples": 2331,
+      "walkToStationMin": 11.98
     },
     {
       "code": "1156065000",
@@ -4985,8 +4985,8 @@
       "crimePer1k": 11.19,
       "trafficAccidentPerKm2": 81.23,
       "monthlyRentMan": 60.83,
-      "rentSamples": 2329,
-      "walkToStationMin": 15.6
+      "rentSamples": 2331,
+      "walkToStationMin": 15.35
     },
     {
       "code": "1156066000",
@@ -5002,8 +5002,8 @@
       "crimePer1k": 11.19,
       "trafficAccidentPerKm2": 59.01,
       "monthlyRentMan": 60.83,
-      "rentSamples": 2329,
-      "walkToStationMin": 18.06
+      "rentSamples": 2331,
+      "walkToStationMin": 17.94
     },
     {
       "code": "1156067000",
@@ -5019,8 +5019,8 @@
       "crimePer1k": 11.19,
       "trafficAccidentPerKm2": 77.29,
       "monthlyRentMan": 60.83,
-      "rentSamples": 2329,
-      "walkToStationMin": 6.66
+      "rentSamples": 2331,
+      "walkToStationMin": 2.4
     },
     {
       "code": "1156068000",
@@ -5036,8 +5036,8 @@
       "crimePer1k": 11.19,
       "trafficAccidentPerKm2": 79.49,
       "monthlyRentMan": 60.83,
-      "rentSamples": 2329,
-      "walkToStationMin": 9.29
+      "rentSamples": 2331,
+      "walkToStationMin": 9.73
     },
     {
       "code": "1156069000",
@@ -5053,8 +5053,8 @@
       "crimePer1k": 11.19,
       "trafficAccidentPerKm2": 21.91,
       "monthlyRentMan": 60.83,
-      "rentSamples": 2329,
-      "walkToStationMin": 8.54
+      "rentSamples": 2331,
+      "walkToStationMin": 2.09
     },
     {
       "code": "1156070000",
@@ -5070,8 +5070,8 @@
       "crimePer1k": 11.19,
       "trafficAccidentPerKm2": 81.01,
       "monthlyRentMan": 52.29,
-      "rentSamples": 1788,
-      "walkToStationMin": 15.93
+      "rentSamples": 1790,
+      "walkToStationMin": 15.4
     },
     {
       "code": "1156071000",
@@ -5087,8 +5087,8 @@
       "crimePer1k": 11.19,
       "trafficAccidentPerKm2": 165.95,
       "monthlyRentMan": 52.29,
-      "rentSamples": 1788,
-      "walkToStationMin": 9.82
+      "rentSamples": 1790,
+      "walkToStationMin": 10.87
     },
     {
       "code": "1156072000",
@@ -5104,8 +5104,8 @@
       "crimePer1k": 11.19,
       "trafficAccidentPerKm2": 146.24,
       "monthlyRentMan": 52.29,
-      "rentSamples": 1788,
-      "walkToStationMin": 16.63
+      "rentSamples": 1790,
+      "walkToStationMin": 15.85
     },
     {
       "code": "1156051500",
@@ -5120,9 +5120,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 11.19,
       "trafficAccidentPerKm2": 43.34,
-      "monthlyRentMan": 78.96,
+      "monthlyRentMan": 78.92,
       "rentSamples": 0,
-      "walkToStationMin": 11.17
+      "walkToStationMin": 6.64
     },
     {
       "code": "1156053500",
@@ -5139,7 +5139,7 @@
       "trafficAccidentPerKm2": 171.76,
       "monthlyRentMan": 54.58,
       "rentSamples": 222,
-      "walkToStationMin": 6.58
+      "walkToStationMin": 4.64
     },
     {
       "code": "1156058500",
@@ -5154,9 +5154,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 11.19,
       "trafficAccidentPerKm2": 54.61,
-      "monthlyRentMan": 65.58,
-      "rentSamples": 617,
-      "walkToStationMin": 13.72
+      "monthlyRentMan": 65.44,
+      "rentSamples": 620,
+      "walkToStationMin": 12.18
     },
     {
       "code": "1156060500",
@@ -5171,9 +5171,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 11.19,
       "trafficAccidentPerKm2": 66.6,
-      "monthlyRentMan": 78.96,
+      "monthlyRentMan": 78.92,
       "rentSamples": 0,
-      "walkToStationMin": 7.81
+      "walkToStationMin": 10.11
     },
     {
       "code": "1159052000",
@@ -5188,9 +5188,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 6.63,
       "trafficAccidentPerKm2": 35.47,
-      "monthlyRentMan": 59.56,
-      "rentSamples": 1724,
-      "walkToStationMin": 9.88
+      "monthlyRentMan": 59.53,
+      "rentSamples": 1725,
+      "walkToStationMin": 6.85
     },
     {
       "code": "1159053000",
@@ -5201,13 +5201,13 @@
       "foodPerKm2": 272.01,
       "medicalPerKm2": 53.14,
       "nightlifePerKm2": 0.7,
-      "busStopPerKm2": 22.38,
+      "busStopPerKm2": 27.97,
       "cctvPerKm2": null,
       "crimePer1k": 6.63,
       "trafficAccidentPerKm2": 12.59,
       "monthlyRentMan": 59.58,
-      "rentSamples": 3192,
-      "walkToStationMin": 3.79
+      "rentSamples": 3198,
+      "walkToStationMin": 9.18
     },
     {
       "code": "1159054000",
@@ -5223,8 +5223,8 @@
       "crimePer1k": 6.63,
       "trafficAccidentPerKm2": 61.82,
       "monthlyRentMan": 59.17,
-      "rentSamples": 2650,
-      "walkToStationMin": 7.63
+      "rentSamples": 2656,
+      "walkToStationMin": 4.88
     },
     {
       "code": "1159055000",
@@ -5240,8 +5240,8 @@
       "crimePer1k": 6.63,
       "trafficAccidentPerKm2": 117.44,
       "monthlyRentMan": 59.17,
-      "rentSamples": 2650,
-      "walkToStationMin": 12.45
+      "rentSamples": 2656,
+      "walkToStationMin": 7.08
     },
     {
       "code": "1159056000",
@@ -5257,8 +5257,8 @@
       "crimePer1k": 6.63,
       "trafficAccidentPerKm2": 24.8,
       "monthlyRentMan": 59.17,
-      "rentSamples": 2650,
-      "walkToStationMin": 18.65
+      "rentSamples": 2656,
+      "walkToStationMin": 13.07
     },
     {
       "code": "1159062000",
@@ -5274,8 +5274,8 @@
       "crimePer1k": 6.63,
       "trafficAccidentPerKm2": 50.61,
       "monthlyRentMan": 69.17,
-      "rentSamples": 2495,
-      "walkToStationMin": 8.7
+      "rentSamples": 2500,
+      "walkToStationMin": 14.98
     },
     {
       "code": "1159064000",
@@ -5291,8 +5291,8 @@
       "crimePer1k": 6.63,
       "trafficAccidentPerKm2": 7.83,
       "monthlyRentMan": 69.17,
-      "rentSamples": 2495,
-      "walkToStationMin": 9.98
+      "rentSamples": 2500,
+      "walkToStationMin": 4
     },
     {
       "code": "1159065000",
@@ -5308,8 +5308,8 @@
       "crimePer1k": 6.63,
       "trafficAccidentPerKm2": 11.71,
       "monthlyRentMan": 69.17,
-      "rentSamples": 2495,
-      "walkToStationMin": 10.25
+      "rentSamples": 2500,
+      "walkToStationMin": 4.71
     },
     {
       "code": "1159065100",
@@ -5325,8 +5325,8 @@
       "crimePer1k": 6.63,
       "trafficAccidentPerKm2": 6.05,
       "monthlyRentMan": 69.17,
-      "rentSamples": 2495,
-      "walkToStationMin": 11.67
+      "rentSamples": 2500,
+      "walkToStationMin": 8.62
     },
     {
       "code": "1159066000",
@@ -5342,8 +5342,8 @@
       "crimePer1k": 6.63,
       "trafficAccidentPerKm2": 35.93,
       "monthlyRentMan": 61.48,
-      "rentSamples": 774,
-      "walkToStationMin": 11.48
+      "rentSamples": 775,
+      "walkToStationMin": 8.71
     },
     {
       "code": "1159067000",
@@ -5359,8 +5359,8 @@
       "crimePer1k": 6.63,
       "trafficAccidentPerKm2": 96.56,
       "monthlyRentMan": 53.75,
-      "rentSamples": 1168,
-      "walkToStationMin": 6.11
+      "rentSamples": 1170,
+      "walkToStationMin": 8.23
     },
     {
       "code": "1159068000",
@@ -5371,13 +5371,13 @@
       "foodPerKm2": 267.34,
       "medicalPerKm2": 30.03,
       "nightlifePerKm2": 3.87,
-      "busStopPerKm2": 25.18,
+      "busStopPerKm2": 26.15,
       "cctvPerKm2": null,
       "crimePer1k": 6.63,
       "trafficAccidentPerKm2": 58.12,
       "monthlyRentMan": 53.75,
-      "rentSamples": 1168,
-      "walkToStationMin": 5.8
+      "rentSamples": 1170,
+      "walkToStationMin": 6.55
     },
     {
       "code": "1159060500",
@@ -5388,13 +5388,13 @@
       "foodPerKm2": 186.19,
       "medicalPerKm2": 33.64,
       "nightlifePerKm2": 0,
-      "busStopPerKm2": 20.88,
+      "busStopPerKm2": 27.84,
       "cctvPerKm2": null,
       "crimePer1k": 6.63,
       "trafficAccidentPerKm2": 48.14,
       "monthlyRentMan": 60.29,
       "rentSamples": 685,
-      "walkToStationMin": 7.06
+      "walkToStationMin": 5.13
     },
     {
       "code": "1159051000",
@@ -5409,9 +5409,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 6.63,
       "trafficAccidentPerKm2": 63.94,
-      "monthlyRentMan": 59.56,
-      "rentSamples": 1724,
-      "walkToStationMin": 8.03
+      "monthlyRentMan": 59.53,
+      "rentSamples": 1725,
+      "walkToStationMin": 9.77
     },
     {
       "code": "1159063000",
@@ -5427,8 +5427,8 @@
       "crimePer1k": 6.63,
       "trafficAccidentPerKm2": 40.82,
       "monthlyRentMan": 69.17,
-      "rentSamples": 2495,
-      "walkToStationMin": 12.32
+      "rentSamples": 2500,
+      "walkToStationMin": 16.58
     },
     {
       "code": "1162052500",
@@ -5445,7 +5445,7 @@
       "trafficAccidentPerKm2": 80.09,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 8.95
+      "walkToStationMin": 3.78
     },
     {
       "code": "1162054500",
@@ -5456,13 +5456,13 @@
       "foodPerKm2": 224.47,
       "medicalPerKm2": 37.94,
       "nightlifePerKm2": 0,
-      "busStopPerKm2": 25.29,
+      "busStopPerKm2": 28.45,
       "cctvPerKm2": null,
       "crimePer1k": 9.39,
       "trafficAccidentPerKm2": 18.97,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 17.39
+      "walkToStationMin": 18.18
     },
     {
       "code": "1162057500",
@@ -5473,13 +5473,13 @@
       "foodPerKm2": 428.65,
       "medicalPerKm2": 102.32,
       "nightlifePerKm2": 15.21,
-      "busStopPerKm2": 13.83,
+      "busStopPerKm2": 16.59,
       "cctvPerKm2": null,
       "crimePer1k": 9.39,
       "trafficAccidentPerKm2": 15.21,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 11.62
+      "walkToStationMin": 10.13
     },
     {
       "code": "1162058500",
@@ -5490,13 +5490,13 @@
       "foodPerKm2": 195.25,
       "medicalPerKm2": 23.07,
       "nightlifePerKm2": 2.56,
-      "busStopPerKm2": 16.24,
+      "busStopPerKm2": 15.38,
       "cctvPerKm2": null,
       "crimePer1k": 9.39,
       "trafficAccidentPerKm2": 7.69,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 30.87
+      "walkToStationMin": 8.14
     },
     {
       "code": "1162061500",
@@ -5507,13 +5507,13 @@
       "foodPerKm2": 553.07,
       "medicalPerKm2": 194.89,
       "nightlifePerKm2": 10.53,
-      "busStopPerKm2": 47.41,
+      "busStopPerKm2": 42.14,
       "cctvPerKm2": null,
       "crimePer1k": 9.39,
       "trafficAccidentPerKm2": 89.54,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 7.55
+      "walkToStationMin": 6.7
     },
     {
       "code": "1162062500",
@@ -5530,7 +5530,7 @@
       "trafficAccidentPerKm2": 31.17,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 13.22
+      "walkToStationMin": 5.95
     },
     {
       "code": "1162063000",
@@ -5546,8 +5546,8 @@
       "crimePer1k": 9.39,
       "trafficAccidentPerKm2": 3.07,
       "monthlyRentMan": 69.17,
-      "rentSamples": 462,
-      "walkToStationMin": 18.15
+      "rentSamples": 461,
+      "walkToStationMin": 15.24
     },
     {
       "code": "1162064500",
@@ -5558,13 +5558,13 @@
       "foodPerKm2": 493.18,
       "medicalPerKm2": 66.6,
       "nightlifePerKm2": 47.57,
-      "busStopPerKm2": 19.03,
+      "busStopPerKm2": 20.62,
       "cctvPerKm2": null,
       "crimePer1k": 9.39,
       "trafficAccidentPerKm2": 61.85,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 7.47
+      "walkToStationMin": 6.23
     },
     {
       "code": "1162065500",
@@ -5581,7 +5581,7 @@
       "trafficAccidentPerKm2": 13.88,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 12.17
+      "walkToStationMin": 9.48
     },
     {
       "code": "1162066500",
@@ -5592,13 +5592,13 @@
       "foodPerKm2": 203.39,
       "medicalPerKm2": 22.31,
       "nightlifePerKm2": 0,
-      "busStopPerKm2": 30.18,
+      "busStopPerKm2": 27.56,
       "cctvPerKm2": null,
       "crimePer1k": 9.39,
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 11.15
+      "walkToStationMin": 7.97
     },
     {
       "code": "1162068500",
@@ -5615,7 +5615,7 @@
       "trafficAccidentPerKm2": 29.73,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 10.3
+      "walkToStationMin": 9.56
     },
     {
       "code": "1162069500",
@@ -5631,8 +5631,8 @@
       "crimePer1k": 9.39,
       "trafficAccidentPerKm2": 74.91,
       "monthlyRentMan": 57.92,
-      "rentSamples": 7396,
-      "walkToStationMin": 6.43
+      "rentSamples": 7410,
+      "walkToStationMin": 4.14
     },
     {
       "code": "1162071500",
@@ -5649,7 +5649,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 37.25
+      "walkToStationMin": 35.01
     },
     {
       "code": "1162072500",
@@ -5666,7 +5666,7 @@
       "trafficAccidentPerKm2": 117.32,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 12.09
+      "walkToStationMin": 11.63
     },
     {
       "code": "1162073500",
@@ -5677,13 +5677,13 @@
       "foodPerKm2": 46.53,
       "medicalPerKm2": 4.12,
       "nightlifePerKm2": 0.71,
-      "busStopPerKm2": 6.24,
+      "busStopPerKm2": 5.77,
       "cctvPerKm2": null,
       "crimePer1k": 9.39,
       "trafficAccidentPerKm2": 2,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 43.96
+      "walkToStationMin": 10.08
     },
     {
       "code": "1162060500",
@@ -5700,7 +5700,7 @@
       "trafficAccidentPerKm2": 42.22,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 9.39
+      "walkToStationMin": 5.55
     },
     {
       "code": "1162056500",
@@ -5711,13 +5711,13 @@
       "foodPerKm2": 131.21,
       "medicalPerKm2": 32.07,
       "nightlifePerKm2": 0,
-      "busStopPerKm2": 49.57,
+      "busStopPerKm2": 48.11,
       "cctvPerKm2": null,
       "crimePer1k": 9.39,
       "trafficAccidentPerKm2": 4.37,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 16.1
+      "walkToStationMin": 16.52
     },
     {
       "code": "1162059500",
@@ -5734,7 +5734,7 @@
       "trafficAccidentPerKm2": 51.77,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 12.54
+      "walkToStationMin": 10.04
     },
     {
       "code": "1162077500",
@@ -5751,7 +5751,7 @@
       "trafficAccidentPerKm2": 44.37,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 23.78
+      "walkToStationMin": 24.7
     },
     {
       "code": "1162074500",
@@ -5768,7 +5768,7 @@
       "trafficAccidentPerKm2": 7.34,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 31.22
+      "walkToStationMin": 7.59
     },
     {
       "code": "1162076500",
@@ -5785,7 +5785,7 @@
       "trafficAccidentPerKm2": 35.82,
       "monthlyRentMan": 63.75,
       "rentSamples": 0,
-      "walkToStationMin": 23.19
+      "walkToStationMin": 22.31
     },
     {
       "code": "1165051000",
@@ -5800,9 +5800,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 4.38,
-      "monthlyRentMan": 106.67,
-      "rentSamples": 2772,
-      "walkToStationMin": 8.26
+      "monthlyRentMan": 106.83,
+      "rentSamples": 2781,
+      "walkToStationMin": 10.41
     },
     {
       "code": "1165052000",
@@ -5813,13 +5813,13 @@
       "foodPerKm2": 465.15,
       "medicalPerKm2": 146.68,
       "nightlifePerKm2": 4.05,
-      "busStopPerKm2": 36.47,
+      "busStopPerKm2": 37.28,
       "cctvPerKm2": null,
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 10.53,
-      "monthlyRentMan": 106.67,
-      "rentSamples": 2772,
-      "walkToStationMin": 15.79
+      "monthlyRentMan": 106.83,
+      "rentSamples": 2781,
+      "walkToStationMin": 14.9
     },
     {
       "code": "1165053000",
@@ -5834,9 +5834,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 3.66,
-      "monthlyRentMan": 106.67,
-      "rentSamples": 2772,
-      "walkToStationMin": 14.15
+      "monthlyRentMan": 106.83,
+      "rentSamples": 2781,
+      "walkToStationMin": 8.74
     },
     {
       "code": "1165053100",
@@ -5847,13 +5847,13 @@
       "foodPerKm2": 494.46,
       "medicalPerKm2": 439.65,
       "nightlifePerKm2": 15.99,
-      "busStopPerKm2": 36.54,
+      "busStopPerKm2": 42.25,
       "cctvPerKm2": null,
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 15.99,
-      "monthlyRentMan": 106.67,
-      "rentSamples": 2772,
-      "walkToStationMin": 10.85
+      "monthlyRentMan": 106.83,
+      "rentSamples": 2781,
+      "walkToStationMin": 13.24
     },
     {
       "code": "1165054000",
@@ -5870,7 +5870,7 @@
       "trafficAccidentPerKm2": 11.98,
       "monthlyRentMan": 158.35,
       "rentSamples": 462,
-      "walkToStationMin": 13.2
+      "walkToStationMin": 6.54
     },
     {
       "code": "1165055000",
@@ -5885,9 +5885,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 18.17,
-      "monthlyRentMan": 93.58,
+      "monthlyRentMan": 93.6,
       "rentSamples": 0,
-      "walkToStationMin": 4.37
+      "walkToStationMin": 2.2
     },
     {
       "code": "1165056000",
@@ -5903,8 +5903,8 @@
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 84.58,
-      "rentSamples": 951,
-      "walkToStationMin": 3.1
+      "rentSamples": 953,
+      "walkToStationMin": 10
     },
     {
       "code": "1165057000",
@@ -5920,8 +5920,8 @@
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 8.42,
       "monthlyRentMan": 84.58,
-      "rentSamples": 951,
-      "walkToStationMin": 4.86
+      "rentSamples": 953,
+      "walkToStationMin": 5.59
     },
     {
       "code": "1165058000",
@@ -5937,8 +5937,8 @@
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 21.4,
       "monthlyRentMan": 84.58,
-      "rentSamples": 951,
-      "walkToStationMin": 15.43
+      "rentSamples": 953,
+      "walkToStationMin": 6.5
     },
     {
       "code": "1165058100",
@@ -5949,13 +5949,13 @@
       "foodPerKm2": 347.88,
       "medicalPerKm2": 52.15,
       "nightlifePerKm2": 3.43,
-      "busStopPerKm2": 28.82,
+      "busStopPerKm2": 26.07,
       "cctvPerKm2": null,
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 84.58,
-      "rentSamples": 951,
-      "walkToStationMin": 14.99
+      "rentSamples": 953,
+      "walkToStationMin": 5.11
     },
     {
       "code": "1165059000",
@@ -5970,9 +5970,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 10.62,
-      "monthlyRentMan": 93.58,
+      "monthlyRentMan": 93.6,
       "rentSamples": 0,
-      "walkToStationMin": 14.71
+      "walkToStationMin": 16.8
     },
     {
       "code": "1165060000",
@@ -5988,8 +5988,8 @@
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 8.6,
       "monthlyRentMan": 79.38,
-      "rentSamples": 720,
-      "walkToStationMin": 8.06
+      "rentSamples": 722,
+      "walkToStationMin": 7.65
     },
     {
       "code": "1165061000",
@@ -6005,8 +6005,8 @@
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 10.35,
       "monthlyRentMan": 79.38,
-      "rentSamples": 720,
-      "walkToStationMin": 11.73
+      "rentSamples": 722,
+      "walkToStationMin": 12.75
     },
     {
       "code": "1165062000",
@@ -6017,13 +6017,13 @@
       "foodPerKm2": 42.73,
       "medicalPerKm2": 10.79,
       "nightlifePerKm2": 0,
-      "busStopPerKm2": 15.35,
+      "busStopPerKm2": 14.93,
       "cctvPerKm2": null,
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 79.38,
-      "rentSamples": 720,
-      "walkToStationMin": 15.8
+      "rentSamples": 722,
+      "walkToStationMin": 6.92
     },
     {
       "code": "1165062100",
@@ -6039,8 +6039,8 @@
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 20.2,
       "monthlyRentMan": 79.38,
-      "rentSamples": 720,
-      "walkToStationMin": 6.93
+      "rentSamples": 722,
+      "walkToStationMin": 6
     },
     {
       "code": "1165065100",
@@ -6056,8 +6056,8 @@
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 1.92,
       "monthlyRentMan": 73.58,
-      "rentSamples": 738,
-      "walkToStationMin": 37.43
+      "rentSamples": 741,
+      "walkToStationMin": 12.83
     },
     {
       "code": "1165065200",
@@ -6073,8 +6073,8 @@
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 0.4,
       "monthlyRentMan": 73.58,
-      "rentSamples": 738,
-      "walkToStationMin": 16.88
+      "rentSamples": 741,
+      "walkToStationMin": 9.53
     },
     {
       "code": "1165066000",
@@ -6091,7 +6091,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 60.73,
       "rentSamples": 86,
-      "walkToStationMin": 36
+      "walkToStationMin": 8.15
     },
     {
       "code": "1168051000",
@@ -6102,13 +6102,13 @@
       "foodPerKm2": 471.7,
       "medicalPerKm2": 265.44,
       "nightlifePerKm2": 10.34,
-      "busStopPerKm2": 8.04,
+      "busStopPerKm2": 8.62,
       "cctvPerKm2": null,
       "crimePer1k": 11.04,
       "trafficAccidentPerKm2": 13.21,
       "monthlyRentMan": 79.58,
       "rentSamples": 247,
-      "walkToStationMin": 12.85
+      "walkToStationMin": 14.3
     },
     {
       "code": "1168052100",
@@ -6123,9 +6123,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 11.04,
       "trafficAccidentPerKm2": 7.23,
-      "monthlyRentMan": 84.58,
-      "rentSamples": 1216,
-      "walkToStationMin": 9.08
+      "monthlyRentMan": 84.38,
+      "rentSamples": 1218,
+      "walkToStationMin": 7.23
     },
     {
       "code": "1168053100",
@@ -6140,9 +6140,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 11.04,
       "trafficAccidentPerKm2": 4.17,
-      "monthlyRentMan": 84.58,
-      "rentSamples": 1216,
-      "walkToStationMin": 9.98
+      "monthlyRentMan": 84.38,
+      "rentSamples": 1218,
+      "walkToStationMin": 9.49
     },
     {
       "code": "1168058000",
@@ -6159,7 +6159,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 120.08,
       "rentSamples": 533,
-      "walkToStationMin": 1.18
+      "walkToStationMin": 5.82
     },
     {
       "code": "1168059000",
@@ -6176,7 +6176,7 @@
       "trafficAccidentPerKm2": 5.57,
       "monthlyRentMan": 120.08,
       "rentSamples": 533,
-      "walkToStationMin": 9.31
+      "walkToStationMin": 9.18
     },
     {
       "code": "1168060000",
@@ -6193,7 +6193,7 @@
       "trafficAccidentPerKm2": 43.36,
       "monthlyRentMan": 99.58,
       "rentSamples": 799,
-      "walkToStationMin": 8.08
+      "walkToStationMin": 9.64
     },
     {
       "code": "1168063000",
@@ -6210,7 +6210,7 @@
       "trafficAccidentPerKm2": 44.12,
       "monthlyRentMan": 99.58,
       "rentSamples": 799,
-      "walkToStationMin": 13.09
+      "walkToStationMin": 11.28
     },
     {
       "code": "1168064000",
@@ -6225,9 +6225,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 11.04,
       "trafficAccidentPerKm2": 7.19,
-      "monthlyRentMan": 100.83,
-      "rentSamples": 2984,
-      "walkToStationMin": 9.97
+      "monthlyRentMan": 100.79,
+      "rentSamples": 2988,
+      "walkToStationMin": 3
     },
     {
       "code": "1168065000",
@@ -6242,9 +6242,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 11.04,
       "trafficAccidentPerKm2": 13.36,
-      "monthlyRentMan": 100.83,
-      "rentSamples": 2984,
-      "walkToStationMin": 15.57
+      "monthlyRentMan": 100.79,
+      "rentSamples": 2988,
+      "walkToStationMin": 13.55
     },
     {
       "code": "1168065500",
@@ -6260,8 +6260,8 @@
       "crimePer1k": 11.04,
       "trafficAccidentPerKm2": 15.85,
       "monthlyRentMan": 108.67,
-      "rentSamples": 385,
-      "walkToStationMin": 11.93
+      "rentSamples": 386,
+      "walkToStationMin": 10.23
     },
     {
       "code": "1168065600",
@@ -6277,8 +6277,8 @@
       "crimePer1k": 11.04,
       "trafficAccidentPerKm2": 20.37,
       "monthlyRentMan": 108.67,
-      "rentSamples": 385,
-      "walkToStationMin": 5.93
+      "rentSamples": 386,
+      "walkToStationMin": 1.78
     },
     {
       "code": "1168066000",
@@ -6293,9 +6293,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 11.04,
       "trafficAccidentPerKm2": 2.3,
-      "monthlyRentMan": 137.67,
-      "rentSamples": 687,
-      "walkToStationMin": 26.75
+      "monthlyRentMan": 136.42,
+      "rentSamples": 686,
+      "walkToStationMin": 9.88
     },
     {
       "code": "1168069000",
@@ -6310,9 +6310,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 11.04,
       "trafficAccidentPerKm2": 3.16,
-      "monthlyRentMan": 137.67,
-      "rentSamples": 687,
-      "walkToStationMin": 28.85
+      "monthlyRentMan": 136.42,
+      "rentSamples": 686,
+      "walkToStationMin": 22.04
     },
     {
       "code": "1168072000",
@@ -6329,7 +6329,7 @@
       "trafficAccidentPerKm2": 0,
       "monthlyRentMan": 95.58,
       "rentSamples": 0,
-      "walkToStationMin": 3.28
+      "walkToStationMin": 2.91
     },
     {
       "code": "1168073000",
@@ -6344,9 +6344,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 11.04,
       "trafficAccidentPerKm2": 10.58,
-      "monthlyRentMan": 74.23,
-      "rentSamples": 492,
-      "walkToStationMin": 16.49
+      "monthlyRentMan": 74.44,
+      "rentSamples": 494,
+      "walkToStationMin": 8.64
     },
     {
       "code": "1168067500",
@@ -6361,9 +6361,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 11.04,
       "trafficAccidentPerKm2": 11.61,
-      "monthlyRentMan": 137.67,
-      "rentSamples": 687,
-      "walkToStationMin": 8.12
+      "monthlyRentMan": 136.42,
+      "rentSamples": 686,
+      "walkToStationMin": 2.2
     },
     {
       "code": "1168075000",
@@ -6379,8 +6379,8 @@
       "crimePer1k": 11.04,
       "trafficAccidentPerKm2": 28.34,
       "monthlyRentMan": 157.88,
-      "rentSamples": 254,
-      "walkToStationMin": 4.96
+      "rentSamples": 256,
+      "walkToStationMin": 1.94
     },
     {
       "code": "1168070000",
@@ -6397,7 +6397,7 @@
       "trafficAccidentPerKm2": 2.03,
       "monthlyRentMan": 85.9,
       "rentSamples": 164,
-      "walkToStationMin": 37.34
+      "walkToStationMin": 38.33
     },
     {
       "code": "1168054500",
@@ -6414,7 +6414,7 @@
       "trafficAccidentPerKm2": 3,
       "monthlyRentMan": 240.63,
       "rentSamples": 8,
-      "walkToStationMin": 12.47
+      "walkToStationMin": 11.3
     },
     {
       "code": "1168056500",
@@ -6431,7 +6431,7 @@
       "trafficAccidentPerKm2": 6.32,
       "monthlyRentMan": 100.92,
       "rentSamples": 371,
-      "walkToStationMin": 13.75
+      "walkToStationMin": 12.82
     },
     {
       "code": "1168061000",
@@ -6448,7 +6448,7 @@
       "trafficAccidentPerKm2": 8.74,
       "monthlyRentMan": 99.58,
       "rentSamples": 799,
-      "walkToStationMin": 11.04
+      "walkToStationMin": 15.94
     },
     {
       "code": "1168067000",
@@ -6463,9 +6463,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 11.04,
       "trafficAccidentPerKm2": 5.05,
-      "monthlyRentMan": 137.67,
-      "rentSamples": 687,
-      "walkToStationMin": 7.66
+      "monthlyRentMan": 136.42,
+      "rentSamples": 686,
+      "walkToStationMin": 9.78
     },
     {
       "code": "1171051000",
@@ -6482,7 +6482,7 @@
       "trafficAccidentPerKm2": 50.14,
       "monthlyRentMan": 64.58,
       "rentSamples": 474,
-      "walkToStationMin": 16.37
+      "walkToStationMin": 6.88
     },
     {
       "code": "1171052000",
@@ -6499,7 +6499,7 @@
       "trafficAccidentPerKm2": 22.6,
       "monthlyRentMan": 64.58,
       "rentSamples": 474,
-      "walkToStationMin": 19.8
+      "walkToStationMin": 9.08
     },
     {
       "code": "1171053100",
@@ -6514,9 +6514,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 98.83,
-      "monthlyRentMan": 89.48,
-      "rentSamples": 684,
-      "walkToStationMin": 3.58
+      "monthlyRentMan": 89.38,
+      "rentSamples": 685,
+      "walkToStationMin": 5.03
     },
     {
       "code": "1171053200",
@@ -6531,9 +6531,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 75.16,
-      "monthlyRentMan": 89.48,
-      "rentSamples": 684,
-      "walkToStationMin": 6.88
+      "monthlyRentMan": 89.38,
+      "rentSamples": 685,
+      "walkToStationMin": 4.81
     },
     {
       "code": "1171054000",
@@ -6550,7 +6550,7 @@
       "trafficAccidentPerKm2": 32.74,
       "monthlyRentMan": 46.55,
       "rentSamples": 370,
-      "walkToStationMin": 6.16
+      "walkToStationMin": 0.97
     },
     {
       "code": "1171055000",
@@ -6567,7 +6567,7 @@
       "trafficAccidentPerKm2": 54.32,
       "monthlyRentMan": 46.55,
       "rentSamples": 370,
-      "walkToStationMin": 13.78
+      "walkToStationMin": 11.47
     },
     {
       "code": "1171056100",
@@ -6583,8 +6583,8 @@
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 30.77,
       "monthlyRentMan": 94.58,
-      "rentSamples": 1971,
-      "walkToStationMin": 7.34
+      "rentSamples": 1976,
+      "walkToStationMin": 7.13
     },
     {
       "code": "1171056200",
@@ -6600,8 +6600,8 @@
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 151.24,
       "monthlyRentMan": 94.58,
-      "rentSamples": 1971,
-      "walkToStationMin": 5.47
+      "rentSamples": 1976,
+      "walkToStationMin": 5.68
     },
     {
       "code": "1171056600",
@@ -6618,7 +6618,7 @@
       "trafficAccidentPerKm2": 65.38,
       "monthlyRentMan": 95.58,
       "rentSamples": 0,
-      "walkToStationMin": 5.35
+      "walkToStationMin": 1.45
     },
     {
       "code": "1171057000",
@@ -6633,9 +6633,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 43.87,
-      "monthlyRentMan": 69.38,
-      "rentSamples": 218,
-      "walkToStationMin": 12.63
+      "monthlyRentMan": 69.58,
+      "rentSamples": 219,
+      "walkToStationMin": 11.74
     },
     {
       "code": "1171058000",
@@ -6650,9 +6650,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 129.27,
-      "monthlyRentMan": 79.08,
-      "rentSamples": 359,
-      "walkToStationMin": 7.98
+      "monthlyRentMan": 79.13,
+      "rentSamples": 360,
+      "walkToStationMin": 7.19
     },
     {
       "code": "1171059000",
@@ -6667,9 +6667,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 116.9,
-      "monthlyRentMan": 79.08,
-      "rentSamples": 359,
-      "walkToStationMin": 10.96
+      "monthlyRentMan": 79.13,
+      "rentSamples": 360,
+      "walkToStationMin": 9.24
     },
     {
       "code": "1171060000",
@@ -6685,8 +6685,8 @@
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 129.87,
       "monthlyRentMan": 72.29,
-      "rentSamples": 567,
-      "walkToStationMin": 9.93
+      "rentSamples": 569,
+      "walkToStationMin": 8.19
     },
     {
       "code": "1171061000",
@@ -6703,7 +6703,7 @@
       "trafficAccidentPerKm2": 121.24,
       "monthlyRentMan": 69.58,
       "rentSamples": 341,
-      "walkToStationMin": 9.03
+      "walkToStationMin": 8.77
     },
     {
       "code": "1171062000",
@@ -6720,7 +6720,7 @@
       "trafficAccidentPerKm2": 96.29,
       "monthlyRentMan": 95.58,
       "rentSamples": 0,
-      "walkToStationMin": 7.85
+      "walkToStationMin": 5.64
     },
     {
       "code": "1171063100",
@@ -6736,8 +6736,8 @@
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 109,
       "monthlyRentMan": 108.65,
-      "rentSamples": 822,
-      "walkToStationMin": 11.21
+      "rentSamples": 823,
+      "walkToStationMin": 14.64
     },
     {
       "code": "1171063200",
@@ -6753,8 +6753,8 @@
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 29.76,
       "monthlyRentMan": 108.65,
-      "rentSamples": 822,
-      "walkToStationMin": 10.54
+      "rentSamples": 823,
+      "walkToStationMin": 9.43
     },
     {
       "code": "1171064100",
@@ -6769,9 +6769,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 38.96,
-      "monthlyRentMan": 101.38,
-      "rentSamples": 3142,
-      "walkToStationMin": 8.56
+      "monthlyRentMan": 101.33,
+      "rentSamples": 3145,
+      "walkToStationMin": 6.79
     },
     {
       "code": "1171064200",
@@ -6786,9 +6786,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 16.56,
-      "monthlyRentMan": 101.38,
-      "rentSamples": 3142,
-      "walkToStationMin": 12.74
+      "monthlyRentMan": 101.33,
+      "rentSamples": 3145,
+      "walkToStationMin": 6.3
     },
     {
       "code": "1171065000",
@@ -6805,7 +6805,7 @@
       "trafficAccidentPerKm2": 142.19,
       "monthlyRentMan": 95.58,
       "rentSamples": 0,
-      "walkToStationMin": 6.99
+      "walkToStationMin": 7.64
     },
     {
       "code": "1171069000",
@@ -6820,9 +6820,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 33.35,
-      "monthlyRentMan": 98.33,
-      "rentSamples": 1092,
-      "walkToStationMin": 9.12
+      "monthlyRentMan": 97.92,
+      "rentSamples": 1095,
+      "walkToStationMin": 5.41
     },
     {
       "code": "1171071000",
@@ -6837,9 +6837,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 67.27,
-      "monthlyRentMan": 98.33,
-      "rentSamples": 1092,
-      "walkToStationMin": 7.6
+      "monthlyRentMan": 97.92,
+      "rentSamples": 1095,
+      "walkToStationMin": 4.19
     },
     {
       "code": "1171072000",
@@ -6854,9 +6854,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 19.11,
-      "monthlyRentMan": 98.33,
-      "rentSamples": 1092,
-      "walkToStationMin": 8.83
+      "monthlyRentMan": 97.92,
+      "rentSamples": 1095,
+      "walkToStationMin": 6.5
     },
     {
       "code": "1171067000",
@@ -6871,9 +6871,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 54.61,
-      "monthlyRentMan": 98.33,
-      "rentSamples": 1092,
-      "walkToStationMin": 16.72
+      "monthlyRentMan": 97.92,
+      "rentSamples": 1095,
+      "walkToStationMin": 2.36
     },
     {
       "code": "1171068000",
@@ -6888,9 +6888,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 94.5,
-      "monthlyRentMan": 98.33,
-      "rentSamples": 1092,
-      "walkToStationMin": 12.23
+      "monthlyRentMan": 97.92,
+      "rentSamples": 1095,
+      "walkToStationMin": 15.25
     },
     {
       "code": "1171064600",
@@ -6906,8 +6906,8 @@
       "crimePer1k": 7.97,
       "trafficAccidentPerKm2": 19.66,
       "monthlyRentMan": 55.49,
-      "rentSamples": 476,
-      "walkToStationMin": 12.34
+      "rentSamples": 474,
+      "walkToStationMin": 12.66
     },
     {
       "code": "1171064700",
@@ -6924,7 +6924,7 @@
       "trafficAccidentPerKm2": 1.53,
       "monthlyRentMan": 95.58,
       "rentSamples": 0,
-      "walkToStationMin": 22.11
+      "walkToStationMin": 30.03
     },
     {
       "code": "1174052600",
@@ -6939,9 +6939,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 6.73,
       "trafficAccidentPerKm2": 0,
-      "monthlyRentMan": 64.92,
+      "monthlyRentMan": 64.88,
       "rentSamples": 0,
-      "walkToStationMin": 13.22
+      "walkToStationMin": 11.98
     },
     {
       "code": "1174052500",
@@ -6956,9 +6956,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 6.73,
       "trafficAccidentPerKm2": 5.06,
-      "monthlyRentMan": 64.92,
+      "monthlyRentMan": 64.88,
       "rentSamples": 0,
-      "walkToStationMin": 13.94
+      "walkToStationMin": 18.05
     },
     {
       "code": "1174053000",
@@ -6973,9 +6973,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 6.73,
       "trafficAccidentPerKm2": 37.05,
-      "monthlyRentMan": 82.17,
-      "rentSamples": 553,
-      "walkToStationMin": 6.25
+      "monthlyRentMan": 82,
+      "rentSamples": 554,
+      "walkToStationMin": 5
     },
     {
       "code": "1174054000",
@@ -6990,9 +6990,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 6.73,
       "trafficAccidentPerKm2": 22.42,
-      "monthlyRentMan": 82.17,
-      "rentSamples": 553,
-      "walkToStationMin": 17.64
+      "monthlyRentMan": 82,
+      "rentSamples": 554,
+      "walkToStationMin": 8.64
     },
     {
       "code": "1174055000",
@@ -7009,7 +7009,7 @@
       "trafficAccidentPerKm2": 2.62,
       "monthlyRentMan": 131.5,
       "rentSamples": 539,
-      "walkToStationMin": 19.65
+      "walkToStationMin": 10.78
     },
     {
       "code": "1174056000",
@@ -7026,7 +7026,7 @@
       "trafficAccidentPerKm2": 7.98,
       "monthlyRentMan": 131.5,
       "rentSamples": 539,
-      "walkToStationMin": 19.41
+      "walkToStationMin": 7.03
     },
     {
       "code": "1174058000",
@@ -7041,9 +7041,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 6.73,
       "trafficAccidentPerKm2": 11.06,
-      "monthlyRentMan": 59.94,
-      "rentSamples": 754,
-      "walkToStationMin": 19.2
+      "monthlyRentMan": 59.58,
+      "rentSamples": 755,
+      "walkToStationMin": 3.21
     },
     {
       "code": "1174059000",
@@ -7054,13 +7054,13 @@
       "foodPerKm2": 30.06,
       "medicalPerKm2": 10.02,
       "nightlifePerKm2": 0,
-      "busStopPerKm2": 8.35,
+      "busStopPerKm2": 8.91,
       "cctvPerKm2": null,
       "crimePer1k": 6.73,
       "trafficAccidentPerKm2": 2.23,
-      "monthlyRentMan": 59.94,
-      "rentSamples": 754,
-      "walkToStationMin": 9.89
+      "monthlyRentMan": 59.58,
+      "rentSamples": 755,
+      "walkToStationMin": 4.43
     },
     {
       "code": "1174060000",
@@ -7076,8 +7076,8 @@
       "crimePer1k": 6.73,
       "trafficAccidentPerKm2": 64.24,
       "monthlyRentMan": 74.17,
-      "rentSamples": 2820,
-      "walkToStationMin": 7.31
+      "rentSamples": 2827,
+      "walkToStationMin": 8.51
     },
     {
       "code": "1174062000",
@@ -7093,8 +7093,8 @@
       "crimePer1k": 6.73,
       "trafficAccidentPerKm2": 96.58,
       "monthlyRentMan": 74.17,
-      "rentSamples": 2820,
-      "walkToStationMin": 8.45
+      "rentSamples": 2827,
+      "walkToStationMin": 7.35
     },
     {
       "code": "1174064000",
@@ -7110,8 +7110,8 @@
       "crimePer1k": 6.73,
       "trafficAccidentPerKm2": 87.73,
       "monthlyRentMan": 67.5,
-      "rentSamples": 1687,
-      "walkToStationMin": 9.84
+      "rentSamples": 1689,
+      "walkToStationMin": 9.75
     },
     {
       "code": "1174065000",
@@ -7127,8 +7127,8 @@
       "crimePer1k": 6.73,
       "trafficAccidentPerKm2": 185.27,
       "monthlyRentMan": 67.5,
-      "rentSamples": 1687,
-      "walkToStationMin": 7.54
+      "rentSamples": 1689,
+      "walkToStationMin": 9.45
     },
     {
       "code": "1174066000",
@@ -7144,8 +7144,8 @@
       "crimePer1k": 6.73,
       "trafficAccidentPerKm2": 140.27,
       "monthlyRentMan": 67.5,
-      "rentSamples": 1687,
-      "walkToStationMin": 4.83
+      "rentSamples": 1689,
+      "walkToStationMin": 4.21
     },
     {
       "code": "1174069000",
@@ -7162,7 +7162,7 @@
       "trafficAccidentPerKm2": 39.08,
       "monthlyRentMan": 67.06,
       "rentSamples": 230,
-      "walkToStationMin": 8.68
+      "walkToStationMin": 2.78
     },
     {
       "code": "1174070000",
@@ -7179,7 +7179,7 @@
       "trafficAccidentPerKm2": 27,
       "monthlyRentMan": 67.06,
       "rentSamples": 230,
-      "walkToStationMin": 6.05
+      "walkToStationMin": 13.42
     },
     {
       "code": "1174057000",
@@ -7194,9 +7194,9 @@
       "cctvPerKm2": null,
       "crimePer1k": 6.73,
       "trafficAccidentPerKm2": 58.93,
-      "monthlyRentMan": 59.94,
-      "rentSamples": 754,
-      "walkToStationMin": 12.84
+      "monthlyRentMan": 59.58,
+      "rentSamples": 755,
+      "walkToStationMin": 10.51
     },
     {
       "code": "1174061000",
@@ -7212,8 +7212,8 @@
       "crimePer1k": 6.73,
       "trafficAccidentPerKm2": 95.77,
       "monthlyRentMan": 74.17,
-      "rentSamples": 2820,
-      "walkToStationMin": 13.56
+      "rentSamples": 2827,
+      "walkToStationMin": 9.98
     },
     {
       "code": "1174068500",
@@ -7224,13 +7224,1951 @@
       "foodPerKm2": 378.77,
       "medicalPerKm2": 96.88,
       "nightlifePerKm2": 41.25,
-      "busStopPerKm2": 19.38,
+      "busStopPerKm2": 20,
       "cctvPerKm2": null,
       "crimePer1k": 6.73,
       "trafficAccidentPerKm2": 68.13,
       "monthlyRentMan": 63.83,
-      "rentSamples": 1453,
-      "walkToStationMin": 10.77
+      "rentSamples": 1456,
+      "walkToStationMin": 1.04
+    },
+    {
+      "code": "4111156000",
+      "name": "수원시 장안구 파장동",
+      "gu": "수원시 장안구",
+      "areaKm2": 8.5455,
+      "storePerKm2": 6.2,
+      "foodPerKm2": 31.83,
+      "medicalPerKm2": 4.68,
+      "nightlifePerKm2": 2.22,
+      "busStopPerKm2": 5.15,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 2.34,
+      "monthlyRentMan": 42.29,
+      "rentSamples": 146,
+      "walkToStationMin": 46.06
+    },
+    {
+      "code": "4111156600",
+      "name": "수원시 장안구 율천동",
+      "gu": "수원시 장안구",
+      "areaKm2": 2.889,
+      "storePerKm2": 31.84,
+      "foodPerKm2": 159.92,
+      "medicalPerKm2": 18,
+      "nightlifePerKm2": 2.08,
+      "busStopPerKm2": 5.19,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 5.19,
+      "monthlyRentMan": 47.67,
+      "rentSamples": 0,
+      "walkToStationMin": 22.18
+    },
+    {
+      "code": "4111157100",
+      "name": "수원시 장안구 정자1동",
+      "gu": "수원시 장안구",
+      "areaKm2": 1.1302,
+      "storePerKm2": 22.12,
+      "foodPerKm2": 122.99,
+      "medicalPerKm2": 29.2,
+      "nightlifePerKm2": 12.39,
+      "busStopPerKm2": 15.04,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 35.39,
+      "monthlyRentMan": 85,
+      "rentSamples": 662,
+      "walkToStationMin": 40.54
+    },
+    {
+      "code": "4111157200",
+      "name": "수원시 장안구 정자2동",
+      "gu": "수원시 장안구",
+      "areaKm2": 1.2874,
+      "storePerKm2": 42.72,
+      "foodPerKm2": 249.34,
+      "medicalPerKm2": 38.06,
+      "nightlifePerKm2": 0.78,
+      "busStopPerKm2": 21.75,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 62.92,
+      "monthlyRentMan": 85,
+      "rentSamples": 662,
+      "walkToStationMin": 27.72
+    },
+    {
+      "code": "4111158000",
+      "name": "수원시 장안구 영화동",
+      "gu": "수원시 장안구",
+      "areaKm2": 1.2441,
+      "storePerKm2": 60.28,
+      "foodPerKm2": 331.16,
+      "medicalPerKm2": 40.19,
+      "nightlifePerKm2": 40.19,
+      "busStopPerKm2": 20.9,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 115.75,
+      "monthlyRentMan": 40.42,
+      "rentSamples": 346,
+      "walkToStationMin": 40.8
+    },
+    {
+      "code": "4111159100",
+      "name": "수원시 장안구 송죽동",
+      "gu": "수원시 장안구",
+      "areaKm2": 1.6651,
+      "storePerKm2": 22.82,
+      "foodPerKm2": 202.39,
+      "medicalPerKm2": 24.02,
+      "nightlifePerKm2": 0.6,
+      "busStopPerKm2": 10.81,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 19.82,
+      "monthlyRentMan": 52.29,
+      "rentSamples": 133,
+      "walkToStationMin": 50.17
+    },
+    {
+      "code": "4111159700",
+      "name": "수원시 장안구 조원1동",
+      "gu": "수원시 장안구",
+      "areaKm2": 1.6484,
+      "storePerKm2": 38.22,
+      "foodPerKm2": 161.37,
+      "medicalPerKm2": 18.81,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 7.28,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 21.23,
+      "monthlyRentMan": 47.29,
+      "rentSamples": 366,
+      "walkToStationMin": 54.83
+    },
+    {
+      "code": "4111160000",
+      "name": "수원시 장안구 연무동",
+      "gu": "수원시 장안구",
+      "areaKm2": 11.6734,
+      "storePerKm2": 3.77,
+      "foodPerKm2": 22.96,
+      "medicalPerKm2": 2.74,
+      "nightlifePerKm2": 0.17,
+      "busStopPerKm2": 2.66,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 3.85,
+      "monthlyRentMan": 44.29,
+      "rentSamples": 388,
+      "walkToStationMin": 34.8
+    },
+    {
+      "code": "4111157300",
+      "name": "수원시 장안구 정자3동",
+      "gu": "수원시 장안구",
+      "areaKm2": 1.8481,
+      "storePerKm2": 25.97,
+      "foodPerKm2": 180.73,
+      "medicalPerKm2": 54.65,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 23.81,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 27.05,
+      "monthlyRentMan": 85,
+      "rentSamples": 662,
+      "walkToStationMin": 30.53
+    },
+    {
+      "code": "4111159800",
+      "name": "수원시 장안구 조원2동",
+      "gu": "수원시 장안구",
+      "areaKm2": 1.2769,
+      "storePerKm2": 12.53,
+      "foodPerKm2": 62.65,
+      "medicalPerKm2": 34.46,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 3.92,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 7.83,
+      "monthlyRentMan": 47.29,
+      "rentSamples": 366,
+      "walkToStationMin": 57.8
+    },
+    {
+      "code": "4111352000",
+      "name": "수원시 권선구 세류1동",
+      "gu": "수원시 권선구",
+      "areaKm2": 0.7793,
+      "storePerKm2": 20.53,
+      "foodPerKm2": 51.33,
+      "medicalPerKm2": 23.1,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 17.96,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 7.7,
+      "monthlyRentMan": 42.38,
+      "rentSamples": 519,
+      "walkToStationMin": 16.06
+    },
+    {
+      "code": "4111353000",
+      "name": "수원시 권선구 세류2동",
+      "gu": "수원시 권선구",
+      "areaKm2": 3.8945,
+      "storePerKm2": 17.97,
+      "foodPerKm2": 61.88,
+      "medicalPerKm2": 8.47,
+      "nightlifePerKm2": 1.8,
+      "busStopPerKm2": 6.93,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 13.35,
+      "monthlyRentMan": 42.38,
+      "rentSamples": 519,
+      "walkToStationMin": 22.85
+    },
+    {
+      "code": "4111354000",
+      "name": "수원시 권선구 세류3동",
+      "gu": "수원시 권선구",
+      "areaKm2": 0.8727,
+      "storePerKm2": 55,
+      "foodPerKm2": 221.15,
+      "medicalPerKm2": 25.21,
+      "nightlifePerKm2": 2.29,
+      "busStopPerKm2": 17.19,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 18.33,
+      "monthlyRentMan": 42.38,
+      "rentSamples": 519,
+      "walkToStationMin": 15.52
+    },
+    {
+      "code": "4111355000",
+      "name": "수원시 권선구 평동",
+      "gu": "수원시 권선구",
+      "areaKm2": 10.8461,
+      "storePerKm2": 9.68,
+      "foodPerKm2": 42.69,
+      "medicalPerKm2": 5.35,
+      "nightlifePerKm2": 0.09,
+      "busStopPerKm2": 10.6,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 0.46,
+      "monthlyRentMan": 49.29,
+      "rentSamples": 0,
+      "walkToStationMin": 2.71
+    },
+    {
+      "code": "4111356000",
+      "name": "수원시 권선구 서둔동",
+      "gu": "수원시 권선구",
+      "areaKm2": 5.507,
+      "storePerKm2": 17.07,
+      "foodPerKm2": 69.55,
+      "medicalPerKm2": 9.99,
+      "nightlifePerKm2": 0.18,
+      "busStopPerKm2": 13.44,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 1.45,
+      "monthlyRentMan": 64.58,
+      "rentSamples": 275,
+      "walkToStationMin": 33.43
+    },
+    {
+      "code": "4111365000",
+      "name": "수원시 권선구 구운동",
+      "gu": "수원시 권선구",
+      "areaKm2": 2.06,
+      "storePerKm2": 21.84,
+      "foodPerKm2": 137.38,
+      "medicalPerKm2": 8.25,
+      "nightlifePerKm2": 1.46,
+      "busStopPerKm2": 21.84,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 1.46,
+      "monthlyRentMan": 42.29,
+      "rentSamples": 273,
+      "walkToStationMin": 26.52
+    },
+    {
+      "code": "4111366400",
+      "name": "수원시 권선구 호매실동",
+      "gu": "수원시 권선구",
+      "areaKm2": 4.7394,
+      "storePerKm2": 11.18,
+      "foodPerKm2": 64.14,
+      "medicalPerKm2": 8.23,
+      "nightlifePerKm2": 0.21,
+      "busStopPerKm2": 2.11,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 0.84,
+      "monthlyRentMan": 57.58,
+      "rentSamples": 402,
+      "walkToStationMin": 43.76
+    },
+    {
+      "code": "4111369000",
+      "name": "수원시 권선구 곡선동",
+      "gu": "수원시 권선구",
+      "areaKm2": 3.6093,
+      "storePerKm2": 22.44,
+      "foodPerKm2": 103.07,
+      "medicalPerKm2": 14.96,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 5.54,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 1.39,
+      "monthlyRentMan": 49.29,
+      "rentSamples": 0,
+      "walkToStationMin": 25.04
+    },
+    {
+      "code": "4111370000",
+      "name": "수원시 권선구 입북동",
+      "gu": "수원시 권선구",
+      "areaKm2": 6.996,
+      "storePerKm2": 3.29,
+      "foodPerKm2": 12.86,
+      "medicalPerKm2": 1.57,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 6.58,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 54.58,
+      "rentSamples": 9,
+      "walkToStationMin": 52.52
+    },
+    {
+      "code": "4111366200",
+      "name": "수원시 권선구 금곡동",
+      "gu": "수원시 권선구",
+      "areaKm2": 4.0715,
+      "storePerKm2": 14.98,
+      "foodPerKm2": 117.65,
+      "medicalPerKm2": 23.82,
+      "nightlifePerKm2": 3.68,
+      "busStopPerKm2": 5.16,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 1.96,
+      "monthlyRentMan": 54.17,
+      "rentSamples": 993,
+      "walkToStationMin": 75.38
+    },
+    {
+      "code": "4111368000",
+      "name": "수원시 권선구 권선2동",
+      "gu": "수원시 권선구",
+      "areaKm2": 2.4816,
+      "storePerKm2": 17.33,
+      "foodPerKm2": 119.68,
+      "medicalPerKm2": 25.79,
+      "nightlifePerKm2": 0.4,
+      "busStopPerKm2": 16.52,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 10.48,
+      "monthlyRentMan": 57.29,
+      "rentSamples": 1318,
+      "walkToStationMin": 26.29
+    },
+    {
+      "code": "4111570000",
+      "name": "수원시 팔달구 지동",
+      "gu": "수원시 팔달구",
+      "areaKm2": 0.8143,
+      "storePerKm2": 45.44,
+      "foodPerKm2": 173.15,
+      "medicalPerKm2": 34.39,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 27.02,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 33.16,
+      "monthlyRentMan": 37.29,
+      "rentSamples": 211,
+      "walkToStationMin": 37.04
+    },
+    {
+      "code": "4111571000",
+      "name": "수원시 팔달구 우만1동",
+      "gu": "수원시 팔달구",
+      "areaKm2": 1.3814,
+      "storePerKm2": 41.26,
+      "foodPerKm2": 177.36,
+      "medicalPerKm2": 21.72,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 20.99,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 7.96,
+      "monthlyRentMan": 52.29,
+      "rentSamples": 971,
+      "walkToStationMin": 38.86
+    },
+    {
+      "code": "4111572000",
+      "name": "수원시 팔달구 우만2동",
+      "gu": "수원시 팔달구",
+      "areaKm2": 0.8176,
+      "storePerKm2": 35.47,
+      "foodPerKm2": 231.16,
+      "medicalPerKm2": 50.15,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 17.12,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 24.46,
+      "monthlyRentMan": 52.29,
+      "rentSamples": 971,
+      "walkToStationMin": 32.44
+    },
+    {
+      "code": "4111573000",
+      "name": "수원시 팔달구 인계동",
+      "gu": "수원시 팔달구",
+      "areaKm2": 2.9373,
+      "storePerKm2": 47.32,
+      "foodPerKm2": 400.71,
+      "medicalPerKm2": 87.84,
+      "nightlifePerKm2": 29.62,
+      "busStopPerKm2": 15.32,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 33.7,
+      "monthlyRentMan": 54.44,
+      "rentSamples": 1264,
+      "walkToStationMin": 10.01
+    },
+    {
+      "code": "4111565000",
+      "name": "수원시 팔달구 매교동",
+      "gu": "수원시 팔달구",
+      "areaKm2": 0.6477,
+      "storePerKm2": 57.13,
+      "foodPerKm2": 230.04,
+      "medicalPerKm2": 41.69,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 26.25,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 35.51,
+      "monthlyRentMan": 166.54,
+      "rentSamples": 180,
+      "walkToStationMin": 9.25
+    },
+    {
+      "code": "4111566000",
+      "name": "수원시 팔달구 매산동",
+      "gu": "수원시 팔달구",
+      "areaKm2": 0.8853,
+      "storePerKm2": 91.49,
+      "foodPerKm2": 638.2,
+      "medicalPerKm2": 88.11,
+      "nightlifePerKm2": 19.2,
+      "busStopPerKm2": 21.46,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 55.35,
+      "monthlyRentMan": 52.29,
+      "rentSamples": 0,
+      "walkToStationMin": 7.48
+    },
+    {
+      "code": "4111567000",
+      "name": "수원시 팔달구 고등동",
+      "gu": "수원시 팔달구",
+      "areaKm2": 0.9733,
+      "storePerKm2": 39.04,
+      "foodPerKm2": 169.53,
+      "medicalPerKm2": 19.52,
+      "nightlifePerKm2": 5.14,
+      "busStopPerKm2": 20.55,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 49.17,
+      "rentSamples": 181,
+      "walkToStationMin": 16.33
+    },
+    {
+      "code": "4111568000",
+      "name": "수원시 팔달구 화서1동",
+      "gu": "수원시 팔달구",
+      "areaKm2": 0.9532,
+      "storePerKm2": 61.9,
+      "foodPerKm2": 265.42,
+      "medicalPerKm2": 60.85,
+      "nightlifePerKm2": 4.2,
+      "busStopPerKm2": 31.47,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 44.06,
+      "monthlyRentMan": 52.29,
+      "rentSamples": 454,
+      "walkToStationMin": 23.19
+    },
+    {
+      "code": "4111569000",
+      "name": "수원시 팔달구 화서2동",
+      "gu": "수원시 팔달구",
+      "areaKm2": 1.9498,
+      "storePerKm2": 20,
+      "foodPerKm2": 96.42,
+      "medicalPerKm2": 19.49,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 17.44,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 7.69,
+      "monthlyRentMan": 52.29,
+      "rentSamples": 454,
+      "walkToStationMin": 5.8
+    },
+    {
+      "code": "4111574000",
+      "name": "수원시 팔달구 행궁동",
+      "gu": "수원시 팔달구",
+      "areaKm2": 1.6292,
+      "storePerKm2": 50.33,
+      "foodPerKm2": 459.73,
+      "medicalPerKm2": 47.26,
+      "nightlifePerKm2": 4.91,
+      "busStopPerKm2": 12.89,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 93.91,
+      "monthlyRentMan": 52.29,
+      "rentSamples": 0,
+      "walkToStationMin": 36.09
+    },
+    {
+      "code": "4111751000",
+      "name": "수원시 영통구 매탄1동",
+      "gu": "수원시 영통구",
+      "areaKm2": 0.5951,
+      "storePerKm2": 36.97,
+      "foodPerKm2": 218.45,
+      "medicalPerKm2": 73.94,
+      "nightlifePerKm2": 1.68,
+      "busStopPerKm2": 13.44,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 42.01,
+      "monthlyRentMan": 50.29,
+      "rentSamples": 1416,
+      "walkToStationMin": 32.95
+    },
+    {
+      "code": "4111752000",
+      "name": "수원시 영통구 매탄2동",
+      "gu": "수원시 영통구",
+      "areaKm2": 0.6168,
+      "storePerKm2": 55.12,
+      "foodPerKm2": 298.31,
+      "medicalPerKm2": 34.05,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 17.83,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 17.83,
+      "monthlyRentMan": 50.29,
+      "rentSamples": 1416,
+      "walkToStationMin": 38.71
+    },
+    {
+      "code": "4111753000",
+      "name": "수원시 영통구 매탄3동",
+      "gu": "수원시 영통구",
+      "areaKm2": 3.2341,
+      "storePerKm2": 23.5,
+      "foodPerKm2": 153.37,
+      "medicalPerKm2": 17.01,
+      "nightlifePerKm2": 0.62,
+      "busStopPerKm2": 10.82,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 5.26,
+      "monthlyRentMan": 50.29,
+      "rentSamples": 1416,
+      "walkToStationMin": 14.8
+    },
+    {
+      "code": "4111754000",
+      "name": "수원시 영통구 매탄4동",
+      "gu": "수원시 영통구",
+      "areaKm2": 0.8142,
+      "storePerKm2": 39.3,
+      "foodPerKm2": 216.16,
+      "medicalPerKm2": 15.97,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 20.88,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 18.42,
+      "monthlyRentMan": 50.29,
+      "rentSamples": 1416,
+      "walkToStationMin": 28.88
+    },
+    {
+      "code": "4111757000",
+      "name": "수원시 영통구 영통1동",
+      "gu": "수원시 영통구",
+      "areaKm2": 1.6166,
+      "storePerKm2": 17.32,
+      "foodPerKm2": 70.52,
+      "medicalPerKm2": 12.37,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 16.08,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 1.86,
+      "monthlyRentMan": 74.58,
+      "rentSamples": 2132,
+      "walkToStationMin": 5.95
+    },
+    {
+      "code": "4111758000",
+      "name": "수원시 영통구 영통2동",
+      "gu": "수원시 영통구",
+      "areaKm2": 1.165,
+      "storePerKm2": 43.78,
+      "foodPerKm2": 317.6,
+      "medicalPerKm2": 50.64,
+      "nightlifePerKm2": 4.29,
+      "busStopPerKm2": 16.31,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 74.58,
+      "rentSamples": 2132,
+      "walkToStationMin": 15.63
+    },
+    {
+      "code": "4111759300",
+      "name": "수원시 영통구 망포1동",
+      "gu": "수원시 영통구",
+      "areaKm2": 1.0205,
+      "storePerKm2": 36.26,
+      "foodPerKm2": 134.25,
+      "medicalPerKm2": 37.24,
+      "nightlifePerKm2": 0.98,
+      "busStopPerKm2": 15.68,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 44.58,
+      "rentSamples": 291,
+      "walkToStationMin": 15.92
+    },
+    {
+      "code": "4111755000",
+      "name": "수원시 영통구 원천동",
+      "gu": "수원시 영통구",
+      "areaKm2": 3.2147,
+      "storePerKm2": 23.02,
+      "foodPerKm2": 144.03,
+      "medicalPerKm2": 17.11,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 17.11,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 3.73,
+      "monthlyRentMan": 53.35,
+      "rentSamples": 1392,
+      "walkToStationMin": 32.92
+    },
+    {
+      "code": "4111760000",
+      "name": "수원시 영통구 광교1동",
+      "gu": "수원시 영통구",
+      "areaKm2": 7.8859,
+      "storePerKm2": 11.16,
+      "foodPerKm2": 101.07,
+      "medicalPerKm2": 13.82,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 10.14,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 0.76,
+      "monthlyRentMan": 72.29,
+      "rentSamples": 0,
+      "walkToStationMin": 8.65
+    },
+    {
+      "code": "4111761000",
+      "name": "수원시 영통구 광교2동",
+      "gu": "수원시 영통구",
+      "areaKm2": 4.1826,
+      "storePerKm2": 8.61,
+      "foodPerKm2": 109.26,
+      "medicalPerKm2": 9.09,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 9.56,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 72.29,
+      "rentSamples": 0,
+      "walkToStationMin": 13.02
+    },
+    {
+      "code": "4113151000",
+      "name": "성남시 수정구 신흥1동",
+      "gu": "성남시 수정구",
+      "areaKm2": 0.3227,
+      "storePerKm2": 158.04,
+      "foodPerKm2": 604.28,
+      "medicalPerKm2": 164.24,
+      "nightlifePerKm2": 111.56,
+      "busStopPerKm2": 27.89,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 52.68,
+      "monthlyRentMan": 67.82,
+      "rentSamples": 911,
+      "walkToStationMin": 7.12
+    },
+    {
+      "code": "4113152000",
+      "name": "성남시 수정구 신흥2동",
+      "gu": "성남시 수정구",
+      "areaKm2": 1.1768,
+      "storePerKm2": 22.09,
+      "foodPerKm2": 74.78,
+      "medicalPerKm2": 37.39,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 12.75,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 17,
+      "monthlyRentMan": 67.82,
+      "rentSamples": 911,
+      "walkToStationMin": 16.3
+    },
+    {
+      "code": "4113153000",
+      "name": "성남시 수정구 신흥3동",
+      "gu": "성남시 수정구",
+      "areaKm2": 0.3332,
+      "storePerKm2": 111.04,
+      "foodPerKm2": 696.28,
+      "medicalPerKm2": 234.09,
+      "nightlifePerKm2": 132.05,
+      "busStopPerKm2": 45.02,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 135.05,
+      "monthlyRentMan": 67.82,
+      "rentSamples": 911,
+      "walkToStationMin": 7.43
+    },
+    {
+      "code": "4113154000",
+      "name": "성남시 수정구 태평1동",
+      "gu": "성남시 수정구",
+      "areaKm2": 1.4286,
+      "storePerKm2": 34.3,
+      "foodPerKm2": 126.7,
+      "medicalPerKm2": 24.5,
+      "nightlifePerKm2": 1.4,
+      "busStopPerKm2": 11.2,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 23.8,
+      "monthlyRentMan": 47.29,
+      "rentSamples": 1494,
+      "walkToStationMin": 8.44
+    },
+    {
+      "code": "4113155000",
+      "name": "성남시 수정구 태평2동",
+      "gu": "성남시 수정구",
+      "areaKm2": 0.4797,
+      "storePerKm2": 58.37,
+      "foodPerKm2": 296.02,
+      "medicalPerKm2": 102.15,
+      "nightlifePerKm2": 27.1,
+      "busStopPerKm2": 29.18,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 29.18,
+      "monthlyRentMan": 47.29,
+      "rentSamples": 1494,
+      "walkToStationMin": 19.23
+    },
+    {
+      "code": "4113156000",
+      "name": "성남시 수정구 태평3동",
+      "gu": "성남시 수정구",
+      "areaKm2": 0.3923,
+      "storePerKm2": 76.47,
+      "foodPerKm2": 438.44,
+      "medicalPerKm2": 96.86,
+      "nightlifePerKm2": 15.29,
+      "busStopPerKm2": 25.49,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 94.32,
+      "monthlyRentMan": 47.29,
+      "rentSamples": 1494,
+      "walkToStationMin": 13.26
+    },
+    {
+      "code": "4113156100",
+      "name": "성남시 수정구 태평4동",
+      "gu": "성남시 수정구",
+      "areaKm2": 0.3793,
+      "storePerKm2": 50.09,
+      "foodPerKm2": 187.19,
+      "medicalPerKm2": 26.36,
+      "nightlifePerKm2": 2.64,
+      "busStopPerKm2": 18.46,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 31.64,
+      "monthlyRentMan": 47.29,
+      "rentSamples": 1494,
+      "walkToStationMin": 19.75
+    },
+    {
+      "code": "4113157000",
+      "name": "성남시 수정구 수진1동",
+      "gu": "성남시 수정구",
+      "areaKm2": 0.3448,
+      "storePerKm2": 104.41,
+      "foodPerKm2": 348.03,
+      "medicalPerKm2": 136.31,
+      "nightlifePerKm2": 52.2,
+      "busStopPerKm2": 17.4,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 110.21,
+      "monthlyRentMan": 47.29,
+      "rentSamples": 540,
+      "walkToStationMin": 12.3
+    },
+    {
+      "code": "4113158000",
+      "name": "성남시 수정구 수진2동",
+      "gu": "성남시 수정구",
+      "areaKm2": 1.0017,
+      "storePerKm2": 47.92,
+      "foodPerKm2": 177.7,
+      "medicalPerKm2": 37.94,
+      "nightlifePerKm2": 6.99,
+      "busStopPerKm2": 8.98,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 57.9,
+      "monthlyRentMan": 47.29,
+      "rentSamples": 540,
+      "walkToStationMin": 4.73
+    },
+    {
+      "code": "4113159000",
+      "name": "성남시 수정구 단대동",
+      "gu": "성남시 수정구",
+      "areaKm2": 0.7989,
+      "storePerKm2": 25.03,
+      "foodPerKm2": 97.63,
+      "medicalPerKm2": 26.29,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 16.27,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 8.76,
+      "monthlyRentMan": 59.58,
+      "rentSamples": 85,
+      "walkToStationMin": 3.83
+    },
+    {
+      "code": "4113160000",
+      "name": "성남시 수정구 산성동",
+      "gu": "성남시 수정구",
+      "areaKm2": 0.5808,
+      "storePerKm2": 12.05,
+      "foodPerKm2": 61.98,
+      "medicalPerKm2": 17.22,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 17.22,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 12.05,
+      "monthlyRentMan": 52.29,
+      "rentSamples": 13,
+      "walkToStationMin": 12.98
+    },
+    {
+      "code": "4113161000",
+      "name": "성남시 수정구 양지동",
+      "gu": "성남시 수정구",
+      "areaKm2": 1.3453,
+      "storePerKm2": 14.12,
+      "foodPerKm2": 69.13,
+      "medicalPerKm2": 10.41,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 9.66,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 5.2,
+      "monthlyRentMan": 44.58,
+      "rentSamples": 101,
+      "walkToStationMin": 18.48
+    },
+    {
+      "code": "4113162000",
+      "name": "성남시 수정구 복정동",
+      "gu": "성남시 수정구",
+      "areaKm2": 3.669,
+      "storePerKm2": 10.36,
+      "foodPerKm2": 47.97,
+      "medicalPerKm2": 1.91,
+      "nightlifePerKm2": 0.27,
+      "busStopPerKm2": 6,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 3,
+      "monthlyRentMan": 58.75,
+      "rentSamples": 1020,
+      "walkToStationMin": 19.33
+    },
+    {
+      "code": "4113163000",
+      "name": "성남시 수정구 신촌동",
+      "gu": "성남시 수정구",
+      "areaKm2": 4.8005,
+      "storePerKm2": 1.67,
+      "foodPerKm2": 7.29,
+      "medicalPerKm2": 0,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 1.67,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 259.38,
+      "rentSamples": 8,
+      "walkToStationMin": 44.95
+    },
+    {
+      "code": "4113164000",
+      "name": "성남시 수정구 고등동",
+      "gu": "성남시 수정구",
+      "areaKm2": 12.5387,
+      "storePerKm2": 1.67,
+      "foodPerKm2": 12.84,
+      "medicalPerKm2": 0.96,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 2.07,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 60.55,
+      "rentSamples": 327,
+      "walkToStationMin": 56.49
+    },
+    {
+      "code": "4113165000",
+      "name": "성남시 수정구 시흥동",
+      "gu": "성남시 수정구",
+      "areaKm2": 12.8958,
+      "storePerKm2": 2.02,
+      "foodPerKm2": 15.82,
+      "medicalPerKm2": 0.85,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 3.33,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 0.23,
+      "monthlyRentMan": 132.58,
+      "rentSamples": 220,
+      "walkToStationMin": 45.67
+    },
+    {
+      "code": "4113351000",
+      "name": "성남시 중원구 성남동",
+      "gu": "성남시 중원구",
+      "areaKm2": 1.9654,
+      "storePerKm2": 48.85,
+      "foodPerKm2": 407.04,
+      "medicalPerKm2": 62.07,
+      "nightlifePerKm2": 21.88,
+      "busStopPerKm2": 15.26,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 96.16,
+      "monthlyRentMan": 75.13,
+      "rentSamples": 1239,
+      "walkToStationMin": 10.43
+    },
+    {
+      "code": "4113353000",
+      "name": "성남시 중원구 금광1동",
+      "gu": "성남시 중원구",
+      "areaKm2": 0.6257,
+      "storePerKm2": 33.56,
+      "foodPerKm2": 218.95,
+      "medicalPerKm2": 59.13,
+      "nightlifePerKm2": 1.6,
+      "busStopPerKm2": 33.56,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 19.18,
+      "monthlyRentMan": 57.29,
+      "rentSamples": 577,
+      "walkToStationMin": 15.09
+    },
+    {
+      "code": "4113354000",
+      "name": "성남시 중원구 금광2동",
+      "gu": "성남시 중원구",
+      "areaKm2": 1.1499,
+      "storePerKm2": 39.13,
+      "foodPerKm2": 289.59,
+      "medicalPerKm2": 53.92,
+      "nightlifePerKm2": 3.48,
+      "busStopPerKm2": 20,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 8.7,
+      "monthlyRentMan": 57.29,
+      "rentSamples": 577,
+      "walkToStationMin": 9.73
+    },
+    {
+      "code": "4113355000",
+      "name": "성남시 중원구 은행1동",
+      "gu": "성남시 중원구",
+      "areaKm2": 0.2699,
+      "storePerKm2": 25.94,
+      "foodPerKm2": 48.17,
+      "medicalPerKm2": 0,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 18.53,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 3.71,
+      "monthlyRentMan": 44.58,
+      "rentSamples": 163,
+      "walkToStationMin": 13.81
+    },
+    {
+      "code": "4113356000",
+      "name": "성남시 중원구 은행2동",
+      "gu": "성남시 중원구",
+      "areaKm2": 2.2523,
+      "storePerKm2": 15.98,
+      "foodPerKm2": 56.83,
+      "medicalPerKm2": 21.76,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 12.88,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 4.88,
+      "monthlyRentMan": 44.58,
+      "rentSamples": 163,
+      "walkToStationMin": 16.39
+    },
+    {
+      "code": "4113357000",
+      "name": "성남시 중원구 상대원1동",
+      "gu": "성남시 중원구",
+      "areaKm2": 6.8546,
+      "storePerKm2": 11.67,
+      "foodPerKm2": 42.6,
+      "medicalPerKm2": 3.36,
+      "nightlifePerKm2": 0.15,
+      "busStopPerKm2": 9.34,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 0.44,
+      "monthlyRentMan": 43.21,
+      "rentSamples": 651,
+      "walkToStationMin": 29.36
+    },
+    {
+      "code": "4113358000",
+      "name": "성남시 중원구 상대원2동",
+      "gu": "성남시 중원구",
+      "areaKm2": 0.4397,
+      "storePerKm2": 61.41,
+      "foodPerKm2": 261.54,
+      "medicalPerKm2": 43.21,
+      "nightlifePerKm2": 2.27,
+      "busStopPerKm2": 18.19,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 52.31,
+      "monthlyRentMan": 43.21,
+      "rentSamples": 651,
+      "walkToStationMin": 17.95
+    },
+    {
+      "code": "4113359000",
+      "name": "성남시 중원구 상대원3동",
+      "gu": "성남시 중원구",
+      "areaKm2": 0.3008,
+      "storePerKm2": 149.6,
+      "foodPerKm2": 422.21,
+      "medicalPerKm2": 106.38,
+      "nightlifePerKm2": 6.65,
+      "busStopPerKm2": 49.87,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 49.87,
+      "monthlyRentMan": 43.21,
+      "rentSamples": 651,
+      "walkToStationMin": 17.61
+    },
+    {
+      "code": "4113366000",
+      "name": "성남시 중원구 하대원동",
+      "gu": "성남시 중원구",
+      "areaKm2": 2.3982,
+      "storePerKm2": 10.01,
+      "foodPerKm2": 41.7,
+      "medicalPerKm2": 5,
+      "nightlifePerKm2": 0.83,
+      "busStopPerKm2": 7.92,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 10.42,
+      "monthlyRentMan": 50.73,
+      "rentSamples": 128,
+      "walkToStationMin": 19.47
+    },
+    {
+      "code": "4113367000",
+      "name": "성남시 중원구 도촌동",
+      "gu": "성남시 중원구",
+      "areaKm2": 9.3076,
+      "storePerKm2": 3.87,
+      "foodPerKm2": 21.81,
+      "medicalPerKm2": 3.44,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 5.8,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 0.32,
+      "monthlyRentMan": 45.54,
+      "rentSamples": 269,
+      "walkToStationMin": 15.85
+    },
+    {
+      "code": "4113352500",
+      "name": "성남시 중원구 중앙동",
+      "gu": "성남시 중원구",
+      "areaKm2": 0.7005,
+      "storePerKm2": 34.26,
+      "foodPerKm2": 162.74,
+      "medicalPerKm2": 45.68,
+      "nightlifePerKm2": 29.98,
+      "busStopPerKm2": 24.27,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 51.39,
+      "monthlyRentMan": 177.35,
+      "rentSamples": 142,
+      "walkToStationMin": 4.96
+    },
+    {
+      "code": "4113551000",
+      "name": "성남시 분당구 분당동",
+      "gu": "성남시 분당구",
+      "areaKm2": 3.1912,
+      "storePerKm2": 5.95,
+      "foodPerKm2": 16.92,
+      "medicalPerKm2": 2.19,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 11.59,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 52.96,
+      "rentSamples": 422,
+      "walkToStationMin": 43.79
+    },
+    {
+      "code": "4113554000",
+      "name": "성남시 분당구 수내3동",
+      "gu": "성남시 분당구",
+      "areaKm2": 1.0637,
+      "storePerKm2": 16.92,
+      "foodPerKm2": 98.71,
+      "medicalPerKm2": 19.74,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 15.04,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 3.76,
+      "monthlyRentMan": 79.58,
+      "rentSamples": 880,
+      "walkToStationMin": 32.57
+    },
+    {
+      "code": "4113552000",
+      "name": "성남시 분당구 수내1동",
+      "gu": "성남시 분당구",
+      "areaKm2": 1.0209,
+      "storePerKm2": 37.22,
+      "foodPerKm2": 379.08,
+      "medicalPerKm2": 90.12,
+      "nightlifePerKm2": 6.86,
+      "busStopPerKm2": 12.73,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 8.82,
+      "monthlyRentMan": 79.58,
+      "rentSamples": 880,
+      "walkToStationMin": 3.5
+    },
+    {
+      "code": "4113553000",
+      "name": "성남시 분당구 수내2동",
+      "gu": "성남시 분당구",
+      "areaKm2": 0.8427,
+      "storePerKm2": 14.24,
+      "foodPerKm2": 87.81,
+      "medicalPerKm2": 29.67,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 16.61,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 8.31,
+      "monthlyRentMan": 79.58,
+      "rentSamples": 880,
+      "walkToStationMin": 20.32
+    },
+    {
+      "code": "4113556000",
+      "name": "성남시 분당구 정자2동",
+      "gu": "성남시 분당구",
+      "areaKm2": 0.5074,
+      "storePerKm2": 23.65,
+      "foodPerKm2": 45.33,
+      "medicalPerKm2": 13.8,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 17.74,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 98.79,
+      "rentSamples": 2312,
+      "walkToStationMin": 18.9
+    },
+    {
+      "code": "4113557000",
+      "name": "성남시 분당구 정자3동",
+      "gu": "성남시 분당구",
+      "areaKm2": 1.8615,
+      "storePerKm2": 6.98,
+      "foodPerKm2": 30.08,
+      "medicalPerKm2": 4.3,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 11.28,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 2.15,
+      "monthlyRentMan": 98.79,
+      "rentSamples": 2312,
+      "walkToStationMin": 28.82
+    },
+    {
+      "code": "4113558000",
+      "name": "성남시 분당구 서현1동",
+      "gu": "성남시 분당구",
+      "areaKm2": 7.6561,
+      "storePerKm2": 8.62,
+      "foodPerKm2": 92.61,
+      "medicalPerKm2": 29.13,
+      "nightlifePerKm2": 2.09,
+      "busStopPerKm2": 5.75,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 3.4,
+      "monthlyRentMan": 89.58,
+      "rentSamples": 862,
+      "walkToStationMin": 2.24
+    },
+    {
+      "code": "4113559000",
+      "name": "성남시 분당구 서현2동",
+      "gu": "성남시 분당구",
+      "areaKm2": 0.7744,
+      "storePerKm2": 27.12,
+      "foodPerKm2": 196.28,
+      "medicalPerKm2": 60.69,
+      "nightlifePerKm2": 2.58,
+      "busStopPerKm2": 24.54,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 89.58,
+      "rentSamples": 862,
+      "walkToStationMin": 34.94
+    },
+    {
+      "code": "4113560000",
+      "name": "성남시 분당구 이매1동",
+      "gu": "성남시 분당구",
+      "areaKm2": 2.561,
+      "storePerKm2": 8.59,
+      "foodPerKm2": 35.92,
+      "medicalPerKm2": 10.15,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 8.59,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 1.95,
+      "monthlyRentMan": 138.33,
+      "rentSamples": 183,
+      "walkToStationMin": 4.66
+    },
+    {
+      "code": "4113561000",
+      "name": "성남시 분당구 이매2동",
+      "gu": "성남시 분당구",
+      "areaKm2": 0.595,
+      "storePerKm2": 13.45,
+      "foodPerKm2": 95.8,
+      "medicalPerKm2": 30.25,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 20.17,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 6.72,
+      "monthlyRentMan": 138.33,
+      "rentSamples": 183,
+      "walkToStationMin": 14.36
+    },
+    {
+      "code": "4113562000",
+      "name": "성남시 분당구 야탑1동",
+      "gu": "성남시 분당구",
+      "areaKm2": 1.1341,
+      "storePerKm2": 36.15,
+      "foodPerKm2": 413.54,
+      "medicalPerKm2": 129.62,
+      "nightlifePerKm2": 14.99,
+      "busStopPerKm2": 13.23,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 33.51,
+      "monthlyRentMan": 79.58,
+      "rentSamples": 1069,
+      "walkToStationMin": 1.4
+    },
+    {
+      "code": "4113564000",
+      "name": "성남시 분당구 야탑3동",
+      "gu": "성남시 분당구",
+      "areaKm2": 5.4464,
+      "storePerKm2": 7.53,
+      "foodPerKm2": 38.74,
+      "medicalPerKm2": 4.22,
+      "nightlifePerKm2": 0.18,
+      "busStopPerKm2": 10.1,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 0.55,
+      "monthlyRentMan": 79.58,
+      "rentSamples": 1069,
+      "walkToStationMin": 15.48
+    },
+    {
+      "code": "4113563000",
+      "name": "성남시 분당구 야탑2동",
+      "gu": "성남시 분당구",
+      "areaKm2": 0.6204,
+      "storePerKm2": 17.73,
+      "foodPerKm2": 93.49,
+      "medicalPerKm2": 25.79,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 22.57,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 12.89,
+      "monthlyRentMan": 79.58,
+      "rentSamples": 1069,
+      "walkToStationMin": 10.6
+    },
+    {
+      "code": "4113567000",
+      "name": "성남시 분당구 구미동",
+      "gu": "성남시 분당구",
+      "areaKm2": 3.8385,
+      "storePerKm2": 10.94,
+      "foodPerKm2": 75.03,
+      "medicalPerKm2": 20.06,
+      "nightlifePerKm2": 2.08,
+      "busStopPerKm2": 14.85,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 1.56,
+      "monthlyRentMan": 79.58,
+      "rentSamples": 850,
+      "walkToStationMin": 5.5
+    },
+    {
+      "code": "4113568000",
+      "name": "성남시 분당구 운중동",
+      "gu": "성남시 분당구",
+      "areaKm2": 17.8076,
+      "storePerKm2": 2.53,
+      "foodPerKm2": 15.84,
+      "medicalPerKm2": 2.7,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 3.26,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 225.83,
+      "rentSamples": 75,
+      "walkToStationMin": 64.8
+    },
+    {
+      "code": "4113566200",
+      "name": "성남시 분당구 금곡동",
+      "gu": "성남시 분당구",
+      "areaKm2": 5.5162,
+      "storePerKm2": 6.71,
+      "foodPerKm2": 46.23,
+      "medicalPerKm2": 23.57,
+      "nightlifePerKm2": 1.63,
+      "busStopPerKm2": 5.08,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 2.72,
+      "monthlyRentMan": 89.58,
+      "rentSamples": 542,
+      "walkToStationMin": 2.95
+    },
+    {
+      "code": "4113566500",
+      "name": "성남시 분당구 구미1동",
+      "gu": "성남시 분당구",
+      "areaKm2": 3.5388,
+      "storePerKm2": 6.22,
+      "foodPerKm2": 68.67,
+      "medicalPerKm2": 19.22,
+      "nightlifePerKm2": 0.85,
+      "busStopPerKm2": 6.22,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 1.98,
+      "monthlyRentMan": 79.58,
+      "rentSamples": 850,
+      "walkToStationMin": 2.79
+    },
+    {
+      "code": "4113565500",
+      "name": "성남시 분당구 삼평동",
+      "gu": "성남시 분당구",
+      "areaKm2": 2.9174,
+      "storePerKm2": 22.97,
+      "foodPerKm2": 254.34,
+      "medicalPerKm2": 38.73,
+      "nightlifePerKm2": 0.34,
+      "busStopPerKm2": 19.2,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 1.71,
+      "monthlyRentMan": 89.58,
+      "rentSamples": 510,
+      "walkToStationMin": 12.8
+    },
+    {
+      "code": "4113565000",
+      "name": "성남시 분당구 판교동",
+      "gu": "성남시 분당구",
+      "areaKm2": 4.8621,
+      "storePerKm2": 5.76,
+      "foodPerKm2": 35.58,
+      "medicalPerKm2": 5.96,
+      "nightlifePerKm2": 0.21,
+      "busStopPerKm2": 5.55,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 237.5,
+      "rentSamples": 47,
+      "walkToStationMin": 35.94
+    },
+    {
+      "code": "4113565700",
+      "name": "성남시 분당구 백현동",
+      "gu": "성남시 분당구",
+      "areaKm2": 1.9555,
+      "storePerKm2": 13.81,
+      "foodPerKm2": 130.91,
+      "medicalPerKm2": 14.83,
+      "nightlifePerKm2": 0.51,
+      "busStopPerKm2": 13.81,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 62.07,
+      "rentSamples": 383,
+      "walkToStationMin": 9.78
+    },
+    {
+      "code": "4113555000",
+      "name": "성남시 분당구 정자1동",
+      "gu": "성남시 분당구",
+      "areaKm2": 1.1575,
+      "storePerKm2": 40.6,
+      "foodPerKm2": 507.99,
+      "medicalPerKm2": 131.32,
+      "nightlifePerKm2": 19.87,
+      "busStopPerKm2": 10.37,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 3.46,
+      "monthlyRentMan": 98.79,
+      "rentSamples": 2312,
+      "walkToStationMin": 2.89
+    },
+    {
+      "code": "4113554500",
+      "name": "성남시 분당구 정자동",
+      "gu": "성남시 분당구",
+      "areaKm2": 1.0029,
+      "storePerKm2": 27.92,
+      "foodPerKm2": 344,
+      "medicalPerKm2": 33.9,
+      "nightlifePerKm2": 1,
+      "busStopPerKm2": 20.94,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 98.79,
+      "rentSamples": 2312,
+      "walkToStationMin": 9.7
+    },
+    {
+      "code": "4146352000",
+      "name": "용인시 기흥구 구갈동",
+      "gu": "용인시 기흥구",
+      "areaKm2": 4.1576,
+      "storePerKm2": 16.84,
+      "foodPerKm2": 131.33,
+      "medicalPerKm2": 20.44,
+      "nightlifePerKm2": 3.13,
+      "busStopPerKm2": 12.99,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 1.92,
+      "monthlyRentMan": 49.29,
+      "rentSamples": 1246,
+      "walkToStationMin": 4.87
+    },
+    {
+      "code": "4146353500",
+      "name": "용인시 기흥구 보라동",
+      "gu": "용인시 기흥구",
+      "areaKm2": 10.2078,
+      "storePerKm2": 4.9,
+      "foodPerKm2": 24.59,
+      "medicalPerKm2": 4.11,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 6.07,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 0.2,
+      "monthlyRentMan": 49.73,
+      "rentSamples": 278,
+      "walkToStationMin": 17.79
+    },
+    {
+      "code": "4146354000",
+      "name": "용인시 기흥구 기흥동",
+      "gu": "용인시 기흥구",
+      "areaKm2": 11.6588,
+      "storePerKm2": 3.77,
+      "foodPerKm2": 21.44,
+      "medicalPerKm2": 1.2,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 6.78,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 0.69,
+      "monthlyRentMan": 50.29,
+      "rentSamples": 0,
+      "walkToStationMin": 66.71
+    },
+    {
+      "code": "4146355000",
+      "name": "용인시 기흥구 서농동",
+      "gu": "용인시 기흥구",
+      "areaKm2": 5.5922,
+      "storePerKm2": 12.88,
+      "foodPerKm2": 56.86,
+      "medicalPerKm2": 3.76,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 9.12,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 50.29,
+      "rentSamples": 0,
+      "walkToStationMin": 33
+    },
+    {
+      "code": "4146356000",
+      "name": "용인시 기흥구 구성동",
+      "gu": "용인시 기흥구",
+      "areaKm2": 6.6936,
+      "storePerKm2": 4.93,
+      "foodPerKm2": 30.48,
+      "medicalPerKm2": 8.07,
+      "nightlifePerKm2": 0.15,
+      "busStopPerKm2": 7.62,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 0.75,
+      "monthlyRentMan": 50.29,
+      "rentSamples": 0,
+      "walkToStationMin": 25.96
+    },
+    {
+      "code": "4146357000",
+      "name": "용인시 기흥구 마북동",
+      "gu": "용인시 기흥구",
+      "areaKm2": 5.2512,
+      "storePerKm2": 8.95,
+      "foodPerKm2": 35.42,
+      "medicalPerKm2": 10.28,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 9.33,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 4,
+      "monthlyRentMan": 89.58,
+      "rentSamples": 71,
+      "walkToStationMin": 16.7
+    },
+    {
+      "code": "4146357700",
+      "name": "용인시 기흥구 동백3동",
+      "gu": "용인시 기흥구",
+      "areaKm2": 1.4602,
+      "storePerKm2": 15.07,
+      "foodPerKm2": 69.85,
+      "medicalPerKm2": 10.96,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 8.9,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 2.05,
+      "monthlyRentMan": 47.29,
+      "rentSamples": 395,
+      "walkToStationMin": 52.22
+    },
+    {
+      "code": "4146359000",
+      "name": "용인시 기흥구 보정동",
+      "gu": "용인시 기흥구",
+      "areaKm2": 6.7778,
+      "storePerKm2": 8.41,
+      "foodPerKm2": 58.72,
+      "medicalPerKm2": 11.95,
+      "nightlifePerKm2": 0.74,
+      "busStopPerKm2": 13.28,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 0.89,
+      "monthlyRentMan": 59.58,
+      "rentSamples": 222,
+      "walkToStationMin": 14.14
+    },
+    {
+      "code": "4146358600",
+      "name": "용인시 기흥구 상하동",
+      "gu": "용인시 기흥구",
+      "areaKm2": 5.7011,
+      "storePerKm2": 5.26,
+      "foodPerKm2": 23.5,
+      "medicalPerKm2": 3.86,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 6.49,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 43.75,
+      "rentSamples": 95,
+      "walkToStationMin": 47.32
+    },
+    {
+      "code": "4146351000",
+      "name": "용인시 기흥구 신갈동",
+      "gu": "용인시 기흥구",
+      "areaKm2": 4.6263,
+      "storePerKm2": 13.83,
+      "foodPerKm2": 56.85,
+      "medicalPerKm2": 13.4,
+      "nightlifePerKm2": 5.84,
+      "busStopPerKm2": 17.94,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 2.59,
+      "monthlyRentMan": 60.29,
+      "rentSamples": 479,
+      "walkToStationMin": 14.91
+    },
+    {
+      "code": "4146351700",
+      "name": "용인시 기흥구 영덕2동",
+      "gu": "용인시 기흥구",
+      "areaKm2": 4.6756,
+      "storePerKm2": 4.06,
+      "foodPerKm2": 19.03,
+      "medicalPerKm2": 2.35,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 5.35,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 49.17,
+      "rentSamples": 906,
+      "walkToStationMin": 27.26
+    },
+    {
+      "code": "4146551000",
+      "name": "용인시 수지구 풍덕천1동",
+      "gu": "용인시 수지구",
+      "areaKm2": 1.632,
+      "storePerKm2": 37.38,
+      "foodPerKm2": 253.68,
+      "medicalPerKm2": 36.76,
+      "nightlifePerKm2": 12.25,
+      "busStopPerKm2": 23.9,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 14.09,
+      "monthlyRentMan": 62,
+      "rentSamples": 1909,
+      "walkToStationMin": 9.94
+    },
+    {
+      "code": "4146552000",
+      "name": "용인시 수지구 풍덕천2동",
+      "gu": "용인시 수지구",
+      "areaKm2": 1.8261,
+      "storePerKm2": 19.71,
+      "foodPerKm2": 109.52,
+      "medicalPerKm2": 55.31,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 25.19,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 4.38,
+      "monthlyRentMan": 62,
+      "rentSamples": 1909,
+      "walkToStationMin": 7.94
+    },
+    {
+      "code": "4146553000",
+      "name": "용인시 수지구 신봉동",
+      "gu": "용인시 수지구",
+      "areaKm2": 6.5299,
+      "storePerKm2": 5.97,
+      "foodPerKm2": 38.59,
+      "medicalPerKm2": 7.66,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 11.79,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 103.96,
+      "rentSamples": 146,
+      "walkToStationMin": 27.44
+    },
+    {
+      "code": "4146555500",
+      "name": "용인시 수지구 죽전3동",
+      "gu": "용인시 수지구",
+      "areaKm2": 2.2512,
+      "storePerKm2": 19.55,
+      "foodPerKm2": 102.17,
+      "medicalPerKm2": 12.88,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 20.88,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 2.67,
+      "monthlyRentMan": 60.75,
+      "rentSamples": 1199,
+      "walkToStationMin": 20.31
+    },
+    {
+      "code": "4146555000",
+      "name": "용인시 수지구 죽전2동",
+      "gu": "용인시 수지구",
+      "areaKm2": 1.1919,
+      "storePerKm2": 23.49,
+      "foodPerKm2": 104.87,
+      "medicalPerKm2": 14.26,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 29.36,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 15.1,
+      "monthlyRentMan": 60.75,
+      "rentSamples": 1199,
+      "walkToStationMin": 13.25
+    },
+    {
+      "code": "4146556000",
+      "name": "용인시 수지구 동천동",
+      "gu": "용인시 수지구",
+      "areaKm2": 16.499,
+      "storePerKm2": 4.18,
+      "foodPerKm2": 27.76,
+      "medicalPerKm2": 4.67,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 9.21,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 0.18,
+      "monthlyRentMan": 79.58,
+      "rentSamples": 569,
+      "walkToStationMin": 14.33
+    },
+    {
+      "code": "4146558500",
+      "name": "용인시 수지구 상현3동",
+      "gu": "용인시 수지구",
+      "areaKm2": 2.5754,
+      "storePerKm2": 12.81,
+      "foodPerKm2": 84.26,
+      "medicalPerKm2": 27.57,
+      "nightlifePerKm2": 0.39,
+      "busStopPerKm2": 8.93,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 3.88,
+      "monthlyRentMan": 78.96,
+      "rentSamples": 1284,
+      "walkToStationMin": 5.21
+    },
+    {
+      "code": "4146558000",
+      "name": "용인시 수지구 상현2동",
+      "gu": "용인시 수지구",
+      "areaKm2": 1.5721,
+      "storePerKm2": 19.72,
+      "foodPerKm2": 111.95,
+      "medicalPerKm2": 41.98,
+      "nightlifePerKm2": 0.64,
+      "busStopPerKm2": 12.72,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 78.96,
+      "rentSamples": 1284,
+      "walkToStationMin": 16.32
+    },
+    {
+      "code": "4146559000",
+      "name": "용인시 수지구 성복동",
+      "gu": "용인시 수지구",
+      "areaKm2": 5.0289,
+      "storePerKm2": 9.54,
+      "foodPerKm2": 61.05,
+      "medicalPerKm2": 19.09,
+      "nightlifePerKm2": 0.2,
+      "busStopPerKm2": 8.75,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 0.6,
+      "monthlyRentMan": 107.17,
+      "rentSamples": 101,
+      "walkToStationMin": 4.15
+    },
+    {
+      "code": "4113162500",
+      "name": "성남시 수정구 위례동",
+      "gu": "성남시 수정구",
+      "areaKm2": 3.0922,
+      "storePerKm2": 20.37,
+      "foodPerKm2": 198.24,
+      "medicalPerKm2": 52.71,
+      "nightlifePerKm2": 0.32,
+      "busStopPerKm2": 17.14,
+      "cctvPerKm2": null,
+      "crimePer1k": 8.07,
+      "trafficAccidentPerKm2": 0.97,
+      "monthlyRentMan": 54.58,
+      "rentSamples": 0,
+      "walkToStationMin": 15.65
+    },
+    {
+      "code": "4111367000",
+      "name": "수원시 권선구 권선1동",
+      "gu": "수원시 권선구",
+      "areaKm2": 1.2395,
+      "storePerKm2": 53.25,
+      "foodPerKm2": 426.78,
+      "medicalPerKm2": 34.69,
+      "nightlifePerKm2": 22.59,
+      "busStopPerKm2": 18.56,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 36.3,
+      "monthlyRentMan": 57.29,
+      "rentSamples": 1318,
+      "walkToStationMin": 15.33
+    },
+    {
+      "code": "4111758500",
+      "name": "수원시 영통구 영통3동",
+      "gu": "수원시 영통구",
+      "areaKm2": 1.6978,
+      "storePerKm2": 44.17,
+      "foodPerKm2": 440.57,
+      "medicalPerKm2": 77.75,
+      "nightlifePerKm2": 15.31,
+      "busStopPerKm2": 18.85,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 2.94,
+      "monthlyRentMan": 74.58,
+      "rentSamples": 2132,
+      "walkToStationMin": 5.43
+    },
+    {
+      "code": "4111759600",
+      "name": "수원시 영통구 망포2동",
+      "gu": "수원시 영통구",
+      "areaKm2": 1.5151,
+      "storePerKm2": 18.48,
+      "foodPerKm2": 87.78,
+      "medicalPerKm2": 59.4,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 17.16,
+      "cctvPerKm2": null,
+      "crimePer1k": 9.13,
+      "trafficAccidentPerKm2": 3.96,
+      "monthlyRentMan": 44.58,
+      "rentSamples": 291,
+      "walkToStationMin": 14.86
     },
     {
       "code": "1153078000",
@@ -7247,7 +9185,75 @@
       "trafficAccidentPerKm2": 10.73,
       "monthlyRentMan": 62.1,
       "rentSamples": 1467,
-      "walkToStationMin": 2.84
+      "walkToStationMin": 8.16
+    },
+    {
+      "code": "4146351600",
+      "name": "용인시 기흥구 영덕1동",
+      "gu": "용인시 기흥구",
+      "areaKm2": 3.9994,
+      "storePerKm2": 13.75,
+      "foodPerKm2": 82.51,
+      "medicalPerKm2": 18.5,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 10.75,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 0.75,
+      "monthlyRentMan": 49.17,
+      "rentSamples": 906,
+      "walkToStationMin": 32.22
+    },
+    {
+      "code": "4146353000",
+      "name": "용인시 기흥구 상갈동",
+      "gu": "용인시 기흥구",
+      "areaKm2": 1.9603,
+      "storePerKm2": 14.79,
+      "foodPerKm2": 53.56,
+      "medicalPerKm2": 6.63,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 8.67,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 1.53,
+      "monthlyRentMan": 47.29,
+      "rentSamples": 346,
+      "walkToStationMin": 10.89
+    },
+    {
+      "code": "4146357500",
+      "name": "용인시 기흥구 동백2동",
+      "gu": "용인시 기흥구",
+      "areaKm2": 4.8516,
+      "storePerKm2": 10.92,
+      "foodPerKm2": 88.01,
+      "medicalPerKm2": 14.63,
+      "nightlifePerKm2": 2.68,
+      "busStopPerKm2": 8.24,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 1.44,
+      "monthlyRentMan": 47.29,
+      "rentSamples": 395,
+      "walkToStationMin": 82.58
+    },
+    {
+      "code": "4146357200",
+      "name": "용인시 기흥구 동백1동",
+      "gu": "용인시 기흥구",
+      "areaKm2": 4.1383,
+      "storePerKm2": 8.46,
+      "foodPerKm2": 41.8,
+      "medicalPerKm2": 6.52,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 5.56,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 0.72,
+      "monthlyRentMan": 47.29,
+      "rentSamples": 395,
+      "walkToStationMin": 83.51
     },
     {
       "code": "1174051500",
@@ -7263,8 +9269,42 @@
       "crimePer1k": 6.73,
       "trafficAccidentPerKm2": 3.66,
       "monthlyRentMan": 48.89,
-      "rentSamples": 1121,
-      "walkToStationMin": 26.59
+      "rentSamples": 1122,
+      "walkToStationMin": 21.28
+    },
+    {
+      "code": "4146554000",
+      "name": "용인시 수지구 죽전1동",
+      "gu": "용인시 수지구",
+      "areaKm2": 2.3052,
+      "storePerKm2": 12.58,
+      "foodPerKm2": 79.82,
+      "medicalPerKm2": 24.29,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 18.65,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 3.04,
+      "monthlyRentMan": 60.75,
+      "rentSamples": 1199,
+      "walkToStationMin": 28.71
+    },
+    {
+      "code": "4146557000",
+      "name": "용인시 수지구 상현1동",
+      "gu": "용인시 수지구",
+      "areaKm2": 0.8684,
+      "storePerKm2": 11.52,
+      "foodPerKm2": 33.39,
+      "medicalPerKm2": 5.76,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 18.42,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.17,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 78.96,
+      "rentSamples": 1284,
+      "walkToStationMin": 13.16
     },
     {
       "code": "1123053300",
@@ -7280,8 +9320,8 @@
       "crimePer1k": 9.14,
       "trafficAccidentPerKm2": 252.71,
       "monthlyRentMan": 79.75,
-      "rentSamples": 1640,
-      "walkToStationMin": 3.68
+      "rentSamples": 1644,
+      "walkToStationMin": 5.76
     }
   ]
 }
