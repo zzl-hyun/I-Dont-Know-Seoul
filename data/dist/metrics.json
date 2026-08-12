@@ -1,6 +1,6 @@
 {
   "version": "2026-08-12",
-  "generatedAt": "2026-08-12T01:16:18.319Z",
+  "generatedAt": "2026-08-12T01:49:12.332Z",
   "sources": {
     "poi": "OpenStreetMap (ODbL) — 버스 정류장",
     "store": "소상공인시장진흥공단 상가업소정보 (공공누리 제1유형) — 편의점·음식점·의료·유흥업소",
@@ -15,10 +15,10 @@
     "medicalPerKm2",
     "nightlifePerKm2",
     "busStopPerKm2",
-    "walkToStationMin",
-    "monthlyRentMan",
     "crimePer1k",
-    "trafficAccidentPerKm2"
+    "trafficAccidentPerKm2",
+    "monthlyRentMan",
+    "walkToStationMin"
   ],
   "missing": [
     "cctvPerKm2"

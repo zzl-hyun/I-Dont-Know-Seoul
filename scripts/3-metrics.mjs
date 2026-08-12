@@ -277,23 +277,18 @@ async function main() {
     };
   });
 
-  const available = [
-    "storePerKm2",
-    "foodPerKm2",
-    "medicalPerKm2",
-    "nightlifePerKm2",
-    "busStopPerKm2",
-    "walkToStationMin",
-  ];
-  const missing = [];
-  if (!cctvOk) missing.push("cctvPerKm2");
-  if (rent.size === 0) missing.push("monthlyRentMan");
-  if (crimeByGu.size === 0) missing.push("crimePer1k");
-  if (!accidentOk) missing.push("trafficAccidentPerKm2");
-  if (cctvOk) available.push("cctvPerKm2");
-  if (rent.size > 0) available.push("monthlyRentMan");
-  if (crimeByGu.size > 0) available.push("crimePer1k");
-  if (accidentOk) available.push("trafficAccidentPerKm2");
+  verifyCoverage(rows);
+
+  /*
+   * available 을 상수 배열로 두면 "수집됐다" 는 표시와 실제 값의 존재가
+   * 무관해진다. rows 를 실제로 훑어 유효값이 하나라도 있는 지표만 넣는다.
+   * (4-score.mjs 는 어차피 50% 규칙으로 자체 판정하므로 점수에는 영향이 없고,
+   *  로그와 번들 메타가 사실과 맞아지는 효과다.)
+   */
+  const available = METRIC_KEYS.filter((k) =>
+    rows.some((r) => typeof r[k] === "number" && Number.isFinite(r[k]))
+  );
+  const missing = METRIC_KEYS.filter((k) => !available.includes(k));
 
   await mkdir(dirname(OUT), { recursive: true });
   await writeFile(
@@ -487,6 +482,77 @@ function parseCsv(text) {
  * 인코딩이라(정부 CSV 흔한 함정) 그대로 커밋하지 않고 이 단계에서 이미
  * 변환해뒀다.
  */
+/* ---- 산출물 검증 ---- */
+
+/** metrics.json 에 싣는 지표. available/missing 판정의 기준이 된다. */
+const METRIC_KEYS = [
+  "storePerKm2", "foodPerKm2", "medicalPerKm2", "nightlifePerKm2", "busStopPerKm2",
+  "cctvPerKm2", "crimePer1k", "trafficAccidentPerKm2", "monthlyRentMan", "walkToStationMin",
+];
+
+/**
+ * 자치구별로 핵심 지표가 통째로 비었는지 본다.
+ *
+ * 전역 결측률만 보면 한 지역이 통째로 0 이어도 통과한다. 서울 427개에 값이
+ * 있으면 경기 120개가 전부 0 이어도 "수집된 지표" 로 찍히기 때문이다. 그리고
+ * 0 은 결측이 아니라 **가장 좋은 값**으로 읽히므로(상가 0 = 편의 최하, 사고
+ * 0 = 치안 최상) 조용히 등급을 왜곡한다.
+ *
+ * 그래서 "구 하나가 통째로 0/null 이면 그건 데이터 사고" 라는 기준으로 막는다.
+ * 캐시 미갱신·API 전량 실패·CSV 에 지역 누락이 전부 여기 걸린다.
+ *
+ * 값이 낮은 것 자체는 정상이므로 구 단위 전멸만 본다. nightlifePerKm2 는
+ * 0 이 정상이라(대상 동의 33%가 실제로 0) 검사에서 뺀다.
+ */
+function verifyCoverage(rows) {
+  const byGu = new Map();
+  for (const r of rows) {
+    if (!byGu.has(r.gu)) byGu.set(r.gu, []);
+    byGu.get(r.gu).push(r);
+  }
+
+  /** [키, 라벨, 원인] — 전멸 시 무엇을 의심해야 하는지까지 적는다 */
+  const REQUIRED = [
+    ["storePerKm2", "편의점·마트", "상가업소 캐시가 이 구를 안 담고 있음"],
+    ["foodPerKm2", "음식점", "상가업소 캐시가 이 구를 안 담고 있음"],
+    ["medicalPerKm2", "병원·약국", "상가업소 캐시가 이 구를 안 담고 있음"],
+    ["busStopPerKm2", "버스 정류장", "OSM bbox 가 이 구를 안 덮음"],
+    ["monthlyRentMan", "환산월세", "실거래가 API 가 이 구에서 전량 실패"],
+    ["crimePer1k", "5대범죄", "범죄·인구 CSV 에 이 지역이 없음"],
+  ];
+
+  const problems = [];
+  const warnings = [];
+  for (const [gu, ds] of byGu) {
+    for (const [key, label, cause] of REQUIRED) {
+      if (ds.every((d) => !(d[key] > 0))) {
+        problems.push(`${gu}: ${label}(${key}) 가 ${ds.length}개 동 전부 0/null — ${cause}`);
+      }
+    }
+    // 사고 다발지점은 실제로 한 곳도 없을 수 있다. 막지 말고 알리기만 한다.
+    if (ds.every((d) => !(d.trafficAccidentPerKm2 > 0))) {
+      warnings.push(`${gu}: 교통사고 다발지점 0건`);
+    }
+  }
+
+  if (problems.length) {
+    console.error("\n✗ 지역별 데이터 검증 실패:");
+    for (const p of problems) console.error("  - " + p);
+    process.exit(1);
+  }
+
+  for (const w of warnings) console.log(`  참고 — ${w}`);
+
+  // 통과 시 시 단위 요약만 남긴다 (34개 구를 다 찍으면 정작 경고가 묻힌다)
+  const bySi = new Map();
+  for (const [gu, ds] of byGu) {
+    const si = gu.includes(" ") ? gu.split(" ")[0] : "서울";
+    bySi.set(si, (bySi.get(si) ?? 0) + ds.length);
+  }
+  const summary = [...bySi].map(([si, n]) => `${si} ${n}`).join(" · ");
+  console.log(`  지역별 검증 통과 — ${byGu.size}개 구 (${summary})`);
+}
+
 /* ---- 생활 중심점: 인구 격자로 가중한 상가업소 좌표의 무게중심 ---- */
 
 const GRID_POP = join(ROOT, "data/raw/grid-population-2024.json");
