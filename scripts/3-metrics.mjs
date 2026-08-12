@@ -98,7 +98,7 @@ async function main() {
     await readFile(join(ROOT, "data/dist/dong-meta.json"), "utf8")
   );
   const boundaries = JSON.parse(
-    await readFile(join(ROOT, "public/seoul-dong.geojson"), "utf8")
+    await readFile(join(ROOT, "public/dong.geojson"), "utf8")
   );
   const graph = JSON.parse(
     await readFile(join(ROOT, "data/dist/subway-graph.json"), "utf8")

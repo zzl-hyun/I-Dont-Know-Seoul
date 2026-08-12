@@ -223,7 +223,7 @@ export default function MapView({
     const installLayers = () => {
     map.addSource(SRC_DONG, {
       type: "geojson",
-      data: "/seoul-dong.geojson",
+      data: "/dong.geojson",
       // feature-state 를 쓰려면 안정적인 feature id 가 필요하다.
       promoteId: "adm_cd2",
     });
