@@ -6,6 +6,7 @@ import type {
   DongScore,
   Grade,
   MetricKey,
+  RentByType,
   RouteLeg,
   Weights,
 } from "../types";
@@ -164,6 +165,12 @@ export default function DongDetail({
                   실거래 표본이 부족해 월세를 <b>자치구 중앙값</b>으로 대체했습니다.
                 </p>
               )}
+              {key === "price" && score.raw.rentByType && (
+                <p className="metric-note">
+                  위 월세는 세 주택유형을 합친 중앙값입니다 — {rentByTypeText(score.raw.rentByType)}.
+                  같은 소형 기준이어도 아파트가 대체로 더 비쌉니다.
+                </p>
+              )}
             </section>
           ))}
 
@@ -291,6 +298,23 @@ function MetricRow({ m, single }: { m: MetricExplanation; single: boolean }) {
 }
 
 /* ---------------- 헬퍼 ---------------- */
+
+const RENT_TYPE_LABEL: Record<keyof RentByType, string> = {
+  house: "단독·다가구",
+  officetel: "오피스텔",
+  apartment: "아파트",
+};
+
+function rentByTypeText(byType: RentByType): string {
+  return (Object.keys(RENT_TYPE_LABEL) as Array<keyof RentByType>)
+    .map((key) => {
+      const stat = byType[key];
+      return stat.samples > 0
+        ? `${RENT_TYPE_LABEL[key]} ${stat.medianMan!.toFixed(0)}만원(${stat.samples}건)`
+        : `${RENT_TYPE_LABEL[key]} 표본 없음`;
+    })
+    .join(" · ");
+}
 
 function legText(leg: RouteLeg): string {
   switch (leg.kind) {
