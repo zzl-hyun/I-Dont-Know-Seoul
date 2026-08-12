@@ -198,6 +198,10 @@
   line-height: 1.14;
   letter-spacing: -0.035em;
   text-shadow: 0 2px 24px rgba(0, 0, 0, 0.5);
+  /* heroTitle 두 줄 중 긴 쪽("어디 살아야 할지 모르겠다면" 등)이 좁은 폭에서
+     한 번 더 감길 때 "면"처럼 글자 하나만 남는 고아 줄을 막는다. */
+  word-break: keep-all;
+  text-wrap: balance;
 }
 
 .hero-lead {
