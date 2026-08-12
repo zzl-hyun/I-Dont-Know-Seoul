@@ -1,0 +1,57 @@
+# PR 과 main push 에서 도는 검사.
+#
+# 여기서 도는 것은 전부 **키가 필요 없는 것**만이다. 데이터 파이프라인
+# (data:metrics 등)은 DATA_GO_KR_KEY·SEOUL_OPEN_DATA_KEY 가 있어야 하고
+# 외부 API 를 수백 번 부르므로 CI 에서 돌리지 않는다. 대신 파이프라인 산출물
+# (data/dist/, public/data/bundle.json)이 저장소에 커밋되어 있어서, 테스트가
+# 그 산출물을 읽어 계약이 깨졌는지 잡는다.
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# 같은 PR 에 연속으로 push 하면 앞 실행을 취소한다
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # package-lock.json 을 그대로 쓴다. npm install 은 잠금을 갱신해버려
+      # 로컬과 다른 의존성으로 통과할 수 있다.
+      - run: npm ci
+
+      - name: 타입체크
+        run: npm run typecheck
+
+      - name: 테스트
+        run: npm test
+
+      - name: 빌드
+        run: npm run build
+
+      # 공백 오류는 리뷰에서 잘 안 보이는데 diff 를 지저분하게 만든다.
+      # 저장소에 포매터가 없어 이것만이라도 자동으로 막는다.
+      - name: 공백 검사
+        run: git diff --check ${{ github.event.pull_request.base.sha || 'HEAD~1' }} HEAD
+
+      # 빌드가 산출물을 건드리면 커밋된 데이터와 어긋난다는 뜻이다.
+      - name: 작업트리가 깨끗한지
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            echo "빌드 후 작업트리가 변경됐습니다:"
+            git status --porcelain
+            git diff
+            exit 1
+          fi

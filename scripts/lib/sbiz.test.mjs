@@ -52,7 +52,7 @@ describe("소상공인 업종 → 지표 분류", () => {
     let codes;
     try {
       const raw = JSON.parse(
-        readFileSync(join(process.cwd(), "data/raw/sbiz-seoul.json"), "utf8")
+        readFileSync(join(process.cwd(), "data/raw/sbiz-stores.json"), "utf8")
       );
       codes = Object.keys(raw.names ?? {});
     } catch {
