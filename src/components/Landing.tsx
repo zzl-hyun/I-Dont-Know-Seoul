@@ -5,6 +5,7 @@ import SearchGuide from "./SearchGuide";
 import WeightPlayground from "./WeightPlayground";
 import type { Theme } from "./MapView";
 import type { Destination } from "../types";
+import type { LandingVariant } from "../lib/landingVariants";
 import {
   COMMUTE_BANDS,
   DEFAULT_WEIGHTS,
@@ -20,6 +21,7 @@ interface Props {
   onSkip: () => void;
   theme: Theme;
   onToggleTheme: () => void;
+  variant: LandingVariant;
 }
 
 /**
@@ -43,7 +45,13 @@ interface Props {
  * 테마 토글을 여기에 또 두는 이유: 원래 토글은 `.map-controls` 안, 즉 지도
  * 위에 있는데 소개 페이지에는 지도가 없어서 그대로면 토글이 사라진다.
  */
-export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props) {
+export default function Landing({
+  onPick,
+  onSkip,
+  theme,
+  onToggleTheme,
+  variant,
+}: Props) {
   const pct = (v: number) => Math.round(v * 100);
   const [mode, setMode] = useState<"grade" | "commute">("grade");
 
@@ -77,12 +85,14 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
           </div>
 
           <h1>
-            어디 살아야<br />할지 모르겠다면
+            {variant.heroTitle[0]}
+            <br />
+            {variant.heroTitle[1]}
           </h1>
           <p className="hero-lead">
-            강남·판교 같은 회사나 학교를 검색하면,
+            {variant.heroLead[0]}
             <br />
-            서울과 신분당선 생활권의 동네를 한눈에 비교합니다.
+            {variant.heroLead[1]}
           </p>
 
           <div className="hero-search">
@@ -107,7 +117,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
 
       <div className="landing-inner">
         <Reveal>
-          <SearchGuide />
+          <SearchGuide variant={variant} />
         </Reveal>
 
         {/* ---------------- 기능 ---------------- */}
@@ -436,7 +446,7 @@ export default function Landing({ onPick, onSkip, theme, onToggleTheme }: Props)
         <HeroImage className="cta-bg" />
         <div className="hero-scrim" />
         <div className="cta-body">
-          <h2>어디로 출근하세요?</h2>
+          <h2>{variant.ctaTitle}</h2>
           <div className="hero-search">
             <DestinationSearch onPick={onPick} />
           </div>
