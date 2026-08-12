@@ -183,11 +183,39 @@ export interface AxisWeight {
 
 export type AxisName = "safety" | "price" | "convenience";
 
+/** 주택유형 하나의 환산월세 중앙값·표본수 */
+export interface RentTypeStat {
+  medianMan: number | null;
+  samples: number;
+}
+
+/**
+ * 환산월세를 이루는 세 주택유형별 분해.
+ *
+ * `monthlyRentMan`은 이 셋을 합쳐 계산한 단일 중앙값이다(점수·등급은 이
+ * 값만 쓰고, 유형을 나눠 다시 채점하지 않는다 — 등급 분포를 안 흔들기
+ * 위해서). 3개 구 표본조사 결과 같은 소형(10~40/60㎡) 기준이어도 아파트가
+ * 단독·다가구보다 1.4~2.0배 비쌌다(강남 75.5→135.8만원, 마포 68.7→137.1만원,
+ * 노원 49.3→90.2만원). 동마다 주택유형 재고 비중이 달라 합산 중앙값만으로는
+ * "이 동은 원룸이 비싼가 아파트가 비싼가"를 구분할 수 없어서, 상세 패널에
+ * 근거로 함께 보여주려고 별도로 남긴다.
+ */
+export interface RentByType {
+  /** 단독·다가구 (10~40㎡) */
+  house: RentTypeStat;
+  /** 오피스텔 (10~40㎡) */
+  officetel: RentTypeStat;
+  /** 소형아파트 (10~60㎡) */
+  apartment: RentTypeStat;
+}
+
 export interface DongRawMetrics {
   /** 환산월세 중앙값 (만원, 단독·다가구·오피스텔·소형아파트) */
   monthlyRentMan: number | null;
   /** 실거래 표본 수 */
   rentSamples: number;
+  /** 주택유형별 분해 — monthlyRentMan 계산에는 안 쓰고 상세 패널 표시용 */
+  rentByType: RentByType | null;
   /** CCTV 밀도 (대/km²) */
   cctvPerKm2: number | null;
   /** 일반·무도 유흥주점 밀도 (개/km²) */

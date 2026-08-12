@@ -27,6 +27,7 @@ import { haversineM, pointInGeometry, bbox } from "./lib/geo.mjs";
 import { SBIZ_GROUPS } from "./lib/sbiz.mjs";
 import { CACHE_SCHEMA, checkCache } from "./lib/cache.mjs";
 import { populationWalkByDong } from "./lib/population-access.mjs";
+import { typeBreakdown } from "./lib/rent.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -262,6 +263,7 @@ async function main() {
       trafficAccidentPerKm2: accidentOk ? round2(c.trafficAccident / area) : null,
       monthlyRentMan: r?.median ?? null,
       rentSamples: r?.samples ?? 0,
+      rentByType: r?.byType ?? null,
       walkToStationMin: round2(walkMin.get(d.code)),
     };
   });
@@ -815,10 +817,19 @@ const MAX_RETRY = 4;
  * runJob이 다른 두 엔드포인트처럼 개별 실패로 처리하고 넘어간다(전체가
  * 죽지 않는다). 실행 로그에 실패율이 튀면 여기부터 의심할 것.
  */
+/**
+ * 유형별로 나눠서 상세 패널에 보여주기 위한 이름표다. 실제로 3개 구를
+ * 표본 조사해보니 같은 소형 기준(10~40/60㎡)이어도 아파트가 단독·다가구보다
+ * 1.4~2.0배 비쌌다(강남 75.5→135.8만원, 마포 68.7→137.1만원, 노원
+ * 49.3→90.2만원). 합산 중앙값만 쓰면 아파트 재고 비중이 높은 동이 실제
+ * 원룸 시세보다 비싸 보이는 착시가 생긴다 — monthlyRentMan 점수 계산은
+ * 그대로 두되(등급 분포를 흔들지 않으려고), 유형별 중앙값·표본수는 따로
+ * 남겨 상세 패널에서 전면 공개한다.
+ */
 const ENDPOINTS = [
-  { url: "https://apis.data.go.kr/1613000/RTMSDataSvcSHRent/getRTMSDataSvcSHRent", areaMax: AREA_MAX },
-  { url: "https://apis.data.go.kr/1613000/RTMSDataSvcOffiRent/getRTMSDataSvcOffiRent", areaMax: AREA_MAX },
-  { url: "https://apis.data.go.kr/1613000/RTMSDataSvcAptRent/getRTMSDataSvcAptRent", areaMax: AREA_MAX_APT },
+  { name: "house", url: "https://apis.data.go.kr/1613000/RTMSDataSvcSHRent/getRTMSDataSvcSHRent", areaMax: AREA_MAX },
+  { name: "officetel", url: "https://apis.data.go.kr/1613000/RTMSDataSvcOffiRent/getRTMSDataSvcOffiRent", areaMax: AREA_MAX },
+  { name: "apartment", url: "https://apis.data.go.kr/1613000/RTMSDataSvcAptRent/getRTMSDataSvcAptRent", areaMax: AREA_MAX_APT },
 ];
 
 /**
@@ -896,7 +907,7 @@ async function fetchRent(key, dongs) {
           if (!legal) continue;
           const k = `${gu}|${legal}`;
           if (!byLegal.has(k)) byLegal.set(k, []);
-          byLegal.get(k).push(toMonthly(deposit, monthly));
+          byLegal.get(k).push({ value: toMonthly(deposit, monthly), type: ep.name });
           records++;
         }
         return true;
@@ -948,7 +959,11 @@ async function fetchRent(key, dongs) {
       if (arr) pool.push(...arr);
     }
     if (pool.length >= MIN_SAMPLES) {
-      out.set(d.code, { median: round2(median(pool)), samples: pool.length });
+      out.set(d.code, {
+        median: round2(median(pool.map((p) => p.value))),
+        samples: pool.length,
+        byType: typeBreakdown(pool),
+      });
       matched++;
     }
   }
@@ -966,7 +981,11 @@ async function fetchRent(key, dongs) {
     if (out.has(d.code)) continue;
     const arr = byGu.get(d.guCode);
     if (arr?.length >= MIN_SAMPLES) {
-      out.set(d.code, { median: round2(median(arr)), samples: 0 });
+      out.set(d.code, {
+        median: round2(median(arr.map((p) => p.value))),
+        samples: 0,
+        byType: typeBreakdown(arr),
+      });
       filled++;
     }
   }

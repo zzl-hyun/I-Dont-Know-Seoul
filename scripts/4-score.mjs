@@ -163,6 +163,7 @@ async function main() {
     s.raw = {
       monthlyRentMan: r.monthlyRentMan,
       rentSamples: r.rentSamples ?? 0,
+      rentByType: r.rentByType ?? null,
       cctvPerKm2: r.cctvPerKm2,
       nightlifePerKm2: r.nightlifePerKm2,
       crimePer1k: r.crimePer1k,
