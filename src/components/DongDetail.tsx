@@ -211,22 +211,14 @@ export default function DongDetail({
                 </p>
               )}
               {key === "price" && score.raw.rentByType && (
-                <p className="metric-note">
-                  {isBaseRent ? (
-                    <>
-                      위 월세는 단독·다가구+오피스텔+아파트 세 유형을 합친 중앙값입니다.
-                      연립·다세대를 포함한 네 유형별 참고값은 다음과 같습니다 —{" "}
-                      {rentByTypeText(score.raw.rentByType)}.
-                    </>
-                  ) : (
-                    <>
-                      참고로 주택유형별 환산월세 실제값은 다음과 같습니다 —{" "}
-                      {rentByTypeText(score.raw.rentByType)}. 같은 소형 기준이어도 아파트가
-                      대체로 더 비쌉니다. 위 가격 점수는 현재 선택한{" "}
-                      <b>{rentSelectionLabel(rentSelection)}</b> 기준입니다.
-                    </>
-                  )}
-                </p>
+                <>
+                  <p className="metric-note">
+                    {isBaseRent
+                      ? "위 월세는 단독·다가구+오피스텔+아파트 세 유형을 합친 중앙값입니다."
+                      : "같은 소형 기준이어도 아파트가 대체로 더 비쌉니다."}
+                  </p>
+                  <RentByTypeDetails byType={score.raw.rentByType} isBaseRent={isBaseRent} />
+                </>
               )}
             </section>
           ))}
@@ -418,15 +410,37 @@ const RENT_TYPE_LABEL: Record<keyof RentByType, string> = {
   apartment: "아파트",
 };
 
-function rentByTypeText(byType: RentByType): string {
-  return (Object.keys(RENT_TYPE_LABEL) as Array<keyof RentByType>)
-    .map((key) => {
-      const stat = byType[key];
-      return stat.samples > 0
-        ? `${RENT_TYPE_LABEL[key]} ${stat.medianMan!.toFixed(0)}만원(${stat.samples}건)`
-        : `${RENT_TYPE_LABEL[key]} 표본 없음`;
-    })
-    .join(" · ");
+/**
+ * 4유형(단독·다가구/연립·다세대/오피스텔/아파트) 실측치 — 접어 둔다.
+ *
+ * 한 줄 join(옛 rentByTypeText)은 유형이 늘수록 읽기 어려워져서 라벨·중앙값·
+ * 표본수 3열 그리드로 바꿨다. isBaseRent 여부와 무관하게 항상 4유형 전부를
+ * 보여준다 — 3종 합산 기준일 때도 빠진 연립·다세대를 참고할 수 있어야 한다.
+ */
+function RentByTypeDetails({
+  byType,
+  isBaseRent,
+}: {
+  byType: RentByType;
+  isBaseRent: boolean;
+}) {
+  return (
+    <details className="rent-by-type">
+      <summary>{isBaseRent ? "네 유형별 참고값 보기" : "네 유형별 실측치 보기"}</summary>
+      <div className="rent-by-type-body">
+        {(Object.keys(RENT_TYPE_LABEL) as Array<keyof RentByType>).map((key) => {
+          const stat = byType[key];
+          return (
+            <div className="rent-by-type-row" key={key}>
+              <span>{RENT_TYPE_LABEL[key]}</span>
+              <b>{stat.samples > 0 ? `${stat.medianMan!.toFixed(0)}만원` : "표본 없음"}</b>
+              <small>{stat.samples > 0 ? `${stat.samples}건` : ""}</small>
+            </div>
+          );
+        })}
+      </div>
+    </details>
+  );
 }
 
 function legText(leg: RouteLeg): string {
