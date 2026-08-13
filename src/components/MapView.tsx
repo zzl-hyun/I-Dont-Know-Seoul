@@ -280,6 +280,14 @@ export default function MapView({
           ["boolean", ["feature-state", "reachable"], false], 0.55,
           0.16,
         ],
+        /*
+         * feature-state가 바뀔 때마다(검색·슬라이더·hover 전부) 색과 불투명도가
+         * 즉시 스냅하지 않고 부드럽게 따라오게 한다. MapLibre 네이티브 transition
+         * 옵션이라 표현식이 아니다 — "case 안에 zoom interpolate 중첩 금지" 함정과
+         * 무관하다.
+         */
+        "fill-color-transition": { duration: 320 },
+        "fill-opacity-transition": { duration: 320 },
       },
     });
 
@@ -397,6 +405,9 @@ export default function MapView({
         "circle-stroke-color": MAP_THEME[themeRef.current].halo,
         "circle-stroke-width": 1.4,
         "circle-stroke-opacity": reachableOpacityExpr(),
+        // dong-fill과 같은 이유로 팝 하지 않고 스르륵 뜨게 한다
+        "circle-opacity-transition": { duration: 320 },
+        "circle-stroke-opacity-transition": { duration: 320 },
       },
     });
 
@@ -516,6 +527,23 @@ export default function MapView({
         "text-color": MAP_THEME[themeRef.current].stationLabel,
         "text-halo-color": MAP_THEME[themeRef.current].halo,
         "text-halo-width": 1.4,
+      },
+    });
+
+    /*
+     * 목적지 물결 이펙트. dest-marker 바로 아래에 둔다 — 실선 마커가 자기
+     * 물결 위에 남아야 한다. 기본은 안 보이는 상태(반경 8·불투명도 0)이고,
+     * 목적지가 바뀔 때만 아래 destinations effect가 requestAnimationFrame으로
+     * 반경·불투명도를 밀어 올렸다 내린다(레이어 순서는 CLAUDE.md 참고).
+     */
+    map.addLayer({
+      id: "dest-pulse",
+      type: "circle",
+      source: SRC_DEST,
+      paint: {
+        "circle-radius": 8,
+        "circle-color": "#4d8bf5",
+        "circle-opacity": 0,
       },
     });
 
@@ -706,6 +734,10 @@ export default function MapView({
   }, [hoveredCode, styleEpoch]);
 
   /* ---------------- 목적지 마커 ---------------- */
+  // styleEpoch(테마 전환)만 바뀌어도 이 effect가 재실행되므로, 실제로 목적지
+  // 좌표가 바뀔 때만 펄스가 돌게 직전 값을 문자열로 비교해 둔다.
+  const prevDestKey = useRef<string>("");
+  const pulseRaf = useRef<number | null>(null);
   useEffect(() => {
     const map = mapRef.current;
     if (!map) return;
@@ -715,6 +747,7 @@ export default function MapView({
       if (!src) return;
       if (destinations.length === 0) {
         src.setData(emptyFC());
+        prevDestKey.current = "";
         return;
       }
       src.setData({
@@ -734,10 +767,23 @@ export default function MapView({
         for (const d of destinations) b.extend([d.lng, d.lat]);
         map.fitBounds(b, { padding: 120, maxZoom: 12, duration: 700 });
       }
+
+      const key = destinations.map((d) => `${d.lat},${d.lng}`).join("|");
+      if (key !== prevDestKey.current) {
+        startDestPulse(map, pulseRaf);
+      }
+      prevDestKey.current = key;
     };
 
     if (readyRef.current) apply();
     else map.once("oneday.ready", apply);
+
+    return () => {
+      if (pulseRaf.current != null) {
+        cancelAnimationFrame(pulseRaf.current);
+        pulseRaf.current = null;
+      }
+    };
   }, [destinations, styleEpoch]);
 
   /* ---------------- 지하철 표시/숨김 ---------------- */
@@ -863,6 +909,45 @@ export default function MapView({
 }
 
 /* ---------------- 헬퍼 ---------------- */
+
+/**
+ * 목적지 마커 주위에 물결이 3번 번지고 멈춘다. dest-pulse 레이어의
+ * circle-radius/circle-opacity를 requestAnimationFrame으로 직접 민다 —
+ * MapLibre 표현식이 아니라 여러 목적지 전체가 같은 위상으로 함께 뛴다.
+ *
+ * rafRef는 호출부(destinations effect)가 들고 있는 ref다. 목적지가 연달아
+ * 바뀌면 이전 애니메이션의 다음 프레임을 취소해야 물결이 안 쌓인다 —
+ * 그래서 새로 시작하기 전에 여기서도 한 번 더 취소한다(effect의 cleanup은
+ * 언마운트·deps 변경 시에만 돌고, 이 함수 자체는 값이 실제로 바뀔 때만
+ * 조건부로 불려서 cleanup과 타이밍이 어긋날 수 있다).
+ */
+function startDestPulse(map: maplibregl.Map, rafRef: { current: number | null }): void {
+  if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+  if (!map.getLayer("dest-pulse")) return;
+  if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
+
+  const CYCLE_MS = 900;
+  const CYCLES = 3;
+  const RADIUS_FROM = 8;
+  const RADIUS_TO = 28;
+  const OPACITY_FROM = 0.45;
+
+  let start: number | null = null;
+  const step = (ts: number) => {
+    if (start == null) start = ts;
+    const elapsed = ts - start;
+    if (elapsed >= CYCLE_MS * CYCLES) {
+      map.setPaintProperty("dest-pulse", "circle-opacity", 0);
+      rafRef.current = null;
+      return;
+    }
+    const t = (elapsed % CYCLE_MS) / CYCLE_MS;
+    map.setPaintProperty("dest-pulse", "circle-radius", RADIUS_FROM + (RADIUS_TO - RADIUS_FROM) * t);
+    map.setPaintProperty("dest-pulse", "circle-opacity", OPACITY_FROM * (1 - t));
+    rafRef.current = requestAnimationFrame(step);
+  };
+  rafRef.current = requestAnimationFrame(step);
+}
 
 /** 통근 가능한 동만 보이게 하는 불투명도 표현식 */
 function reachableOpacityExpr(): maplibregl.ExpressionSpecification {

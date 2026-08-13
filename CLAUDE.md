@@ -104,8 +104,10 @@ error 리스너를 붙여둔 이유입니다).
 ```
 dong-fill → dong-outline → subway-line → subway-hit → subway-station
 → dong-icon → dong-label → route-line-casing → route-walk-line → route-line
-→ subway-label → dest-marker
+→ subway-label → dest-pulse → dest-marker
 ```
+`dest-pulse` 는 목적지가 바뀔 때 물결처럼 번지는 이펙트입니다.
+`dest-marker` 바로 아래 둡니다 — 실선 마커가 자기 물결 위에 남아야 합니다.
 `route-line-casing` 은 경로선 아래 깔리는 배경색 테두리입니다.
 1호선 남색처럼 어두운 노선색과 파란 경로 점선이 겹치면 안 보이는 문제 때문에
 추가했고, 라벨 halo와 같은 색(`MAP_THEME[...].halo`)을 재사용합니다.
