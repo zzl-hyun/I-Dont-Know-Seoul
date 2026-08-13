@@ -167,7 +167,7 @@ export interface DongScore {
   /** 표본이 부족해 대체값을 쓴 경우 */
   dataQuality: "ok" | "low";
   /**
-   * 주택유형 조합(7) × 환산모드(2) 사전계산 — 사용자가 유형을 고르면 클라이언트
+   * 주택유형 조합(15) × 환산모드(2) 사전계산 — 사용자가 유형을 고르면 클라이언트
    * 재계산 없이 여기서 바로 조회한다(백분위는 파이프라인 값만 쓴다는 원칙 —
    * 클라이언트가 다시 계산하면 동점 처리가 미세하게 어긋난다). 파이프라인이
    * 아직 안 채웠으면(구버전 번들) undefined.
@@ -206,30 +206,31 @@ export interface RentTypeStat {
 }
 
 /**
- * 환산월세를 이루는 세 주택유형별 분해.
+ * 월세 후보를 이루는 네 주택유형별 분해.
  *
- * `monthlyRentMan`은 이 셋을 합쳐 계산한 단일 중앙값이다(점수·등급은 이
- * 값만 쓰고, 유형을 나눠 다시 채점하지 않는다 — 등급 분포를 안 흔들기
- * 위해서). 3개 구 표본조사 결과 같은 소형(10~40/60㎡) 기준이어도 아파트가
- * 단독·다가구보다 1.4~2.0배 비쌌다(강남 75.5→135.8만원, 마포 68.7→137.1만원,
- * 노원 49.3→90.2만원). 동마다 주택유형 재고 비중이 달라 합산 중앙값만으로는
+ * `monthlyRentMan`은 번들 호환 기준값인 단독·다가구+오피스텔+아파트 세 유형을
+ * 합쳐 계산한다. 연립·다세대까지 포함한 네 유형 통계는 `rentVariants`에서
+ * 선택할 수 있다. 같은 소형 면적 기준이어도 유형별 가격과 재고 비중이 달라
+ * 합산 중앙값만으로는
  * "이 동은 원룸이 비싼가 아파트가 비싼가"를 구분할 수 없어서, 상세 패널에
  * 근거로 함께 보여주려고 별도로 남긴다.
  */
 export interface RentByType {
   /** 단독·다가구 (10~40㎡) */
   house: RentTypeStat;
+  /** 연립·다세대 (10~40㎡) */
+  rowhouse: RentTypeStat;
   /** 오피스텔 (10~40㎡) */
   officetel: RentTypeStat;
   /** 소형아파트 (10~60㎡) */
   apartment: RentTypeStat;
 }
 
-export type RentHousingType = "house" | "officetel" | "apartment";
+export type RentHousingType = "house" | "rowhouse" | "officetel" | "apartment";
 
 /**
  * 정렬된 조합 키. 예: "house", "house+officetel", "house+officetel+apartment".
- * 타입은 항상 이 순서로 정렬해서 합친다: house, officetel, apartment
+ * 타입은 항상 이 순서로 정렬해서 합친다: house, rowhouse, officetel, apartment
  * (`scripts/lib/rent.mjs`의 `RENT_COMBOS`와 동일한 순서).
  */
 export type RentComboKey = string;
@@ -246,13 +247,12 @@ export interface RentVariantStat {
 }
 
 /**
- * 주택유형 조합 7개(비어있지 않은 부분집합) × 환산모드 2개(converted=보증금
+ * 주택유형 조합 15개(비어있지 않은 부분집합) × 환산모드 2개(converted=보증금
  * 환산 포함, raw=순수 월세)를 전부 담는다.
  *
  * `converted["house+officetel+apartment"]`가 기존 `monthlyRentMan`/
  * `rentSamples`와 같은 조합이다 — 사용자가 직접 주택유형을 골라 가격 축을
- * 다시 계산하는 UI는 이 데이터 계약을 그대로 소비하는 별도 작업이다(여기서는
- * 손대지 않는다).
+ * 다시 계산하는 UI는 이 데이터 계약을 그대로 소비한다.
  */
 export interface RentVariants {
   converted: Record<RentComboKey, RentVariantStat>;

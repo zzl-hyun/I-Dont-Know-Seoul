@@ -7,6 +7,8 @@ describe("typeBreakdown", () => {
       { value: 60, type: "house" },
       { value: 70, type: "house" },
       { value: 80, type: "house" },
+      { value: 85, type: "rowhouse" },
+      { value: 95, type: "rowhouse" },
       { value: 90, type: "officetel" },
       { value: 100, type: "officetel" },
       { value: 130, type: "apartment" },
@@ -15,6 +17,7 @@ describe("typeBreakdown", () => {
     ];
     const result = typeBreakdown(pool);
     expect(result.house).toEqual({ medianMan: 70, samples: 3 });
+    expect(result.rowhouse).toEqual({ medianMan: 90, samples: 2 });
     expect(result.officetel).toEqual({ medianMan: 95, samples: 2 });
     expect(result.apartment).toEqual({ medianMan: 140, samples: 3 });
   });
@@ -22,11 +25,12 @@ describe("typeBreakdown", () => {
   it("표본이 없는 유형은 medianMan이 null이고 samples는 0이다", () => {
     const pool = [{ value: 60, type: "house" }];
     const result = typeBreakdown(pool);
+    expect(result.rowhouse).toEqual({ medianMan: null, samples: 0 });
     expect(result.officetel).toEqual({ medianMan: null, samples: 0 });
     expect(result.apartment).toEqual({ medianMan: null, samples: 0 });
   });
 
-  it("빈 입력이면 세 유형 모두 표본 없음이다", () => {
+  it("빈 입력이면 네 유형 모두 표본 없음이다", () => {
     const result = typeBreakdown([]);
     for (const type of RENT_TYPES) {
       expect(result[type]).toEqual({ medianMan: null, samples: 0 });
@@ -37,22 +41,24 @@ describe("typeBreakdown", () => {
     const pool = [
       { value: 50, type: "house" },
       { value: 60, type: "house" },
-      { value: 70, type: "officetel" },
-      { value: 80, type: "apartment" },
+      { value: 70, type: "rowhouse" },
+      { value: 80, type: "officetel" },
       { value: 90, type: "apartment" },
+      { value: 100, type: "apartment" },
     ];
     const result = typeBreakdown(pool);
     const totalSamples = RENT_TYPES.reduce((sum, type) => sum + result[type].samples, 0);
     expect(totalSamples).toBe(pool.length);
   });
 
-  it("RENT_TYPES 밖의 태그가 섞여도 정의된 세 유형끼리는 서로 안 섞인다", () => {
+  it("RENT_TYPES 밖의 태그가 섞여도 정의된 네 유형끼리는 서로 안 섞인다", () => {
     const pool = [
       { value: 100, type: "house" },
       { value: 999, type: "unknown-type" },
     ];
     const result = typeBreakdown(pool);
     expect(result.house).toEqual({ medianMan: 100, samples: 1 });
+    expect(result.rowhouse.samples).toBe(0);
     expect(result.officetel.samples).toBe(0);
     expect(result.apartment.samples).toBe(0);
   });

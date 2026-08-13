@@ -159,7 +159,7 @@ async function main() {
   }
 
   /*
-   * ---- 3.5. 주택유형 조합(7) × 환산모드(2) 백분위 (rentVariants) ----
+   * ---- 3.5. 주택유형 조합(15) × 환산모드(2) 백분위 (rentVariants) ----
    *
    * 3-metrics.mjs가 이미 동 하나 단위로 조합·모드별 중앙값·표본수를 계산해
    * 뒀다(buildRentVariants) — 여기서는 그 값들을 547개 동 전체에 놓고
@@ -167,7 +167,7 @@ async function main() {
    * 책임이 아니다). monthlyRentMan의 pct를 만드는 percentileRank()를 그대로
    * 재사용한다 — 동점 처리를 새로 짜면 두 계산이 미세하게 어긋날 수 있다.
    *
-   * house+officetel+apartment/converted 조합이 기존 monthlyRentMan과 같은
+   * 번들 기준 3종(house+officetel+apartment)/converted 조합이 monthlyRentMan과 같은
    * 조합이다. 표본이 전 동에서 0인 조합(예: 그 지역에 해당 유형이 아예 없는
    * 경우)은 values가 비어 percentileRank를 건너뛰고 pct: null로 남긴다 —
    * 파이프라인이 죽으면 안 된다.
@@ -216,7 +216,7 @@ async function main() {
       r.monthlyRentMan != null && (r.rentSamples ?? 0) < MIN_RENT_SAMPLES ? "low" : "ok";
   }
 
-  verify(scores, rows);
+  verify(scores, rows, rentComboKeys);
 
   /* ---- 5. 저장 ---- */
 
@@ -249,6 +249,7 @@ async function main() {
   const scoreDoc = {
     version: new Date().toISOString().slice(0, 10),
     generatedAt: new Date().toISOString(),
+    rentPeriod: metrics.rentPeriod ?? null,
     pctKeys,
     axisWeights,
     axes: Object.fromEntries(
@@ -272,6 +273,7 @@ async function main() {
       busVersion: bus.generatedAt?.slice(0, 10) ?? bus.version,
       residentialVersion: residential.version,
       scoreVersion: scoreDoc.version,
+      rentPeriod: metrics.rentPeriod ?? undefined,
       availableMetrics: metrics.available,
       missingMetrics: metrics.missing,
     },
@@ -318,8 +320,9 @@ function percentileRank(values, dir) {
   return out;
 }
 
-function verify(scores, rows) {
+function verify(scores, rows, rentComboKeys) {
   const problems = [];
+  const defaultKey = "house+officetel+apartment";
   for (const r of rows) {
     const s = scores[r.code];
     if (!s) {
@@ -331,6 +334,16 @@ function verify(scores, rows) {
       if (typeof v !== "number" || !Number.isFinite(v) || v < 0 || v > 100) {
         problems.push(`${r.name} ${axis} 값 이상: ${v}`);
       }
+    }
+    for (const mode of ["converted", "raw"]) {
+      const keys = Object.keys(s.rentVariants?.[mode] ?? {});
+      if (keys.length !== rentComboKeys.length || rentComboKeys.some((key) => !keys.includes(key))) {
+        problems.push(`${r.name} ${mode} 월세 조합 누락: ${keys.length}/${rentComboKeys.length}`);
+      }
+    }
+    const defaultVariant = s.rentVariants?.converted?.[defaultKey];
+    if (defaultVariant?.medianMan !== r.monthlyRentMan || defaultVariant?.pct !== s.price) {
+      problems.push(`${r.name} 기본 월세 변형이 가격 점수와 불일치`);
     }
   }
   if (problems.length) {

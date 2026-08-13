@@ -27,7 +27,17 @@ import { haversineM, pointInGeometry, bbox } from "./lib/geo.mjs";
 import { SBIZ_GROUPS } from "./lib/sbiz.mjs";
 import { CACHE_SCHEMA, checkCache } from "./lib/cache.mjs";
 import { populationWalkByDong } from "./lib/population-access.mjs";
-import { typeBreakdown, buildRentVariants } from "./lib/rent.mjs";
+import {
+  buildRentVariants,
+  typeBreakdown,
+} from "./lib/rent.mjs";
+import {
+  loadSeoulRentArchives,
+  SEOUL_RENT_ARCHIVE_YEARS,
+  SEOUL_RENT_END_DATE,
+  SEOUL_RENT_START_DATE,
+} from "./lib/seoul-rent.mjs";
+import { contractMonths, fetchPaginatedRentJob } from "./lib/rent-api.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -55,6 +65,7 @@ await loadEnv();
 const OUT = join(ROOT, "data/dist/metrics.json");
 const POI_CACHE = join(ROOT, "data/raw/osm-poi.json");
 const SBIZ_CACHE = join(ROOT, "data/raw/sbiz-stores.json");
+const SEOUL_RENT_DIR = join(ROOT, "data/raw/seoul_rent");
 
 /*
  * OSM POI 수집 범위. 대상 547개 동의 대표점이 위도 37.232~37.684,
@@ -226,23 +237,14 @@ async function main() {
     console.log(`  건너뜀 — ${err.message}`);
   }
 
-  /* ---- 6. 환산월세: 단독/다가구 + 오피스텔 + 소형아파트 (국토부, 키 필요) ---- */
-  console.log("\n[6/6] 환산월세...");
+  /* ---- 6. 월세: 서울 파일 3개년 + 경기 국토부 API ---- */
+  console.log("\n[6/6] 월세 (2023~2025 신규계약)...");
   const molitKey = process.env.DATA_GO_KR_KEY;
-  let rent = new Map();
-  let rentVariants = new Map();
-  if (molitKey) {
-    try {
-      const result = await fetchRent(molitKey, dongs);
-      rent = result.out;
-      rentVariants = result.variantsOut;
-      console.log(`  ${rent.size}개 동에서 실거래 표본 확보`);
-    } catch (err) {
-      console.log(`  건너뜀 — ${err.message}`);
-    }
-  } else {
-    console.log("  건너뜀 — DATA_GO_KR_KEY 없음");
-  }
+  if (!molitKey) throw new Error("경기 월세 3개년 수집에 DATA_GO_KR_KEY가 필요합니다");
+  const rentResult = await fetchRent(molitKey, dongs);
+  const rent = rentResult.out;
+  const rentVariants = rentResult.variantsOut;
+  console.log(`  ${rent.size}개 동에서 실거래 표본 확보`);
 
   /* ---- 조합 ---- */
   const rows = dongs.map((d) => {
@@ -267,7 +269,7 @@ async function main() {
       monthlyRentMan: r?.median ?? null,
       rentSamples: r?.samples ?? 0,
       rentByType: r?.byType ?? null,
-      // 주택유형 조합(7) × 환산모드(2) 원값 — 백분위(pct)는 4-score.mjs가 547개
+      // 주택유형 조합(15) × 환산모드(2) 원값 — 백분위(pct)는 4-score.mjs가 547개
       // 동 전체를 놓고 계산한다(이 시점엔 동 하나만 보이므로 여기선 못 한다).
       rentVariants: rentVariants.get(d.code) ?? null,
       walkToStationMin: round2(walkMin.get(d.code)),
@@ -300,12 +302,16 @@ async function main() {
           cctv: cctvOk ? "서울 열린데이터광장" : null,
           crime: crimeByGu.size > 0 ? "경찰청 범죄 발생 지역별 통계 + 행안부 주민등록인구" : null,
           trafficAccident: accidentOk ? "도로교통공단 전국교통사고다발지역표준데이터" : null,
-          rent: rent.size > 0 ? "국토교통부 실거래가" : null,
+          rent:
+            rent.size > 0
+              ? "서울 열린데이터광장 전월세가 파일 + 국토교통부 전월세 실거래가 API"
+              : null,
           walkToStation:
             "SGIS 2024 100m population-weighted median direct walk to nearest subway station",
         },
         available,
         missing,
+        rentPeriod: rent.size > 0 ? rentResult.meta : null,
         dongs: rows,
       },
       null,
@@ -770,38 +776,21 @@ async function fetchSbizStores(key, guCodes) {
   return out;
 }
 
-/* ---- 국토교통부: 단독/다가구 + 오피스텔 + 아파트 전월세 실거래가 ---- */
+/* ---- 서울 파일 + 국토교통부 API: 4종 신규 월세 실거래가 ---- */
 
 /**
  * 전월세 → 환산월세.
  * 보증금을 전월세전환율로 월세 환산해 더한다. 서울 기준 약 5.5%.
  * 이렇게 해야 "보증금 5000/월 53" 과 "보증금 1000/월 75" 를 같은 축에서 비교할 수 있다.
  */
-const CONVERSION_RATE = 0.055;
-const toMonthly = (depositMan, monthlyMan) =>
-  monthlyMan + (depositMan * CONVERSION_RATE) / 12;
-
-/**
- * 원룸으로 볼 전용면적 범위(㎡).
- * 실제 데이터를 보면 오피스텔 원룸이 16㎡대에 몰려 있다. 하한을 20㎡로 잡으면
- * 정작 1인 가구가 사는 방이 통째로 빠진다. 상한 40㎡ 위로는 투룸이 섞인다.
- */
-const AREA_MIN = 10;
-const AREA_MAX = 40;
-
-/**
- * 아파트는 단독/다가구·오피스텔과 같은 상한(40㎡)을 쓰면 표본이 0에 수렴한다.
- * 서울 아파트는 전용 40㎡ 이하가 거의 없다 — 실질적인 최소 평형대가
- * 59㎡(18평형)에 몰려 있다. 60으로 잡아 초소형 아파트까지만 받는다.
- * 가설값이므로 1차 실행 후 실제 ㎡ 분포를 보고 조정할 것.
- */
-const AREA_MAX_APT = 60;
+// 전환율과 면적 기준은 서울 파일·국토부 API가 반드시 같아야 하므로
+// scripts/lib/rent.mjs의 공용 상수·함수를 사용한다.
 
 /** 이 미만이면 표본 부족으로 보고 상위 단위 값으로 대체한다. */
 const MIN_SAMPLES = 5;
 
-/** 최근 몇 개월치를 볼 것인가. 짧으면 표본이 부족하고 길면 시세가 흐려진다. */
-const MONTHS_BACK = 12;
+/** 기본 점수는 기존 정책대로 연립·다세대를 뺀 세 유형을 합친 값이다. */
+const DEFAULT_RENT_TYPES = new Set(["house", "officetel", "apartment"]);
 
 /**
  * 동시 요청 수.
@@ -813,29 +802,15 @@ const CONCURRENCY = 2;
 /** 요청 간 최소 간격(ms). 속도 제한 회피용. */
 const REQUEST_GAP_MS = 120;
 
-/** 실패한 요청 재시도 횟수 (지수 백오프). */
-const MAX_RETRY = 4;
-
-/*
- * 아파트 엔드포인트(RTMSDataSvcAptRent)는 기존 두 개와 같은 1613000
- * 서비스 패밀리의 명명 규칙을 그대로 따른 것이다. 정확한 URL은 기술문서가
- * hwp라 자동으로 확인 못 했다 — 활용신청이 안 돼 있거나 이름이 다르면
- * runJob이 다른 두 엔드포인트처럼 개별 실패로 처리하고 넘어간다(전체가
- * 죽지 않는다). 실행 로그에 실패율이 튀면 여기부터 의심할 것.
- */
 /**
- * 유형별로 나눠서 상세 패널에 보여주기 위한 이름표다. 실제로 3개 구를
- * 표본 조사해보니 같은 소형 기준(10~40/60㎡)이어도 아파트가 단독·다가구보다
- * 1.4~2.0배 비쌌다(강남 75.5→135.8만원, 마포 68.7→137.1만원, 노원
- * 49.3→90.2만원). 합산 중앙값만 쓰면 아파트 재고 비중이 높은 동이 실제
- * 원룸 시세보다 비싸 보이는 착시가 생긴다 — monthlyRentMan 점수 계산은
- * 그대로 두되(등급 분포를 흔들지 않으려고), 유형별 중앙값·표본수는 따로
- * 남겨 상세 패널에서 전면 공개한다.
+ * 네 엔드포인트 모두 법정동 코드+계약년월로 조회한다. 서울은 페이지 잘림이
+ * 없는 파일을 쓰고, 경기 9개 구만 이 API를 끝 페이지까지 읽는다.
  */
 const ENDPOINTS = [
-  { name: "house", url: "https://apis.data.go.kr/1613000/RTMSDataSvcSHRent/getRTMSDataSvcSHRent", areaMax: AREA_MAX },
-  { name: "officetel", url: "https://apis.data.go.kr/1613000/RTMSDataSvcOffiRent/getRTMSDataSvcOffiRent", areaMax: AREA_MAX },
-  { name: "apartment", url: "https://apis.data.go.kr/1613000/RTMSDataSvcAptRent/getRTMSDataSvcAptRent", areaMax: AREA_MAX_APT },
+  { name: "house", url: "https://apis.data.go.kr/1613000/RTMSDataSvcSHRent/getRTMSDataSvcSHRent" },
+  { name: "rowhouse", url: "https://apis.data.go.kr/1613000/RTMSDataSvcRHRent/getRTMSDataSvcRHRent" },
+  { name: "officetel", url: "https://apis.data.go.kr/1613000/RTMSDataSvcOffiRent/getRTMSDataSvcOffiRent" },
+  { name: "apartment", url: "https://apis.data.go.kr/1613000/RTMSDataSvcAptRent/getRTMSDataSvcAptRent" },
 ];
 
 /**
@@ -859,13 +834,19 @@ function legalDongCandidates(dongName) {
 }
 
 async function fetchRent(key, dongs) {
-  const guCodes = [...new Set(dongs.map((d) => d.guCode))];
-  const now = new Date();
-  const months = [];
-  for (let i = 1; i <= MONTHS_BACK; i++) {
-    const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-    months.push(`${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, "0")}`);
-  }
+  const archivePaths = SEOUL_RENT_ARCHIVE_YEARS.map((year) =>
+    join(SEOUL_RENT_DIR, `seoul_rent_${year}.zip`)
+  );
+  const seoul = await loadSeoulRentArchives(archivePaths);
+  console.log(
+    `  서울 파일 ${seoul.stats.rowsRead.toLocaleString()}행 → ` +
+      `신규 소형 월세 ${seoul.stats.unique.toLocaleString()}건 ` +
+      `(중복 ${seoul.stats.duplicates.toLocaleString()}건 · 위치 누락 ${seoul.stats.invalidLocation}건 제외)`
+  );
+
+  // 서울은 전체 파일을 쓰고, API는 파일이 없는 경기 9개 구만 조회한다.
+  const guCodes = [...new Set(dongs.map((d) => d.guCode))].filter((gu) => !gu.startsWith("11"));
+  const months = contractMonths(SEOUL_RENT_START_DATE, SEOUL_RENT_END_DATE);
 
   // 요청 목록을 미리 펼쳐놓고 제한된 동시성으로 소화한다
   const jobs = [];
@@ -875,57 +856,38 @@ async function fetchRent(key, dongs) {
     }
   }
 
-  /** `${guCode}|${법정동명}` → 환산월세 배열 */
+  /** `${guCode}|${법정동명}` → 월세 레코드 배열 */
   const byLegal = new Map();
+  const addRecord = (gu, legal, record) => {
+    const k = `${gu}|${legal}`;
+    if (!byLegal.has(k)) byLegal.set(k, []);
+    byLegal.get(k).push(record);
+  };
+  for (const record of seoul.records) {
+    addRecord(record.guCode, record.legalDongName, {
+      monthly: record.monthly,
+      converted: record.converted,
+      type: record.type,
+    });
+  }
+
   let done = 0;
-  let failed = 0;
-  let records = 0;
+  let calls = 0;
+  let apiRecords = 0;
 
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-  /** 한 요청을 처리한다. 실패하면 지수 백오프로 재시도한다. */
-  const runJob = async ({ gu, ym, ep }) => {
-    const url =
-      `${ep.url}?serviceKey=${encodeURIComponent(key)}` +
-      `&LAWD_CD=${gu}&DEAL_YMD=${ym}&numOfRows=1000&pageNo=1&_type=json`;
-
-    for (let attempt = 0; attempt <= MAX_RETRY; attempt++) {
-      if (attempt > 0) await sleep(500 * 2 ** attempt); // 1s, 2s, 4s, 8s
-      try {
-        const res = await fetch(url);
-        const text = await res.text();
-        let body;
-        try {
-          body = JSON.parse(text)?.response;
-        } catch {
-          continue; // 인증 실패·속도 제한은 XML 로 온다 → 재시도
-        }
-        if (body?.header?.resultCode !== "000") continue;
-
-        const items = [].concat(body?.body?.items?.item ?? []);
-        for (const it of items) {
-          const area = Number(String(it.excluUseAr ?? it.totalFloorAr ?? 0));
-          if (!(area >= AREA_MIN && area <= ep.areaMax)) continue;
-          const deposit = Number(String(it.deposit ?? "0").replace(/,/g, ""));
-          const monthly = Number(String(it.monthlyRent ?? "0").replace(/,/g, ""));
-          if (!(monthly > 0)) continue; // 순수 전세 제외 (월세 시세가 아니다)
-          const legal = String(it.umdNm ?? "").trim();
-          if (!legal) continue;
-          const k = `${gu}|${legal}`;
-          if (!byLegal.has(k)) byLegal.set(k, []);
-          // monthly = 원본 월세, converted = 보증금을 전월세전환율로 환산해 더한 값.
-          // 기존 monthlyRentMan/typeBreakdown은 converted만 쓰고(아래 valuePool),
-          // rentVariants(buildRentVariants)는 raw 모드용으로 monthly도 함께 쓴다.
-          byLegal.get(k).push({ monthly, converted: toMonthly(deposit, monthly), type: ep.name });
-          records++;
-        }
-        return true;
-      } catch {
-        /* 네트워크 오류 → 재시도 */
-      }
-    }
-    failed++;
-    return false;
+  /** 구·월·유형 하나를 모든 페이지까지 받은 뒤 한 번에 반영한다. */
+  const runJob = async (job) => {
+    const result = await fetchPaginatedRentJob({
+      key,
+      gu: job.gu,
+      ym: job.ym,
+      endpoint: job.ep,
+    });
+    calls += result.calls;
+    for (const record of result.records) addRecord(job.gu, record.legal, record);
+    apiRecords += result.records.length;
   };
 
   // 제한된 동시성 + 요청 간 간격으로 실행
@@ -940,7 +902,8 @@ async function fetchRent(key, dongs) {
         if (done % 20 === 0 || done === jobs.length) {
           const el = Math.round((Date.now() - startedAt) / 1000);
           process.stdout.write(
-            `\r  실거래 조회 ${done}/${jobs.length} · 표본 ${records.toLocaleString()}건 · 실패 ${failed} · ${el}초   `
+            `\r  경기 실거래 조회 ${done}/${jobs.length} · 호출 ${calls.toLocaleString()}회 · ` +
+              `신규 소형 월세 ${apiRecords.toLocaleString()}건 · ${el}초   `
           );
         }
         await sleep(REQUEST_GAP_MS);
@@ -949,9 +912,9 @@ async function fetchRent(key, dongs) {
   );
   process.stdout.write("\n");
 
-  if (records === 0) {
+  if (apiRecords === 0) {
     throw new Error(
-      `표본을 하나도 받지 못했습니다 (요청 ${jobs.length}건 중 ${failed}건 실패). ` +
+      `경기 신규 월세 표본을 하나도 받지 못했습니다 (작업 ${jobs.length}건). ` +
         `DATA_GO_KR_KEY 가 "일반 인증키(Decoding)" 값인지 확인하세요 — ` +
         `%2B, %3D 가 들어간 인코딩 값을 넣으면 이중 인코딩되어 인증에 실패합니다.`
     );
@@ -959,9 +922,7 @@ async function fetchRent(key, dongs) {
 
   /* --- 법정동 → 행정동 배분 --- */
 
-  // typeBreakdown()은 {value, type} 형태를 기대한다(house/officetel/apartment
-  // 3종 각각의 중앙값·표본수만 내는 기존 함수라 여기서 안 건드린다) — byLegal
-  // 항목은 monthly/converted 둘 다 갖고 있으니 converted를 value로 얹어준다.
+  // typeBreakdown()은 {value, type} 형태를 기대하므로 converted를 value로 얹는다.
   const asValuePool = (pool) => pool.map((p) => ({ value: p.converted, type: p.type }));
 
   // 자치구 전체 pool — 법정동 매칭이 안 되는 동의 대체값에도, rentVariants의
@@ -970,7 +931,7 @@ async function fetchRent(key, dongs) {
   for (const [k, arr] of byLegal) {
     const gu = k.split("|")[0];
     if (!byGu.has(gu)) byGu.set(gu, []);
-    byGu.get(gu).push(...arr);
+    for (const record of arr) byGu.get(gu).push(record);
   }
 
   const out = new Map();
@@ -982,40 +943,61 @@ async function fetchRent(key, dongs) {
     const dongPool = [];
     for (const cand of legalDongCandidates(d.dong)) {
       const arr = byLegal.get(`${d.guCode}|${cand}`);
-      if (arr) dongPool.push(...arr);
+      if (arr) for (const record of arr) dongPool.push(record);
     }
     const districtPool = byGu.get(d.guCode) ?? [];
+    const defaultDongPool = dongPool.filter((p) => DEFAULT_RENT_TYPES.has(p.type));
+    const defaultDistrictPool = districtPool.filter((p) => DEFAULT_RENT_TYPES.has(p.type));
 
-    if (dongPool.length >= MIN_SAMPLES) {
+    if (defaultDongPool.length >= MIN_SAMPLES) {
       out.set(d.code, {
-        median: round2(median(dongPool.map((p) => p.converted))),
-        samples: dongPool.length,
+        median: round2(median(defaultDongPool.map((p) => p.converted))),
+        samples: defaultDongPool.length,
         byType: typeBreakdown(asValuePool(dongPool)),
       });
       matched++;
-    } else if (districtPool.length >= MIN_SAMPLES) {
+    } else if (defaultDistrictPool.length >= MIN_SAMPLES) {
       // 못 붙은 동은 자치구 중앙값으로 채우고 samples=0 으로 표시한다
       // (4-score.mjs 가 이를 dataQuality="low" 로 UI에 노출한다)
       out.set(d.code, {
-        median: round2(median(districtPool.map((p) => p.converted))),
+        median: round2(median(defaultDistrictPool.map((p) => p.converted))),
         samples: 0,
         byType: typeBreakdown(asValuePool(districtPool)),
       });
       filled++;
     }
 
-    // house+officetel+apartment/converted 조합은 dongPool/districtPool 전체를
-    // 그대로 쓰는 위 로직과 부분집합 관계상 동일한 결과가 나온다 — 동 표본이
-    // 부족하면 자치구로 대체하고 samples: 0을 찍는 규칙까지 같다.
+    // 번들 기준 3종/converted 조합은 위 monthlyRentMan과 같은 표본·대체 규칙을 쓴다.
     variantsOut.set(d.code, buildRentVariants(dongPool, districtPool, { minSamples: MIN_SAMPLES }));
   }
 
   console.log(
-    `  실거래 ${records.toLocaleString()}건 · 법정동 직접 매칭 ${matched}개 동 · 자치구 중앙값 대체 ${filled}개 동`
+    `  실거래 ${(seoul.records.length + apiRecords).toLocaleString()}건 · ` +
+      `법정동 직접 매칭 ${matched}개 동 · 자치구 중앙값 대체 ${filled}개 동`
   );
-  if (failed) console.log(`  (요청 ${jobs.length}건 중 ${failed}건 실패 — 해당 월/구는 표본에서 빠짐)`);
 
-  return { out, variantsOut };
+  return {
+    out,
+    variantsOut,
+    meta: {
+      startDate: SEOUL_RENT_START_DATE,
+      endDate: SEOUL_RENT_END_DATE,
+      contractType: "신규",
+      defaultTypes: [...DEFAULT_RENT_TYPES],
+      seoul: {
+        source: "서울 열린데이터광장 부동산 전월세가 파일",
+        archives: seoul.stats.archives,
+        records: seoul.stats.unique,
+        duplicatesRemoved: seoul.stats.duplicates,
+        invalidLocation: seoul.stats.invalidLocation,
+      },
+      gyeonggi: {
+        source: "국토교통부 전월세 실거래가 API",
+        records: apiRecords,
+        calls,
+      },
+    },
+  };
 }
 
 /* ------------------------------------------------------------------ */

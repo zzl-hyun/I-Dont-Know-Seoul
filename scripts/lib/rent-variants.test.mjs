@@ -1,9 +1,9 @@
 import { describe, it, expect } from "vitest";
 import { RENT_COMBOS, buildRentVariants } from "./rent.mjs";
 
-/** house n개, officetel n개, apartment n개를 만든다. monthly/converted는 값을 살짝 다르게 둬서
+/** 주택유형별 n개를 만든다. monthly/converted는 값을 살짝 다르게 둬서
  * raw 모드와 converted 모드가 서로 다른 계산 결과를 낸다는 것도 함께 확인한다. */
-function makePool({ house = 0, officetel = 0, apartment = 0 } = {}, offset = 0) {
+function makePool({ house = 0, rowhouse = 0, officetel = 0, apartment = 0 } = {}, offset = 0) {
   const pool = [];
   let i = 0;
   const push = (type, count) => {
@@ -13,31 +13,34 @@ function makePool({ house = 0, officetel = 0, apartment = 0 } = {}, offset = 0) 
     }
   };
   push("house", house);
+  push("rowhouse", rowhouse);
   push("officetel", officetel);
   push("apartment", apartment);
   return pool;
 }
 
 describe("buildRentVariants", () => {
-  it("7가지 조합 × 2가지 모드를 전부 만든다", () => {
-    const dongPool = makePool({ house: 6, officetel: 6, apartment: 6 });
+  it("15가지 조합 × 2가지 모드를 전부 만든다", () => {
+    const dongPool = makePool({ house: 6, rowhouse: 6, officetel: 6, apartment: 6 });
     const result = buildRentVariants(dongPool, [], { minSamples: 5 });
     const expectedKeys = RENT_COMBOS.map((c) => c.join("+"));
+    expect(expectedKeys).toHaveLength(15);
     expect(Object.keys(result.converted).sort()).toEqual([...expectedKeys].sort());
     expect(Object.keys(result.raw).sort()).toEqual([...expectedKeys].sort());
   });
 
   it("조합이 넓을수록 표본수가 많아진다 (부분집합 관계)", () => {
-    const dongPool = makePool({ house: 6, officetel: 6, apartment: 6 });
+    const dongPool = makePool({ house: 6, rowhouse: 6, officetel: 6, apartment: 6 });
     const result = buildRentVariants(dongPool, [], { minSamples: 5 });
     expect(result.converted["house"].samples).toBe(6);
-    expect(result.converted["house+officetel"].samples).toBe(12);
+    expect(result.converted["house+rowhouse"].samples).toBe(12);
     expect(result.converted["house+officetel+apartment"].samples).toBe(18);
+    expect(result.converted["house+rowhouse+officetel+apartment"].samples).toBe(24);
     // 좁은 조합 <= 넓은 조합, 항상
     for (const combo of RENT_COMBOS) {
       const key = combo.join("+");
       expect(result.converted[key].samples).toBeLessThanOrEqual(
-        result.converted["house+officetel+apartment"].samples
+        result.converted["house+rowhouse+officetel+apartment"].samples
       );
     }
   });
@@ -45,7 +48,7 @@ describe("buildRentVariants", () => {
   it("동 표본이 minSamples 미만이면 자치구(district) 표본으로 대체하고 samples: 0을 찍는다", () => {
     // house 3개뿐 → minSamples(5) 미달, apartment/officetel은 아예 없음
     const dongPool = makePool({ house: 3 });
-    const districtPool = makePool({ house: 6, officetel: 6, apartment: 6 }, 1000);
+    const districtPool = makePool({ house: 6, rowhouse: 6, officetel: 6, apartment: 6 }, 1000);
     const result = buildRentVariants(dongPool, districtPool, { minSamples: 5 });
 
     // house 조합 - district 대체가 일어난다
@@ -86,14 +89,15 @@ describe("buildRentVariants", () => {
     expect(result.converted["house"].medianMan - result.raw["house"].medianMan).toBeCloseTo(1000, 2);
   });
 
-  it("house+officetel+apartment/converted 조합은 pool 전체(모든 타입)를 그대로 쓴 것과 같다", () => {
-    const dongPool = makePool({ house: 4, officetel: 4, apartment: 4 });
+  it("4종 전체/converted 조합은 pool 전체를 그대로 쓴 것과 같다", () => {
+    const dongPool = makePool({ house: 4, rowhouse: 4, officetel: 4, apartment: 4 });
     const result = buildRentVariants(dongPool, [], { minSamples: 5 });
     const allValues = dongPool.map((p) => p.converted).sort((a, b) => a - b);
     const mid = allValues.length >> 1;
     const expectedMedian =
       allValues.length % 2 ? allValues[mid] : (allValues[mid - 1] + allValues[mid]) / 2;
-    expect(result.converted["house+officetel+apartment"].samples).toBe(dongPool.length);
-    expect(result.converted["house+officetel+apartment"].medianMan).toBeCloseTo(expectedMedian, 2);
+    const allKey = "house+rowhouse+officetel+apartment";
+    expect(result.converted[allKey].samples).toBe(dongPool.length);
+    expect(result.converted[allKey].medianMan).toBeCloseTo(expectedMedian, 2);
   });
 });

@@ -1,4 +1,19 @@
-export const RENT_TYPES = ["house", "officetel", "apartment"];
+export const RENT_TYPES = ["house", "rowhouse", "officetel", "apartment"];
+
+/** 보증금을 월세로 바꿀 때 쓰는 연 전월세전환율. */
+export const RENT_CONVERSION_RATE = 0.055;
+
+/** 1인 가구 후보로 집계하는 전용면적 범위. */
+export const RENT_AREA_MIN = 10;
+export const RENT_AREA_MAX_BY_TYPE = Object.freeze({
+  house: 40,
+  rowhouse: 40,
+  officetel: 40,
+  apartment: 60,
+});
+
+export const toConvertedMonthly = (depositMan, monthlyMan) =>
+  monthlyMan + (depositMan * RENT_CONVERSION_RATE) / 12;
 
 function median(arr) {
   const s = [...arr].sort((a, b) => a - b);
@@ -14,7 +29,7 @@ const round2 = (v) => (v == null ? null : Math.round(v * 100) / 100);
  * `3-metrics.mjs`는 import 시 `await main()`이 돌아 직접 테스트를 못 붙인다
  * (sbiz.mjs·cache.mjs와 같은 이유로 순수 함수만 여기로 뺐다). type이
  * RENT_TYPES 밖의 값이면 어느 버킷에도 안 잡히고 조용히 사라지므로, 호출부는
- * 반드시 house/officetel/apartment 중 하나로만 태그해야 한다.
+ * 반드시 RENT_TYPES 중 하나로만 태그해야 한다.
  */
 export function typeBreakdown(pool) {
   const byType = {};
@@ -29,20 +44,11 @@ export function typeBreakdown(pool) {
 }
 
 /**
- * 주택유형 3종의 비어있지 않은 부분집합 7가지. 항상 이 순서(house →
- * officetel → apartment 우선순위)로 만든다 — `RentComboKey`(`src/types.ts`)를
- * 만드는 규칙과 동일하다. `house+officetel+apartment`/converted 조합이
- * 기존 `monthlyRentMan`과 같은 조합이다.
+ * 주택유형 4종의 비어있지 않은 부분집합 15가지. 조합 안에서는 항상
+ * house → rowhouse → officetel → apartment 순서다 — `RentComboKey`
+ * (`src/types.ts`)를 만드는 규칙과 동일하다.
  */
-export const RENT_COMBOS = [
-  ["house"],
-  ["officetel"],
-  ["apartment"],
-  ["house", "officetel"],
-  ["house", "apartment"],
-  ["officetel", "apartment"],
-  ["house", "officetel", "apartment"],
-];
+export const RENT_COMBOS = combinations(RENT_TYPES);
 
 const RENT_VARIANT_MODES = [
   ["converted", "converted"],
@@ -54,7 +60,7 @@ function filterByCombo(pool, combo, field) {
 }
 
 /**
- * 조합 7가지 × 모드 2가지(converted=보증금 환산 포함, raw=순수 월세)의
+ * 조합 15가지 × 모드 2가지(converted=보증금 환산 포함, raw=순수 월세)의
  * 중앙값·표본수를 동 하나 단위로 계산한다.
  *
  * `pool` 항목은 `{ monthly, converted, type }` — `monthly`는 원본 월세,
@@ -91,5 +97,22 @@ export function buildRentVariants(dongPool, districtPool, { minSamples }) {
       result[modeKey][key] = { medianMan: null, samples: 0 };
     }
   }
+  return result;
+}
+
+function combinations(types) {
+  const result = [];
+  const visit = (start, targetSize, picked) => {
+    if (picked.length === targetSize) {
+      result.push([...picked]);
+      return;
+    }
+    for (let i = start; i < types.length; i++) {
+      picked.push(types[i]);
+      visit(i + 1, targetSize, picked);
+      picked.pop();
+    }
+  };
+  for (let size = 1; size <= types.length; size++) visit(0, size, []);
   return result;
 }
