@@ -17,6 +17,13 @@ import { buildSubwayLayers, LINE_COLOR, lineName } from "./lib/subwayLines";
 import { decodeShareState, encodeShareState } from "./lib/shareUrl";
 import { getLandingVariant } from "./lib/landingVariants";
 import {
+  applyRentSelection,
+  RENT_TYPE_LABEL,
+  selectedRentMedian,
+  sortRentTypes,
+  type RentSelection,
+} from "./lib/rent-selection";
+import {
   BUDGET_MIN,
   BUDGET_OFF,
   COMMUTE_BANDS,
@@ -24,7 +31,10 @@ import {
   GRADE_LABEL,
   MAX_DESTINATIONS,
 } from "./lib/constants";
-import type { CommuteResult, Destination, Weights } from "./types";
+import type { CommuteResult, Destination, RentHousingType, Weights } from "./types";
+
+/** 체크박스 렌더 순서 — house → officetel → apartment (RENT_TYPE_LABEL과 같은 순서) */
+const RENT_TYPE_OPTIONS: RentHousingType[] = ["house", "officetel", "apartment"];
 
 /**
  * 범례에 넣을 노선. 그래프에는 21개 노선이 있지만 전부 나열하면 지도를 덮는다.
@@ -97,6 +107,11 @@ export default function App() {
   );
   /** 월세 상한(만원). BUDGET_OFF 면 제한 없음 */
   const [budget, setBudget] = useState(initial.budget);
+  /** 가격 축을 다시 계산할 때 쓸 주택유형·환산모드 선택 */
+  const [rentSelection, setRentSelection] = useState<RentSelection>({
+    types: initial.rentTypes,
+    mode: initial.rentMode,
+  });
   const [mapMode, setMapMode] = useState<MapMode>(initial.mapMode);
   const [copied, setCopied] = useState(false);
   /**
@@ -193,7 +208,18 @@ export default function App() {
   }, [data, destinations]);
 
   /*
-   * 등급은 가중치·통근시간이 바뀔 때 다시 매긴다 (547회 곱셈 — 사실상 즉시).
+   * 사용자가 고른 주택유형·환산모드에 맞춰 가격 축(.price)만 다시 매긴 파생 Map.
+   * 기본 선택(3종 전체 + converted)이면 applyRentSelection이 data.scores를
+   * 참조 그대로 반환하므로, 선택을 안 건드리는 한 아래 useMemo 들의 메모이제이션도
+   * 그대로 보존된다.
+   */
+  const ratedScores = useMemo(() => {
+    if (!data) return null;
+    return applyRentSelection(data.scores, rentSelection);
+  }, [data, rentSelection]);
+
+  /*
+   * 등급은 가중치·통근시간·월세 선택이 바뀔 때 다시 매긴다 (547회 곱셈 — 사실상 즉시).
    *
    * 목적지가 없으면(commute === null) gradeAll을 2개 인자로만 부른다 — 3번째
    * 인자가 undefined면 gradeAll이 기존과 완전히 동일하게 동작하므로(회귀 없음)
@@ -203,12 +229,12 @@ export default function App() {
    * 점수를 그대로 쓰므로 지도 등급과 추천 목록 순위가 항상 같은 점수를 본다.
    */
   const graded = useMemo(() => {
-    if (!data) return null;
-    if (!commute) return gradeAll(data.scores, weights);
+    if (!ratedScores) return null;
+    if (!commute) return gradeAll(ratedScores, weights);
     const commuteMin = new Map<string, number | null>();
     for (const [code, c] of commute.byDong) commuteMin.set(code, c.worstMin);
-    return gradeAll(data.scores, weights, commuteMin);
-  }, [data, weights, commute]);
+    return gradeAll(ratedScores, weights, commuteMin);
+  }, [ratedScores, weights, commute]);
 
   /* 지표별 서울 분포 — 데이터가 바뀔 때 한 번만 만든다 */
   const dists = useMemo(() => {
@@ -236,14 +262,14 @@ export default function App() {
   /* 지도에 넘길 뷰 — 등급 + 통근 가능 여부 + 한 줄 이유 */
   const views = useMemo(() => {
     const map = new Map<string, DongView>();
-    if (!data || !graded) return map;
+    if (!data || !graded || !ratedScores) return map;
     for (const dong of data.dongs) {
       const g = graded.byDong.get(dong.code);
-      const s = data.scores.get(dong.code);
+      const s = ratedScores.get(dong.code);
       if (!g || !s) continue;
       const c = commute?.byDong.get(dong.code);
       const inTime = c?.worstMin != null && c.worstMin <= maxCommute;
-      const inBudget = withinBudget(s.raw.monthlyRentMan, budget);
+      const inBudget = withinBudget(selectedRentMedian(s, rentSelection), budget);
       const reachable = inTime && inBudget;
       // worstMin을 만든 그 목적지의 결과를 같이 써야 툴팁에 시간·역이
       // 서로 다른 목적지를 가리키는 일이 없다.
@@ -263,31 +289,31 @@ export default function App() {
       });
     }
     return map;
-  }, [data, graded, commute, maxCommute, weights, budget]);
+  }, [data, graded, ratedScores, commute, maxCommute, weights, budget, rentSelection]);
 
   /* 통근권 안에서 종합 점수가 높은 순 */
   const { picks, commuteEligibleCount } = useMemo(() => {
     const out: Pick[] = [];
     let commuteEligibleCount = 0;
-    if (!data || !graded || !commute) return { picks: out, commuteEligibleCount };
+    if (!data || !graded || !commute || !ratedScores) return { picks: out, commuteEligibleCount };
 
     for (const dong of data.dongs) {
       const c = commute.byDong.get(dong.code);
       const g = graded.byDong.get(dong.code);
-      const s = data.scores.get(dong.code);
+      const s = ratedScores.get(dong.code);
       if (!g || !s || c?.worstMin == null || c.worstMin > maxCommute) continue;
       commuteEligibleCount += 1;
-      if (!withinBudget(s.raw.monthlyRentMan, budget)) continue;
+      if (!withinBudget(selectedRentMedian(s, rentSelection), budget)) continue;
       out.push({ dong, grade: g.grade, score: g.score, commuteMin: c.worstMin });
     }
     out.sort((a, b) => b.score - a.score);
     return { picks: out, commuteEligibleCount };
-  }, [data, graded, commute, maxCommute, budget]);
+  }, [data, graded, commute, maxCommute, budget, ratedScores, rentSelection]);
 
   const selected = useMemo(() => {
-    if (!data || !graded || !selectedCode) return null;
+    if (!data || !graded || !selectedCode || !ratedScores) return null;
     const dong = data.dongs.find((d) => d.code === selectedCode);
-    const score = data.scores.get(selectedCode);
+    const score = ratedScores.get(selectedCode);
     const g = graded.byDong.get(selectedCode);
     if (!dong || !score || !g) return null;
     // 경로는 선택된 동 하나만, 목적지별로 되짚는다
@@ -306,7 +332,7 @@ export default function App() {
     // 직접 대입)으로 처리해 화면 수식과 실제 등급 계산이 어긋나지 않는다.
     const commuteMin = commute ? c?.worstMin ?? null : undefined;
     return { dong, score, grade: g.grade, rank: g.rank, total: g.total, commutes, commuteMin };
-  }, [data, graded, commute, selectedCode, destinations]);
+  }, [data, graded, commute, selectedCode, destinations, ratedScores]);
 
   /**
    * 선택된 동의 경로를 지도에 그릴 선분들.
@@ -344,6 +370,8 @@ export default function App() {
       mapMode,
       showSubway,
       hiddenLines: [...hiddenLines],
+      rentTypes: rentSelection.types,
+      rentMode: rentSelection.mode,
     });
     // 검색 랜딩은 고유 경로를 유지하되, 지도에 들어간 뒤의 공유 URL은 기존
     // `/?to=...` 형식으로 통일한다. 가이드 URL에 목적지 상태가 붙어 들어와도
@@ -359,6 +387,7 @@ export default function App() {
     mapMode,
     showSubway,
     hiddenLines,
+    rentSelection,
     showLanding,
     landingVariant.path,
   ]);
@@ -376,6 +405,17 @@ export default function App() {
 
   const setWeight = (key: keyof Weights, value: number) =>
     setWeights((w) => rebalanceWeights(w, key, value));
+
+  /** 마지막 하나는 항상 남긴다 — 유형이 0개면 조회할 조합 자체가 없다. */
+  const toggleRentType = (type: RentHousingType) =>
+    setRentSelection((prev) => {
+      const has = prev.types.includes(type);
+      if (has && prev.types.length === 1) return prev;
+      const nextTypes = has
+        ? prev.types.filter((t) => t !== type)
+        : sortRentTypes([...prev.types, type]);
+      return { ...prev, types: nextTypes };
+    });
 
   /**
    * 표시할 노선 목록. 아무것도 안 껐으면 null 을 넘겨 필터 자체를 걸지 않는다
@@ -670,6 +710,7 @@ export default function App() {
                   commuteMin={selected.commuteMin}
                   commutes={selected.commutes}
                   ctx={explainCtx}
+                  rentSelection={rentSelection}
                 />
               </div>
             )}
@@ -710,10 +751,56 @@ export default function App() {
                     <output>{budget >= BUDGET_OFF ? "제한 없음" : `${budget}만원`}</output>
                   </div>
                   <p className="metric-note budget-note">
-                    월세 제한은 보증금을 월세로 환산한 환산월세 기준입니다. 단독·다가구·
-                    오피스텔·소형아파트 실거래를 포함하며, 표본이 없는 동은 제한을 설정해도
-                    거르지 않습니다.
+                    월세 제한은 아래 &ldquo;월세 기준&rdquo;에서 고른 유형·계산 방식의
+                    중앙값 기준입니다. 표본이 없는 동은 제한을 설정해도 거르지 않습니다.
                   </p>
+
+                  <p className="section-subtitle">월세 기준</p>
+                  <div className="rent-type-checks" role="group" aria-label="포함할 주택유형">
+                    {RENT_TYPE_OPTIONS.map((type) => {
+                      const checked = rentSelection.types.includes(type);
+                      const lastOne = checked && rentSelection.types.length === 1;
+                      return (
+                        <label
+                          key={type}
+                          className="rent-type-check"
+                          data-checked={checked}
+                          data-disabled={lastOne}
+                          title={lastOne ? "최소 1개는 선택돼 있어야 합니다" : undefined}
+                        >
+                          <input
+                            type="checkbox"
+                            checked={checked}
+                            disabled={lastOne}
+                            onChange={() => toggleRentType(type)}
+                          />
+                          {RENT_TYPE_LABEL[type]}
+                        </label>
+                      );
+                    })}
+                  </div>
+                  <div className="mode-switch" role="group" aria-label="월세 계산 방식">
+                    {(
+                      [
+                        ["converted", "환산월세"],
+                        ["raw", "순수월세"],
+                      ] as const
+                    ).map(([m, label]) => (
+                      <button
+                        key={m}
+                        type="button"
+                        data-active={rentSelection.mode === m}
+                        onClick={() => setRentSelection((prev) => ({ ...prev, mode: m }))}
+                      >
+                        {label}
+                      </button>
+                    ))}
+                  </div>
+                  {rentSelection.mode === "raw" && (
+                    <p className="metric-note warn">
+                      보증금이 큰 매물이 실제보다 싸게 보일 수 있습니다.
+                    </p>
+                  )}
                 </div>
 
                 <div className="section">

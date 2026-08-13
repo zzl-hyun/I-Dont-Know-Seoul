@@ -7,6 +7,7 @@ import type {
   Grade,
   MetricKey,
   RentByType,
+  RentVariantStat,
   RouteLeg,
   Weights,
 } from "../types";
@@ -19,6 +20,12 @@ import {
   type MetricDistribution,
   type MetricExplanation,
 } from "../lib/explain";
+import {
+  isDefaultRentSelection,
+  rentComboKey,
+  rentSelectionLabel,
+  type RentSelection,
+} from "../lib/rent-selection";
 
 export interface ExplainContext {
   pctKeys: MetricKey[];
@@ -50,6 +57,8 @@ interface Props {
   /** 목적지별 통근. 목적지가 없으면 빈 배열 */
   commutes: CommuteLeg[];
   ctx: ExplainContext;
+  /** 가격 축 계산에 쓰인 주택유형·환산모드 선택. 라벨·값 표시에만 쓴다(계산은 이미 score.price에 반영돼 있다). */
+  rentSelection: RentSelection;
 }
 
 const AXES: Array<{ key: AxisName; label: string }> = [
@@ -75,6 +84,7 @@ export default function DongDetail({
   commuteMin,
   commutes,
   ctx,
+  rentSelection,
 }: Props) {
   const summary = summarize(score, ctx.pctKeys, grade, ctx.weights, ctx.axisWeights);
   const composite = explainComposite(score, ctx.weights, grade, rank, total, ctx.cuts, commuteMin);
@@ -90,6 +100,15 @@ export default function DongDetail({
       ctx.dists
     ),
   }));
+
+  // 가격 축은 기본 조합(3종 전체+환산)이 아니면 rentVariants에서 직접 조회해
+  // 보여준다 — score.pct/raw.monthlyRentMan은 선택과 무관하게 항상 기본
+  // 조합 기준이라, 선택을 반영하려면 이 조회가 필요하다(score.price 자체는
+  // 이미 App.tsx의 applyRentSelection이 선택된 값으로 덮어써 뒀다).
+  const isDefaultRent = isDefaultRentSelection(rentSelection);
+  const rentVariant = isDefaultRent
+    ? undefined
+    : score.rentVariants?.[rentSelection.mode]?.[rentComboKey(rentSelection.types)];
 
   return (
     <div className="section detail">
@@ -156,7 +175,9 @@ export default function DongDetail({
                   {explanation.score.toFixed(1)}점
                 </b>
               </div>
-              {explanation.metrics.length === 0 ? (
+              {key === "price" && !isDefaultRent ? (
+                <PriceVariantRow selection={rentSelection} variant={rentVariant} />
+              ) : explanation.metrics.length === 0 ? (
                 <div className="metric-note">수집된 데이터가 없어 전 동 50점으로 둡니다.</div>
               ) : (
                 <>
@@ -173,15 +194,32 @@ export default function DongDetail({
                   )}
                 </>
               )}
-              {key === "price" && score.dataQuality === "low" && (
+              {key === "price" && isDefaultRent && score.dataQuality === "low" && (
                 <p className="metric-note warn">
                   실거래 표본이 부족해 월세를 <b>자치구 중앙값</b>으로 대체했습니다.
                 </p>
               )}
+              {key === "price" && !isDefaultRent && rentVariant?.samples === 0 && (
+                <p className="metric-note warn">
+                  이 조합의 실거래 표본이 부족해 자치구 중앙값으로 대체했습니다.
+                </p>
+              )}
               {key === "price" && score.raw.rentByType && (
                 <p className="metric-note">
-                  위 월세는 세 주택유형을 합친 중앙값입니다 — {rentByTypeText(score.raw.rentByType)}.
-                  같은 소형 기준이어도 아파트가 대체로 더 비쌉니다.
+                  {isDefaultRent ? (
+                    <>
+                      위 월세는 세 주택유형을 합친 중앙값입니다 —{" "}
+                      {rentByTypeText(score.raw.rentByType)}. 같은 소형 기준이어도 아파트가
+                      대체로 더 비쌉니다.
+                    </>
+                  ) : (
+                    <>
+                      참고로 주택유형별 환산월세 실제값은 다음과 같습니다 —{" "}
+                      {rentByTypeText(score.raw.rentByType)}. 같은 소형 기준이어도 아파트가
+                      대체로 더 비쌉니다. 위 가격 점수는 현재 선택한{" "}
+                      <b>{rentSelectionLabel(rentSelection)}</b> 기준입니다.
+                    </>
+                  )}
                 </p>
               )}
             </section>
@@ -320,6 +358,41 @@ function MetricRow({ m, single }: { m: MetricExplanation; single: boolean }) {
           같은 값({m.value})인 동이 서울의 {tiedPct}% — 동점이라 순위를 나눠 갖습니다
         </div>
       )}
+    </div>
+  );
+}
+
+/**
+ * 가격 축이 기본 조합(3종 전체+환산)이 아닐 때 쓰는 한 줄.
+ *
+ * 일반 `MetricRow`는 `score.pct`/`score.raw.monthlyRentMan`(항상 기본 조합
+ * 기준)을 읽으므로 그대로 쓰면 위에 보이는 점수(선택된 조합·모드 기준)와
+ * 어긋난다. 여기서는 `rentVariants`에서 직접 조회한 값만 쓴다 — 서울
+ * 중앙값·동점 비율은 조합별로 따로 만들지 않아(파이프라인이 547개 동
+ * 전체를 조합마다 다시 정렬해야 해서 비용이 크다) 이 줄에는 없다.
+ */
+function PriceVariantRow({
+  selection,
+  variant,
+}: {
+  selection: RentSelection;
+  variant: RentVariantStat | undefined;
+}) {
+  return (
+    <div className="metric-row">
+      <div className="metric-row-head">
+        <span>{rentSelectionLabel(selection)}</span>
+        <b>{variant?.medianMan != null ? `${Math.round(variant.medianMan)}만원` : "데이터 없음"}</b>
+      </div>
+      <div className="metric-row-note">
+        {variant?.pct != null ? (
+          <>
+            이 동은 {pctPhrase(variant.pct)} <b>({variant.pct.toFixed(0)}점)</b>
+          </>
+        ) : (
+          <>이 조합·모드는 표본이 서울 전체에서 없어 전 동 50점으로 둡니다</>
+        )}
+      </div>
     </div>
   );
 }
