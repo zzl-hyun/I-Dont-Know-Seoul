@@ -69,314 +69,61 @@ Copy `.env.example` to `.env` for local data keys; never commit secrets. Store `
 
 ## Current Shared State
 
-마지막 확인: **2026-08-12 16:02 KST** (Claude)
+마지막 확인: **2026-08-13 17:37 KST** (Codex, 배포 전 준비)
 
 | 항목 | 현재 상태 |
 | --- | --- |
 | 공용 작업트리 | `/Users/macbookpro/Desktop/Work/I-Dont-Know-Seoul` |
 | 현재 브랜치 | `main` |
-| 현재 HEAD | `06d1f46 chore(data): 월세 유형 분해 반영해 산출물을 재생성한다` |
-| `origin/main` | `06d1f46` — **push 완료, 로컬과 원격 일치** |
-| PR 이력 | #4·#5·#6 사용자가 직접 머지. 이후 랜딩 카피·CSS 수정 2건 + 월세 유형 분해 3건은 Claude가 main에 직접 커밋·push·배포까지 완료 |
-| 미커밋 tracked | 없음 (clean) |
-| 미추적 문서 | `AGENTS.md`, `CODE_REVIEW.md`, `DATA_ENRICHMENT_HANDOFF.md`, `GEOVISION_HANDOFF.md`, `claude-feedback/` — 의도적으로 untracked 유지 |
-| 최근 검증 | `npm test` **184/184 통과**(SGIS 원자료 있어 `residential-quality.test.ts`도 실행됨), `npm run typecheck`·`npm run build` 통과 |
-| 운영 배포 | **완료** — `06d1f46` 배포됨. Worker Version ID `fc08e487-334f-4247-bc81-e1a774baea47`. `/api/data`에서 `rentByType` 정상 서빙 확인(2026-08-12 16:05 KST) |
+| 배포 후보 소스 HEAD | `78088c4 docs: 월세 데이터와 선택 기준을 갱신한다` (인수인계 커밋 직전) |
+| `origin/main` | `0a0d39b` — 로컬 작업 커밋 4개 미push |
+| 미커밋 tracked | `AGENTS.md` 상태 갱신만 남음(이후 별도 커밋 예정) |
+| 미추적 유지 | `Research on Advanced Regional Scoring Methods.md`, `claude-feedback/`, `feedback/`, `src/lib/__scratch_munjeong.test.ts` — 이번 배포에서 제외 |
+| 최근 검증 | `npm test` **236/236 통과**, `npm run typecheck`·`npm run build`·`git diff --check` 전부 통과(2026-08-13) |
+| 운영 배포 | 직전 배포는 `06d1f46`(2026-08-12). 월세 보강·선택 UI와 기존 미배포 개선을 합친 새 배포는 정확한 최종 SHA 승인 대기 |
 
-### 월세 유형 분해 (`e087d98`~`06d1f46`) — 완료·배포됨
+### 추천 품질·UX 개선 8건 (2026-08-13) — 구현·리뷰·push 완료, 배포 대기
 
-### 다음 계획 (사용자 지시, 2026-08-12) — 아직 착수 안 함
+계획 파일: `/Users/macbookpro/.claude/plans/claude-md-serialized-frog.md`(승인된
+전체 계획, 8건 각각의 설계 근거·검증 결과가 자세히 남아 있다). 사용자가 배포된
+서비스를 직접 써보고 제기한 6건 + 이전 세션에 AGENTS.md에 남겨뒀던 미결 2건
+(환산월세 on/off, 월세 유형 선택형)을 합쳐 총 8건. 서브에이전트(Sonnet 5,
+Phase별 1개)로 나눠 구현하고 Claude가 전부 독립 재검증했다.
 
-세션이 곧 끊길 수 있다고 해서, 다음 세션이 다시 파악할 필요 없게 기술적
-디테일까지 여기 남긴다.
+| # | 내용 | 커밋 |
+|---|---|---|
+| 1 | 목적지 검색 — 메인 검색창은 교체, "+목적지 추가"만 누적 | `94a7366` |
+| 2 | 계산 근거 아코디언 기본 펼침(동 전환 시 리마운트) | `1a2f6a1` |
+| 3 | 통근 페널티 Φ(t) 종합점수에 곱셈(비보상적), 통근 기본값 40→90분 | `0b99f71`, `77567a5`(회귀 테스트 보강) |
+| 4 | 월세 유형 조합(7)×환산모드(2)=14가지 파이프라인 사전계산 | `6fa0125`, `23c215e` |
+| 5 | 월세 유형·환산모드 선택 UI(사이드바 체크박스+토글) | `eb0b425`, `192da61` |
+| 6 | 동 마커를 폴리곤 대표점 대신 최대 인구 100m 셀로 | `448d8f7`, `0a0d39b` |
 
-#### 1. 환산월세 on/off 토글
+리서치 문서(`Research on Advanced Regional Scoring Methods.md`) 채택 범위:
+비선형 통근 페널티(Φ)와 곱셈(비보상적 결합) 2가지만 채택, NAM·쇼케적분·WASM·
+절대기준점 정규화는 근거와 함께 기각(계획 파일 참고, 학습 라벨 없음·"계산
+과정 전면 공개" 원칙과 충돌·기존 없는 문제 등).
 
-- **on**(현재 기본): 보증금을 월세로 환산해 더한 값. **off**: 순수 월세만.
-- **막히는 지점**: `scripts/3-metrics.mjs`의 `fetchRent()` → `runJob()`이
-  API 응답을 받는 즉시 `toMonthly(deposit, monthly)`로 환산해버리고
-  (`byLegal.get(k).push({ value: toMonthly(...), type: ep.name })`), 순수
-  `monthly` 원값은 어디에도 안 남기고 버린다. **UI 토글만으로 안 되고
-  수집 단계부터 손대야 한다** — 레코드를
-  `{ monthly, converted, type }`처럼 둘 다 들고 있게 바꾸고, `typeBreakdown()`
-  (`scripts/lib/rent.mjs`)도 두 값 각각의 중앙값을 내도록 확장해야 한다.
-- 순수월세만 보면 "보증금 5000/월세 20"과 "보증금 0/월세 80"이 정반대로
-  보일 수 있다 — 사용자도 이 트레이드오프를 이미 인지하고 있는지 확인하고
-  가는 게 안전하다(직접 묻지는 않았음, 필요하면 물어볼 것).
+**독립 검증에서 실제로 발견·수정한 것**(자기보고만 믿지 않고 전부 재확인):
+- Phase B: 서브에이전트가 회귀 테스트를 스크래치로만 확인하고 커밋에 안 남김 →
+  Claude가 `score.test.ts`에 9개 영구 테스트 직접 추가(`77567a5`), 상수 주석의
+  검산표도 소수점 오차 발견해 정정
+- Phase C 파이프라인: 번들 크기가 계획 추정(+92KB)보다 훨씬 크게(+480KB, raw
+  JSON 기준) 늘어난 걸 발견 → gzip 실측(+32KB, 1.7%)으로 실제 전송 비용은
+  미미함을 확인하고 구조는 유지하기로 판단
+- Phase C UI: `explainAxis`가 `score[axis]`를 직접 읽는지 재계산하는지 직접
+  코드 추적해 상단 배지·계산식이 어긋나지 않음을 확인(버그 아니었음)
+- 모든 phase: 547개 동 실측 재계산으로 회귀 없음(목적지 미선택 시 완전
+  동일)·의도대로 동작함(문정역 기준 장지동>공릉1동 등)·폴리곤 내부 등을
+  전부 독립 검증. 수치는 계획 파일과 각 phase 커밋 메시지에 있다.
 
-#### 2. 월세 유형 합산 대신 선택형(원룸만/원룸+오피스텔 등)으로 전환
-
-- **근거**: 이번 세션에 3개 구 실측 — 아파트가 단독·다가구보다 1.4~2.0배
-  비쌈(강남 75.5→135.8만원, 마포 68.7→137.1만원, 노원 49.3→90.2만원).
-  "원룸+오피스텔+아파트 합산은 편차가 너무 크다"가 사용자의 판단.
-- **기초 데이터는 이미 있다**: 방금 배포한 `rentByType`
-  (house/officetel/apartment 별 중앙값·표본수, `DongRawMetrics.rentByType`)이
-  그대로 이 기능의 원재료다. 세 유형을 이미 나눠서 갖고 있다.
-- **진짜 막히는 지점 — 백분위 재계산**: `CLAUDE.md`의 "백분위는 파이프라인
-  값을 씁니다" 원칙(`4-score.mjs`가 `pct` 배열을 미리 계산해 번들에 싣고,
-  클라이언트는 그 값을 그대로 씀 — 동점 처리가 클라이언트 재계산과 미세하게
-  어긋나기 때문)과 정면으로 부딪힌다. 사용자가 유형 조합을 그때그때 고르면
-  그 조합 기준 백분위를 다시 매겨야 하는데, 두 갈래뿐이다:
-  - (a) 원룸/오피스텔/아파트의 **공집합 아닌 부분집합 7가지**를 파이프라인이
-    전부 미리 계산해 번들에 싣는다(조합마다 547개 동 백분위 배열 하나씩 —
-    번들이 커지지만 동점 처리 원칙은 안 깨짐).
-  - (b) `rentByType`의 원값으로 **클라이언트가 그때그때 재계산**한다(가중치
-    슬라이더처럼 즉시 반응하지만, "동점 평균 순위가 미세하게 어긋난다"는
-    CLAUDE.md가 경고한 문제를 그대로 안게 됨).
-  - 아직 어느 쪽으로 할지 결정 안 됨 — 착수 전에 사용자와 논의 필요.
-- 가격 축 점수·등급 컷이 유형 조합에 따라 통째로 움직이므로, 실제 분포를
-  몇 가지 조합으로 미리 재보고 사용자에게 보여준 뒤 착수하는 게 안전하다.
-
-#### 공통 유의사항
-
-- 둘 다 `src/lib/score.ts`의 `GRADE_CUT`(상위 30%/하위 30%) 자체는 안
-  바뀌지만, 그 컷을 가르는 **점수 분포**가 바뀐다 — "가중치 바꾸면 분포가
-  통째로 이동한다"는 기존 원칙과 같은 이유로 신중해야 한다.
-- 관련 파일: `scripts/3-metrics.mjs`(`fetchRent`, `toMonthly`, `ENDPOINTS`),
-  `scripts/lib/rent.mjs`(`typeBreakdown`, `RENT_TYPES`), `scripts/4-score.mjs`
-  (`pct` 계산 위치), `src/types.ts`(`RentByType`, `DongRawMetrics`),
-  `src/components/DongDetail.tsx`(`rentByTypeText`).
-- 참고 문서: `docs/data.md`의 "환산월세는 세 주택유형을 합친 값입니다" 절에
-  이번 실측 근거가 이미 정리돼 있다.
-
-사용자가 "환산월세가 원룸이랑 아파트를 합친 거 아니냐"고 질문 → 3개 구
-실거래를 직접 유형별 조회해 확인(아파트가 단독·다가구보다 1.4~2.0배
-비쌈) → AskUserQuestion으로 4개 선택지 제시 → 사용자가 "점수는 유지,
-상세 패널에만 유형별 분해 표시"를 선택. `rentByType`(house/officetel/
-apartment 별 중앙값·표본수)을 raw 지표에 추가하고 상세 패널 가격 축에
-노출한다. 점수·등급 계산(`monthlyRentMan`)은 안 건드려서 등급 상위·하위
-5개 동이 재생성 전후 동일함을 확인했다. `data:metrics`를 다시 돌려서
-267,500건 실거래를 새로 받았다(라이브 API라 지난 재생성과 표본이 자연히
-조금 다르다 — 이상 아님).
-
-**배포하려면**: `npm run data:seed` → `npm run cf:deploy` (둘 다 별도 승인 필요).
-
-### PR #6 이후 후속 수정 2건 (커밋·푸시·배포까지 완료)
-
-1. **`815b964` SEO 랜딩 카피가 버스 접근을 빼먹고 있던 것을 고침** — 버스 기능
-   (#6)이 SEO 랜딩(#5)보다 나중에 머지돼서 "역+도보만 계산한다"는 문구가
-   기본/판교/강남 가이드에 남아 있었다. 특히 판교 페이지가 아이러니했다 —
-   34분 도보 문제를 고치려고 버스를 넣었는데 그 페이지 FAQ는 여전히 도보만
-   언급. `landingVariants.ts` + 정적 사본 3곳(`index.html`,
-   `guide/pangyo-commute/`, `guide/gangnam-commute/`)을 동기화. 신분당선
-   가이드는 애초에 틀린 주장이 없어 안 건드림.
-2. **`70b61c7` 히어로 제목 고아 줄 수정** — 사용자가 강남 가이드 스크린샷으로
-   "면" 한 글자가 혼자 다음 줄에 떨어지는 것을 신고. `.hero-lead`엔
-   `word-break: keep-all`이 있었는데 `.hero h1`엔 빠져 있었다. 같은 속성 +
-   `text-wrap: balance` 추가. **주의**: `cf:dev`(wrangler dev)는 `dist/`의
-   미리 빌드된 자산을 서빙하므로 CSS만 고치고 `npm run build` 없이 새로고침하면
-   반영 안 됨 — 실제로 한 번 이걸로 헛돌았다. 430~1900px·강남/판교/기본
-   3페이지 전부 실제 Chrome으로 재확인.
-
-### 버스 첫·마지막 접근 + SGIS 100m 인구분포 (PR #6) — 완료, 배포 완료
-
-Codex가 격리 worktree(`/tmp/i-dont-know-seoul-bus-access`, `feat/bus-first-last-mile`)에서
-구현하고 `claude-feedback/BUS_FIRST_LAST_MILE_REVIEW.md`로 리뷰를 요청했습니다.
-Claude가 6개 핵심 질문(v4 스키마 좌표 누출 여부, 구간 합=총시간 불변식, 파이프라인·
-런타임 공식 대조, 제품 가정 일치, `walkToStationMin` 전파, 원자료·키·SGIS 조건)을
-실제 재계산·재실행으로 독립 검증했고, README·docs 예시 수치도 전부 실제 번들과
-대조해 일치를 확인했습니다. 검증 과정에서 `residential-quality.test.ts`가 기본
-5000ms 타임아웃 경계에서 flaky한 것을 발견해 20초로 늘려 별도 커밋으로 고쳤습니다.
-
-작업 단위별 8개 커밋으로 나눠 커밋 → push → PR #6 생성까지 Claude가 진행했고,
-**PR은 사용자가 직접 GitHub에서 머지했습니다**(`mergedBy: zzl-hyun`, 06:05 UTC).
-로컬 `main`은 이후 `git pull --ff-only`로 맞췄습니다.
-
-- 판교역 → SK AX 마지막 접근: 도보 34분 → 버스 약 17.8분
-- SK AX 기준 55분 통근권: 7개 → 76개 동
-- 양재1동 83.8→54.8분·양재2동 60.3→43.0분·서초2동 64.1→45.8분
-- 기본 가중치 기준 등급 변동 22/547개 동, Best↔Bad 극단 변화 0개
-- 공개 번들 6.86MB(gzip 1.90MB), 거주 프로필 13,068개 전부 좌표 없음(v4 스키마)
-
-**완료된 절차 (2026-08-12 15:1x KST, Claude, 사용자 승인 받음):**
-
-1. ✅ `npm run data:seed` (원격 KV 갱신)
-2. ✅ `npm run cf:deploy` — Worker Version ID `aa5d1360-5e1c-4b38-9599-746adeb10ecb`
-3. ✅ 운영 `/api/data` 확인: HTTP 200 · `X-Oneday-Source: kv` · 버스 41,423/2,943 ·
-   `residential.version: sgis-2024-100m-bus-v4` 정상 서빙
-4. ✅ 격리 worktree `/tmp/i-dont-know-seoul-bus-access` 제거 완료(`git worktree
-   remove`), 로컬 브랜치 `feat/bus-first-last-mile`도 삭제. **원격 브랜치
-   (`origin/feat/bus-first-last-mile`)는 아직 남아 있음** — 안 지웠음, 원하면 별도 요청
-
-**아직 안 한 것 — 사용자가 직접 하기로 함:**
-
-- **SGIS 신청조건 이행**: 화면·문서 출처표시는 이미 되어 있음. 운영 URL이
-  확정됐으니 [SGIS 자료제공 활용결과](https://sgis.mods.go.kr/view/pss/dataProvdIntrcn)에
-  운영 URL(`https://i-dont-know-seoul.cioud.workers.dev`) 사본 1부를 제출해야
-  합니다. **사용자가 직접 처리하기로 함(2026-08-12) — Claude/Codex는 이 항목을
-  대신 처리하지 않습니다.**
-
-`data:seed`·`cf:deploy`는 매번 별도 승인 없이 실행하지 않습니다(세션·이전
-승인 이력과 무관, 이번 승인은 이번 배포 1회에만 유효).
-
-### 병합 결과 브라우저 검증 (2026-08-11 18:10, Claude)
-
-AGENTS.md에 "headless Chrome은 MapLibre WebGL 초기화 제한으로 확인 불가"로
-남아 있던 검증을 **실제 Chrome**(claude-in-chrome)으로 `127.0.0.1:8787`에서
-마쳤습니다. 두 브랜치를 합친 상태를 아무도 실행해 본 적이 없어서 확인했습니다.
-
-- 탭 전환: 추천 목록에서 사근동 클릭 → `상세 정보` 탭 활성화·스크롤 이동 정상
-- 상세 상단 요약: 종합 67.8 / 치안 64 · 가격 79 · 생활편의 59 렌더 정상
-- `계산 근거 전체 보기` 아코디언: 펼침 정상, 치안 63.5 = 60×0.38 + 62×0.46 +
-  76×0.15 계산식 표시. **유흥업소 서울 중앙값이 1.81개/km² 로 나와 소상공인
-  교체 데이터가 실제로 흐르는 것을 확인**
-- 통근 경로 분리 섹션 정상, 지도에 지하철 구간과 **도보 구간 점선** 모두 렌더
-- 추천 0개 상태(`?budget=40`): 높이 유지, 원인을 월세로 정확히 판별해
-  `월세 제한 해제` 버튼 표시, 아래 공유 영역 안 밀림
-- 지도 attribution 실제 표기 확인 (아래 CODE_REVIEW 오탐 항목 참고)
-
-### CODE_REVIEW.md 의 "상태: 미수정" 표시는 전부 리뷰 시점 값입니다
-
-문서가 갱신되지 않아 10개 항목이 모두 `미수정` 으로 남아 있지만, **실제로는
-1~8번이 이미 수정돼 있습니다.** 코드에서 직접 확인한 결과(2026-08-11 18:15):
-
-| # | 항목 | 실제 상태 | 근거 |
-| --- | --- | --- | --- |
-| 1 | 공유 URL 목적지 3개 우회 | 수정됨 | `shareUrl.ts:81` `MAX_DESTINATIONS` 로 자름 |
-| 2 | 다중 목적지 툴팁 불일치 | 수정됨 | `App.tsx:227` worstMin 을 만든 목적지 객체를 그대로 씀 |
-| 3 | 목적지 미선택 시 툴팁 오표시 | 수정됨 | `MapView.tsx` `hasDestination` 을 툴팁까지 전달 |
-| 4 | 지오코딩 프록시 방어 부족 | 수정됨 | `worker/index.ts` GET-only 405 · 길이 제한 · `AbortSignal.timeout` · `allSettled` |
-| 5 | 번들 런타임 검증 부재 | 수정됨 | `data.ts:49` `assertValidBundle` 호출 |
-| 6 | 동점 등급이 배열 순서에 의존 | 수정됨 | `score.ts:56` 점수 동점 시 `code` 로 결정적 정렬 |
-| 7 | station 캐시 무효화 | 수정됨 | `worker/index.ts:287` 10분 TTL |
-| 8 | 반올림 가중치로 공식 어긋남 | 수정됨 | `4-score.mjs:198` 반올림 없이 `p.weight / wSum` |
-| 9 | 지도 attribution 불일치 | **오탐** | 아래 참고 |
-| 10 | 개발 의존성 npm audit | **미수정(사용자 판단 필요)** | `--omit=dev` 는 0건, `fix --force` 가 mapshaper breaking downgrade 제안 |
-
-즉 남은 실제 작업은 10번뿐이고, 그건 임의로 실행하면 안 됩니다.
-
-### CODE_REVIEW.md 항목 9는 오탐입니다 — 고치지 마세요
-
-"지도 attribution이 README 표기와 불일치(© CARTO 누락)"로 적혀 있으나, 실제
-화면에는 `경계 © 통계청 SGIS · 지하철 © OpenStreetMap | © CARTO, © OpenStreetMap
-contributors` 가 정상 표시됩니다(브라우저에서 확대 확인).
-
-`MapView.tsx:184` 의 `attributionControl: false` 는 **지도 생성 시 자동으로 붙는
-기본 컨트롤만** 끕니다. 그 다음 줄에서 수동으로 추가한 `AttributionControl` 은
-`customAttribution` 과 **스타일 소스에 선언된 attribution 을 함께** 표시하므로,
-CARTO 베이스맵의 표기가 그대로 나옵니다. 코드를 고치면 오히려 중복 표기가 됩니다.
-
-남은 실제 미수정 항목은 **10번(개발 의존성 npm audit)** 뿐입니다. `npm audit
---omit=dev` 는 0건이고, `npm audit fix --force` 가 mapshaper breaking downgrade
-를 제안하므로 사용자 판단이 필요합니다 — 임의로 실행하지 마세요.
-
-### 이번 세션에서 추가로 확인·수정한 것 (Claude, 사용자 부재 중)
-
-- **`Edge.source` 의 `measured` 는 어디서도 생성되지 않습니다.** `2-subway.mjs`
-  가 `estimated` 만 만들어서 ride 엣지 1,496개가 전부 추정값입니다. 따라서
-  `hasEstimatedLeg` 는 도달 가능한 모든 경로에서 **항상 true** 이고, 이 값으로
-  경로별 "추정" 배지를 달면 전부에 똑같이 붙어 정보가 되지 않습니다. 상세
-  패널이 일괄 문구를 쓰는 게 현재로선 맞습니다. 필드는 나중에 역간 실측
-  데이터를 넣을 자리로 남겨두고 주석만 사실과 맞췄습니다 (`60c2c45`).
-  → 실측 소요시간 데이터를 붙이는 건 통근 모델 자체를 건드리는 일이라
-    사용자 논의가 필요합니다. 임의로 착수하지 마세요.
-- **상가업소 업종 분류 규칙을 `scripts/lib/sbiz.mjs` 로 모으고 테스트를
-  붙였습니다** (`f3947f4`). "food 와 nightlife 는 절대 겹치지 않는다"는
-  불변식이 깨져도 예외가 안 나고 등급 분포만 조용히 움직이는데, 규칙이
-  `3-metrics.mjs` 안에 있어 테스트를 못 붙이는 상태였습니다(그 파일은 import
-  시점에 `await main()` 이 돕니다). 캐시된 554,092건 전수로 이동 전후 분류
-  결과가 동일함을 확인했습니다(불일치 0).
-- 테스트 개수 표기를 실제와 맞췄습니다 (`9b31964`, 이후 86개로 재갱신).
-
-## Claude Resume Brief — 오른쪽 패널 UI
-
-> **ㅎㅇ Claude, 너 자는 동안 나 이런 일 했어.** 오른쪽 패널을 상세/추천 탭으로
-> 재구성하고 계산 근거를 위로 올렸어. 월세를 극단적으로 낮춰 추천이 0개가 될 때
-> 컴포넌트가 튀는 문제도 고쳤고, 사용자가 실제 브라우저에서 직접 확인해 정상 동작까지
-> 확인했어. 아래는 네가 그대로 이어받기 위한 정확한 상태와 주의사항이야.
-
-### 이번 작업의 사용자 요구
-
-1. 오른쪽 상세 패널의 `계산 과정`을 위로 올려 결과를 빠르게 검산할 수 있게 한다.
-2. 검색·목적지 입력은 유지하면서 긴 상세 정보와 조건·추천 목록이 한 열에서 뒤섞이지
-   않도록 오른쪽 패널 구조를 개선한다.
-3. 월세 슬라이더를 극단적으로 낮춰 추천 지역이 0개가 될 때, 10개 목록이 안내문 한 줄로
-   축소되며 아래 컴포넌트가 순간 이동하는 불편을 없앤다.
-
-### 구현된 동작
-
-- 공통 검색·목적지 영역 아래에 `상세 정보 | 조건·추천` 탭을 추가했습니다.
-- 지도나 추천 목록에서 동을 선택하면 상세 탭으로 전환되고 탭 시작 위치로 스크롤됩니다.
-- 선택을 해제하거나 마지막 목적지를 지우면 조건·추천 탭으로 안전하게 돌아갑니다.
-- 탭은 `tablist/tab/tabpanel`, `aria-selected`, 좌우 방향키·Home·End 포커스 이동을
-  포함합니다. 선택한 동이 없으면 상세 탭은 비활성화됩니다.
-- 상세 상단에는 종합 점수와 치안·가격·생활편의 3축을 먼저 요약합니다.
-- 기존 축별 `계산 과정` 네 묶음을 `계산 근거 전체 보기` 아코디언 하나로 합쳤습니다.
-  원지표 → 백분위 → 축 가중합 → 종합 기여도 → 등급 컷 순서가 한 번에 이어집니다.
-- 통근 경로는 계산 아코디언 아래의 별도 `통근 경로` 섹션으로 분리했습니다.
-- 추천 후보 계산 시 월세 적용 전 `commuteEligibleCount`를 세어 빈 결과의 원인이
-  통근인지 월세인지 구분합니다.
-- 월세 원인이면 `월세 제한 해제`, 통근 원인이면 `통근 한계 15분 늘리기` 버튼을
-  보여줍니다. 통근 상한 90분에서는 더 늘리는 버튼을 숨깁니다.
-- 추천 영역은 후보가 0~10개여도 `min-height: 400px`를 유지합니다. 월세 설명도 항상
-  렌더링하고 50px를 확보하며, 사이드바에는 `scrollbar-gutter: stable`을 적용했습니다.
-  따라서 추천 목록·설명·스크롤바의 생성과 소멸로 아래 공유 영역이 튀지 않습니다.
-
-### 파일별 변경점
-
-- `src/App.tsx`
-  - `SidebarTab`, `sidebarTab`, `sidebarRef`, `sidebarTabsRef` 추가
-  - `scrollSidebarToTabs`, `showSidebarTab`, `selectDong`으로 선택·탭·스크롤 동작 통합
-  - 상세/추천 패널을 조건부 `tabpanel`로 분리
-  - `picks` 계산 결과에 `commuteEligibleCount` 추가
-  - 월세 설명을 조건부 DOM에서 상시 DOM으로 변경
-  - `TopPicks`에 빈 결과 원인과 완화 콜백 전달
-- `src/components/DongDetail.tsx`
-  - 종합 및 3축 `score-overview` 추가
-  - 축별 계산을 단일 `calculation` 아코디언으로 재구성
-  - 통근 경로를 `detail-route`로 분리해 계산 근거 다음에 배치
-- `src/components/TopPicks.tsx`
-  - `emptyReason`, `canExpandCommute`, 두 완화 콜백 prop 추가
-  - 0개 상태에서도 동일한 추천 섹션 제목·높이 유지
-  - 원인별 안내와 즉시 복구 버튼, `role="status"` 추가
-- `src/index.css`
-  - 탭·점수 요약·통합 계산·통근 경로 스타일 추가
-  - `.top-picks`, `.picks-empty`, `.picks-empty-action`, `.budget-note` 추가
-  - `.sidebar`에 안정적인 스크롤바 여백 추가
-
-### 검증 근거
-
-- `npm test`: 7개 파일, **79/79 통과**
-- `npm run typecheck`: 통과
-- `npm run build`: 통과. 기존과 같은 500kB 초과 청크 경고만 있으며 실패가 아닙니다.
-- `git diff --check`: 통과
-- 자동 headless 확인은 MapLibre가 소프트웨어 WebGL 컨텍스트를 만들지 못해 앱을
-  언마운트하여 중단했습니다. 변경 코드 오류가 아니라 headless 환경 제한입니다.
-- 이후 사용자가 실제 브라우저의 `5173`에서 월세 슬라이더를 직접 조작해 “잘 된다”고
-  확인했습니다. 수동 UI 확인은 완료 상태입니다.
-
-### 현재 런타임과 Git
-
-- 수동 검증에 쓴 `http://127.0.0.1:5173` Vite 서버는 인수인계 직전에 종료했습니다.
-  다시 볼 필요가 있으면 `npm run dev -- --host 127.0.0.1 --port 5173 --strictPort`를
-  실행하세요.
-- Vite의 `/api`가 프록시하는 `http://127.0.0.1:8787`의 Claude 소유 workerd는 계속
-  실행 중입니다. 이 프로세스는 재시작할 필요가 없습니다.
-- 브랜치: `feat/sidebar-detail-tabs`; HEAD: `ee672c1`; upstream 없음
-- tracked 미커밋: `App.tsx`, `DongDetail.tsx`, `TopPicks.tsx`, `index.css`
-- 위 4개 파일 diff 합계: 686 insertions, 209 deletions. 이 수치는 탭/상세 재구성과
-  추천 안정화가 모두 포함된 HEAD 대비 누적 diff입니다.
-- `AGENTS.md`를 포함한 인수인계 문서 4개는 미추적입니다. UI 커밋에 자동으로 섞지
-  말고, 문서도 Git에 넣을지는 사용자에게 별도로 확인합니다.
-- 커밋·push·PR·최신 UI 배포는 아직 하지 않았습니다.
-
-### Claude가 이어서 할 정확한 순서
-
-1. `git status --short --branch`로 위 상태가 그대로인지 확인합니다.
-2. `git diff -- src/App.tsx src/components/DongDetail.tsx src/components/TopPicks.tsx src/index.css`
-   로 4개 UI 파일 전체를 리뷰합니다. 다른 미추적 문서는 건드리지 않습니다.
-3. 추가 수정 요청이 없다면 코드 작업은 끝난 상태입니다. 사용자에게 커밋 범위와
-   커밋 메시지를 먼저 보고하고, 승인받은 경우에만 명시적 파일 경로로 stage합니다.
-4. 커밋 전 `npm test && npm run typecheck && npm run build`와 `git diff --check`를
-   다시 실행합니다.
-5. push·PR·배포는 각각 별도 요청으로 취급합니다. 특히 배포는 아래 Deployment Gate를
-   모두 만족해야 하며, 현재 미커밋 상태에서는 절대 실행하지 않습니다.
-
-### 분리된 데이터 작업 주의
-
-`/private/tmp/idks-nightlife.HsXszI`의 `feat/sbiz-nightlife`는 별도 clean worktree이며
-`7d52ad5`, `4604b2b` 두 커밋이 있습니다. 이 UI 브랜치에 섞거나 cherry-pick하지
-마세요. 데이터 브랜치의 push와 seed→deploy 역시 사용자 별도 승인이 필요합니다.
+**남은 절차**:
+1. **배포 승인 필요** — `npm run data:seed` → `npm run cf:deploy`
+2. 배포 후 통근 페널티가 반영된 지도가 목적지별로 훨씬 크게 움직인다는 걸
+   사용자에게 미리 안내함(문정역 하나로 등급 변동 345/547개, Best↔Bad 극단
+   49개 — 자연스러운 변화지만 체감상 지도가 확 달라 보일 것)
+3. 격리 작업 없이 전부 `main`에 직접 커밋했으므로 별도 정리(worktree 삭제 등)
+   불필요
 
 ## Agent Slots
 
@@ -412,30 +159,28 @@ CARTO 베이스맵의 표기가 그대로 나옵니다. 코드를 고치면 오�
 
 ### Codex
 
-- Status: done — 버스 첫·마지막 접근 + SGIS 100m 인구분포 구현 완료, Claude 리뷰
-  통과, PR #6으로 머지됨. 격리 worktree는 더 이상 활성 작업 없음
-- Task (완료): 도보 15분 초과 구간에 서울·경기 공식 버스 노선 기반 정적 접근시간을
-  추가하고, 동 대표점 한 점 대신 실제 거주 인구 지점 분포로 출발 접근시간을 계산한다.
-- Changed (머지된 결과):
-  1. 경기 GBIS 2,225개 + 서울 `busRteInfo` 718개, 총 2,943개 노선·41,423개
-     정류소를 정적 번들로 만들었다. 직접 도보 15분 초과일 때 양끝 450m 안의 같은
-     방향 직행 노선만 찾아 도보+기대대기+거리/15km/h+정류장 정차로 환산한다.
-  2. SGIS 2024 총인구 100m 격자 43,780개(12,262,398명)를 547/547개 동에
-     배정하고 43,751개 접근 프로필을 동별 최대 24개·총 13,068개로 집약했다.
-     목적지별 최적 역을 프로필마다 고른 뒤 인구 가중 중앙 통근시간을 동 대표값으로 쓴다.
-  3. 공개 거주 프로필을 `sgis-2024-100m-bus-v4`로 올리고 `[가중치, 접근목록]`만
-     직렬화해 원 셀·군집 대표 좌표를 전부 제거했다. 저장한 노선·승하차 순번·첫
-     도보시간으로 좌표 없이도 버스 상세를 복원하며, 첫 집 쪽 지도선만 생략한다.
-  4. 판교역→SK AX 마지막 접근은 34분 도보에서 `602-1B` 기준 약 17.8분으로,
-     55분 통근권은 7개에서 76개로 회복됐다. 양재1동 83.8→54.8분,
-     양재2동 60.3→43.0분, 서초2동 64.1→45.8분이다.
-  5. 공개 번들은 6,864,403 bytes(gzip 1,903,279)이며 13,068개 프로필의 튜플
-     길이가 모두 2임을 실제 Worker 응답에서도 확인했다.
-- Verification: 자체 검증(`npm test` 167/167 등)에 더해 Claude가 독립 재검증까지
-  완료 — 위 Claude 슬롯 참고.
-- Commit/remote: `feat/bus-first-last-mile` → PR #6 → `main`(`79cc035`)에 머지 완료.
-- Review report: `claude-feedback/BUS_FIRST_LAST_MILE_REVIEW.md` (리뷰 완료, 재사용 불필요)
-- Next handoff: 없음 — 이 작업은 종료. 새 작업을 받으면 새 슬롯 내용으로 갱신할 것.
+- Status: ready for deploy — 구현·감사·커밋 완료, 최종 SHA 승인 대기
+- Task: 월세 실거래 데이터를 보강하고 선택값을 점수·문구에 연결하며 기본값과 UI를 정돈한다.
+- Owned files: `AGENTS.md`, `package.json`, `package-lock.json`, `scripts/3-metrics.mjs`,
+  `scripts/4-score.mjs`, `scripts/lib/rent.mjs`, `scripts/lib/rent.test.mjs`,
+  `scripts/lib/rent-api.mjs`, `scripts/lib/rent-api.test.mjs`,
+  `scripts/lib/rent-variants.test.mjs`, `scripts/lib/seoul-rent.mjs`,
+  `scripts/lib/seoul-rent.test.mjs`, `src/types.ts`, `src/App.tsx`,
+  `src/components/DongDetail.tsx`, `src/components/Landing.tsx`,
+  `src/components/WeightPlayground.tsx`, `src/index.css`, `src/lib/data.ts`, `src/lib/data.test.ts`,
+  `src/lib/constants.ts`, `src/lib/explain.ts`, `src/lib/explain.test.ts`, `src/lib/rent-selection.ts`,
+  `src/lib/rent-selection.test.ts`, `src/lib/rent-bundle.test.ts`, `src/lib/shareUrl.ts`, `src/lib/shareUrl.test.ts`,
+  `README.md`, `docs/data.md`, `docs/development.md`, `docs/scoring.md`,
+  `data/dist/metrics.json`, `data/dist/scores.json`, `public/data/bundle.json`
+- Changed: 빈 URL 월세 기본값을 단독·다가구 환산월세로 변경하고 번들 기준 3종
+  점수와 분리했다. 기존 3종 선택은 공유 URL에 명시적으로 저장된다. 유형 선택은
+  동일 폭 2×2 카드 그리드, 340px 미만 1열로 정돈했다. 마지막 한 유형의 해제 불가
+  상태에서도 선택 카드·체크·글자가 회색으로 흐려지지 않도록 표시를 보강했다.
+- Verification: `npm test` 236/236, `npm run typecheck`, `npm run build`,
+  `git diff --check` 통과. 547개 동의 15조합×2모드 완전성·기준 3종 불변식과
+  문정1동 화면 기본 variant 59.58만원·가격 16.4점 회귀를 독립 감사까지 완료.
+- Commit/remote: `7824799`, `b7e58b0`, `f8959fc`, `78088c4` 로컬 커밋, 미push
+- Next handoff: 최종 SHA 승인 후 새 KV 전파 확인 → Worker 배포 → 운영 응답 검증
 
 ## Git and Deployment Gate
 
