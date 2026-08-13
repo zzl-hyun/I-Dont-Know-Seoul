@@ -18,6 +18,8 @@ const sample: ShareState = {
   mapMode: "commute",
   showSubway: false,
   hiddenLines: ["2", "신분당"],
+  rentTypes: ["apartment", "house"],
+  rentMode: "raw",
 };
 
 describe("URL 왕복", () => {
@@ -37,6 +39,9 @@ describe("URL 왕복", () => {
     expect(back.mapMode).toBe(sample.mapMode);
     expect(back.showSubway).toBe(sample.showSubway);
     expect(back.hiddenLines).toEqual(sample.hiddenLines);
+    // 입력 순서(apartment, house)와 무관하게 정렬된 순서(house, apartment)로 복원된다
+    expect(back.rentTypes).toEqual(["house", "apartment"]);
+    expect(back.rentMode).toBe(sample.rentMode);
 
     for (const k of ["safety", "price", "convenience"] as const) {
       expect(back.weights[k]).toBeCloseTo(sample.weights[k], 2);
@@ -55,6 +60,42 @@ describe("URL 왕복", () => {
     expect(s.budget).toBe(BUDGET_OFF);
     expect(s.mapMode).toBe("grade");
     expect(s.showSubway).toBe(true);
+    expect(s.rentTypes).toEqual(DEFAULT_SHARE_STATE.rentTypes);
+    expect(s.rentMode).toBe(DEFAULT_SHARE_STATE.rentMode);
+  });
+});
+
+describe("월세 기준 (rentTypes / rentMode)", () => {
+  it("기본 선택(3종 전체 + converted)은 URL에 안 싣는다", () => {
+    const s: ShareState = {
+      ...DEFAULT_SHARE_STATE,
+      rentTypes: ["officetel", "house", "apartment"], // 순서만 다름, 조합은 기본과 동일
+    };
+    const qs = encodeShareState(s);
+    expect(qs).not.toContain("rentTypes");
+    expect(qs).not.toContain("rentMode");
+  });
+
+  it("아파트만 골라 raw 모드로 공유하면 왕복된다", () => {
+    const s: ShareState = { ...DEFAULT_SHARE_STATE, rentTypes: ["apartment"], rentMode: "raw" };
+    const back = decodeShareState(encodeShareState(s));
+    expect(back.rentTypes).toEqual(["apartment"]);
+    expect(back.rentMode).toBe("raw");
+  });
+
+  it("존재하지 않는 유형이 섞이면 그 유형만 버리고 나머지로 복원한다", () => {
+    const s = decodeShareState("rentTypes=house,villa,apartment");
+    expect(s.rentTypes).toEqual(["house", "apartment"]);
+  });
+
+  it("전부 알 수 없는 유형이면(빈 배열이 되면) 기본값으로 되돌린다", () => {
+    const s = decodeShareState("rentTypes=villa,studio");
+    expect(s.rentTypes).toEqual(DEFAULT_SHARE_STATE.rentTypes);
+  });
+
+  it("알 수 없는 rentMode 값은 기본값(converted)으로 되돌린다", () => {
+    const s = decodeShareState("rentMode=hack");
+    expect(s.rentMode).toBe("converted");
   });
 });
 

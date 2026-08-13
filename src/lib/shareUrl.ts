@@ -1,4 +1,4 @@
-import type { Destination, Weights } from "../types";
+import type { Destination, RentHousingType, Weights } from "../types";
 import {
   BUDGET_MAX,
   BUDGET_MIN,
@@ -7,6 +7,7 @@ import {
   DEFAULT_WEIGHTS,
   MAX_DESTINATIONS,
 } from "./constants";
+import { DEFAULT_RENT_SELECTION, rentComboKey, sortRentTypes } from "./rent-selection";
 
 /**
  * 화면 상태를 URL 로 주고받는다.
@@ -26,6 +27,10 @@ export interface ShareState {
   mapMode: "grade" | "commute";
   showSubway: boolean;
   hiddenLines: string[];
+  /** 가격 축을 다시 계산할 때 포함할 주택유형. 기본값과 같으면 URL에 안 싣는다. */
+  rentTypes: RentHousingType[];
+  /** converted=보증금 환산 포함(기본), raw=순수 월세 */
+  rentMode: "converted" | "raw";
 }
 
 export const DEFAULT_SHARE_STATE: ShareState = {
@@ -36,7 +41,11 @@ export const DEFAULT_SHARE_STATE: ShareState = {
   mapMode: "grade",
   showSubway: true,
   hiddenLines: [],
+  rentTypes: [...DEFAULT_RENT_SELECTION.types],
+  rentMode: DEFAULT_RENT_SELECTION.mode,
 };
+
+const VALID_RENT_TYPES = new Set<RentHousingType>(["house", "officetel", "apartment"]);
 
 /** 좌표는 소수 5자리면 약 1m — 그 이상은 URL 만 길어진다 */
 const round5 = (v: number) => Math.round(v * 1e5) / 1e5;
@@ -62,6 +71,11 @@ export function encodeShareState(s: ShareState): string {
   if (s.mapMode !== DEFAULT_SHARE_STATE.mapMode) p.set("mode", s.mapMode);
   if (!s.showSubway) p.set("sub", "0");
   if (s.hiddenLines.length) p.set("off", s.hiddenLines.join(","));
+
+  if (rentComboKey(s.rentTypes) !== rentComboKey(DEFAULT_SHARE_STATE.rentTypes)) {
+    p.set("rentTypes", sortRentTypes(s.rentTypes).join(","));
+  }
+  if (s.rentMode !== DEFAULT_SHARE_STATE.rentMode) p.set("rentMode", s.rentMode);
 
   return p.toString();
 }
@@ -113,6 +127,20 @@ export function decodeShareState(search: string): ShareState {
 
   const off = p.get("off");
   if (off) s.hiddenLines = off.split(",").filter(Boolean);
+
+  const rentTypesRaw = p.get("rentTypes");
+  if (rentTypesRaw) {
+    // 존재하지 않는 유형이 섞인 링크는 그 부분만 버린다 — 링크를 안 믿는다는
+    // 원칙대로, 전부 잘못됐으면(빈 배열) 기본값으로 되돌린다.
+    const valid = rentTypesRaw
+      .split(",")
+      .filter((t): t is RentHousingType => VALID_RENT_TYPES.has(t as RentHousingType));
+    const sorted = sortRentTypes(valid);
+    if (sorted.length > 0) s.rentTypes = sorted;
+  }
+
+  const rentMode = p.get("rentMode");
+  if (rentMode === "raw" || rentMode === "converted") s.rentMode = rentMode;
 
   return s;
 }
