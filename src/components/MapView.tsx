@@ -361,11 +361,21 @@ export default function MapView({
      * interpolate 는 반드시 속성 표현식의 **최상위**에 있어야 하고,
      * ["case", ..., ["interpolate", ..., ["zoom"], ...], 0] 처럼 감싸면
      * MapLibre가 레이어 추가 시 예외를 던져 이후 초기화가 통째로 중단된다.
+     *
+     * 줌 아웃에서는 아예 감춘다(minzoom). 점과 면이 같은 등급색이라
+     * 정보가 겹치는데, 멀리서 보면 점이 자기 동 면적보다 커서 색을 가린다.
+     * 개별 동을 고를 수 없는 줌에서는 점이 알려주는 것이 없다.
+     * 같은 이유로 dong-label 도 아래에서 minzoom 을 쓰며, 마커와 이름이
+     * 같이 나타나도록 값을 맞춰 두었다.
+     *
+     * 불투명도 쪽(reachableOpacityExpr)에 zoom 을 섞지 않은 것도 위와 같은
+     * 이유다 — case 안에 zoom interpolate 를 중첩할 수 없다.
      */
     map.addLayer({
       id: "dong-icon",
       type: "circle",
       source: SRC_POINT,
+      minzoom: 12.2,
       paint: {
         "circle-color": fillColorExpr("grade"),
         /*
