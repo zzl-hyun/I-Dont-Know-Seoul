@@ -181,10 +181,44 @@ export default function MapView({
   const [styleEpoch, setStyleEpoch] = useState(0);
 
   // 최신 props를 이벤트 핸들러에서 읽기 위한 ref (핸들러를 재등록하지 않기 위함)
-  const stateRef = useRef({ dongs, views, onSelect, onPickStation, onHoverDong, hasDestination });
-  stateRef.current = { dongs, views, onSelect, onPickStation, onHoverDong, hasDestination };
+  const stateRef = useRef({
+    dongs,
+    views,
+    onSelect,
+    onPickStation,
+    onHoverDong,
+    hasDestination,
+    selectedCode,
+    hoveredCode,
+  });
+  stateRef.current = {
+    dongs,
+    views,
+    onSelect,
+    onPickStation,
+    onHoverDong,
+    hasDestination,
+    selectedCode,
+    hoveredCode,
+  };
   /** 지도→목록 방향 훅업이 mousemove마다 리렌더를 유발하지 않도록 직전 값과 비교한다 */
   const lastHoveredOnMap = useRef<string | null>(null);
+
+  /**
+   * 동별 색·불투명도 페이드 상태(둘 다 같은 fadeT로 함께 움직인다 — 아래
+   * scheduleFade 참고).
+   *
+   * fadeSettled: 동 코드 → 마지막으로 정착한(애니메이션 끝난) 목표 상태.
+   * 다음 변경이 왔을 때 "진짜로 바뀌었는지" 비교하는 기준이다 — 547개
+   * 전부를 매번 다시 스냅샷 찍지 않고 실제로 바뀐 동만 애니메이션 대상에
+   * 올리기 위함(성능).
+   * fadeAnim: 지금 애니메이션 중인 동만 담는다. 중간에 목표가 또 바뀌면
+   * (예: 페이드 도중 hover) 정착값이 아니라 그 순간의 보간값에서 이어서
+   * 시작해야 튀지 않는다.
+   */
+  const fadeSettled = useRef(new Map<string, FadeState>());
+  const fadeAnim = useRef(new Map<string, FadeAnimState>());
+  const fadeRaf = useRef<number | null>(null);
 
   // 지하철 노선도는 불변이므로 지도 생성 시점에 한 번만 읽는다
   const subwayRef = useRef(subway);
@@ -276,21 +310,7 @@ export default function MapView({
       source: SRC_DONG,
       paint: {
         "fill-color": fillColorExpr("grade"),
-        "fill-opacity": [
-          "case",
-          ["boolean", ["feature-state", "selected"], false], 0.78,
-          ["boolean", ["feature-state", "hovered"], false], 0.68,
-          ["boolean", ["feature-state", "reachable"], false], 0.55,
-          0.16,
-        ],
-        /*
-         * feature-state가 바뀔 때마다(검색·슬라이더·hover 전부) 색과 불투명도가
-         * 즉시 스냅하지 않고 부드럽게 따라오게 한다. MapLibre 네이티브 transition
-         * 옵션이라 표현식이 아니다 — "case 안에 zoom interpolate 중첩 금지" 함정과
-         * 무관하다.
-         */
-        "fill-color-transition": { duration: 320 },
-        "fill-opacity-transition": { duration: 320 },
+        "fill-opacity": fillOpacityExpr(),
       },
     });
 
@@ -389,7 +409,7 @@ export default function MapView({
      * 같은 이유로 dong-label 도 아래에서 minzoom 을 쓰며, 마커와 이름이
      * 같이 나타나도록 값을 맞춰 두었다.
      *
-     * 불투명도 쪽(reachableOpacityExpr)에 zoom 을 섞지 않은 것도 위와 같은
+     * 불투명도 쪽(iconOpacityExpr)에 zoom 을 섞지 않은 것도 위와 같은
      * 이유다 — case 안에 zoom interpolate 를 중첩할 수 없다.
      */
     map.addLayer({
@@ -404,13 +424,10 @@ export default function MapView({
          * 아래 역 점보다는 확실히 커야 둘이 구분된다 (역 최대 2.0/3.2/5).
          */
         "circle-radius": ["interpolate", ["linear"], ["zoom"], 10, 2.4, 13, 4.5, 15, 6],
-        "circle-opacity": reachableOpacityExpr(),
+        "circle-opacity": iconOpacityExpr(),
         "circle-stroke-color": MAP_THEME[themeRef.current].halo,
         "circle-stroke-width": 1.4,
-        "circle-stroke-opacity": reachableOpacityExpr(),
-        // dong-fill과 같은 이유로 팝 하지 않고 스르륵 뜨게 한다
-        "circle-opacity-transition": { duration: 320 },
-        "circle-stroke-opacity-transition": { duration: 320 },
+        "circle-stroke-opacity": iconOpacityExpr(),
       },
     });
 
@@ -431,7 +448,8 @@ export default function MapView({
         "text-color": MAP_THEME[themeRef.current].dongLabel,
         "text-halo-color": MAP_THEME[themeRef.current].halo,
         "text-halo-width": 1.3,
-        "text-opacity": reachableOpacityExpr(),
+        // dong-icon과 같은 prevOpacity/fadeT를 읽어 마커와 같은 속도로 함께 뜬다
+        "text-opacity": iconOpacityExpr(),
       },
     });
 
@@ -671,6 +689,13 @@ export default function MapView({
       map.remove();
       mapRef.current = null;
       readyRef.current = false;
+      // 언마운트 시에만 정리한다 — 3개 이펙트가 공유하는 루프라, 개별
+      // 이펙트의 cleanup에 넣으면 다른 이펙트가 걸어둔 애니메이션까지
+      // 중간에 끊긴다.
+      if (fadeRaf.current != null) {
+        cancelAnimationFrame(fadeRaf.current);
+        fadeRaf.current = null;
+      }
     };
   }, []);
 
@@ -682,13 +707,25 @@ export default function MapView({
     const apply = () => {
       for (const dong of dongs) {
         const v = views.get(dong.code);
+        const reachable = hasDestination ? (v?.reachable ?? false) : false;
         const state = {
           grade: v?.grade ?? "normal",
           band: v?.band ?? -1,
-          reachable: hasDestination ? (v?.reachable ?? false) : false,
+          reachable,
         };
         map.setFeatureState({ source: SRC_DONG, id: dong.code }, state);
         map.setFeatureState({ source: SRC_POINT, id: dong.code }, state);
+
+        const selected = dong.code === stateRef.current.selectedCode;
+        const hovered = dong.code === stateRef.current.hoveredCode;
+        scheduleFade(
+          map,
+          dong.code,
+          buildFadeState(v, reachable, selected, hovered),
+          fadeSettled.current,
+          fadeAnim.current,
+          fadeRaf
+        );
       }
     };
 
@@ -703,15 +740,33 @@ export default function MapView({
     if (!map || !readyRef.current) return;
 
     if (prevSelected.current) {
-      map.setFeatureState(
-        { source: SRC_DONG, id: prevSelected.current },
-        { selected: false }
+      const code = prevSelected.current;
+      map.setFeatureState({ source: SRC_DONG, id: code }, { selected: false });
+      const v = stateRef.current.views.get(code);
+      const reachable = v?.reachable ?? false;
+      scheduleFade(
+        map,
+        code,
+        buildFadeState(v, reachable, false, code === stateRef.current.hoveredCode),
+        fadeSettled.current,
+        fadeAnim.current,
+        fadeRaf
       );
     }
     if (selectedCode) {
       map.setFeatureState({ source: SRC_DONG, id: selectedCode }, { selected: true });
       const meta = dongs.find((d) => d.code === selectedCode);
       if (meta) map.easeTo({ center: markerCoord(meta), duration: 500 });
+      const v = stateRef.current.views.get(selectedCode);
+      const reachable = v?.reachable ?? false;
+      scheduleFade(
+        map,
+        selectedCode,
+        buildFadeState(v, reachable, true, selectedCode === stateRef.current.hoveredCode),
+        fadeSettled.current,
+        fadeAnim.current,
+        fadeRaf
+      );
     }
     prevSelected.current = selectedCode;
   }, [selectedCode, dongs, styleEpoch]);
@@ -728,10 +783,31 @@ export default function MapView({
     if (!map || !readyRef.current) return;
 
     if (prevHovered.current) {
-      map.setFeatureState({ source: SRC_DONG, id: prevHovered.current }, { hovered: false });
+      const code = prevHovered.current;
+      map.setFeatureState({ source: SRC_DONG, id: code }, { hovered: false });
+      const v = stateRef.current.views.get(code);
+      const reachable = v?.reachable ?? false;
+      scheduleFade(
+        map,
+        code,
+        buildFadeState(v, reachable, code === stateRef.current.selectedCode, false),
+        fadeSettled.current,
+        fadeAnim.current,
+        fadeRaf
+      );
     }
     if (hoveredCode) {
       map.setFeatureState({ source: SRC_DONG, id: hoveredCode }, { hovered: true });
+      const v = stateRef.current.views.get(hoveredCode);
+      const reachable = v?.reachable ?? false;
+      scheduleFade(
+        map,
+        hoveredCode,
+        buildFadeState(v, reachable, hoveredCode === stateRef.current.selectedCode, true),
+        fadeSettled.current,
+        fadeAnim.current,
+        fadeRaf
+      );
     }
     prevHovered.current = hoveredCode;
   }, [hoveredCode, styleEpoch]);
@@ -914,6 +990,146 @@ export default function MapView({
 /* ---------------- 헬퍼 ---------------- */
 
 /**
+ * dong-fill 목표 불투명도. fillColorExpr/fillOpacityExpr의 "case" 우선순위
+ * (selected > hovered > reachable > 기본)와 반드시 같은 값을 내야 한다 —
+ * 표현식과 이 함수가 따로 놀면(WALK_DETOUR_FACTOR가 constants.ts/geo.mjs
+ * 양쪽에 복제된 것과 같은 함정) 화면 색과 애니메이션 목표가 어긋난다.
+ */
+function fillOpacityFor(reachable: boolean, selected: boolean, hovered: boolean): number {
+  if (selected) return 0.78;
+  if (hovered) return 0.68;
+  if (reachable) return 0.55;
+  return 0.16;
+}
+
+/** dong-icon/dong-label 목표 불투명도. iconOpacityExpr과 반드시 같은 값. */
+function iconOpacityFor(reachable: boolean): number {
+  return reachable ? 1 : 0;
+}
+
+/** views에서 grade/band를 뽑고 나머지 목표(불투명도)를 계산해 FadeState 하나로 묶는다 */
+function buildFadeState(
+  v: DongView | undefined,
+  reachable: boolean,
+  selected: boolean,
+  hovered: boolean
+): FadeState {
+  return {
+    fillOpacity: fillOpacityFor(reachable, selected, hovered),
+    iconOpacity: iconOpacityFor(reachable),
+    grade: v?.grade ?? "normal",
+    band: v?.band ?? -1,
+    reachable,
+  };
+}
+
+const FADE_MS = 200;
+
+/**
+ * 동 하나가 페이드 대상으로 들고 있는 전부 — 불투명도(fill/icon)뿐 아니라
+ * 색을 결정하는 grade/band/reachable까지 포함한다. 색은 이산값이라 JS에서
+ * 중간값을 계산할 수 없으므로, 색 보간은 항상 MapLibre의 interpolate가
+ * (fillColorExpr 안에서) 담당한다 — 여기서는 "지금 목표가 뭔지"만 추적한다.
+ */
+interface FadeState {
+  fillOpacity: number;
+  iconOpacity: number;
+  grade: Grade;
+  band: number;
+  reachable: boolean;
+}
+type FadeAnimState = { from: FadeState; to: FadeState; startedAt: number };
+const DEFAULT_FADE_STATE: FadeState = {
+  fillOpacity: 0.16,
+  iconOpacity: 0,
+  grade: "normal",
+  band: -1,
+  reachable: false,
+};
+
+function fadeStatesEqual(a: FadeState, b: FadeState): boolean {
+  return (
+    a.fillOpacity === b.fillOpacity &&
+    a.iconOpacity === b.iconOpacity &&
+    a.grade === b.grade &&
+    a.band === b.band &&
+    a.reachable === b.reachable
+  );
+}
+
+/**
+ * 동 하나를 목표 상태로 부드럽게 옮긴다. 목표가 실제로 안 바뀌었으면
+ * (이미 그 상태로 정착했거나 이미 그 상태를 향해 애니메이션 중이면)
+ * 아무것도 하지 않는다 — 이 가드가 있어야 슬라이더를 움직일 때 547개
+ * 동을 매번 통째로 다시 애니메이션 걸지 않고 실제로 바뀐 동만 대상이
+ * 된다(비용을 실제 변화량에 비례하게 묶어 둔다).
+ *
+ * 색(grade/band/reachable)과 불투명도를 **항상 같이** 옮긴다 — 처음엔
+ * 불투명도만 애니메이션하고 색은 즉시 스냅했는데, 사라지는 방향에서
+ * 색만 먼저 회색으로 스냅한 채 불투명도(예: 0.55)가 아직 안 내려가
+ * 잠깐 "번쩍"이는 게 실측으로 드러났다. 색·불투명도를 같은 fadeT로
+ * 묶어서 이 어긋남 자체를 없앤다.
+ *
+ * 애니메이션 도중에 목표가 또 바뀌면(예: 페이드 중에 hover) 불투명도는
+ * 마지막 정착값이 아니라 **그 순간 화면에 보이는 보간값**에서 이어서
+ * 시작한다 — 안 그러면 순간 튄다. 색(grade/band/reachable)은 이산값이라
+ * 정확한 중간값을 못 만드므로 직전 목표를 그대로 이어받는다 — reachable이
+ * FADE_MS 안에 두 번 뒤집히는 경우(매우 드물다, hover/select는 애초에 색을
+ * 안 건드린다)에만 색이 살짝 튈 수 있는 정도로 위험이 작다.
+ */
+function scheduleFade(
+  map: maplibregl.Map,
+  code: string,
+  target: FadeState,
+  settled: Map<string, FadeState>,
+  anim: Map<string, FadeAnimState>,
+  rafRef: { current: number | null }
+): void {
+  const now = performance.now();
+  const inFlight = anim.get(code);
+  let from: FadeState;
+
+  if (inFlight) {
+    if (fadeStatesEqual(inFlight.to, target)) return;
+    const t = Math.min(1, (now - inFlight.startedAt) / FADE_MS);
+    from = {
+      ...inFlight.to,
+      fillOpacity: inFlight.from.fillOpacity + (inFlight.to.fillOpacity - inFlight.from.fillOpacity) * t,
+      iconOpacity: inFlight.from.iconOpacity + (inFlight.to.iconOpacity - inFlight.from.iconOpacity) * t,
+    };
+  } else {
+    const prev = settled.get(code) ?? DEFAULT_FADE_STATE;
+    if (fadeStatesEqual(prev, target)) return;
+    from = prev;
+  }
+
+  map.setFeatureState(
+    { source: SRC_DONG, id: code },
+    { prevOpacity: from.fillOpacity, prevGrade: from.grade, prevBand: from.band, prevReachable: from.reachable, fadeT: 0 }
+  );
+  map.setFeatureState(
+    { source: SRC_POINT, id: code },
+    { prevOpacity: from.iconOpacity, prevGrade: from.grade, prevBand: from.band, prevReachable: from.reachable, fadeT: 0 }
+  );
+  anim.set(code, { from, to: target, startedAt: now });
+  settled.set(code, target);
+
+  if (rafRef.current == null) {
+    const step = () => {
+      const t0 = performance.now();
+      for (const [c, a] of anim) {
+        const t = Math.min(1, (t0 - a.startedAt) / FADE_MS);
+        map.setFeatureState({ source: SRC_DONG, id: c }, { fadeT: t });
+        map.setFeatureState({ source: SRC_POINT, id: c }, { fadeT: t });
+        if (t >= 1) anim.delete(c);
+      }
+      rafRef.current = anim.size > 0 ? requestAnimationFrame(step) : null;
+    };
+    rafRef.current = requestAnimationFrame(step);
+  }
+}
+
+/**
  * 목적지 마커 주위에 물결이 3번 번지고 멈춘다. dest-pulse 레이어의
  * circle-radius/circle-opacity를 requestAnimationFrame으로 직접 민다 —
  * MapLibre 표현식이 아니라 여러 목적지 전체가 같은 위상으로 함께 뛴다.
@@ -952,44 +1168,107 @@ function startDestPulse(map: maplibregl.Map, rafRef: { current: number | null })
   rafRef.current = requestAnimationFrame(step);
 }
 
-/** 통근 가능한 동만 보이게 하는 불투명도 표현식 */
-function reachableOpacityExpr(): maplibregl.ExpressionSpecification {
+/**
+ * dong-fill의 불투명도. selected/hovered/reachable 우선순위로 목표값을 정하는
+ * 건 예전과 같지만, 그 값으로 바로 스냅하지 않고 fadeT(0→1)로 prevOpacity와
+ * 보간한다.
+ *
+ * MapLibre의 `-transition` 옵션(예전에 여기 있었다)은 `setPaintProperty`로
+ * 스타일 자체를 바꿀 때만 적용되고 `setFeatureState`로 바뀌는 값에는 전혀
+ * 안 걸린다 — GPU가 feature-state를 매 프레임 직접 읽어 평가하기 때문에
+ * transition이 개입할 지점이 없다(실측: 배포 후 실제로 안 보였다). 그래서
+ * fadeT/prevOpacity를 우리가 직접 requestAnimationFrame으로 미는
+ * scheduleFade()(아래)가 그 역할을 대신한다.
+ *
+ * fadeT가 없으면(아직 한 번도 애니메이션이 안 걸린 동) coalesce가 1을 줘서
+ * 목표값으로 바로 수렴한다 — 초기 렌더·테마 전환 직후에 불필요한 페이드가
+ * 걸리지 않는다.
+ */
+function fillOpacityExpr(): maplibregl.ExpressionSpecification {
+  const target: maplibregl.ExpressionSpecification = [
+    "case",
+    ["boolean", ["feature-state", "selected"], false], 0.78,
+    ["boolean", ["feature-state", "hovered"], false], 0.68,
+    ["boolean", ["feature-state", "reachable"], false], 0.55,
+    0.16,
+  ] as maplibregl.ExpressionSpecification;
   return [
+    "interpolate",
+    ["linear"],
+    ["coalesce", ["feature-state", "fadeT"], 1],
+    0, ["coalesce", ["feature-state", "prevOpacity"], 0.16],
+    1, target,
+  ] as unknown as maplibregl.ExpressionSpecification;
+}
+
+/**
+ * dong-icon/dong-label의 불투명도. 마커·라벨엔 selected/hovered를 반영하지
+ * 않는다는 기존 결정을 그대로 따르고(reachable만), fillOpacityExpr와 같은
+ * fadeT/prevOpacity feature-state를 읽어 색 페이드와 같은 속도로 함께 뜬다.
+ */
+function iconOpacityExpr(): maplibregl.ExpressionSpecification {
+  const target: maplibregl.ExpressionSpecification = [
     "case",
     ["boolean", ["feature-state", "reachable"], false],
     1,
     0,
   ] as maplibregl.ExpressionSpecification;
+  return [
+    "interpolate",
+    ["linear"],
+    ["coalesce", ["feature-state", "fadeT"], 1],
+    0, ["coalesce", ["feature-state", "prevOpacity"], 0],
+    1, target,
+  ] as unknown as maplibregl.ExpressionSpecification;
 }
 
 /**
  * 조건을 통과한 동만 색칠하고 나머지는 회색으로 둔다.
  * 색이 뜻하는 바는 모드가 정한다 — 등급이냐 통근시간이냐.
+ *
+ * fadeT로 prev*(직전 목표) → 현재 상태를 보간한다 — scheduleFade가 매
+ * 전환마다 prevGrade/prevBand/prevReachable을 스냅샷해 두고 fadeT를
+ * 0→1로 민다. fadeT가 없으면(한 번도 애니메이션이 안 걸린 동) coalesce가
+ * 1을 줘서 현재 상태로 바로 수렴한다.
  */
 function fillColorExpr(mode: MapMode): maplibregl.ExpressionSpecification {
-  const inner: maplibregl.ExpressionSpecification =
-    mode === "grade"
-      ? ([
-          "match",
-          ["feature-state", "grade"],
-          "best", GRADE_COLOR.best,
-          "normal", GRADE_COLOR.normal,
-          "bad", GRADE_COLOR.bad,
-          OUT_OF_RANGE_COLOR,
-        ] as maplibregl.ExpressionSpecification)
-      : ([
-          "match",
-          ["feature-state", "band"],
-          ...COMMUTE_BANDS.flatMap((b, i) => [i, b.color]),
-          OUT_OF_RANGE_COLOR,
-        ] as unknown as maplibregl.ExpressionSpecification);
+  const colorFor = (
+    gradeKey: string,
+    bandKey: string,
+    reachableKey: string
+  ): maplibregl.ExpressionSpecification => {
+    const inner: maplibregl.ExpressionSpecification =
+      mode === "grade"
+        ? ([
+            "match",
+            ["feature-state", gradeKey],
+            "best", GRADE_COLOR.best,
+            "normal", GRADE_COLOR.normal,
+            "bad", GRADE_COLOR.bad,
+            OUT_OF_RANGE_COLOR,
+          ] as maplibregl.ExpressionSpecification)
+        : ([
+            "match",
+            ["feature-state", bandKey],
+            ...COMMUTE_BANDS.flatMap((b, i) => [i, b.color]),
+            OUT_OF_RANGE_COLOR,
+          ] as unknown as maplibregl.ExpressionSpecification);
+
+    return [
+      "case",
+      ["boolean", ["feature-state", reachableKey], false],
+      inner,
+      OUT_OF_RANGE_COLOR,
+    ] as maplibregl.ExpressionSpecification;
+  };
 
   return [
-    "case",
-    ["boolean", ["feature-state", "reachable"], false],
-    inner,
-    OUT_OF_RANGE_COLOR,
-  ] as maplibregl.ExpressionSpecification;
+    "interpolate",
+    ["linear"],
+    ["coalesce", ["feature-state", "fadeT"], 1],
+    0, colorFor("prevGrade", "prevBand", "prevReachable"),
+    1, colorFor("grade", "band", "reachable"),
+  ] as unknown as maplibregl.ExpressionSpecification;
 }
 
 function pointsFrom(dongs: DongMeta[]): FeatureCollection {
