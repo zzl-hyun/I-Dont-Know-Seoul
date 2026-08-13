@@ -69,21 +69,67 @@ Copy `.env.example` to `.env` for local data keys; never commit secrets. Store `
 
 ## Current Shared State
 
-마지막 확인: **2026-08-13 18:47 KST** (Claude, 코덱스 작업 리뷰 후)
+마지막 확인: **2026-08-13 23:58 KST** (Claude, UI/UX 개선 5건 + 지도 페이드 작업 후 배포까지 완료)
 
 | 항목 | 현재 상태 |
 | --- | --- |
-| 공용 작업트리 | `/Users/macbookpro/Desktop/Work/I-Dont-Know-Seoul` |
+| 공용 작업트리 | 이 세션은 `/Users/mac/Desktop/Project/Oneday` (다른 기기). 시작 시 `main`이 origin보다 **61커밋 뒤처져** 있어 `git merge --ff-only origin/main`으로 맞춤 |
 | 현재 브랜치 | `main` |
-| **배포 후보 HEAD** | **`6e75f05` docs: 서울 2025 원본의 행 중복 결함을 남기고 표본부족 경고를 선택 기준에 맞춘다** |
-| `origin/main` | `0a0d39b` — 로컬 커밋 6개 미push (코덱스 5 + 리뷰 수정 1) |
+| **HEAD (배포 완료)** | **`ca54bfd` fix(map): 동 색·불투명도 페이드를 직접 구현한다** |
+| `origin/main` | `a504aa2` — 로컬 커밋 **8개 미push**(아래 세션 요약 참고). 배포는 `git push`가 아니라 `wrangler deploy` 직접 실행으로 이미 나갔다 — push 여부와 무관하게 운영엔 반영돼 있음 |
 | 미커밋 tracked | 없음 (clean) |
-| 미추적 유지 | `Research on Advanced Regional Scoring Methods.md`, `claude-feedback/`, `feedback/` — 이번 배포에서 제외 |
-| 최근 검증 | `npm test` **235/235 통과**, `npm run typecheck`·`npm run build`·`git diff --check` 전부 통과(2026-08-13 18:46) |
-| 운영 배포 | 직전 배포는 `06d1f46`(2026-08-12). 월세 보강·선택 UI + 추천 품질 8건을 합친 새 배포 **승인 대기** |
+| 미추적 유지 | `Research on Advanced Regional Scoring Methods.md` — 의도적으로 유지, 커밋 대상 아님 |
+| 최근 검증 | `npm test` **233 passed / 2 skipped (235)**, `npm run typecheck`·`npm run build`·`git diff --check` 전부 통과(2026-08-13 23:53) |
+| 운영 배포 | **완료.** Worker Version ID `b07dab9c-0a4f-45d7-bb05-b5fcbcf698b8`. `npm run data:seed` 실행함(번들 내용 자체는 이번 세션에서 안 바뀜 — 프론트만 건드림). 배포 후 `/api/data` HTTP 200 · `X-Oneday-Source: kv` 확인함 |
 
 > 테스트 수가 236 → 235로 준 건 회귀가 아니다. `src/lib/__scratch_munjeong.test.ts`
 > (미추적 스크래치 1개)를 조사 후 지운 것이 반영된 값이다.
+
+### UI/UX 개선 5건 + 지도 페이드 (2026-08-13, Claude) — 구현·배포 완료
+
+계획 파일: `docs/plans/ux-improvements-5.md` (구현 중 번복된 항목 2a를 그 문서
+상단에 명시해 뒀다 — 아래 참고). 8개 커밋, 전부 `main`에 직접 커밋:
+
+| # | 내용 | 커밋 |
+|---|---|---|
+| 1 | 마커 `minzoom` 12.2 — 줌아웃에서 동 아이콘 숨김 | `142594d` |
+| 2a | 목적지 없이도 전 지역 등급색 표시 → **사용자가 실사용 후 번복, 되돌림** | `3e19f29` → `da9a202`(되돌림) |
+| 2b | 통근 기본값 90→40분 복귀 (2a와 무관하게 유지) | `b9f62c1` |
+| 3 | 추천 목록 ↔ 지도 hover 양방향 연동 | `0c7b138` |
+| 4 | 가격 축 설명 압축(5줄 → 접이식 3열 그리드) | `364c316` |
+| 5 | 검색 시 지도 색 페이드인 + 목적지 마커 물결 펄스 | `6e1ee85` → `ca54bfd`(재구현) |
+
+**항목 2(목적지 없을 때 전 지역 등급색)는 계획서에 사용자가 명시적으로 확정한
+내용이었지만, 배포 후 실사용해 보고 "굳이 필요 없다"고 판단을 바꿨다.**
+`da9a202`가 `MapView.tsx`의 `hasDestination` 게이트, `shareUrl.ts`의
+mode 가드, 안내 문구를 전부 원래대로(목적지 없으면 회색) 복원했다.
+**계획 문서와 실제 코드가 이 지점에서 어긋나 있으니, 이 문서를 안 보고
+`docs/plans/ux-improvements-5.md`만 참고하면 헷갈린다** — 그 문서 상단에
+번복 사실을 적어 뒀다.
+
+**항목 5는 한 번에 안 됐다 — 순서대로 겪은 문제와 수정:**
+1. 처음엔 MapLibre의 `fill-opacity-transition`/`fill-color-transition`
+   (네이티브 옵션)을 걸었는데(`6e1ee85`), **배포 후 사용자가 "페이드 안 보인다"고
+   보고**. 원인 조사 결과 이 옵션은 `setPaintProperty`로 스타일 자체를 바꿀 때만
+   적용되고, 이 앱처럼 `setFeatureState`로 동별 상태를 바꾸는 경로에는 전혀
+   안 걸린다는 걸 확인(GPU가 feature-state를 매 프레임 직접 읽어 평가).
+2. `requestAnimationFrame`으로 직접 구현(불투명도만, 색은 스냅) → **사용자가
+   "사라질 때 번쩍인다"고 보고**. 색이 즉시 회색으로 스냅한 채 불투명도가 아직
+   안 내려가 있어 잠깐 밝은 회색이 번쩍이는 것으로 확인.
+3. **색·불투명도를 같은 `fadeT`(feature-state)로 함께 보간**하도록 재구현
+   (`ca54bfd`) — `fillColorExpr`/`fillOpacityExpr`를
+   `interpolate(fadeT, prev, current)` 형태로 바꾸고, `scheduleFade()`가
+   전환마다 `prevGrade`/`prevBand`/`prevReachable`/`prevOpacity`를 스냅샷한다.
+   바뀐 동만 애니메이션 대상에 올려(547개 전체를 매번 다시 걸지 않음) 슬라이더
+   드래그 시 성능 위험을 피했다. 지속시간은 사용자 요청으로 300→250→150→**200ms**
+   최종 확정.
+4. 브라우저 콘솔에서 `getFeatureState`를 매 프레임 폴링해 `fadeT`가 나타나는
+   방향·사라지는 방향 모두 0→1로 선형 보간되는 것을 실측 확인(스크린샷이
+   아니라 수치로 검증 — 300ms 이하 전환은 스크린샷 타이밍으로 못 잡는다).
+
+**남은 절차**: 없음 — 배포까지 끝났다. 굳이 확인한다면 다음 세션이 브라우저로
+목적지 검색·통근 슬라이더 드래그 시 페이드가 200ms로 자연스러운지 한 번
+훑어보는 정도.
 
 ### 코덱스 월세 보강 작업 리뷰 (2026-08-13, Claude) — 통과
 
@@ -156,33 +202,33 @@ Phase별 1개)로 나눠 구현하고 Claude가 전부 독립 재검증했다.
 
 ### Claude
 
-- Status: done — Codex의 버스 첫·마지막 접근 + SGIS 100m 인구분포 작업을 리뷰·커밋·
-  push·PR까지 완료. PR #6은 사용자가 직접 머지함
-- Owned files: 없음 (PR이 머지되어 격리 worktree 작업이 `main`에 합쳐짐)
-- Last result:
-  1. `claude-feedback/BUS_FIRST_LAST_MILE_REVIEW.md`가 요청한 6개 질문을 실제
-     번들 재파싱·재계산으로 독립 검증(v4 스키마 좌표 0건, leg 합=총시간 정확히
-     일치, 파이프라인·런타임 공식 12개 상수 전부 대조, UI 문구·15분 트리거 일치,
-     `walkToStationMin` 전파, 키 유출 0건). 판교/양재1·2동/서초2동/55분 필터/
-     등급 변동 22개·극단 0개까지 전부 직접 재현해 보고서 수치와 정확히 일치 확인
-  2. 커밋을 작업 단위 8개로 분리(버스망 수집 → SGIS 인구 정규화 → 통근 엔진 →
-     파이프라인 연결 → UI → 산출물 재생성 → 문서 → 테스트 타임아웃 수정).
-     `residential-quality.test.ts`가 기본 5000ms 타임아웃 경계라 부하에 따라
-     flaky한 것을 재검증 중 발견해 20초로 늘리는 커밋을 추가함
-  3. README·docs/commute.md·docs/data.md·docs/scoring.md의 예시 수치(노량진1동
-     순위·등급 점수·경로, 성동구 예시 축 점수·등급 컷)를 실제 재계산과 전수
-     대조 — 전부 일치
-  4. `git push` 후 `gh pr create`로 PR #6 생성. 이후 사용자가 GitHub에서 직접
-     머지(`mergedBy: zzl-hyun`)한 것을 확인하고 로컬 `main`을 `git pull --ff-only`
-     로 맞춤
-  5. 병합된 `main`에서 `npm test`(178/178, SGIS 원자료 없어 1개 skip 정상) ·
-     `npm run typecheck` 재확인
-- Verification: 위 항목 전부 실제 명령 재실행·재계산으로 확인(자기보고 신뢰 안 함)
-- Commit/remote: `e83eeba`~`12111e8`(8개, `feat/bus-first-last-mile`) → PR #6 →
-  `79cc035`(머지)로 `origin/main`과 일치
-- Next handoff: 배포까지 전부 완료(위 "Current Shared State" 참고). 남은 건
-  SGIS 활용결과 URL 제출뿐이고 사용자가 직접 하기로 함 — Claude/Codex가 대신
-  처리하지 않는다. 격리 worktree·로컬 브랜치는 정리 완료.
+- Status: done — UI/UX 개선 5건 + 지도 색 페이드 버그 수정까지 구현·검증·배포 완료
+- Task: `docs/plans/ux-improvements-5.md`의 5건 구현. 배포 후 사용자 실사용
+  피드백으로 항목 2 번복 + 페이드 애니메이션 2회 재작업
+- Owned files: 이번 세션에서 건드린 파일 — `src/components/MapView.tsx`,
+  `src/App.tsx`, `src/components/TopPicks.tsx`, `src/components/DongDetail.tsx`,
+  `src/lib/constants.ts`, `src/lib/shareUrl.ts`, `src/lib/shareUrl.test.ts`,
+  `src/index.css`, `CLAUDE.md`, `docs/plans/ux-improvements-5.md`. 지금은 후속
+  작업이 없어 소유권 주장 안 함 — 다음에 건드릴 에이전트가 자유롭게 써도 됨
+- Changed: 위 "UI/UX 개선 5건 + 지도 페이드" 절 참고. 요약하면 (1) 줌아웃 마커
+  숨김 (2) 목적지 없을 때 회색 유지(원복) + 통근 기본 40분 (3) 목록↔지도 hover
+  연동 (4) 가격 축 설명 압축 (5) 지도 색 페이드인 200ms·목적지 마커 펄스
+- Verification: `npm test` 233/235(2 skip) · `npm run typecheck` · `npm run build`
+  · `git diff --check` 전부 통과. 브라우저(Chrome, cf:dev + 실제 프로덕션 둘 다)로
+  각 항목 시나리오 직접 클릭 확인. 페이드는 스크린샷이 아니라
+  `map.getFeatureState()`를 매 프레임 폴링해 0→1 선형 보간을 수치로 검증(300ms
+  이하 전환은 스크린샷 타이밍으로 못 잡는다는 걸 이번에 배움)
+- Commit/remote: `142594d`~`ca54bfd`(8개, `main` 직접 커밋) — **origin/main에
+  미push**. 배포는 `wrangler deploy` 직접 실행으로 이미 나갔으므로 push 여부와
+  운영 상태는 별개
+- Next handoff: 없음. 이 세션에서 발견한 교훈만 남긴다 — **MapLibre의
+  `*-transition` paint 옵션은 `setFeatureState`로 바뀌는 값에는 안 걸린다**(오직
+  `setPaintProperty` 스타일 교체에만 적용). feature-state 기반으로 뭔가를 부드럽게
+  움직이려면 반드시 `requestAnimationFrame` + 수동 `interpolate` 표현식을 써야
+  한다. 이 프로젝트는 등급색·불투명도를 전부 feature-state로 계산하므로(그래야
+  547개 폴리곤이 즉시 반응한다), 앞으로 이 위에 애니메이션을 더 얹을 일이 있으면
+  `MapView.tsx`의 `scheduleFade`/`FadeState` 패턴을 재사용할 것 — 새로 `-transition`
+  옵션부터 시도하지 말 것(이미 한 번 겪었다).
 
 ### Codex
 
@@ -208,6 +254,12 @@ Phase별 1개)로 나눠 구현하고 Claude가 전부 독립 재검증했다.
   문정1동 화면 기본 variant 59.58만원·가격 16.4점 회귀를 독립 감사까지 완료.
 - Commit/remote: `7824799`, `b7e58b0`, `f8959fc`, `78088c4` 로컬 커밋, 미push
 - Next handoff: 최종 SHA 승인 후 새 KV 전파 확인 → Worker 배포 → 운영 응답 검증
+
+> **(Claude, 2026-08-13 23:58 갱신)** 위 대기 상태는 해소됐다 — 이 월세 보강
+> 작업은 Codex가 아니라 이후 세션(다른 기기)에서 `main`에 이미 fast-forward
+> 병합된 상태로 발견됐고, 그 위에 UI/UX 개선 5건을 얹어 `npm run cf:deploy`로
+> 함께 배포했다(Worker Version `b07dab9c-...`). Codex 쪽 설계 설명·검증 기록은
+> 그대로 두고 배포 완료 사실만 남긴다.
 
 ## Git and Deployment Gate
 
