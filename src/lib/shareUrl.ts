@@ -125,8 +125,11 @@ export function decodeShareState(search: string): ShareState {
     s.budget = budget;
   }
 
+  // 목적지 없는 commute 모드는 band가 전부 -1이라 지도가 회색으로 갇힌다.
+  // 조작된 링크로만 만들어질 수 있는 상태라 grade로 되돌린다.
   const mode = p.get("mode");
-  if (mode === "commute" || mode === "grade") s.mapMode = mode;
+  if (mode === "grade") s.mapMode = "grade";
+  else if (mode === "commute" && s.destinations.length > 0) s.mapMode = "commute";
 
   if (p.get("sub") === "0") s.showSubway = false;
 

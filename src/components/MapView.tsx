@@ -111,8 +111,6 @@ interface Props {
   destinations: Destination[];
   selectedCode: string | null;
   onSelect: (code: string | null) => void;
-  /** 목적지가 아직 없으면 등급 대신 안내만 보여준다 */
-  hasDestination: boolean;
   /** 선택된 동의 통근 경로. 지하철 구간과 도보 구간을 나눠 그린다 */
   routePath: RouteSegment[];
   /** 지하철 노선도 (노선별 MultiLineString + 역 Point) */
@@ -146,7 +144,6 @@ export default function MapView({
   destinations,
   selectedCode,
   onSelect,
-  hasDestination,
   routePath,
   subway,
   showSubway,
@@ -173,8 +170,8 @@ export default function MapView({
   const [styleEpoch, setStyleEpoch] = useState(0);
 
   // 최신 props를 이벤트 핸들러에서 읽기 위한 ref (핸들러를 재등록하지 않기 위함)
-  const stateRef = useRef({ dongs, views, onSelect, onPickStation, hasDestination });
-  stateRef.current = { dongs, views, onSelect, onPickStation, hasDestination };
+  const stateRef = useRef({ dongs, views, onSelect, onPickStation });
+  stateRef.current = { dongs, views, onSelect, onPickStation };
 
   // 지하철 노선도는 불변이므로 지도 생성 시점에 한 번만 읽는다
   const subwayRef = useRef(subway);
@@ -539,7 +536,7 @@ export default function MapView({
       const view = stateRef.current.views.get(code);
       const meta = stateRef.current.dongs.find((d) => d.code === code);
       if (!meta) return;
-      const html = tooltipHtml(meta.name, view, stateRef.current.hasDestination);
+      const html = tooltipHtml(meta.name, view);
       popup.setLngLat(e.lngLat).setHTML(html).addTo(map);
     };
     const onLeave = () => {
@@ -637,7 +634,7 @@ export default function MapView({
         const state = {
           grade: v?.grade ?? "normal",
           band: v?.band ?? -1,
-          reachable: hasDestination ? (v?.reachable ?? false) : false,
+          reachable: v?.reachable ?? false,
         };
         map.setFeatureState({ source: SRC_DONG, id: dong.code }, state);
         map.setFeatureState({ source: SRC_POINT, id: dong.code }, state);
@@ -646,7 +643,7 @@ export default function MapView({
 
     if (readyRef.current) apply();
     else map.once("oneday.ready", apply);
-  }, [dongs, views, hasDestination, styleEpoch]);
+  }, [dongs, views, styleEpoch]);
 
   /* ---------------- 선택 상태 ---------------- */
   const prevSelected = useRef<string | null>(null);
@@ -892,12 +889,9 @@ const emptyFC = (): FeatureCollection => ({
  * 툴팁. 지도를 훑기만 해도 "왜 이 등급인지"가 보이도록 한 줄 이유를 붙인다.
  * 다만 세 줄을 넘기면 지도를 가려서 방해가 되므로 이유는 잘라 쓴다.
  */
-function tooltipHtml(name: string, view: DongView | undefined, hasDestination: boolean): string {
+function tooltipHtml(name: string, view: DongView | undefined): string {
   const esc = escapeHtml;
 
-  if (!hasDestination) {
-    return `<b>${esc(name)}</b><br><span style="color:#9aa1ae">먼저 목적지를 정해주세요</span>`;
-  }
   if (!view || !view.reachable) {
     const why = view?.overBudget ? "예산 초과" : "통근 가능 시간 밖";
     return `<b>${esc(name)}</b><br><span style="color:#9aa1ae">${why}</span>`;
