@@ -104,8 +104,16 @@ export const MAX_BUS_STATION_CANDIDATES = 12;
  */
 export const ESTIMATED_SPEED_KMH = 32;
 
-/** 통근시간 슬라이더 기본값(분) */
-export const DEFAULT_MAX_COMMUTE_MIN = 90;
+/**
+ * 통근시간 슬라이더 기본값(분).
+ *
+ * 90분은 목적지 없어도 전 지역을 보여주려던 시도였는데, 실제로는
+ * MapView의 강제 회색 처리 때문에 목적지를 넣은 뒤에만 작용해 547개 중
+ * 535개가 통근권으로 잡히며 판별력만 잃었다. 그 강제 처리는 없앴고
+ * (목적지 없을 때도 전 지역이 등급색으로 보인다), 통근 기본값은 원래
+ * 판별력 있던 40분으로 되돌린다.
+ */
+export const DEFAULT_MAX_COMMUTE_MIN = 40;
 
 /**
  * 목적지 상한. UI(App.tsx)의 추가 버튼뿐 아니라 shareUrl.ts의 URL 디코더도

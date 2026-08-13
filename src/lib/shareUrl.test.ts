@@ -57,7 +57,7 @@ describe("URL 왕복", () => {
     const s = decodeShareState("");
     expect(s.destinations).toEqual([]);
     expect(s.maxCommute).toBe(DEFAULT_SHARE_STATE.maxCommute);
-    expect(s.maxCommute).toBe(90);
+    expect(s.maxCommute).toBe(40);
     expect(s.budget).toBe(BUDGET_OFF);
     expect(s.mapMode).toBe("grade");
     expect(s.showSubway).toBe(true);
@@ -65,10 +65,10 @@ describe("URL 왕복", () => {
     expect(s.rentMode).toBe("converted");
   });
 
-  it("기존 공유 링크가 max=40을 명시하면 새 기본값과 무관하게 40분을 복원한다", () => {
-    const s = decodeShareState("max=40");
-    expect(s.maxCommute).toBe(40);
-    expect(encodeShareState(s)).toContain("max=40");
+  it("URL에 명시된 max 값은 기본값과 무관하게 그대로 왕복한다", () => {
+    const s = decodeShareState("max=55");
+    expect(s.maxCommute).toBe(55);
+    expect(encodeShareState(s)).toContain("max=55");
   });
 });
 
