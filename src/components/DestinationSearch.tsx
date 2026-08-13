@@ -90,7 +90,8 @@ export default function DestinationSearch({ onPick, disabled, placeholder }: Pro
   const choose = (s: Suggestion) => {
     onPick({ name: s.name, address: s.address, lat: s.lat, lng: s.lng });
     skipNextSearch.current = true;
-    // 교체가 아니라 추가이므로 입력창을 비운다 — 이름이 남으면 다음 검색에 방해된다
+    // 이 컴포넌트는 교체(메인 검색창)와 추가("+ 목적지 추가") 양쪽에서 재사용된다.
+    // 어느 쪽이든 선택 직후엔 입력창을 비운다 — 이름이 남으면 다음 검색에 방해된다.
     setQuery("");
     setItems([]);
     setOpen(false);

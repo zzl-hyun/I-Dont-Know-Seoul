@@ -379,8 +379,9 @@ export default function App() {
     });
 
   /**
-   * 목적지 추가. 상한은 3개 — 그 이상은 max 판정상 조건을 만족하는 동이
-   * 사실상 사라져 의미가 없다. 같은 좌표는 중복으로 넣지 않는다.
+   * 목적지 추가("+ 목적지 추가" 입력, 지도 역 클릭). 상한은 3개 — 그 이상은
+   * max 판정상 조건을 만족하는 동이 사실상 사라져 의미가 없다. 같은 좌표는
+   * 중복으로 넣지 않는다.
    */
   const addDestination = (d: Destination) =>
     setDestinations((prev) => {
@@ -388,6 +389,15 @@ export default function App() {
       if (prev.some((p) => p.lat === d.lat && p.lng === d.lng)) return prev;
       return [...prev, d];
     });
+
+  /**
+   * 목적지 교체(사이드바 메인 검색창 전용). "회사 검색 → 다른 회사 검색"을
+   * 하면 사용자는 바뀌길 기대하는데, 예전엔 addDestination 하나뿐이라 늘어만
+   * 났다 — 의도치 않게 두 회사를 동시에 만족하는 동만 남아버렸다. 몇 개가
+   * 쌓여 있었든 상관없이 항상 교체돼야 하므로 MAX_DESTINATIONS 상한을 적용하지
+   * 않는다(그 상한은 addDestination 쪽 얘기다).
+   */
+  const replaceDestination = (d: Destination) => setDestinations([d]);
 
   /** 소개 페이지의 검색에서 목적지를 고르면 기존 공유 URL 형식으로 앱을 연다. */
   const startWithDestination = (d: Destination) => {
@@ -521,13 +531,18 @@ export default function App() {
           </p>
         </div>
 
+        {/*
+          메인 검색창은 항상 교체다 — "회사 검색 → 다른 회사 검색"을 하면 첫
+          목적지가 바뀌길 기대하지 누적을 기대하지 않는다. 그래서 MAX_DESTINATIONS
+          상한을 걸지 않는다(교체는 몇 개가 있든 항상 가능해야 한다). 여러
+          목적지를 쌓고 싶으면 아래 "+ 목적지 추가"를 쓴다.
+        */}
         <DestinationSearch
-          onPick={addDestination}
-          disabled={destinations.length >= MAX_DESTINATIONS}
+          onPick={replaceDestination}
           placeholder={
             destinations.length === 0
               ? "회사나 학교를 검색하세요 (예: 강남역, SK AX)"
-              : "목적지 추가 (예: 룸메이트 회사)"
+              : "다른 곳으로 바꾸려면 검색하세요 (예: 강남역, SK AX)"
           }
         />
 
@@ -553,10 +568,20 @@ export default function App() {
                   </li>
                 ))}
               </ul>
+
+              {/* 여기서만 addDestination — 위 메인 검색창은 이제 교체 전용이다 */}
+              <div className="dest-add">
+                <DestinationSearch
+                  onPick={addDestination}
+                  disabled={destinations.length >= MAX_DESTINATIONS}
+                  placeholder="+ 목적지 추가 (예: 룸메이트 회사)"
+                />
+              </div>
+
               {destinations.length < MAX_DESTINATIONS ? (
                 <p className="metric-note">
-                  검색하거나 지도의 역을 클릭해 목적지를 더할 수 있습니다
-                  (최대 {MAX_DESTINATIONS}개).
+                  지도의 역을 클릭해서도 목적지를 더할 수 있습니다 (최대{" "}
+                  {MAX_DESTINATIONS}개).
                 </p>
               ) : (
                 <p className="metric-note">목적지는 최대 {MAX_DESTINATIONS}개까지입니다.</p>

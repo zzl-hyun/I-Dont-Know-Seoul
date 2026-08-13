@@ -1145,6 +1145,25 @@ input[type="range"] {
   color: var(--bad);
 }
 
+/*
+ * "+ 목적지 추가" 보조 검색창. DestinationSearch를 그대로 재사용하는데, 그
+ * 컴포넌트의 최상위 .search는 사이드바 가장자리에 붙는 걸 전제로 좌우 20px
+ * 패딩을 자체적으로 갖고 있다. 여기서는 이미 .section이 20px 패딩을 주는
+ * 안쪽이라 그대로 두면 좌우 40px로 이중 패딩이 된다.
+ */
+.dest-add {
+  margin: 2px 0 8px;
+}
+
+.dest-add .search {
+  padding: 0;
+}
+
+.dest-add .suggestions {
+  left: 0;
+  right: 0;
+}
+
 .search-input:disabled {
   opacity: 0.55;
   cursor: not-allowed;
