@@ -653,7 +653,7 @@ export default function MapView({
     if (selectedCode) {
       map.setFeatureState({ source: SRC_DONG, id: selectedCode }, { selected: true });
       const meta = dongs.find((d) => d.code === selectedCode);
-      if (meta) map.easeTo({ center: [meta.lng, meta.lat], duration: 500 });
+      if (meta) map.easeTo({ center: markerCoord(meta), duration: 500 });
     }
     prevSelected.current = selectedCode;
   }, [selectedCode, dongs, styleEpoch]);
@@ -862,10 +862,15 @@ function pointsFrom(dongs: DongMeta[]): FeatureCollection {
     type: "FeatureCollection",
     features: dongs.map((d) => ({
       type: "Feature",
-      geometry: { type: "Point", coordinates: [d.lng, d.lat] },
+      geometry: { type: "Point", coordinates: markerCoord(d) },
       properties: { code: d.code, dong: d.dong, gu: d.gu },
     })),
   };
+}
+
+/** 마커(등급 아이콘) 좌표. markerLng/markerLat가 있으면 그걸, 없으면 lng/lat로 폴백한다. */
+function markerCoord(d: DongMeta): [number, number] {
+  return [d.markerLng ?? d.lng, d.markerLat ?? d.lat];
 }
 
 const emptyFC = (): FeatureCollection => ({

@@ -11,9 +11,18 @@ export interface DongMeta {
   /** 5자리 시군구 코드 */
   guCode: string;
   areaKm2: number;
-  /** 아이콘을 찍을 대표점 — 반드시 폴리곤 내부 */
+  /** 통근·인구 계산 폴백용 대표점 — 반드시 폴리곤 내부 */
   lng: number;
   lat: number;
+  /**
+   * 지도 마커(등급 아이콘) 전용 좌표 — 동별 최대 인구 100m 셀의 중심.
+   * `lng`/`lat`(mapshaper `-points inner` 대표점)는 산·녹지가 넓은 동에서
+   * 사람이 안 사는 곳에 찍히는 경우가 있어(예: 용인 동천동, 서초 양재2동)
+   * 지도 표시만 이 필드로 분리했다. 없으면(이론상 발생하지 않지만 방어적으로)
+   * 지도가 `lng`/`lat`로 폴백한다.
+   */
+  markerLng?: number;
+  markerLat?: number;
 }
 
 /**

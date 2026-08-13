@@ -16,6 +16,7 @@
     "data:access": "node scripts/6-bus-access.mjs",
     "data:validate-access": "vitest run scripts/lib/residential-quality.test.ts",
     "data:metric-access": "node scripts/update-population-walk-metric.mjs",
+    "data:markers": "node scripts/update-marker-positions.mjs",
     "data:metrics": "node scripts/3-metrics.mjs",
     "data:score": "node scripts/4-score.mjs",
     "data:seed": "node scripts/5-seed-kv.mjs",
