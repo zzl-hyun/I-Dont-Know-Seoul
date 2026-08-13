@@ -323,7 +323,13 @@ export default function DongDetail({
         </div>
       )}
 
-      {score.dataQuality === "low" && (
+      {/*
+        하단 경고는 "지금 화면에 쓰이는 기준"을 따라간다. score.dataQuality 는
+        번들 기준 조합(3종 환산) 기준이라, 사용자가 다른 조합을 골랐을 땐 그
+        조합이 실제로 대체됐는지와 어긋난다 — 실제로 기본 선택(단독·다가구)에서
+        13개 동이 자치구 대체인데 하단 경고만 안 뜨는 상태였다.
+      */}
+      {(isBaseRent ? score.dataQuality === "low" : rentVariant?.samples === 0) && (
         <p className="metric-note warn">
           이 동은 실거래 표본이 부족해 월세를 <b>자치구 중앙값</b>으로 대체했습니다.
         </p>
