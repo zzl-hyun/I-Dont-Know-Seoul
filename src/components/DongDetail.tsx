@@ -129,7 +129,13 @@ export default function DongDetail({
         </div>
       </div>
 
-      <details className="why calculation">
+      {/*
+        key를 동 코드로 줘서 동을 바꿀 때마다 리마운트시킨다. <details>는 React
+        상태가 아니라 DOM 자체가 열림 여부를 들고 있는 uncontrolled 엘리먼트라,
+        key 없이 open만 주면 첫 렌더에만 적용되고 이후 동을 바꿔도 React가 같은
+        DOM 노드를 재사용해서 사용자가 이전 동에서 접어둔 상태가 그대로 이어진다.
+      */}
+      <details className="why calculation" key={dong.code} open>
         <summary>
           <span>계산 근거 전체 보기</span>
           <small>원지표 · 백분위 · 가중치 · 등급 컷</small>
