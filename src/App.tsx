@@ -98,6 +98,8 @@ export default function App() {
   const [maxCommute, setMaxCommute] = useState(initial.maxCommute);
   const [weights, setWeights] = useState<Weights>(initial.weights);
   const [selectedCode, setSelectedCode] = useState<string | null>(null);
+  /** 추천 목록 ↔ 지도 hover 연동. 어느 쪽에서 훑든 같은 상태를 되비춘다 */
+  const [hoveredCode, setHoveredCode] = useState<string | null>(null);
   const [sidebarTab, setSidebarTab] = useState<SidebarTab>("recommendations");
   const sidebarRef = useRef<HTMLElement>(null);
   const sidebarTabsRef = useRef<HTMLDivElement>(null);
@@ -529,6 +531,8 @@ export default function App() {
               destinations={destinations}
               selectedCode={selectedCode}
               onSelect={selectDong}
+              hoveredCode={hoveredCode}
+              onHoverDong={setHoveredCode}
               routePath={routePath}
               subway={subway}
               showSubway={showSubway}
@@ -895,6 +899,8 @@ export default function App() {
                 <TopPicks
                   picks={picks}
                   selectedCode={selectedCode}
+                  hoveredCode={hoveredCode}
+                  onHover={setHoveredCode}
                   emptyReason={commuteEligibleCount === 0 ? "commute" : "budget"}
                   canExpandCommute={maxCommute < MAX_COMMUTE_MINUTES}
                   onSelect={selectDong}

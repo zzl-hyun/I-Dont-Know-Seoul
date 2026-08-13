@@ -469,6 +469,10 @@ input[type="range"] {
   background: var(--panel-2);
 }
 
+.pick[data-hovered="true"] {
+  background: var(--panel-2);
+}
+
 .pick[data-selected="true"] {
   background: #2f3542;
 }

@@ -39,6 +39,7 @@ const MAP_THEME = {
     stationLabel: "#b9c0cc",
     dongOutline: "rgba(255,255,255,0.22)",
     selectedOutline: "#ffffff",
+    hoverOutline: "#7fb0ff",
     route: "#7fb0ff",
   },
   light: {
@@ -50,6 +51,7 @@ const MAP_THEME = {
     stationLabel: "#555c68",
     dongOutline: "rgba(0,0,0,0.20)",
     selectedOutline: "#1b1f26",
+    hoverOutline: "#1d5fd0",
     route: "#1d5fd0",
   },
 } as const;
@@ -111,6 +113,10 @@ interface Props {
   destinations: Destination[];
   selectedCode: string | null;
   onSelect: (code: string | null) => void;
+  /** 추천 목록에서 호버 중인 동 — 지도에 outline으로 되비춘다 */
+  hoveredCode: string | null;
+  /** 지도에서 동을 훑을 때 — 추천 목록 쪽 강조에 되비춘다 */
+  onHoverDong: (code: string | null) => void;
   /** 선택된 동의 통근 경로. 지하철 구간과 도보 구간을 나눠 그린다 */
   routePath: RouteSegment[];
   /** 지하철 노선도 (노선별 MultiLineString + 역 Point) */
@@ -144,6 +150,8 @@ export default function MapView({
   destinations,
   selectedCode,
   onSelect,
+  hoveredCode,
+  onHoverDong,
   routePath,
   subway,
   showSubway,
@@ -170,8 +178,10 @@ export default function MapView({
   const [styleEpoch, setStyleEpoch] = useState(0);
 
   // 최신 props를 이벤트 핸들러에서 읽기 위한 ref (핸들러를 재등록하지 않기 위함)
-  const stateRef = useRef({ dongs, views, onSelect, onPickStation });
-  stateRef.current = { dongs, views, onSelect, onPickStation };
+  const stateRef = useRef({ dongs, views, onSelect, onPickStation, onHoverDong });
+  stateRef.current = { dongs, views, onSelect, onPickStation, onHoverDong };
+  /** 지도→목록 방향 훅업이 mousemove마다 리렌더를 유발하지 않도록 직전 값과 비교한다 */
+  const lastHoveredOnMap = useRef<string | null>(null);
 
   // 지하철 노선도는 불변이므로 지도 생성 시점에 한 번만 읽는다
   const subwayRef = useRef(subway);
@@ -266,6 +276,7 @@ export default function MapView({
         "fill-opacity": [
           "case",
           ["boolean", ["feature-state", "selected"], false], 0.78,
+          ["boolean", ["feature-state", "hovered"], false], 0.68,
           ["boolean", ["feature-state", "reachable"], false], 0.55,
           0.16,
         ],
@@ -280,11 +291,13 @@ export default function MapView({
         "line-color": [
           "case",
           ["boolean", ["feature-state", "selected"], false], MAP_THEME[themeRef.current].selectedOutline,
+          ["boolean", ["feature-state", "hovered"], false], MAP_THEME[themeRef.current].hoverOutline,
           MAP_THEME[themeRef.current].dongOutline,
         ],
         "line-width": [
           "case",
           ["boolean", ["feature-state", "selected"], false], 2.2,
+          ["boolean", ["feature-state", "hovered"], false], 1.4,
           0.5,
         ],
       },
@@ -538,10 +551,17 @@ export default function MapView({
       if (!meta) return;
       const html = tooltipHtml(meta.name, view);
       popup.setLngLat(e.lngLat).setHTML(html).addTo(map);
+      // 547개 폴리곤을 스치듯 지날 때 mousemove마다 리렌더가 나지 않도록 값이 실제로 바뀔 때만 알린다
+      if (lastHoveredOnMap.current !== code) {
+        lastHoveredOnMap.current = code;
+        stateRef.current.onHoverDong(code);
+      }
     };
     const onLeave = () => {
       map.getCanvas().style.cursor = "";
       popup.remove();
+      lastHoveredOnMap.current = null;
+      stateRef.current.onHoverDong(null);
     };
     const onClick = (e: maplibregl.MapMouseEvent & { features?: MapGeoJSONFeature[] }) => {
       const f = e.features?.[0];
@@ -664,6 +684,26 @@ export default function MapView({
     }
     prevSelected.current = selectedCode;
   }, [selectedCode, dongs, styleEpoch]);
+
+  /*
+   * ---------------- 호버 상태 ----------------
+   * 선택 상태와 같은 패턴이지만 easeTo는 재사용하지 않는다 — 목록 항목을
+   * 훑을 때마다 지도가 움직이면 산만하다. 마커(SRC_POINT)에는 적용하지
+   * 않는다 — selected도 SRC_DONG에만 적용하는 선례를 따른다.
+   */
+  const prevHovered = useRef<string | null>(null);
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !readyRef.current) return;
+
+    if (prevHovered.current) {
+      map.setFeatureState({ source: SRC_DONG, id: prevHovered.current }, { hovered: false });
+    }
+    if (hoveredCode) {
+      map.setFeatureState({ source: SRC_DONG, id: hoveredCode }, { hovered: true });
+    }
+    prevHovered.current = hoveredCode;
+  }, [hoveredCode, styleEpoch]);
 
   /* ---------------- 목적지 마커 ---------------- */
   useEffect(() => {

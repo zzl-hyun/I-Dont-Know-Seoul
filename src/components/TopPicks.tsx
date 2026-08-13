@@ -11,6 +11,10 @@ export interface Pick {
 interface Props {
   picks: Pick[];
   selectedCode: string | null;
+  /** 지도에서 훑고 있는 동 — 목록 쪽 항목도 같이 강조한다 */
+  hoveredCode: string | null;
+  /** 목록 항목을 훑을 때 — 지도 쪽 강조에 되비춘다 */
+  onHover: (code: string | null) => void;
   emptyReason: "commute" | "budget";
   canExpandCommute: boolean;
   onSelect: (code: string) => void;
@@ -27,6 +31,8 @@ interface Props {
 export default function TopPicks({
   picks,
   selectedCode,
+  hoveredCode,
+  onHover,
   emptyReason,
   canExpandCommute,
   onSelect,
@@ -77,7 +83,10 @@ export default function TopPicks({
               type="button"
               className="pick"
               data-selected={p.dong.code === selectedCode}
+              data-hovered={p.dong.code === hoveredCode}
               onClick={() => onSelect(p.dong.code)}
+              onMouseEnter={() => onHover(p.dong.code)}
+              onMouseLeave={() => onHover(null)}
               title={`${p.dong.name} · ${GRADE_LABEL[p.grade]}`}
             >
               <span className="rank">{i + 1}</span>
