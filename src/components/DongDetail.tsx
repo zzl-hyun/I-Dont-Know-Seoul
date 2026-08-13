@@ -21,9 +21,9 @@ import {
   type MetricExplanation,
 } from "../lib/explain";
 import {
-  isDefaultRentSelection,
-  rentComboKey,
+  isScoreBaseRentSelection,
   rentSelectionLabel,
+  selectedRentVariant,
   type RentSelection,
 } from "../lib/rent-selection";
 
@@ -86,7 +86,18 @@ export default function DongDetail({
   ctx,
   rentSelection,
 }: Props) {
-  const summary = summarize(score, ctx.pctKeys, grade, ctx.weights, ctx.axisWeights);
+  const isBaseRent = isScoreBaseRentSelection(rentSelection);
+  const rentVariant = selectedRentVariant(score, rentSelection);
+  const summary = summarize(
+    score,
+    ctx.pctKeys,
+    grade,
+    ctx.weights,
+    ctx.axisWeights,
+    rentVariant
+      ? { monthlyRentMan: { pct: rentVariant.pct, value: rentVariant.medianMan } }
+      : undefined
+  );
   const composite = explainComposite(score, ctx.weights, grade, rank, total, ctx.cuts, commuteMin);
   const topPct = Math.max(1, Math.round((rank / total) * 100));
   const axes = AXES.map(({ key, label }) => ({
@@ -101,15 +112,10 @@ export default function DongDetail({
     ),
   }));
 
-  // 가격 축은 기본 조합(3종 전체+환산)이 아니면 rentVariants에서 직접 조회해
-  // 보여준다 — score.pct/raw.monthlyRentMan은 선택과 무관하게 항상 기본
+  // 가격 축은 번들 기준 조합(3종 전체+환산)이 아니면 rentVariants에서 직접 조회해
+  // 보여준다 — score.pct/raw.monthlyRentMan은 선택과 무관하게 항상 번들 기준
   // 조합 기준이라, 선택을 반영하려면 이 조회가 필요하다(score.price 자체는
   // 이미 App.tsx의 applyRentSelection이 선택된 값으로 덮어써 뒀다).
-  const isDefaultRent = isDefaultRentSelection(rentSelection);
-  const rentVariant = isDefaultRent
-    ? undefined
-    : score.rentVariants?.[rentSelection.mode]?.[rentComboKey(rentSelection.types)];
-
   return (
     <div className="section detail">
       <div className="detail-head">
@@ -175,7 +181,7 @@ export default function DongDetail({
                   {explanation.score.toFixed(1)}점
                 </b>
               </div>
-              {key === "price" && !isDefaultRent ? (
+              {key === "price" && !isBaseRent ? (
                 <PriceVariantRow selection={rentSelection} variant={rentVariant} />
               ) : explanation.metrics.length === 0 ? (
                 <div className="metric-note">수집된 데이터가 없어 전 동 50점으로 둡니다.</div>
@@ -194,23 +200,23 @@ export default function DongDetail({
                   )}
                 </>
               )}
-              {key === "price" && isDefaultRent && score.dataQuality === "low" && (
+              {key === "price" && isBaseRent && score.dataQuality === "low" && (
                 <p className="metric-note warn">
                   실거래 표본이 부족해 월세를 <b>자치구 중앙값</b>으로 대체했습니다.
                 </p>
               )}
-              {key === "price" && !isDefaultRent && rentVariant?.samples === 0 && (
+              {key === "price" && !isBaseRent && rentVariant?.samples === 0 && (
                 <p className="metric-note warn">
                   이 조합의 실거래 표본이 부족해 자치구 중앙값으로 대체했습니다.
                 </p>
               )}
               {key === "price" && score.raw.rentByType && (
                 <p className="metric-note">
-                  {isDefaultRent ? (
+                  {isBaseRent ? (
                     <>
-                      위 월세는 세 주택유형을 합친 중앙값입니다 —{" "}
-                      {rentByTypeText(score.raw.rentByType)}. 같은 소형 기준이어도 아파트가
-                      대체로 더 비쌉니다.
+                      위 월세는 단독·다가구+오피스텔+아파트 세 유형을 합친 중앙값입니다.
+                      연립·다세대를 포함한 네 유형별 참고값은 다음과 같습니다 —{" "}
+                      {rentByTypeText(score.raw.rentByType)}.
                     </>
                   ) : (
                     <>
@@ -363,9 +369,9 @@ function MetricRow({ m, single }: { m: MetricExplanation; single: boolean }) {
 }
 
 /**
- * 가격 축이 기본 조합(3종 전체+환산)이 아닐 때 쓰는 한 줄.
+ * 가격 축이 번들 기준 조합(3종 전체+환산)이 아닐 때 쓰는 한 줄.
  *
- * 일반 `MetricRow`는 `score.pct`/`score.raw.monthlyRentMan`(항상 기본 조합
+ * 일반 `MetricRow`는 `score.pct`/`score.raw.monthlyRentMan`(항상 번들 기준 조합
  * 기준)을 읽으므로 그대로 쓰면 위에 보이는 점수(선택된 조합·모드 기준)와
  * 어긋난다. 여기서는 `rentVariants`에서 직접 조회한 값만 쓴다 — 서울
  * 중앙값·동점 비율은 조합별로 따로 만들지 않아(파이프라인이 547개 동
@@ -401,6 +407,7 @@ function PriceVariantRow({
 
 const RENT_TYPE_LABEL: Record<keyof RentByType, string> = {
   house: "단독·다가구",
+  rowhouse: "연립·다세대",
   officetel: "오피스텔",
   apartment: "아파트",
 };

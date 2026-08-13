@@ -2,16 +2,42 @@ import { describe, it, expect } from "vitest";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { assertValidBundle } from "./data";
+import { RENT_COMBO_KEYS } from "./rent-selection";
+
+function validScore() {
+  const mode = Object.fromEntries(
+    RENT_COMBO_KEYS.map((key) => [key, { medianMan: 50, samples: 1, pct: 50 }])
+  );
+  return {
+    safety: 50,
+    price: 50,
+    convenience: 50,
+    pct: [],
+    rentVariants: { converted: { ...mode }, raw: { ...mode } },
+    raw: { monthlyRentMan: 50 },
+    dataQuality: "ok",
+  };
+}
 
 /** 대상 동 최소 요건(400개)을 넘기는 최소한의 유효 번들 */
 function validBundle(dongCount = 400) {
   const dongs = Array.from({ length: dongCount }, (_, i) => ({ code: String(i) }));
-  const scores = Object.fromEntries(dongs.map((d) => [d.code, {}]));
+  const scores = Object.fromEntries(dongs.map((d) => [d.code, validScore()]));
   return {
     dongs,
     graph: { stations: [{ name: "강남" }] },
     scores,
-    meta: { scoreVersion: "2026-08-10" },
+    meta: {
+      scoreVersion: "2026-08-10",
+      rentPeriod: {
+        startDate: "20230101",
+        endDate: "20251231",
+        contractType: "신규",
+        defaultTypes: ["house", "officetel", "apartment"],
+        seoul: { records: 1 },
+        gyeonggi: { records: 1 },
+      },
+    },
   } as any;
 }
 
@@ -63,6 +89,31 @@ describe("assertValidBundle — /api/data 응답의 최상위 구조를 검증�
 
   it("정상 번들은 통과한다", () => {
     expect(() => assertValidBundle(validBundle())).not.toThrow();
+  });
+
+  it("월세 집계기간의 날짜·계약유형·기본유형을 검증한다", () => {
+    const b = validBundle();
+    b.meta.rentPeriod = {
+      startDate: "20251231",
+      endDate: "20230101",
+      contractType: "신규",
+      defaultTypes: [],
+    };
+    expect(() => assertValidBundle(b)).toThrow(/월세 집계기간/);
+  });
+
+  it("월세 15조합×2모드가 하나라도 빠지면 거부한다", () => {
+    const b = validBundle();
+    delete b.scores[b.dongs[0].code].rentVariants.raw.rowhouse;
+    expect(() => assertValidBundle(b)).toThrow(/월세 선택값 누락/);
+  });
+
+  it("번들 기준 3종 환산값이 원지표·가격점수와 다르면 거부한다", () => {
+    const b = validBundle();
+    b.scores[b.dongs[0].code].rentVariants.converted[
+      "house+officetel+apartment"
+    ].pct = 49;
+    expect(() => assertValidBundle(b)).toThrow(/기본 월세 점수 불일치/);
   });
 
   it("행정동이 400개 미만이면 던진다", () => {

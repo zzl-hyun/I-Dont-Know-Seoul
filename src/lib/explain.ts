@@ -235,6 +235,11 @@ interface Candidate {
   good: boolean;
 }
 
+export interface SummaryMetricOverride {
+  pct: number | null;
+  value: number | null;
+}
+
 /**
  * "왜 이 등급인지"를 한 문장으로 만든다.
  *
@@ -255,7 +260,8 @@ export function summarize(
   pctKeys: MetricKey[],
   grade: Grade,
   weights: Weights,
-  axisWeights: Record<AxisName, AxisWeight[]>
+  axisWeights: Record<AxisName, AxisWeight[]>,
+  overrides: Partial<Record<MetricKey, SummaryMetricOverride>> = {}
 ): string {
   // 지표 → 최종 점수 기여 비중
   const influence = new Map<MetricKey, number>();
@@ -267,7 +273,8 @@ export function summarize(
 
   const cands: Candidate[] = [];
   pctKeys.forEach((key, i) => {
-    const p = score.pct[i];
+    const override = overrides[key];
+    const p = override ? override.pct : score.pct[i];
     if (p == null) return;
     if (p < WEAK_GOOD && p > WEAK_BAD) return; // 서울 평균과 비슷 — 할 말이 없다
     cands.push({
@@ -297,7 +304,7 @@ export function summarize(
   const push = (c: Candidate, form: keyof Fragment) => {
     const copy = METRIC_COPY[c.key];
     const frag = c.good ? copy.positive : copy.negative;
-    parts.push(withValue(frag[form], c, score));
+    parts.push(withValue(frag[form], c, score, overrides));
   };
 
   head.forEach((c, i) => {
@@ -315,9 +322,15 @@ export function summarize(
 }
 
 /** 조각의 `{v}` 자리에 실제 수치를 넣는다. 값이 없으면 자리표시자를 지운다. */
-function withValue(text: string, c: Candidate, score: DongScore): string {
+function withValue(
+  text: string,
+  c: Candidate,
+  score: DongScore,
+  overrides: Partial<Record<MetricKey, SummaryMetricOverride>>
+): string {
   if (!text.includes("{v}")) return text;
-  const v = score.raw[c.key];
+  const override = overrides[c.key];
+  const v = override ? override.value : score.raw[c.key];
   if (typeof v !== "number") return text.replace(/\s*\{v\}으?로?\s*/, " ");
   return text.replace("{v}", METRIC_COPY[c.key].format(v));
 }

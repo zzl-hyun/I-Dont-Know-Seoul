@@ -1,25 +1,35 @@
 import { describe, it, expect } from "vitest";
-import type { DongScore, RentVariants } from "../types";
+import type { DongScore, RentHousingType, RentVariants } from "../types";
 import {
   applyRentSelection,
   DEFAULT_RENT_SELECTION,
-  isDefaultRentSelection,
+  isScoreBaseRentSelection,
   rentComboKey,
   rentSelectionLabel,
+  SCORE_BASE_RENT_SELECTION,
   selectedRentMedian,
+  selectedRentVariant,
   sortRentTypes,
 } from "./rent-selection";
 
-/** 조합 7개 × 모드 2개를 채운 rentVariants 픽스처. 값은 조합마다 다르게 둬서 룩업 오류를 잡는다. */
+/** 조합 15개 × 모드 2개를 채운 rentVariants 픽스처. */
 function makeVariants(basePrice: number): RentVariants {
   const combos = [
     "house",
+    "rowhouse",
     "officetel",
     "apartment",
+    "house+rowhouse",
     "house+officetel",
     "house+apartment",
+    "rowhouse+officetel",
+    "rowhouse+apartment",
     "officetel+apartment",
+    "house+rowhouse+officetel",
+    "house+rowhouse+apartment",
     "house+officetel+apartment",
+    "rowhouse+officetel+apartment",
+    "house+rowhouse+officetel+apartment",
   ];
   const build = (offset: number) =>
     Object.fromEntries(
@@ -61,50 +71,71 @@ const dong = (code: string, price: number, basePrice: number): [string, DongScor
 ];
 
 describe("rentComboKey / sortRentTypes", () => {
-  it("입력 순서와 무관하게 house→officetel→apartment 순으로 정렬한다", () => {
+  it("입력 순서와 무관하게 house→rowhouse→officetel→apartment 순으로 정렬한다", () => {
     expect(rentComboKey(["apartment", "house"])).toBe("house+apartment");
     expect(rentComboKey(["officetel", "house", "apartment"])).toBe(
       "house+officetel+apartment"
     );
     expect(sortRentTypes(["apartment", "officetel"])).toEqual(["officetel", "apartment"]);
+    expect(sortRentTypes(["apartment", "house", "rowhouse"])).toEqual([
+      "house",
+      "rowhouse",
+      "apartment",
+    ]);
   });
 
   it("중복은 제거한다", () => {
     expect(rentComboKey(["house", "house", "apartment"])).toBe("house+apartment");
   });
 
-  it("실제 번들이 만드는 7개 조합 키와 일치한다 (scripts/lib/rent.mjs의 RENT_COMBOS)", () => {
+  it("실제 번들이 만드는 15개 조합 키와 일치한다", () => {
     const expected = [
       "house",
+      "rowhouse",
       "officetel",
       "apartment",
+      "house+rowhouse",
       "house+officetel",
       "house+apartment",
+      "rowhouse+officetel",
+      "rowhouse+apartment",
       "officetel+apartment",
+      "house+rowhouse+officetel",
+      "house+rowhouse+apartment",
       "house+officetel+apartment",
+      "rowhouse+officetel+apartment",
+      "house+rowhouse+officetel+apartment",
     ];
-    const combos: Array<Array<"house" | "officetel" | "apartment">> = [
+    const combos: RentHousingType[][] = [
       ["house"],
+      ["rowhouse"],
       ["officetel"],
       ["apartment"],
+      ["house", "rowhouse"],
       ["house", "officetel"],
       ["house", "apartment"],
+      ["rowhouse", "officetel"],
+      ["rowhouse", "apartment"],
       ["officetel", "apartment"],
+      ["house", "rowhouse", "officetel"],
+      ["house", "rowhouse", "apartment"],
       ["house", "officetel", "apartment"],
+      ["rowhouse", "officetel", "apartment"],
+      ["house", "rowhouse", "officetel", "apartment"],
     ];
     expect(combos.map(rentComboKey)).toEqual(expected);
   });
 });
 
-describe("isDefaultRentSelection", () => {
-  it("3종 전체 + converted만 기본값이다", () => {
-    expect(isDefaultRentSelection(DEFAULT_RENT_SELECTION)).toBe(true);
+describe("isScoreBaseRentSelection", () => {
+  it("3종 전체 + converted만 번들 기준값이다", () => {
+    expect(isScoreBaseRentSelection(SCORE_BASE_RENT_SELECTION)).toBe(true);
     expect(
-      isDefaultRentSelection({ types: ["apartment", "house", "officetel"], mode: "converted" })
+      isScoreBaseRentSelection({ types: ["apartment", "house", "officetel"], mode: "converted" })
     ).toBe(true); // 순서만 다름
-    expect(isDefaultRentSelection({ types: ["apartment"], mode: "converted" })).toBe(false);
+    expect(isScoreBaseRentSelection(DEFAULT_RENT_SELECTION)).toBe(false);
     expect(
-      isDefaultRentSelection({ types: ["house", "officetel", "apartment"], mode: "raw" })
+      isScoreBaseRentSelection({ types: ["house", "officetel", "apartment"], mode: "raw" })
     ).toBe(false);
   });
 });
@@ -112,9 +143,16 @@ describe("isDefaultRentSelection", () => {
 describe("applyRentSelection", () => {
   const scores = new Map([dong("a", 40, 1000), dong("b", 60, 2000)]);
 
-  it("기본 선택이면 입력 Map을 참조 그대로 반환한다 (React 메모이제이션 보존)", () => {
-    const out = applyRentSelection(scores, DEFAULT_RENT_SELECTION);
+  it("번들 기준 선택이면 입력 Map을 참조 그대로 반환한다 (React 메모이제이션 보존)", () => {
+    const out = applyRentSelection(scores, SCORE_BASE_RENT_SELECTION);
     expect(out).toBe(scores);
+  });
+
+  it("화면 기본값인 단독·다가구 환산월세는 실제 house 가격점수를 적용한다", () => {
+    const out = applyRentSelection(scores, DEFAULT_RENT_SELECTION);
+    expect(out).not.toBe(scores);
+    expect(out.get("a")!.price).toBe(1000);
+    expect(out.get("b")!.price).toBe(2000);
   });
 
   it("다른 선택이면 새 Map을 만들고 .price만 그 조합·모드의 pct로 덮어쓴다", () => {
@@ -123,8 +161,7 @@ describe("applyRentSelection", () => {
 
     const a = out.get("a")!;
     const originalA = scores.get("a")!;
-    // apartment 단독 조합의 pct (basePrice 1000 + 2, index apartment=2)
-    expect(a.price).toBe(1002);
+    expect(a.price).toBe(originalA.rentVariants!.converted.apartment.pct);
     // 다른 필드는 그대로 유지
     expect(a.raw).toBe(originalA.raw);
     expect(a.safety).toBe(originalA.safety);
@@ -160,8 +197,10 @@ describe("selectedRentMedian", () => {
   const [, s] = dong("a", 40, 1000);
 
   it("선택된 조합·모드의 medianMan을 반환한다", () => {
-    // apartment 단독, converted: basePrice + 2 = 1002
-    expect(selectedRentMedian(s, { types: ["apartment"], mode: "converted" })).toBe(1002);
+    expect(selectedRentMedian(s, { types: ["apartment"], mode: "converted" })).toBe(1003);
+    expect(selectedRentVariant(s, { types: ["rowhouse"], mode: "raw" })).toEqual(
+      s.rentVariants!.raw.rowhouse
+    );
   });
 
   it("rentVariants가 없거나 조회 실패하면 monthlyRentMan으로 폴백한다", () => {
@@ -177,8 +216,11 @@ describe("rentSelectionLabel", () => {
     expect(rentSelectionLabel({ types: ["house", "apartment"], mode: "raw" })).toBe(
       "단독·다가구+아파트 순수월세"
     );
+    expect(rentSelectionLabel({ types: ["rowhouse"], mode: "converted" })).toBe(
+      "연립·다세대 환산월세"
+    );
     expect(rentSelectionLabel(DEFAULT_RENT_SELECTION)).toBe(
-      "단독·다가구+오피스텔+아파트 환산월세"
+      "단독·다가구 환산월세"
     );
   });
 });

@@ -283,10 +283,10 @@ export default function Landing({
               <div className="metric">
                 <div className="metric-head">
                   <span>치안</span>
-                  <b style={{ color: GRADE_COLOR.normal }}>69</b>
+                  <b style={{ color: GRADE_COLOR.normal }}>65</b>
                 </div>
                 <div className="bar">
-                  <div style={{ width: "68.8%", background: GRADE_COLOR.normal }} />
+                  <div style={{ width: "65.3%", background: GRADE_COLOR.normal }} />
                 </div>
                 <div className="why-mock">
                   <span className="why-summary">▾ 계산 과정</span>
@@ -302,7 +302,7 @@ export default function Landing({
                       </div>
                     </div>
                   ))}
-                  <div className="formula">치안 68.8 = 66×0.38 + 86×0.46 + 24×0.15</div>
+                  <div className="formula">치안 65.3 = 61×0.38 + 84×0.46 + 20×0.15</div>
                 </div>
               </div>
             </div>
@@ -333,13 +333,13 @@ export default function Landing({
                 </span>
               </div>
               <p className="rank-line">
-                수도권 547개 동 중 <b>100위</b> · 상위 18%
+                수도권 547개 동 중 <b>10위</b> · 상위 2%
               </p>
               <p className="summary">
-                월세가 60만원으로 싸고 범죄는 적지만, 교통사고 다발지점이 많습니다.
+                범죄가 적고 월세는 47만원으로 싸지만, 교통사고 다발지점이 많습니다.
               </p>
               <div className="route-total">
-                <b>31분</b>
+                <b>34분</b>
                 <span>환승 1회</span>
               </div>
               <ol className="route-legs">
@@ -375,7 +375,7 @@ export default function Landing({
                 </tr>
                 <tr>
                   <td>가격</td>
-                  <td>환산월세 중앙값 (단독·다가구·오피스텔·소형아파트)</td>
+                  <td>선택한 주택유형의 월세 중앙값 (기본: 단독·다가구 환산월세)</td>
                   <td>{pct(DEFAULT_WEIGHTS.price)}%</td>
                 </tr>
                 <tr>
@@ -385,6 +385,11 @@ export default function Landing({
                 </tr>
               </tbody>
             </table>
+
+            <p className="landing-note">
+              월세는 연립·다세대까지 네 유형의 15개 조합과 순수/환산 모드를
+              선택할 수 있습니다. 기본은 단독·다가구 환산월세입니다.
+            </p>
 
             <p className="landing-note">
               이 비중은 <b>슬라이더로 직접 바꿉니다.</b> 월세가 제일 중요한
@@ -460,8 +465,8 @@ export default function Landing({
         <br />
         경계 © SGIS/vuski · 100m 인구(2024) © 국가데이터처 SGIS ·
         지하철·편의지표 정류장 © OpenStreetMap contributors · 통근 버스노선 ©
-        서울특별시·경기도 · 상가업소 © 소상공인시장진흥공단 · 월세 © 국토교통부
-        실거래가
+        서울특별시·경기도 · 상가업소 © 소상공인시장진흥공단 · 월세 © 서울특별시
+        열린데이터광장·국토교통부 실거래가
       </p>
     </div>
   );
@@ -651,24 +656,24 @@ const WHY_ROWS = [
     label: "유흥업소 밀도",
     value: "0.61개/km²",
     median: "1.81개/km²",
-    rank: "상위 34%",
-    point: 66,
+    rank: "상위 39%",
+    point: 61,
     weight: "0.38",
   },
   {
     label: "5대범죄",
     value: "6.6건/천명",
     median: "8.4건/천명",
-    rank: "상위 14%",
-    point: 86,
+    rank: "상위 16%",
+    point: 84,
     weight: "0.46",
   },
   {
     label: "교통사고 다발지역",
     value: "63.9건/km²",
     median: "29.7건/km²",
-    rank: "하위 24%",
-    point: 24,
+    rank: "하위 20%",
+    point: 20,
     weight: "0.15",
   },
 ];
@@ -678,11 +683,11 @@ const WHY_ROWS = [
  * 그래서 마지막 "목적지까지 도보"(0.0분)는 여기서도 없다 — 넣으면 실제
  * 화면에 없는 줄이 소개에만 생긴다.
  *
- * 구간 합(30분)이 머리의 31분과 1분 다른 건 반올림 때문이고 앱도 똑같다.
- * 실제 합은 8.03 + 3 + 13.25 + 5 + 1.41 = 30.69 분이다.
+ * 구간 합(33분)이 머리의 34분과 1분 다른 건 반올림 때문이고 앱도 똑같다.
+ * 실제 합은 11 + 3 + 13.25 + 5 + 1.41 = 33.66분이다.
  */
 const ROUTE_LEGS = [
-  { kind: "walk", min: 8, text: "노들역까지 도보" },
+  { kind: "walk", min: 11, text: "노들역까지 도보" },
   { kind: "wait", min: 3, text: "승차 대기" },
   { kind: "ride", min: 13, text: "9호선 7정거장 · 노들 → 신논현" },
   { kind: "transfer", min: 5, text: "신논현역 환승 · 9호선 → 신분당선" },

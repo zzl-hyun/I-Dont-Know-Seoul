@@ -6,11 +6,13 @@ import type {
   DongScore,
   MetricKey,
   ResidentialAccess,
+  RentHousingType,
   SubwayGraph,
 } from "../types";
 // 이 모듈은 Node API를 import하지 않는 순수 ESM이며 데이터 생성기·시드도 함께 쓴다.
 // @ts-expect-error 파이프라인용 .mjs의 별도 타입 선언을 브라우저 소스에 중복하지 않는다.
 import { assertValidCommuteBundle } from "../../scripts/lib/bundle-validation.mjs";
+import { RENT_COMBO_KEYS, SCORE_BASE_RENT_SELECTION } from "./rent-selection";
 
 export interface AppData {
   dongs: DongMeta[];
@@ -30,6 +32,20 @@ export interface AppData {
     busVersion?: string | number;
     residentialVersion?: string;
     scoreVersion: string;
+    rentPeriod?: {
+      startDate: string;
+      endDate: string;
+      contractType: "신규";
+      defaultTypes: RentHousingType[];
+      seoul: {
+        source: string;
+        archives: string[];
+        records: number;
+        duplicatesRemoved: number;
+        invalidLocation: number;
+      };
+      gyeonggi: { source: string; records: number; calls: number };
+    };
     /** 실제로 수집된 지표 (키가 없어 빠진 지표를 UI에 알리기 위함) */
     availableMetrics: string[];
     missingMetrics: string[];
@@ -102,6 +118,45 @@ export function assertValidBundle(raw: RawBundle): void {
   }
   if (!raw.meta?.scoreVersion) {
     throw new Error("데이터가 손상되었습니다 — 버전 정보가 없습니다");
+  }
+  const rentPeriod = raw.meta.rentPeriod;
+  if (
+    !rentPeriod ||
+    !/^\d{8}$/.test(rentPeriod.startDate) ||
+    !/^\d{8}$/.test(rentPeriod.endDate) ||
+    rentPeriod.startDate > rentPeriod.endDate ||
+    rentPeriod.contractType !== "신규" ||
+    !Array.isArray(rentPeriod.defaultTypes) ||
+    rentPeriod.defaultTypes.join("+") !== SCORE_BASE_RENT_SELECTION.types.join("+") ||
+    !Number.isFinite(rentPeriod.seoul?.records) ||
+    rentPeriod.seoul.records < 0 ||
+    !Number.isFinite(rentPeriod.gyeonggi?.records) ||
+    rentPeriod.gyeonggi.records < 0
+  ) {
+    throw new Error("데이터가 손상되었습니다 — 월세 집계기간 정보가 올바르지 않습니다");
+  }
+  const expectedRentKeys = [...RENT_COMBO_KEYS].sort();
+  for (const dong of raw.dongs) {
+    const score = raw.scores[dong.code];
+    for (const mode of ["converted", "raw"] as const) {
+      const actualKeys = Object.keys(score?.rentVariants?.[mode] ?? {}).sort();
+      if (
+        actualKeys.length !== expectedRentKeys.length ||
+        actualKeys.some((key, index) => key !== expectedRentKeys[index])
+      ) {
+        throw new Error(
+          `데이터가 손상되었습니다 — 월세 선택값 누락 (${dong.code} ${mode} ${actualKeys.length}/15)`
+        );
+      }
+    }
+    const defaultVariant =
+      score.rentVariants?.converted[SCORE_BASE_RENT_SELECTION.types.join("+")];
+    if (
+      defaultVariant?.medianMan !== score.raw?.monthlyRentMan ||
+      defaultVariant?.pct !== score.price
+    ) {
+      throw new Error(`데이터가 손상되었습니다 — 기본 월세 점수 불일치 (${dong.code})`);
+    }
   }
   assertValidCommuteBundle(raw);
 }

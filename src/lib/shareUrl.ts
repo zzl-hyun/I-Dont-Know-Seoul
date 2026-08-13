@@ -45,7 +45,12 @@ export const DEFAULT_SHARE_STATE: ShareState = {
   rentMode: DEFAULT_RENT_SELECTION.mode,
 };
 
-const VALID_RENT_TYPES = new Set<RentHousingType>(["house", "officetel", "apartment"]);
+const VALID_RENT_TYPES = new Set<RentHousingType>([
+  "house",
+  "rowhouse",
+  "officetel",
+  "apartment",
+]);
 
 /** 좌표는 소수 5자리면 약 1m — 그 이상은 URL 만 길어진다 */
 const round5 = (v: number) => Math.round(v * 1e5) / 1e5;

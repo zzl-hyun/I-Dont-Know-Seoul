@@ -105,7 +105,7 @@ export const MAX_BUS_STATION_CANDIDATES = 12;
 export const ESTIMATED_SPEED_KMH = 32;
 
 /** 통근시간 슬라이더 기본값(분) */
-export const DEFAULT_MAX_COMMUTE_MIN = 40;
+export const DEFAULT_MAX_COMMUTE_MIN = 90;
 
 /**
  * 목적지 상한. UI(App.tsx)의 추가 버튼뿐 아니라 shareUrl.ts의 URL 디코더도

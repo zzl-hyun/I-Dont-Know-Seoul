@@ -57,23 +57,36 @@ describe("URL 왕복", () => {
     const s = decodeShareState("");
     expect(s.destinations).toEqual([]);
     expect(s.maxCommute).toBe(DEFAULT_SHARE_STATE.maxCommute);
+    expect(s.maxCommute).toBe(90);
     expect(s.budget).toBe(BUDGET_OFF);
     expect(s.mapMode).toBe("grade");
     expect(s.showSubway).toBe(true);
-    expect(s.rentTypes).toEqual(DEFAULT_SHARE_STATE.rentTypes);
-    expect(s.rentMode).toBe(DEFAULT_SHARE_STATE.rentMode);
+    expect(s.rentTypes).toEqual(["house"]);
+    expect(s.rentMode).toBe("converted");
+  });
+
+  it("기존 공유 링크가 max=40을 명시하면 새 기본값과 무관하게 40분을 복원한다", () => {
+    const s = decodeShareState("max=40");
+    expect(s.maxCommute).toBe(40);
+    expect(encodeShareState(s)).toContain("max=40");
   });
 });
 
 describe("월세 기준 (rentTypes / rentMode)", () => {
-  it("기본 선택(3종 전체 + converted)은 URL에 안 싣는다", () => {
+  it("화면 기본 선택(단독·다가구 + converted)은 URL에 안 싣는다", () => {
+    expect(encodeShareState(DEFAULT_SHARE_STATE)).not.toContain("rentTypes");
+    expect(encodeShareState(DEFAULT_SHARE_STATE)).not.toContain("rentMode");
+  });
+
+  it("기존 3종 환산월세 선택은 URL에 명시해 왕복한다", () => {
     const s: ShareState = {
       ...DEFAULT_SHARE_STATE,
-      rentTypes: ["officetel", "house", "apartment"], // 순서만 다름, 조합은 기본과 동일
+      rentTypes: ["officetel", "house", "apartment"],
     };
     const qs = encodeShareState(s);
-    expect(qs).not.toContain("rentTypes");
+    expect(qs).toContain("rentTypes=");
     expect(qs).not.toContain("rentMode");
+    expect(decodeShareState(qs).rentTypes).toEqual(["house", "officetel", "apartment"]);
   });
 
   it("아파트만 골라 raw 모드로 공유하면 왕복된다", () => {
@@ -81,6 +94,15 @@ describe("월세 기준 (rentTypes / rentMode)", () => {
     const back = decodeShareState(encodeShareState(s));
     expect(back.rentTypes).toEqual(["apartment"]);
     expect(back.rentMode).toBe("raw");
+  });
+
+  it("연립·다세대를 포함한 조합도 정렬해 왕복한다", () => {
+    const s: ShareState = {
+      ...DEFAULT_SHARE_STATE,
+      rentTypes: ["apartment", "rowhouse", "house"],
+    };
+    const back = decodeShareState(encodeShareState(s));
+    expect(back.rentTypes).toEqual(["house", "rowhouse", "apartment"]);
   });
 
   it("존재하지 않는 유형이 섞이면 그 유형만 버리고 나머지로 복원한다", () => {

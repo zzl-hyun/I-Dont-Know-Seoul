@@ -20,6 +20,7 @@ import {
   applyRentSelection,
   RENT_TYPE_LABEL,
   selectedRentMedian,
+  selectedRentVariant,
   sortRentTypes,
   type RentSelection,
 } from "./lib/rent-selection";
@@ -33,8 +34,8 @@ import {
 } from "./lib/constants";
 import type { CommuteResult, Destination, RentHousingType, Weights } from "./types";
 
-/** 체크박스 렌더 순서 — house → officetel → apartment (RENT_TYPE_LABEL과 같은 순서) */
-const RENT_TYPE_OPTIONS: RentHousingType[] = ["house", "officetel", "apartment"];
+/** 체크박스 렌더 순서 — rentComboKey의 정렬 순서와 같아야 한다. */
+const RENT_TYPE_OPTIONS: RentHousingType[] = ["house", "rowhouse", "officetel", "apartment"];
 
 /**
  * 범례에 넣을 노선. 그래프에는 21개 노선이 있지만 전부 나열하면 지도를 덮는다.
@@ -209,7 +210,7 @@ export default function App() {
 
   /*
    * 사용자가 고른 주택유형·환산모드에 맞춰 가격 축(.price)만 다시 매긴 파생 Map.
-   * 기본 선택(3종 전체 + converted)이면 applyRentSelection이 data.scores를
+   * 번들 기준 조합(3종 전체 + converted)이면 applyRentSelection이 data.scores를
    * 참조 그대로 반환하므로, 선택을 안 건드리는 한 아래 useMemo 들의 메모이제이션도
    * 그대로 보존된다.
    */
@@ -271,6 +272,7 @@ export default function App() {
       const inTime = c?.worstMin != null && c.worstMin <= maxCommute;
       const inBudget = withinBudget(selectedRentMedian(s, rentSelection), budget);
       const reachable = inTime && inBudget;
+      const rentVariant = selectedRentVariant(s, rentSelection);
       // worstMin을 만든 그 목적지의 결과를 같이 써야 툴팁에 시간·역이
       // 서로 다른 목적지를 가리키는 일이 없다.
       const worst = c?.per.reduce((a, b) => ((b.totalMin ?? -1) > (a.totalMin ?? -1) ? b : a));
@@ -284,7 +286,16 @@ export default function App() {
         overBudget: inTime && !inBudget,
         // 툴팁용이라 통근권 안인 동만 만든다 (547개 전부 만들 필요 없다)
         reason: reachable
-          ? summarize(s, data.pctKeys, g.grade, weights, data.axisWeights)
+          ? summarize(
+              s,
+              data.pctKeys,
+              g.grade,
+              weights,
+              data.axisWeights,
+              rentVariant
+                ? { monthlyRentMan: { pct: rentVariant.pct, value: rentVariant.medianMan } }
+                : undefined
+            )
           : "",
       });
     }
@@ -925,6 +936,13 @@ export default function App() {
               {data.meta.busVersion != null && <> · 버스 {data.meta.busVersion}</>}
               {data.meta.residentialVersion &&
                 <> · 거주분포 {data.meta.residentialVersion}</>}
+              {data.meta.rentPeriod && (
+                <>
+                  {" · "}월세 {data.meta.rentPeriod.startDate.slice(0, 4)}~
+                  {data.meta.rentPeriod.endDate.slice(0, 4)}년 {data.meta.rentPeriod.contractType}
+                  계약(서울특별시·국토교통부)
+                </>
+              )}
               {" · "}지표 {data.meta.scoreVersion}
               {data.meta.missingMetrics.length > 0 && (
                 <>

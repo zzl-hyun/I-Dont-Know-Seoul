@@ -226,6 +226,20 @@ describe("요약 문장", () => {
     expect(text).toMatch(/비싸|밀집|적습니다|멉니다|드뭅니다/);
   });
 
+  it("선택 월세의 백분위와 금액을 넘기면 기본 월세 대신 그 값을 쓴다", () => {
+    const { meta, score } = dongByName("송파구", "문정1동");
+    const text = summarize(
+      score,
+      bundle.pctKeys,
+      grades.get(meta.code)!.grade,
+      { safety: 0, price: 1, convenience: 0 },
+      bundle.axisWeights,
+      { monthlyRentMan: { pct: 5, value: 55 } }
+    );
+    expect(text).toContain("55만원");
+    expect(text).not.toContain(`${Math.round(score.raw.monthlyRentMan ?? 0)}만원`);
+  });
+
   it("긍정과 부정이 함께 있으면 역접으로 잇는다", () => {
     // 양쪽 특징이 다 있는 동을 하나 찾아 문장 구조를 확인한다
     const mixed = bundle.dongs.find((d) => {

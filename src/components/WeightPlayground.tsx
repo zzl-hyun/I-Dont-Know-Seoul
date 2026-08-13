@@ -15,7 +15,7 @@ import type { Weights } from "../types";
  * 그래서 여기서 나온 순위는 앱에서 같은 가중치로 봤을 때와 일치한다
  * (통근권 필터를 안 걸었을 때 이 6개 동 사이의 상대 순서 기준).
  *
- * 번들 전체(425KB)를 랜딩에서 받지 않으려고 6개만 손으로 담았다. 소개
+ * 번들 전체(약 8MB)를 랜딩에서 받지 않으려고 6개만 손으로 담았다. 소개
  * 페이지에서 그만큼을 내려받게 하면 첫 화면이 느려지고, 6개면 순위가
  * 뒤집히는 걸 보여주는 데 충분하다.
  */
@@ -34,7 +34,7 @@ interface Row {
 }
 
 /*
- * 강남역 기준으로 뽑은 실제 값(2026-08-12 번들, 수도권 547개 동).
+ * 강남역 기준으로 뽑은 실제 값(2026-08-13 번들, 수도권 547개 동).
  *
  * 아무 동이나 고르면 슬라이더를 움직여도 순위가 안 바뀌어 데모가 안 된다.
  * 세 축 각각에서 1위가 서로 다르도록 골랐다 —
@@ -42,12 +42,12 @@ interface Row {
  * 데이터를 갱신하면 이 표도 다시 뽑아야 한다.
  */
 const ROWS: Row[] = [
-  { dong: "공릉1동", gu: "노원구", commuteMin: 44, rentMan: 49.58, safety: 57.7, price: 92.4, convenience: 80.6 },
-  { dong: "안암동", gu: "성북구", commuteMin: 41, rentMan: 64.58, safety: 86.3, price: 53.8, convenience: 63.8 },
-  { dong: "창신1동", gu: "종로구", commuteMin: 36, rentMan: 54.58, safety: 3.8, price: 80.5, convenience: 96.3 },
-  { dong: "신림동", gu: "관악구", commuteMin: 26, rentMan: 57.92, safety: 12.1, price: 73.6, convenience: 95.7 },
-  { dong: "상도1동", gu: "동작구", commuteMin: 28, rentMan: 59.58, safety: 71.3, price: 69.2, convenience: 65.0 },
-  { dong: "옥수동", gu: "성동구", commuteMin: 18, rentMan: 325.0, safety: 75.2, price: 0, convenience: 27.2 },
+  { dong: "공릉1동", gu: "노원구", commuteMin: 49, rentMan: 44.58, safety: 57.7, price: 76.2, convenience: 85.8 },
+  { dong: "안암동", gu: "성북구", commuteMin: 43, rentMan: 54.58, safety: 86.3, price: 35.6, convenience: 62.1 },
+  { dong: "창신1동", gu: "종로구", commuteMin: 36, rentMan: 46.38, safety: 3.8, price: 71.2, convenience: 97.5 },
+  { dong: "신림동", gu: "관악구", commuteMin: 27, rentMan: 50.75, safety: 12.1, price: 50.7, convenience: 97.0 },
+  { dong: "상도1동", gu: "동작구", commuteMin: 32, rentMan: 54.58, safety: 71.3, price: 35.6, convenience: 69.8 },
+  { dong: "옥수동", gu: "성동구", commuteMin: 25, rentMan: 61.58, safety: 75.2, price: 12.5, convenience: 29.3 },
 ];
 
 const AXES = [
