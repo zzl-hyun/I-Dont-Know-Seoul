@@ -271,10 +271,7 @@ export default function App() {
       const s = ratedScores.get(dong.code);
       if (!g || !s) continue;
       const c = commute?.byDong.get(dong.code);
-      // 목적지가 없으면(commute 자체가 null) 통근 필터를 걸 대상이 없으니
-      // 통과시킨다 — 남는 건 예산 필터뿐이라, 목적지 전에도 전 지역이
-      // 등급색으로 보인다.
-      const inTime = !commute || (c?.worstMin != null && c.worstMin <= maxCommute);
+      const inTime = c?.worstMin != null && c.worstMin <= maxCommute;
       const inBudget = withinBudget(selectedRentMedian(s, rentSelection), budget);
       const reachable = inTime && inBudget;
       const rentVariant = selectedRentVariant(s, rentSelection);
@@ -489,9 +486,6 @@ export default function App() {
     if (removesLast) {
       setSelectedCode(null);
       setSidebarTab("recommendations");
-      // 통근 모드는 목적지가 있어야 의미가 있다 — 없으면 band가 전부 -1이라
-      // 지도가 회색으로 갇힌다.
-      setMapMode("grade");
       requestAnimationFrame(() =>
         sidebarRef.current?.scrollTo({ top: 0, behavior: "auto" })
       );
@@ -531,6 +525,7 @@ export default function App() {
               destinations={destinations}
               selectedCode={selectedCode}
               onSelect={selectDong}
+              hasDestination={destinations.length > 0}
               hoveredCode={hoveredCode}
               onHoverDong={setHoveredCode}
               routePath={routePath}
@@ -927,11 +922,11 @@ export default function App() {
 
         {destinations.length === 0 && (
           <div className="empty">
-            지도에 전 지역이 등급색으로 보입니다.
+            먼저 목적지를 정해주세요.
             <br />
             출근할 회사나 등교할 학교를 검색하면
             <br />
-            통근 가능한 곳만 골라볼 수 있습니다.
+            통근 가능한 지역이 지도에 나타납니다.
           </div>
         )}
 
