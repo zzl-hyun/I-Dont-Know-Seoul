@@ -69,18 +69,45 @@ Copy `.env.example` to `.env` for local data keys; never commit secrets. Store `
 
 ## Current Shared State
 
-마지막 확인: **2026-08-13 17:37 KST** (Codex, 배포 전 준비)
+마지막 확인: **2026-08-13 18:47 KST** (Claude, 코덱스 작업 리뷰 후)
 
 | 항목 | 현재 상태 |
 | --- | --- |
 | 공용 작업트리 | `/Users/macbookpro/Desktop/Work/I-Dont-Know-Seoul` |
 | 현재 브랜치 | `main` |
-| 배포 후보 소스 HEAD | `78088c4 docs: 월세 데이터와 선택 기준을 갱신한다` (인수인계 커밋 직전) |
-| `origin/main` | `0a0d39b` — 로컬 작업 커밋 4개 미push |
-| 미커밋 tracked | `AGENTS.md` 상태 갱신만 남음(이후 별도 커밋 예정) |
-| 미추적 유지 | `Research on Advanced Regional Scoring Methods.md`, `claude-feedback/`, `feedback/`, `src/lib/__scratch_munjeong.test.ts` — 이번 배포에서 제외 |
-| 최근 검증 | `npm test` **236/236 통과**, `npm run typecheck`·`npm run build`·`git diff --check` 전부 통과(2026-08-13) |
-| 운영 배포 | 직전 배포는 `06d1f46`(2026-08-12). 월세 보강·선택 UI와 기존 미배포 개선을 합친 새 배포는 정확한 최종 SHA 승인 대기 |
+| **배포 후보 HEAD** | **`6e75f05` docs: 서울 2025 원본의 행 중복 결함을 남기고 표본부족 경고를 선택 기준에 맞춘다** |
+| `origin/main` | `0a0d39b` — 로컬 커밋 6개 미push (코덱스 5 + 리뷰 수정 1) |
+| 미커밋 tracked | 없음 (clean) |
+| 미추적 유지 | `Research on Advanced Regional Scoring Methods.md`, `claude-feedback/`, `feedback/` — 이번 배포에서 제외 |
+| 최근 검증 | `npm test` **235/235 통과**, `npm run typecheck`·`npm run build`·`git diff --check` 전부 통과(2026-08-13 18:46) |
+| 운영 배포 | 직전 배포는 `06d1f46`(2026-08-12). 월세 보강·선택 UI + 추천 품질 8건을 합친 새 배포 **승인 대기** |
+
+> 테스트 수가 236 → 235로 준 건 회귀가 아니다. `src/lib/__scratch_munjeong.test.ts`
+> (미추적 스크래치 1개)를 조사 후 지운 것이 반영된 값이다.
+
+### 코덱스 월세 보강 작업 리뷰 (2026-08-13, Claude) — 통과
+
+`7824799`~`9e041ec` 5개 커밋을 독립 검증했다(자기보고 신뢰 안 함). 결과:
+
+**검증 통과**
+- 15조합 × 2모드 완전성: 547동 × 30칸 = 16,410칸 **빠짐 0**
+- 기준조합(3종 환산) = `monthlyRentMan` **불일치 0/547**
+- `data.ts`가 번들 로딩 시 조합 누락·기준값 불일치를 던지는 런타임 방어 추가 — 좋은 보강
+- 통근 기본값 40→90분 처리(Claude가 Phase B 프롬프트에서 빠뜨렸던 항목을 코덱스가 챙김)
+- 기본값을 단독·다가구로 바꾼 판단이 데이터로 정당: p10~p90이 42~65만원으로
+  좁아진다(3종 합산은 51~100, 아파트 단독은 p90 191만원)
+
+**리뷰 중 발견해 이번 커밋(`6e75f05`)에서 고친 것**
+- 서울 2025 원본 파일의 행 중복 결함이 문서에 없었음 → CLAUDE.md·docs/data.md에
+  실측 수치와 함께 남김(제일 중요, 아래 참고)
+- `docs/data.md` 번들 크기가 실측과 달랐음(8.07MB → 7.69MB)
+- 상세 패널 하단 표본부족 경고가 번들 기준 조합만 봐서 13개 동에서 안 뜸
+
+**연립·다세대를 다가구/아파트에 합칠지 검토 → 분리 유지가 맞음**
+같은 면적 기준(10~40㎡)인데 순위상관이 house↔rowhouse 0.581로 house↔officetel
+0.564와 사실상 같고, 체계적으로 1.32배 비싸다. 게다가 둘 다 표본 있는 412개 동에서
+연립·다세대 비중이 p10 10%~p90 63%로 제각각이라, 합치면 시세가 아니라 재고
+구성을 재게 된다 — 사용자가 "3종 합산은 편차가 크다"고 지적한 문제의 반복이다.
 
 ### 추천 품질·UX 개선 8건 (2026-08-13) — 구현·리뷰·push 완료, 배포 대기
 
