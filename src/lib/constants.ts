@@ -134,9 +134,10 @@ export const DEFAULT_WEIGHTS = {
  * Φ(t) = 1                                  (t ≤ COMMUTE_FREE_MIN)
  * Φ(t) = 1 / (1 + ((t − FREE) / WIDTH) ^ POWER)   (t > FREE)
  *
- * 검산(설계 단계에서 사용자가 승인한 표): 30분→1.000, 40분→0.984, 50분→0.870,
- * 60분→0.694, 75분→0.417, 90분→0.243. `commutePenalty` 구현이 이 값들과
- * 맞아야 한다 — score.test.ts 참고.
+ * 검산(공식을 그대로 계산한 정확한 값 — 설계 단계 승인 표는 소수 셋째 자리가
+ * 어림값이라 살짝 다르다): 30분→1.000, 40분→0.980, 50분→0.874, 60분→0.691,
+ * 75분→0.418, 90분→0.243. `commutePenalty` 구현이 이 값들과 맞아야 한다 —
+ * score.test.ts 참고.
  */
 export const COMMUTE_FREE_MIN = 30;
 export const COMMUTE_DECAY_WIDTH_MIN = 40;
