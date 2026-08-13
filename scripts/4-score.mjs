@@ -20,6 +20,7 @@ import { mkdir, readFile, writeFile, stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { assertValidCommuteBundle } from "./lib/bundle-validation.mjs";
+import { RENT_COMBOS } from "./lib/rent.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT_SCORES = join(ROOT, "data/dist/scores.json");
@@ -157,9 +158,46 @@ async function main() {
     });
   }
 
+  /*
+   * ---- 3.5. 주택유형 조합(7) × 환산모드(2) 백분위 (rentVariants) ----
+   *
+   * 3-metrics.mjs가 이미 동 하나 단위로 조합·모드별 중앙값·표본수를 계산해
+   * 뒀다(buildRentVariants) — 여기서는 그 값들을 547개 동 전체에 놓고
+   * 백분위만 매긴다(pct는 동 하나만 보고는 계산 못 하니 3-metrics.mjs의
+   * 책임이 아니다). monthlyRentMan의 pct를 만드는 percentileRank()를 그대로
+   * 재사용한다 — 동점 처리를 새로 짜면 두 계산이 미세하게 어긋날 수 있다.
+   *
+   * house+officetel+apartment/converted 조합이 기존 monthlyRentMan과 같은
+   * 조합이다. 표본이 전 동에서 0인 조합(예: 그 지역에 해당 유형이 아예 없는
+   * 경우)은 values가 비어 percentileRank를 건너뛰고 pct: null로 남긴다 —
+   * 파이프라인이 죽으면 안 된다.
+   */
+  const RENT_MODES = ["converted", "raw"];
+  const rentComboKeys = RENT_COMBOS.map((c) => c.join("+"));
+  const rentVariantsByCode = new Map(rows.map((r) => [r.code, { converted: {}, raw: {} }]));
+
+  for (const mode of RENT_MODES) {
+    for (const key of rentComboKeys) {
+      const values = rows
+        .map((r) => ({ code: r.code, v: r.rentVariants?.[mode]?.[key]?.medianMan }))
+        .filter((x) => typeof x.v === "number" && Number.isFinite(x.v));
+      const pctMap = values.length ? percentileRank(values, -1) : null;
+
+      for (const r of rows) {
+        const stat = r.rentVariants?.[mode]?.[key] ?? { medianMan: null, samples: 0 };
+        rentVariantsByCode.get(r.code)[mode][key] = {
+          medianMan: stat.medianMan,
+          samples: stat.samples,
+          pct: stat.medianMan == null ? null : Math.round(pctMap.get(r.code) * 10) / 10,
+        };
+      }
+    }
+  }
+
   /* ---- 4. 원지표를 함께 실어 UI에서 근거로 보여준다 ---- */
   for (const r of rows) {
     const s = scores[r.code];
+    s.rentVariants = rentVariantsByCode.get(r.code);
     s.raw = {
       monthlyRentMan: r.monthlyRentMan,
       rentSamples: r.rentSamples ?? 0,

@@ -27,7 +27,7 @@ import { haversineM, pointInGeometry, bbox } from "./lib/geo.mjs";
 import { SBIZ_GROUPS } from "./lib/sbiz.mjs";
 import { CACHE_SCHEMA, checkCache } from "./lib/cache.mjs";
 import { populationWalkByDong } from "./lib/population-access.mjs";
-import { typeBreakdown } from "./lib/rent.mjs";
+import { typeBreakdown, buildRentVariants } from "./lib/rent.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -230,9 +230,12 @@ async function main() {
   console.log("\n[6/6] 환산월세...");
   const molitKey = process.env.DATA_GO_KR_KEY;
   let rent = new Map();
+  let rentVariants = new Map();
   if (molitKey) {
     try {
-      rent = await fetchRent(molitKey, dongs);
+      const result = await fetchRent(molitKey, dongs);
+      rent = result.out;
+      rentVariants = result.variantsOut;
       console.log(`  ${rent.size}개 동에서 실거래 표본 확보`);
     } catch (err) {
       console.log(`  건너뜀 — ${err.message}`);
@@ -264,6 +267,9 @@ async function main() {
       monthlyRentMan: r?.median ?? null,
       rentSamples: r?.samples ?? 0,
       rentByType: r?.byType ?? null,
+      // 주택유형 조합(7) × 환산모드(2) 원값 — 백분위(pct)는 4-score.mjs가 547개
+      // 동 전체를 놓고 계산한다(이 시점엔 동 하나만 보이므로 여기선 못 한다).
+      rentVariants: rentVariants.get(d.code) ?? null,
       walkToStationMin: round2(walkMin.get(d.code)),
     };
   });
@@ -907,7 +913,10 @@ async function fetchRent(key, dongs) {
           if (!legal) continue;
           const k = `${gu}|${legal}`;
           if (!byLegal.has(k)) byLegal.set(k, []);
-          byLegal.get(k).push({ value: toMonthly(deposit, monthly), type: ep.name });
+          // monthly = 원본 월세, converted = 보증금을 전월세전환율로 환산해 더한 값.
+          // 기존 monthlyRentMan/typeBreakdown은 converted만 쓰고(아래 valuePool),
+          // rentVariants(buildRentVariants)는 raw 모드용으로 monthly도 함께 쓴다.
+          byLegal.get(k).push({ monthly, converted: toMonthly(deposit, monthly), type: ep.name });
           records++;
         }
         return true;
@@ -949,45 +958,56 @@ async function fetchRent(key, dongs) {
   }
 
   /* --- 법정동 → 행정동 배분 --- */
-  const out = new Map();
-  let matched = 0;
 
-  for (const d of dongs) {
-    const pool = [];
-    for (const cand of legalDongCandidates(d.dong)) {
-      const arr = byLegal.get(`${d.guCode}|${cand}`);
-      if (arr) pool.push(...arr);
-    }
-    if (pool.length >= MIN_SAMPLES) {
-      out.set(d.code, {
-        median: round2(median(pool.map((p) => p.value))),
-        samples: pool.length,
-        byType: typeBreakdown(pool),
-      });
-      matched++;
-    }
-  }
+  // typeBreakdown()은 {value, type} 형태를 기대한다(house/officetel/apartment
+  // 3종 각각의 중앙값·표본수만 내는 기존 함수라 여기서 안 건드린다) — byLegal
+  // 항목은 monthly/converted 둘 다 갖고 있으니 converted를 value로 얹어준다.
+  const asValuePool = (pool) => pool.map((p) => ({ value: p.converted, type: p.type }));
 
-  // 못 붙은 동은 자치구 중앙값으로 채우고 samples=0 으로 표시한다
-  // (4-score.mjs 가 이를 dataQuality="low" 로 UI에 노출한다)
+  // 자치구 전체 pool — 법정동 매칭이 안 되는 동의 대체값에도, rentVariants의
+  // district fallback에도 쓴다.
   const byGu = new Map();
   for (const [k, arr] of byLegal) {
     const gu = k.split("|")[0];
     if (!byGu.has(gu)) byGu.set(gu, []);
     byGu.get(gu).push(...arr);
   }
+
+  const out = new Map();
+  const variantsOut = new Map();
+  let matched = 0;
   let filled = 0;
+
   for (const d of dongs) {
-    if (out.has(d.code)) continue;
-    const arr = byGu.get(d.guCode);
-    if (arr?.length >= MIN_SAMPLES) {
+    const dongPool = [];
+    for (const cand of legalDongCandidates(d.dong)) {
+      const arr = byLegal.get(`${d.guCode}|${cand}`);
+      if (arr) dongPool.push(...arr);
+    }
+    const districtPool = byGu.get(d.guCode) ?? [];
+
+    if (dongPool.length >= MIN_SAMPLES) {
       out.set(d.code, {
-        median: round2(median(arr.map((p) => p.value))),
+        median: round2(median(dongPool.map((p) => p.converted))),
+        samples: dongPool.length,
+        byType: typeBreakdown(asValuePool(dongPool)),
+      });
+      matched++;
+    } else if (districtPool.length >= MIN_SAMPLES) {
+      // 못 붙은 동은 자치구 중앙값으로 채우고 samples=0 으로 표시한다
+      // (4-score.mjs 가 이를 dataQuality="low" 로 UI에 노출한다)
+      out.set(d.code, {
+        median: round2(median(districtPool.map((p) => p.converted))),
         samples: 0,
-        byType: typeBreakdown(arr),
+        byType: typeBreakdown(asValuePool(districtPool)),
       });
       filled++;
     }
+
+    // house+officetel+apartment/converted 조합은 dongPool/districtPool 전체를
+    // 그대로 쓰는 위 로직과 부분집합 관계상 동일한 결과가 나온다 — 동 표본이
+    // 부족하면 자치구로 대체하고 samples: 0을 찍는 규칙까지 같다.
+    variantsOut.set(d.code, buildRentVariants(dongPool, districtPool, { minSamples: MIN_SAMPLES }));
   }
 
   console.log(
@@ -995,7 +1015,7 @@ async function fetchRent(key, dongs) {
   );
   if (failed) console.log(`  (요청 ${jobs.length}건 중 ${failed}건 실패 — 해당 월/구는 표본에서 빠짐)`);
 
-  return out;
+  return { out, variantsOut };
 }
 
 /* ------------------------------------------------------------------ */

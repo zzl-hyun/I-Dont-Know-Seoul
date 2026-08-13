@@ -157,6 +157,13 @@ export interface DongScore {
   raw: DongRawMetrics;
   /** 표본이 부족해 대체값을 쓴 경우 */
   dataQuality: "ok" | "low";
+  /**
+   * 주택유형 조합(7) × 환산모드(2) 사전계산 — 사용자가 유형을 고르면 클라이언트
+   * 재계산 없이 여기서 바로 조회한다(백분위는 파이프라인 값만 쓴다는 원칙 —
+   * 클라이언트가 다시 계산하면 동점 처리가 미세하게 어긋난다). 파이프라인이
+   * 아직 안 채웠으면(구버전 번들) undefined.
+   */
+  rentVariants?: RentVariants;
 }
 
 /** 원지표 키 — `pctKeys` 와 `axisWeights[].key` 가 쓰는 이름 */
@@ -207,6 +214,40 @@ export interface RentByType {
   officetel: RentTypeStat;
   /** 소형아파트 (10~60㎡) */
   apartment: RentTypeStat;
+}
+
+export type RentHousingType = "house" | "officetel" | "apartment";
+
+/**
+ * 정렬된 조합 키. 예: "house", "house+officetel", "house+officetel+apartment".
+ * 타입은 항상 이 순서로 정렬해서 합친다: house, officetel, apartment
+ * (`scripts/lib/rent.mjs`의 `RENT_COMBOS`와 동일한 순서).
+ */
+export type RentComboKey = string;
+
+export interface RentVariantStat {
+  medianMan: number | null;
+  samples: number;
+  /**
+   * 이 조합·모드 안에서 547개 동 기준 백분위(0~100). 월세가 낮을수록 높은
+   * 점수(기존 monthlyRentMan의 dir=-1 관례와 동일). 값이 없으면(전 동
+   * 표본 0 등) null.
+   */
+  pct: number | null;
+}
+
+/**
+ * 주택유형 조합 7개(비어있지 않은 부분집합) × 환산모드 2개(converted=보증금
+ * 환산 포함, raw=순수 월세)를 전부 담는다.
+ *
+ * `converted["house+officetel+apartment"]`가 기존 `monthlyRentMan`/
+ * `rentSamples`와 같은 조합이다 — 사용자가 직접 주택유형을 골라 가격 축을
+ * 다시 계산하는 UI는 이 데이터 계약을 그대로 소비하는 별도 작업이다(여기서는
+ * 손대지 않는다).
+ */
+export interface RentVariants {
+  converted: Record<RentComboKey, RentVariantStat>;
+  raw: Record<RentComboKey, RentVariantStat>;
 }
 
 export interface DongRawMetrics {

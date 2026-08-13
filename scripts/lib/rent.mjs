@@ -27,3 +27,69 @@ export function typeBreakdown(pool) {
   }
   return byType;
 }
+
+/**
+ * 주택유형 3종의 비어있지 않은 부분집합 7가지. 항상 이 순서(house →
+ * officetel → apartment 우선순위)로 만든다 — `RentComboKey`(`src/types.ts`)를
+ * 만드는 규칙과 동일하다. `house+officetel+apartment`/converted 조합이
+ * 기존 `monthlyRentMan`과 같은 조합이다.
+ */
+export const RENT_COMBOS = [
+  ["house"],
+  ["officetel"],
+  ["apartment"],
+  ["house", "officetel"],
+  ["house", "apartment"],
+  ["officetel", "apartment"],
+  ["house", "officetel", "apartment"],
+];
+
+const RENT_VARIANT_MODES = [
+  ["converted", "converted"],
+  ["raw", "monthly"],
+];
+
+function filterByCombo(pool, combo, field) {
+  return pool.filter((p) => combo.includes(p.type)).map((p) => p[field]);
+}
+
+/**
+ * 조합 7가지 × 모드 2가지(converted=보증금 환산 포함, raw=순수 월세)의
+ * 중앙값·표본수를 동 하나 단위로 계산한다.
+ *
+ * `pool` 항목은 `{ monthly, converted, type }` — `monthly`는 원본 월세,
+ * `converted`는 보증금을 전월세전환율로 환산해 더한 값이다
+ * (`3-metrics.mjs`의 `toMonthly()` 결과).
+ *
+ * `3-metrics.mjs`가 이미 갖고 있던 "동 표본이 `minSamples` 미만이면
+ * 자치구(district) 표본으로 대체" 패턴을 14번 복붙하지 않고 여기 한 곳에서
+ * 일반화했다. 부분집합 관계상 넓은 조합의 표본 수는 항상 좁은 조합
+ * 이상이다(둘 다 같은 pool의 부분집합이므로) — 이 성질 덕분에
+ * `house+officetel+apartment`/converted 조합을 이 함수로 계산해도 기존
+ * `monthlyRentMan`/`rentSamples` 로직과 결과가 완전히 같다: 동 표본이
+ * 부족하면 자치구 표본으로 대체하고 `samples: 0`을 찍는 것까지 동일한
+ * 규칙이다.
+ *
+ * 백분위(`pct`)는 여기서 계산하지 않는다 — 547개 동 전체가 있어야 계산
+ * 가능하니 동 하나 단위인 이 함수의 책임이 아니다. `4-score.mjs`가 담당한다.
+ */
+export function buildRentVariants(dongPool, districtPool, { minSamples }) {
+  const result = { converted: {}, raw: {} };
+  for (const combo of RENT_COMBOS) {
+    const key = combo.join("+");
+    for (const [modeKey, field] of RENT_VARIANT_MODES) {
+      const dongValues = filterByCombo(dongPool, combo, field);
+      if (dongValues.length >= minSamples) {
+        result[modeKey][key] = { medianMan: round2(median(dongValues)), samples: dongValues.length };
+        continue;
+      }
+      const districtValues = filterByCombo(districtPool, combo, field);
+      if (districtValues.length >= minSamples) {
+        result[modeKey][key] = { medianMan: round2(median(districtValues)), samples: 0 };
+        continue;
+      }
+      result[modeKey][key] = { medianMan: null, samples: 0 };
+    }
+  }
+  return result;
+}
