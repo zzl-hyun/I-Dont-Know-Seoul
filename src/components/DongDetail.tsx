@@ -41,6 +41,12 @@ interface Props {
   grade: Grade;
   rank: number;
   total: number;
+  /**
+   * 이 동의 worstMin. `undefined`=목적지 미선택(Φ 항 안 보여줌), `null`=목적지는
+   * 있는데 도달 불가(Φ=0), 숫자=실제 통근시간. `explainComposite`로 그대로
+   * 전달해 화면 수식이 `gradeAll`의 등급 계산과 어긋나지 않게 한다.
+   */
+  commuteMin?: number | null;
   /** 목적지별 통근. 목적지가 없으면 빈 배열 */
   commutes: CommuteLeg[];
   ctx: ExplainContext;
@@ -66,11 +72,12 @@ export default function DongDetail({
   grade,
   rank,
   total,
+  commuteMin,
   commutes,
   ctx,
 }: Props) {
   const summary = summarize(score, ctx.pctKeys, grade, ctx.weights, ctx.axisWeights);
-  const composite = explainComposite(score, ctx.weights, grade, rank, total, ctx.cuts);
+  const composite = explainComposite(score, ctx.weights, grade, rank, total, ctx.cuts, commuteMin);
   const topPct = Math.max(1, Math.round((rank / total) * 100));
   const axes = AXES.map(({ key, label }) => ({
     key,
@@ -186,11 +193,25 @@ export default function DongDetail({
               <b>{composite.total.toFixed(1)}점</b>
             </div>
             <div className="formula">
-              {composite.total.toFixed(1)} ={" "}
+              {composite.axisTotal.toFixed(1)} ={" "}
               {composite.terms
                 .map((t) => `${t.score.toFixed(0)}×${t.weight.toFixed(2)}`)
                 .join(" + ")}
             </div>
+            {composite.commute && (
+              // Φ=1(목적지 미선택)일 땐 composite.commute 자체가 undefined라
+              // 이 블록이 안 나온다 — "1을 곱한다"는 자명한 사실을 굳이 안 보여준다.
+              <div className="formula formula-commute">
+                {composite.commute === "unreachable" ? (
+                  <>× Φ(도달 불가) = 0 → {composite.total.toFixed(1)}점</>
+                ) : (
+                  <>
+                    × Φ(통근 {composite.commute.min.toFixed(1)}분) ={" "}
+                    {composite.commute.phi.toFixed(2)} → {composite.total.toFixed(1)}점
+                  </>
+                )}
+              </div>
+            )}
             <div className="contrib">
               {composite.terms.map((t) => (
                 <div key={t.axis} className="contrib-row">
@@ -198,7 +219,7 @@ export default function DongDetail({
                   <div className="contrib-bar">
                     <div
                       style={{
-                        width: `${(t.contribution / Math.max(composite.total, 1)) * 100}%`,
+                        width: `${(t.contribution / Math.max(composite.axisTotal, 1)) * 100}%`,
                       }}
                     />
                   </div>

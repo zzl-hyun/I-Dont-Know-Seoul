@@ -192,11 +192,23 @@ export default function App() {
     );
   }, [data, destinations]);
 
-  /* 등급은 가중치가 바뀔 때만 다시 매긴다 (547회 곱셈 — 사실상 즉시). */
+  /*
+   * 등급은 가중치·통근시간이 바뀔 때 다시 매긴다 (547회 곱셈 — 사실상 즉시).
+   *
+   * 목적지가 없으면(commute === null) gradeAll을 2개 인자로만 부른다 — 3번째
+   * 인자가 undefined면 gradeAll이 기존과 완전히 동일하게 동작하므로(회귀 없음)
+   * 여기서 굳이 빈 맵을 만들어 넘길 필요가 없다. 목적지가 있으면 각 동의
+   * worstMin(가장 나쁜 목적지까지 통근시간, 도달 불가면 null)을 그대로 넘겨
+   * 종합 점수에 Φ(통근) 페널티가 곱해지게 한다. TopPicks 정렬도 이 graded의
+   * 점수를 그대로 쓰므로 지도 등급과 추천 목록 순위가 항상 같은 점수를 본다.
+   */
   const graded = useMemo(() => {
     if (!data) return null;
-    return gradeAll(data.scores, weights);
-  }, [data, weights]);
+    if (!commute) return gradeAll(data.scores, weights);
+    const commuteMin = new Map<string, number | null>();
+    for (const [code, c] of commute.byDong) commuteMin.set(code, c.worstMin);
+    return gradeAll(data.scores, weights, commuteMin);
+  }, [data, weights, commute]);
 
   /* 지표별 서울 분포 — 데이터가 바뀔 때 한 번만 만든다 */
   const dists = useMemo(() => {
@@ -288,7 +300,12 @@ export default function App() {
             route: buildRoute(data.graph, ctx, c.per[i], dong),
           }))
         : [];
-    return { dong, score, grade: g.grade, rank: g.rank, total: g.total, commutes };
+    // 목적지 미선택(commute===null)이면 undefined → 상세 패널이 Φ 항을 아예
+    // 안 보여준다. 목적지가 있으면 이 동의 worstMin을 그대로 넘긴다 — null이면
+    // "도달 불가"라는 뜻이고, explainComposite가 gradeAll과 같은 규칙(0을
+    // 직접 대입)으로 처리해 화면 수식과 실제 등급 계산이 어긋나지 않는다.
+    const commuteMin = commute ? c?.worstMin ?? null : undefined;
+    return { dong, score, grade: g.grade, rank: g.rank, total: g.total, commutes, commuteMin };
   }, [data, graded, commute, selectedCode, destinations]);
 
   /**
@@ -650,6 +667,7 @@ export default function App() {
                   grade={selected.grade}
                   rank={selected.rank}
                   total={selected.total}
+                  commuteMin={selected.commuteMin}
                   commutes={selected.commutes}
                   ctx={explainCtx}
                 />

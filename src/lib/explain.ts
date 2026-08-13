@@ -6,6 +6,7 @@ import type {
   MetricKey,
   Weights,
 } from "../types";
+import { commutePenalty } from "./score";
 
 /**
  * 등급의 근거를 설명하는 모듈.
@@ -385,8 +386,21 @@ export function explainAxis(
 
 /** 종합 점수 계산식 — "75.2 = 78×0.40 + 71×0.35 + 77×0.25" */
 export interface CompositeExplanation {
+  /** 축 가중합 (Φ 적용 전). 통근 페널티가 없던 시절의 "종합 점수"와 같다. */
+  axisTotal: number;
+  /**
+   * 최종 종합 점수 — Φ 적용 후. `gradeAll`이 등급·순위를 매기는 데 쓰는
+   * 값과 반드시 일치해야 한다(화면 수식과 실제 계산이 어긋나면 안 되므로).
+   * 목적지 미선택이면 `axisTotal`과 같다(Φ=1이므로 곱해도 값이 안 바뀐다).
+   */
   total: number;
   terms: Array<{ axis: AxisName; label: string; score: number; weight: number; contribution: number }>;
+  /**
+   * 통근 페널티 항. `undefined`면 목적지 미선택 — 화면에 Φ 항 자체를 안
+   * 보여준다. `"unreachable"`이면 목적지는 있는데 이 동에서 도달이 아예
+   * 안 되는 경우(Φ=0, `gradeAll`과 같은 규칙). 그 외엔 실제 통근시간과 Φ값.
+   */
+  commute?: { min: number; phi: number } | "unreachable";
   /** 이 가중치에서 Best/Normal 을 가르는 종합 점수 */
   bestCut: number;
   normalCut: number;
@@ -401,13 +415,22 @@ const AXIS_LABEL: Record<AxisName, string> = {
   convenience: "생활편의",
 };
 
+/**
+ * @param commuteMin 선택된 동의 worstMin. `undefined`면 목적지 미선택(Φ 항을
+ *   안 보여줌), `null`이면 목적지는 있는데 도달 불가(Φ=0으로 직접 처리 —
+ *   `commutePenalty(null)`을 부르지 않는 이유는 `score.ts`의 JSDoc 참고),
+ *   숫자면 실제 통근시간으로 `commutePenalty`를 계산한다. `gradeAll`이 같은
+ *   worstMin 값에 적용하는 것과 동일한 규칙이라 화면 수식이 실제 등급 계산과
+ *   항상 일치한다.
+ */
 export function explainComposite(
   score: DongScore,
   weights: Weights,
   grade: Grade,
   rank: number,
   totalDongs: number,
-  cuts: { best: number; normal: number }
+  cuts: { best: number; normal: number },
+  commuteMin?: number | null
 ): CompositeExplanation {
   const axes: AxisName[] = ["safety", "price", "convenience"];
   const terms = axes.map((axis) => ({
@@ -417,9 +440,24 @@ export function explainComposite(
     weight: weights[axis],
     contribution: score[axis] * weights[axis],
   }));
+  const axisTotal = terms.reduce((s, t) => s + t.contribution, 0);
+
+  let commute: CompositeExplanation["commute"];
+  let total = axisTotal;
+  if (commuteMin === null) {
+    commute = "unreachable";
+    total = 0;
+  } else if (commuteMin !== undefined) {
+    const phi = commutePenalty(commuteMin);
+    commute = { min: commuteMin, phi };
+    total = axisTotal * phi;
+  }
+
   return {
-    total: terms.reduce((s, t) => s + t.contribution, 0),
+    axisTotal,
+    total,
     terms,
+    commute,
     bestCut: cuts.best,
     normalCut: cuts.normal,
     grade,
