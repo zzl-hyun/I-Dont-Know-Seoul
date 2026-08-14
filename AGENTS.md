@@ -70,16 +70,16 @@ Copy `.env.example` to `.env` for local data keys; never commit secrets. Store `
 
 ## Current Shared State
 
-마지막 확인: **2026-08-14 (Claude, AGENTS.md/CLAUDE.md 정리)**
+마지막 확인: **2026-08-14 (Codex, Claude review 후속 수정 완료)**
 
 | 항목 | 현재 상태 |
 | --- | --- |
 | 공용 작업트리 | `/Users/macbookpro/Desktop/Work/I-Dont-Know-Seoul` |
 | 현재 브랜치 | `main` |
-| HEAD | `a058e91` — `origin/main`과 완전히 일치, push 완료, working tree clean |
-| 최근 검증 | `npm test` 235/235, `npm run typecheck`·`npm run build`·`git diff --check` 전부 통과 |
+| HEAD | `69b1134` — `origin/main`과 일치, 사용자 작업 및 Codex의 미커밋 Worker 수정 존재 |
+| 최근 검증 | `npm test` 242/242, `npm run typecheck`·`npm run build`·`git diff --check`·Wrangler dry-run 전부 통과 |
 | 운영 배포 | **완료.** Worker Version `b07dab9c-0a4f-45d7-bb05-b5fcbcf698b8`. `/api/data`가 `X-Oneday-Source: kv`로 정상 서빙 확인됨 |
-| 진행 중인 작업 | 없음 |
+| 진행 중인 작업 | Claude review의 Worker 후속 수정 3건 완료, review 대기; 배포하지 않음 |
 
 이 표는 **지금 상태만** 유지합니다. 지나간 배치의 상세 서사(왜 그렇게 했는지,
 뭘 시도했다 실패했는지)는 다시 쌓지 않고 커밋 메시지 본문에 맡깁니다 — 이
@@ -95,10 +95,19 @@ Copy `.env.example` to `.env` for local data keys; never commit secrets. Store `
 | UI/UX 개선 5건 | `142594d`~`ca54bfd` | 마커 minzoom, 추천목록↔지도 hover 연동, 가격 축 설명 압축, 통근 기본값 40분 복귀, 지도 색 페이드인+목적지 펄스. "목적지 없을 때 전 지역 등급색" 항목은 실사용 후 번복돼 최종 미채택(`docs/plans/ux-improvements-5.md` 상단 참고) |
 | 문서 정합성 수정 | `6e75f05`, `a058e91` | 위 배치들 리뷰 중 발견한 낡은 주석·수치 정정, 새로 얻은 함정을 `CLAUDE.md`로 이관 |
 
-에이전트 슬롯은 현재 **둘 다 소유권 주장 없음** — 마지막 작업이 끝난 뒤 다음
-에이전트가 자유롭게 아무 파일이나 잡아도 됩니다. 새로 작업을 시작하면 아래
-[Handoff Update Template](#handoff-update-template) 형식으로 이 섹션 밑에
-자기 슬롯을 채우세요.
+Codex가 아래 슬롯의 Worker 파일을 소유하고 있습니다. 해당 작업이 끝나면
+상태를 갱신하고 소유권을 내려놓습니다. 새 작업은 아래
+[Handoff Update Template](#handoff-update-template) 형식으로 기록합니다.
+
+### Codex slot
+
+- Status: ready for review
+- Task: Claude review의 Worker 후속 수정 3건과 관련 assertion 보완
+- Owned files: `AGENTS.md`, `worker/index.ts`, `worker/index.test.ts`
+- Changed: 500 메시지 한글화, stack 로그, `/api/geocode` 405 `Allow: GET`과 관련 assertion 추가
+- Verification: `npm test` 242/242, `npm run typecheck`, `npm run build`, `git diff --check`, Wrangler dry-run 통과
+- Commit/remote: uncommitted; commit/push하지 않음
+- Next handoff: 변경 diff review 후 필요하면 별도 커밋; 배포는 새 승인 전까지 금지
 
 ## Git and Deployment Gate
 
