@@ -70,16 +70,16 @@ Copy `.env.example` to `.env` for local data keys; never commit secrets. Store `
 
 ## Current Shared State
 
-마지막 확인: **2026-08-14 (Claude, Worker 안정성 수정 커밋·푸시)**
+마지막 확인: **2026-08-14 (Claude, Worker 안정성 수정 배포 완료)**
 
 | 항목 | 현재 상태 |
 | --- | --- |
 | 공용 작업트리 | `/Users/macbookpro/Desktop/Work/I-Dont-Know-Seoul` |
 | 현재 브랜치 | `main` |
-| HEAD | `a4042f5` — `origin/main`과 완전히 일치, push 완료. `index.html`(사용자 작업)만 미커밋 |
-| 최근 검증 | `npm test` 242/242, `npm run typecheck`·`npm run build`·`git diff --check`·Wrangler dry-run 전부 통과 |
-| 운영 배포 | Worker Version `b07dab9c-0a4f-45d7-bb05-b5fcbcf698b8`가 여전히 서빙 중 — **이번 Worker 안정성 수정은 아직 배포 전.** `data:seed`·`cf:deploy`는 매번 별도 승인 필요 |
-| 진행 중인 작업 | 없음. 배포 승인 대기 |
+| HEAD | `038230a` — `origin/main`과 완전히 일치, push 완료, tracked 변경 없음(사용자 미추적 자료만 남음) |
+| 최근 검증 | `npm test` 242/242, `npm run typecheck`·`npm run build`·`git diff --check` 전부 통과 |
+| 운영 배포 | **완료.** Worker Version `092f4a9e-8277-45f1-8e46-1775644dbb7c`. `/api/data` 200(`X-Oneday-Source: kv`), `POST /api/data`·`POST /api/geocode` 405(`Allow: GET`) 프로덕션에서 확인 |
+| 진행 중인 작업 | 없음 |
 
 이 표는 **지금 상태만** 유지합니다. 지나간 배치의 상세 서사(왜 그렇게 했는지,
 뭘 시도했다 실패했는지)는 다시 쌓지 않고 커밋 메시지 본문에 맡깁니다 — 이
