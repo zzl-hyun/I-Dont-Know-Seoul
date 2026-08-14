@@ -100,6 +100,20 @@
 이벤트로만 알리므로 지도가 그냥 빈 화면이 됩니다 (실제로 겪었고, `MapView.tsx` 에
 error 리스너를 붙여둔 이유입니다).
 
+### `-transition` paint 옵션은 `setFeatureState` 경로엔 안 먹힙니다
+MapLibre의 `fill-opacity-transition`·`circle-opacity-transition` 같은 네이티브
+transition 옵션은 `setPaintProperty`로 **스타일 자체**를 바꿀 때만 적용됩니다.
+이 앱처럼 동별 상태를 `setFeatureState`로 바꾸는 경로에는 **전혀 안 걸립니다** —
+GPU가 feature-state를 매 프레임 직접 읽어 평가해서 transition이 개입할 지점이
+없습니다. 표현식 문법 오류처럼 예외를 던지지 않고 그냥 조용히 무시되므로 배포해서
+직접 눈으로 봐야 알 수 있습니다(실제로 한 번 배포하고서야 발견했습니다).
+
+동별 상태 변화를 부드럽게 보이려면 `fadeT`(0→1) 같은 feature-state를 두고
+`requestAnimationFrame`으로 직접 밀면서, paint 표현식을
+`interpolate(["linear"], fadeT, 0, 이전값, 1, 현재값)` 형태로 짜야 합니다
+(`MapView.tsx`의 `scheduleFade`/`fillOpacityExpr`/`fillColorExpr` 참고). 색처럼
+이산값도 `interpolate`의 color 타입 보간을 그대로 태우면 자연스럽게 섞입니다.
+
 ### 지도 레이어 순서
 ```
 dong-fill → dong-outline → subway-line → subway-hit → subway-station
