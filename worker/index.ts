@@ -32,7 +32,12 @@ export default {
       if (url.pathname === "/api/data") return await handleData(request, env);
       if (url.pathname === "/api/geocode") return await handleGeocode(request, env, ctx);
     } catch (err) {
-      return json({ error: (err as Error).message }, 500);
+      console.error("[Worker] request failed", {
+        method: request.method,
+        path: url.pathname,
+        error: err instanceof Error ? (err.stack ?? err.message) : String(err),
+      });
+      return json({ error: "서버 내부 오류가 발생했습니다" }, 500);
     }
 
     return json({ error: "Not found" }, 404);
@@ -44,6 +49,8 @@ export default {
 /* ------------------------------------------------------------------ */
 
 async function handleData(request: Request, env: Env): Promise<Response> {
+  if (request.method !== "GET") return json({ error: "GET만 지원합니다" }, 405, { Allow: "GET" });
+
   /*
    * 여기에 Worker 측 Cache API 계층을 두지 않는다.
    *
@@ -114,7 +121,7 @@ async function handleGeocode(
   env: Env,
   ctx: ExecutionContext
 ): Promise<Response> {
-  if (request.method !== "GET") return json({ error: "GET만 지원합니다" }, 405);
+  if (request.method !== "GET") return json({ error: "GET만 지원합니다" }, 405, { Allow: "GET" });
 
   const q = new URL(request.url).searchParams.get("q")?.trim() ?? "";
   if (q.length < 2 || q.length > MAX_QUERY_LEN) return json({ results: [] });
@@ -122,7 +129,8 @@ async function handleGeocode(
   const cacheKey = `geo:${GEO_CACHE_VERSION}:${q.toLowerCase()}`;
   const cached = await env.ONEDAY_KV.get(cacheKey, "text");
   if (cached) {
-    return json(JSON.parse(cached), 200, { "X-Oneday-Geocode": "kv-hit" });
+    const cachedPayload = parseGeoPayload(cached);
+    if (cachedPayload) return json(cachedPayload, 200, { "X-Oneday-Geocode": "kv-hit" });
   }
 
   let results: GeoResult[] = [];
@@ -137,7 +145,8 @@ async function handleGeocode(
   // 개발 환경에서도 앱이 동작하게 만들고, "강남역" 같은 입력을 빠르게 처리한다.
   if (results.length === 0) {
     results = await searchStations(q, env, request);
-    source = env.KAKAO_REST_KEY ? "kakao-empty→station" : "station";
+    // 헤더 값은 HTTP ByteString이어야 하므로 유니코드 화살표를 쓰지 않는다.
+    source = env.KAKAO_REST_KEY ? "kakao-empty-station" : "station";
   }
 
   const payload = { results };
@@ -163,6 +172,30 @@ interface KakaoDoc {
 
 interface KakaoAddress {
   region_1depth_name?: string;
+}
+
+function isGeoResult(value: unknown): value is GeoResult {
+  if (!value || typeof value !== "object") return false;
+  const result = value as Record<string, unknown>;
+  return (
+    typeof result.name === "string" &&
+    typeof result.address === "string" &&
+    Number.isFinite(result.lat) &&
+    Number.isFinite(result.lng) &&
+    (result.kind === "station" || result.kind === "place")
+  );
+}
+
+function parseGeoPayload(raw: string): { results: GeoResult[] } | null {
+  try {
+    const value: unknown = JSON.parse(raw);
+    if (!value || typeof value !== "object") return null;
+    const results = (value as { results?: unknown }).results;
+    if (!Array.isArray(results) || !results.every(isGeoResult)) return null;
+    return { results };
+  } catch {
+    return null;
+  }
 }
 
 interface RankedGeoResult {
@@ -202,8 +235,7 @@ async function kakaoSearch(q: string, key: string): Promise<GeoResult[]> {
   let sourceOrder = 0;
 
   if (placeResult.status === "fulfilled" && placeResult.value.ok) {
-    const data = (await placeResult.value.json()) as { documents?: KakaoDoc[] };
-    for (const d of data.documents ?? []) {
+    for (const d of await readKakaoDocuments(placeResult.value)) {
       const regionRank = kakaoRegionRank(d);
       if (regionRank === null) continue;
       out.push({
@@ -221,8 +253,7 @@ async function kakaoSearch(q: string, key: string): Promise<GeoResult[]> {
   }
 
   if (addrResult.status === "fulfilled" && addrResult.value.ok) {
-    const data = (await addrResult.value.json()) as { documents?: KakaoDoc[] };
-    for (const d of data.documents ?? []) {
+    for (const d of await readKakaoDocuments(addrResult.value)) {
       const regionRank = kakaoRegionRank(d);
       if (regionRank === null) continue;
       out.push({
@@ -244,6 +275,42 @@ async function kakaoSearch(q: string, key: string): Promise<GeoResult[]> {
     .sort((a, b) => a.regionRank - b.regionRank || a.sourceOrder - b.sourceOrder)
     .slice(0, MAX_GEO_RESULTS)
     .map(({ result }) => result);
+}
+
+async function readKakaoDocuments(response: Response): Promise<KakaoDoc[]> {
+  try {
+    const data: unknown = await response.json();
+    if (!data || typeof data !== "object") return [];
+    const documents = (data as { documents?: unknown }).documents;
+    if (!Array.isArray(documents)) return [];
+    return documents
+      .map(normalizeKakaoDoc)
+      .filter((doc): doc is KakaoDoc => doc !== null);
+  } catch {
+    return [];
+  }
+}
+
+function normalizeKakaoDoc(value: unknown): KakaoDoc | null {
+  if (!value || typeof value !== "object") return null;
+  const doc = value as Record<string, unknown>;
+  if (typeof doc.x !== "string" || typeof doc.y !== "string") return null;
+  return {
+    place_name: typeof doc.place_name === "string" ? doc.place_name : undefined,
+    address_name: typeof doc.address_name === "string" ? doc.address_name : undefined,
+    road_address_name:
+      typeof doc.road_address_name === "string" ? doc.road_address_name : undefined,
+    address: normalizeKakaoAddress(doc.address),
+    road_address: normalizeKakaoAddress(doc.road_address),
+    x: doc.x,
+    y: doc.y,
+  };
+}
+
+function normalizeKakaoAddress(value: unknown): KakaoAddress | undefined {
+  if (!value || typeof value !== "object") return undefined;
+  const region = (value as Record<string, unknown>).region_1depth_name;
+  return typeof region === "string" ? { region_1depth_name: region } : undefined;
 }
 
 /** 주소 문자열과 상세 지역 필드를 함께 봐서 수도권 여부와 서울 우선순위를 정한다 */
