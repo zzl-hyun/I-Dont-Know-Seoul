@@ -76,10 +76,10 @@ Copy `.env.example` to `.env` for local data keys; never commit secrets. Store `
 | --- | --- |
 | 공용 작업트리 | `/Users/mac/Desktop/Work/I-Dont-Know-Seoul` |
 | 현재 브랜치 | `feat/dongtan-gtx-a` |
-| HEAD | `5c2c287` — `88b4139` 이후 동탄구+GTX-A·서울 월세 CSV 지원을 포함한 로컬 커밋, push하지 않음(사용자 미추적 자료만 남음) |
+| HEAD | `61e8c70` — `feat/dongtan-gtx-a`가 `origin/feat/dongtan-gtx-a`에 push됨; PR 생성은 GitHub integration 403으로 아직 미완료(사용자 미추적 자료만 남음) |
 | 최근 검증 | `npm test` 246/246, `npm run typecheck`·`npm run build`·`git diff --check` 전부 통과 |
 | 운영 배포 | **완료.** Worker Version `092f4a9e-8277-45f1-8e46-1775644dbb7c`. `/api/data` 200(`X-Oneday-Source: kv`), `POST /api/data`·`POST /api/geocode` 405(`Allow: GET`) 프로덕션에서 확인 |
-| 진행 중인 작업 | 없음. push/deploy는 별도 승인 전까지 금지 |
+| 진행 중인 작업 | PR 생성이 GitHub integration 권한 오류로 대기 중. 배포는 별도 승인 전까지 금지 |
 
 이 표는 **지금 상태만** 유지합니다. 지나간 배치의 상세 서사(왜 그렇게 했는지,
 뭘 시도했다 실패했는지)는 다시 쌓지 않고 커밋 메시지 본문에 맡깁니다 — 이
@@ -103,9 +103,9 @@ Copy `.env.example` to `.env` for local data keys; never commit secrets. Store `
 - Task: Execute the approved Dongtan-gu/GTX-A expansion and make the Seoul rent pipeline accept the supplied CSV snapshots.
 - Owned files: `AGENTS.md`; `CLAUDE.md`; `README.md`; `docs/commute.md`; `docs/data.md`; `docs/development.md`; `docs/scoring.md`; `data/dist/dong-meta.json`; `data/dist/metrics.json`; `data/dist/residential-access.json`; `data/dist/scores.json`; `data/dist/subway-graph.json`; `data/raw/police-crime-20241231.csv`; `data/raw/population-20260630.csv`; `data/raw/traffic-accident-hotspots-2012-2024.csv`; `public/data/bundle.json`; `public/dong.geojson`; `scripts/1-boundaries.mjs`; `scripts/2-subway.mjs`; `scripts/3-metrics.mjs`; `scripts/4-score.mjs`; `scripts/lib/bundle-validation.mjs`; `scripts/lib/bundle-validation.test.mjs`; `scripts/lib/rent.mjs`; `scripts/lib/residential-quality.test.ts`; `scripts/lib/seoul-rent.mjs`; `scripts/lib/seoul-rent.test.mjs`; `scripts/lib/sgis-population.mjs`; `scripts/update-marker-positions.mjs`; `src/App.tsx`; `src/components/DongDetail.tsx`; `src/components/Landing.tsx`; `src/components/MapView.tsx`; `src/components/WeightPlayground.tsx`; `src/lib/commute.test.ts`; `src/lib/commute.ts`; `src/lib/constants.ts`; `src/lib/data.test.ts`; `src/lib/dijkstra.ts`; `src/lib/explain.ts`; `src/lib/rent-bundle.test.ts`; `src/lib/score.ts`; `src/lib/subwayLines.ts`; `src/types.ts`.
 - Changed: Added 9 Dongtan dongs, 4 manual GTX-A stations from Suseo to Dongtan, expanded source snapshots and scoring artifacts, and added `.csv` fallback support for the 2023–2025 Seoul rent inputs. Preserve `Research on Advanced Regional Scoring Methods.md` as an untracked user file.
-- Verification: `npm run data:boundaries`, `npm run data:population`, `npm run data:metric-access`, `npm run data:access`, `npm run data:validate-access`, `npm run data:metrics`, `npm run data:score`, `npm test` (246/246), `npm run typecheck`, `npm run build`, and `git diff --check` pass. No push or deployment.
-- Commit/remote: `5c2c287` locally on `feat/dongtan-gtx-a`; no push or deployment. The prior inquiry widget is in `88b4139`.
-- Next handoff: Obtain separate approval before pushing this branch or running the production data-seed/deploy procedure.
+- Verification: `npm run data:boundaries`, `npm run data:population`, `npm run data:metric-access`, `npm run data:access`, `npm run data:validate-access`, `npm run data:metrics`, `npm run data:score`, `npm test` (246/246), `npm run typecheck`, `npm run build`, and `git diff --check` pass. Branch pushed; no deployment.
+- Commit/remote: `61e8c70` locally and on `origin/feat/dongtan-gtx-a`; no deployment. PR creation via the connected GitHub integration returned HTTP 403, and local `gh` is unavailable. The prior inquiry widget is in `88b4139`.
+- Next handoff: Open the draft PR from `https://github.com/zzl-hyun/I-Dont-Know-Seoul/compare/main...feat/dongtan-gtx-a?expand=1`, then obtain separate approval before the production data-seed/deploy procedure.
 
 ## Git and Deployment Gate
 
