@@ -45,8 +45,8 @@ export const SEOUL_BUILDING_TYPE = Object.freeze({
 });
 
 /**
- * 서울 열린데이터광장 연도별 ZIP을 읽어 집계에 바로 쓸 정규화 레코드로 만든다.
- * ZIP마다 파일 하나만 있어야 하며, 세 파일 사이의 중복도 같은 Set으로 제거한다.
+ * 서울 열린데이터광장 연도별 ZIP/CSV를 읽어 집계에 바로 쓸 정규화 레코드로 만든다.
+ * ZIP은 압축 안에 데이터 파일 하나만 있어야 하며, 세 파일 사이의 중복도 같은 Set으로 제거한다.
  */
 export async function loadSeoulRentArchives(
   archivePaths,
@@ -54,7 +54,7 @@ export async function loadSeoulRentArchives(
 ) {
   if (archivePaths.length !== SEOUL_RENT_ARCHIVE_YEARS.length) {
     throw new Error(
-      `서울 전월세 ZIP은 ${SEOUL_RENT_ARCHIVE_YEARS.join(", ")}년 3개가 필요합니다 ` +
+      `서울 전월세 원본은 ${SEOUL_RENT_ARCHIVE_YEARS.join(", ")}년 3개가 필요합니다 ` +
         `(받은 파일 ${archivePaths.length}개)`
     );
   }
@@ -64,15 +64,20 @@ export async function loadSeoulRentArchives(
   const total = emptyStats(startDate, endDate);
 
   for (const path of archivePaths) {
-    const compressed = await readFile(path);
-    const { entries } = await unzipRaw(compressed);
-    const files = entries.filter((entry) => !entry.isDirectory);
-    if (files.length !== 1) {
-      throw new Error(`${basename(path)} 안의 데이터 파일이 1개가 아닙니다 (${files.length}개)`);
+    let bytes;
+    if (path.toLowerCase().endsWith(".csv")) {
+      bytes = new Uint8Array(await readFile(path));
+    } else {
+      const compressed = await readFile(path);
+      const { entries } = await unzipRaw(compressed);
+      const files = entries.filter((entry) => !entry.isDirectory);
+      if (files.length !== 1) {
+        throw new Error(`${basename(path)} 안의 데이터 파일이 1개가 아닙니다 (${files.length}개)`);
+      }
+      if (files[0].encrypted) throw new Error(`${basename(path)}은 암호화된 ZIP이라 읽을 수 없습니다`);
+      bytes = new Uint8Array(await files[0].arrayBuffer());
     }
-    if (files[0].encrypted) throw new Error(`${basename(path)}은 암호화된 ZIP이라 읽을 수 없습니다`);
 
-    const bytes = new Uint8Array(await files[0].arrayBuffer());
     const result = parseSeoulRentLines(decodedLines(bytes), {
       sourceName: basename(path),
       startDate,

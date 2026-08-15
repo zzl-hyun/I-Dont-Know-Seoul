@@ -333,7 +333,7 @@ export default function Landing({
                 </span>
               </div>
               <p className="rank-line">
-                수도권 547개 동 중 <b>10위</b> · 상위 2%
+                수도권 556개 동 중 <b>10위</b> · 상위 2%
               </p>
               <p className="summary">
                 범죄가 적고 월세는 47만원으로 싸지만, 교통사고 다발지점이 많습니다.
@@ -709,18 +709,18 @@ const MODE_SHOTS = [
 /*
  * 히어로 아래 숫자 띠.
  *
- * 547·623·9 는 파이프라인 산출물과 대조한 값이다(bundle.json 의 dongs
- * 547개, graph.stations 623개, meta.availableMetrics 9개). 데이터가 바뀌면
+ * 556·624·9 는 파이프라인 산출물과 대조한 값이다(bundle.json 의 dongs
+ * 556개, graph.stations 624개, meta.availableMetrics 9개). 데이터가 바뀌면
  * 같이 고쳐야 한다.
  *
- * "0" 은 계산이 아니라 설계다. 목적지 하나를 잡으면 547개 동의 통근시간이
- * 전부 필요한데, 길찾기 API 로 하면 요청 한 번에 547콜이라 무료 한도로는
+ * "0" 은 계산이 아니라 설계다. 목적지 하나를 잡으면 556개 동의 통근시간이
+ * 전부 필요한데, 길찾기 API 로 하면 요청 한 번에 556콜이라 무료 한도로는
  * 하루 한 명도 못 받는다. 그래서 지하철 그래프를 직접 들고 브라우저에서
  * 탐색한다.
  */
 const STATS = [
-  { value: 547, unit: "개", label: "행정동을 전부 등급화" },
-  { value: 623, unit: "역", label: "지하철 21개 노선" },
+  { value: 556, unit: "개", label: "행정동을 전부 등급화" },
+  { value: 624, unit: "역", label: "지하철 22개 노선" },
   { value: 9, unit: "개", label: "등급에 쓰는 공공데이터 지표" },
   { value: 0, unit: "회", label: "외부 길찾기 API 호출" },
 ];
@@ -759,7 +759,7 @@ const SHOT_MARKS = [
     x: 20,
     y: 58,
     title: "지하철 노선도",
-    body: "623개 역과 21개 노선을 깔아둡니다. 노선별로 끄고 켤 수 있습니다.",
+    body: "624개 역과 22개 노선을 깔아둡니다. 노선별로 끄고 켤 수 있습니다.",
   },
   {
     x: 95,
@@ -772,7 +772,7 @@ const SHOT_MARKS = [
 /* README 상단의 기능 목록을 그대로 옮긴 것 */
 const FEATURES = [
   {
-    title: "547개 행정동 등급화",
+    title: "556개 행정동 등급화",
     body: "서울과 신분당선 축(수원·성남·용인)을 Best / Normal / Bad 로 나눕니다.",
   },
   {
@@ -789,7 +789,7 @@ const FEATURES = [
   },
   {
     title: "지하철 노선도",
-    body: "623개 역, 21개 노선 오버레이 — 노선별로 켜고 끕니다.",
+    body: "624개 역, 22개 노선 오버레이 — 노선별로 켜고 끕니다.",
   },
   {
     title: "링크 공유",

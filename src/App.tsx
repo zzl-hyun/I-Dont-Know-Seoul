@@ -38,10 +38,10 @@ import type { CommuteResult, Destination, RentHousingType, Weights } from "./typ
 const RENT_TYPE_OPTIONS: RentHousingType[] = ["house", "rowhouse", "officetel", "apartment"];
 
 /**
- * 범례에 넣을 노선. 그래프에는 21개 노선이 있지만 전부 나열하면 지도를 덮는다.
+ * 범례에 넣을 노선. 그래프에는 22개 노선이 있지만 전부 나열하면 지도를 덮는다.
  * 서울 안에서 자취 후보지를 가르는 주요 노선만 고른다.
  */
-const MAIN_LINES = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "신분당", "경의·중앙", "수인·분당"];
+const MAIN_LINES = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "신분당", "경의·중앙", "수인·분당", "GTX-A"];
 const MAX_COMMUTE_MINUTES = 90;
 
 /**
@@ -222,7 +222,7 @@ export default function App() {
   }, [data, rentSelection]);
 
   /*
-   * 등급은 가중치·통근시간·월세 선택이 바뀔 때 다시 매긴다 (547회 곱셈 — 사실상 즉시).
+   * 등급은 가중치·통근시간·월세 선택이 바뀔 때 다시 매긴다 (556회 곱셈 — 사실상 즉시).
    *
    * 목적지가 없으면(commute === null) gradeAll을 2개 인자로만 부른다 — 3번째
    * 인자가 undefined면 gradeAll이 기존과 완전히 동일하게 동작하므로(회귀 없음)
@@ -286,7 +286,7 @@ export default function App() {
         worstMin: c?.worstMin ?? null,
         reachable,
         overBudget: inTime && !inBudget,
-        // 툴팁용이라 통근권 안인 동만 만든다 (547개 전부 만들 필요 없다)
+        // 툴팁용이라 통근권 안인 동만 만든다 (556개 전부 만들 필요 없다)
         reason: reachable
           ? summarize(
               s,

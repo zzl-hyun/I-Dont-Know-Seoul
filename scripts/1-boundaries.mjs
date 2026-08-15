@@ -3,7 +3,7 @@
  *
  * 입력: data/raw/hangjeongdong_20260701.geojson  (전국 3,558개 행정동, 34MB)
  * 출력:
- *   public/dong.geojson         지도 렌더용 (547개, 위상보존 단순화)
+ *   public/dong.geojson         지도 렌더용 (556개, 위상보존 단순화)
  *   data/dist/dong-meta.json    동별 메타 (내부점 좌표, 면적, 자치구)
  *
  * 왜 mapshaper인가: 인접한 폴리곤을 각각 독립적으로 단순화하면(turf/simplify 등)
@@ -28,15 +28,15 @@ const OUT_META = join(ROOT, "data/dist/dong-meta.json");
 const BOUNDARY_VERSION = "20260701";
 
 /**
- * 대상 지역. 서울 전체 + 신분당선 축의 경기 3개 시.
+ * 대상 지역. 서울 전체 + 신분당선·GTX-A 축의 경기 4개 시.
  *
  * 시도 코드 하나로 자르던 것을 시군구 화이트리스트로 바꿨다. 경기도를 통째로
- * 넣으면 560개 동이 더 붙어 번들이 2배가 되는데, 실제로 필요한 건 신분당선이
+ * 넣으면 560개 동이 더 붙어 번들이 2배가 되는데, 실제로 필요한 건 수도권 철도
  * 지나는 축이기 때문이다.
  *
  * **용인 처인구(41461)는 일부러 뺐다.** 신분당선 역이 하나도 없고(동천·
  * 수지구청·성복·상현이 전부 수지구), 용인경전철이 지하철 그래프에 없어서
- * 13개 동이 전부 통근 불가로 나온다. 면적도 468km² 로 나머지 9개 구를 합친
+ * 13개 동이 전부 통근 불가로 나온다. 면적도 468km² 로 나머지 10개 구를 합친
  * 것보다 큰데 대부분 읍·면이라, 넣으면 개/km² 밀도 지표의 분포가 왜곡되고
  * 통합 상대평가라 서울 동들의 백분위까지 밀린다.
  */
@@ -45,6 +45,7 @@ const GYEONGGI_SGG = [
   "41111", "41113", "41115", "41117", // 수원 장안·권선·팔달·영통
   "41131", "41133", "41135",          // 성남 수정·중원·분당
   "41463", "41465",                   // 용인 기흥·수지 (처인 41461 제외)
+  "41597",                             // 화성 동탄권
 ];
 
 /** mapshaper -filter 에 그대로 넣을 식 */
@@ -170,15 +171,15 @@ function displayName(admNm) {
 function verify(meta) {
   const problems = [];
 
-  // 서울 427 + 경기 3개 시 120 = 547. 경계 버전이 바뀌면 몇 개는 움직인다.
+  // 서울 427 + 경기 4개 시 129 = 556. 경계 버전이 바뀌면 몇 개는 움직인다.
   if (meta.length < 520 || meta.length > 570) {
-    problems.push(`행정동 수가 이상함: ${meta.length} (서울 427 + 경기 120 = 547 근처여야 함)`);
+    problems.push(`행정동 수가 이상함: ${meta.length} (서울 427 + 경기 129 = 556 근처여야 함)`);
   }
 
-  // 서울 25개 구 + 경기 9개 구(수원 4 · 성남 3 · 용인 2) = 34
+  // 서울 25개 구 + 경기 10개 구(수원 4 · 성남 3 · 용인 2 · 화성 1) = 35
   const guCount = new Set(meta.map((d) => d.gu)).size;
-  if (guCount !== 34) {
-    problems.push(`자치구 수가 34가 아님: ${guCount} — ${[...new Set(meta.map((d) => d.gu))].join(", ")}`);
+  if (guCount !== 35) {
+    problems.push(`자치구 수가 35가 아님: ${guCount} — ${[...new Set(meta.map((d) => d.gu))].join(", ")}`);
   }
 
   // 처인구가 섞여 들어오면 밀도 지표가 통째로 왜곡된다. 코드로 못박아 막는다.
@@ -190,9 +191,9 @@ function verify(meta) {
   const dupes = meta.map((d) => d.code).filter((c, i, a) => a.indexOf(c) !== i);
   if (dupes.length) problems.push(`행정동 코드 중복: ${dupes.join(", ")}`);
 
-  // 서울(북위 37.70)부터 수원 남단(37.20)까지, 강화 쪽 126.7 ~ 용인 동단 127.25
+  // 서울(북위 37.70)부터 화성 남단(37.13)까지, 강화 쪽 126.7 ~ 용인 동단 127.25
   const outOfBounds = meta.filter(
-    (d) => d.lng < 126.7 || d.lng > 127.25 || d.lat < 37.15 || d.lat > 37.72
+    (d) => d.lng < 126.7 || d.lng > 127.25 || d.lat < 37.13 || d.lat > 37.72
   );
   if (outOfBounds.length) {
     problems.push(
@@ -215,10 +216,11 @@ function verify(meta) {
 
   const totalArea = meta.reduce((s, d) => s + d.areaKm2, 0);
   /*
-   * 서울 605.2 + 수원 121.1 + 성남 141.7 + 용인 기흥 81.7·수지 42.2 = 약 992 km².
+   * 서울 605.2 + 수원 121.1 + 성남 141.7 + 용인 기흥 81.7·수지 42.2
+   * + 화성 동탄권 55.8 = 약 1049 km².
    * 여기서 크게 벗어나면 투영이나 필터가 잘못된 것이다 (처인구가 섞이면 +468).
    */
-  const EXPECTED_AREA = 992;
+  const EXPECTED_AREA = 1049;
   console.log(`  총면적 ${totalArea.toFixed(1)} km² (기대 약 ${EXPECTED_AREA} km²)`);
   if (Math.abs(totalArea - EXPECTED_AREA) > 50) {
     console.error(`✗ 총면적이 기대와 너무 다름 — 투영 설정이나 지역 필터를 의심할 것`);

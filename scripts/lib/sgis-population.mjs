@@ -180,7 +180,7 @@ function readDong(feature) {
   return { code, name, geometry: feature.geometry, bounds: bbox(feature.geometry) };
 }
 
-/** 행정동 bbox를 작은 타일에 등록해 점마다 547개 동을 전수 검사하지 않게 한다. */
+/** 행정동 bbox를 작은 타일에 등록해 점마다 556개 동을 전수 검사하지 않게 한다. */
 export function createDongSpatialIndex(geojson, { cellSize = DEFAULT_INDEX_CELL_DEGREES } = {}) {
   if (geojson?.type !== "FeatureCollection" || !Array.isArray(geojson.features)) {
     throw new Error("행정동 경계는 GeoJSON FeatureCollection이어야 합니다.");

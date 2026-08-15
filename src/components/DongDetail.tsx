@@ -372,7 +372,7 @@ function MetricRow({ m, single }: { m: MetricExplanation; single: boolean }) {
  * 일반 `MetricRow`는 `score.pct`/`score.raw.monthlyRentMan`(항상 번들 기준 조합
  * 기준)을 읽으므로 그대로 쓰면 위에 보이는 점수(선택된 조합·모드 기준)와
  * 어긋난다. 여기서는 `rentVariants`에서 직접 조회한 값만 쓴다 — 서울
- * 중앙값·동점 비율은 조합별로 따로 만들지 않아(파이프라인이 547개 동
+ * 중앙값·동점 비율은 조합별로 따로 만들지 않아(파이프라인이 556개 동
  * 전체를 조합마다 다시 정렬해야 해서 비용이 크다) 이 줄에는 없다.
  */
 function PriceVariantRow({
@@ -471,6 +471,7 @@ export function lineName(line: string): string {
     AREX: "공항철도",
     인천1: "인천 1호선",
     I2: "인천 2호선",
+    "GTX-A": "GTX-A",
   };
   return alias[line] ?? `${line}선`.replace(/선선$/, "선");
 }

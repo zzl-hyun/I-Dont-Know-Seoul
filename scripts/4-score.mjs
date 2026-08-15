@@ -162,7 +162,7 @@ async function main() {
    * ---- 3.5. 주택유형 조합(15) × 환산모드(2) 백분위 (rentVariants) ----
    *
    * 3-metrics.mjs가 이미 동 하나 단위로 조합·모드별 중앙값·표본수를 계산해
-   * 뒀다(buildRentVariants) — 여기서는 그 값들을 547개 동 전체에 놓고
+   * 뒀다(buildRentVariants) — 여기서는 그 값들을 556개 동 전체에 놓고
    * 백분위만 매긴다(pct는 동 하나만 보고는 계산 못 하니 3-metrics.mjs의
    * 책임이 아니다). monthlyRentMan의 pct를 만드는 percentileRank()를 그대로
    * 재사용한다 — 동점 처리를 새로 짜면 두 계산이 미세하게 어긋날 수 있다.

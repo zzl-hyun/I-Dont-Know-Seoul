@@ -43,7 +43,7 @@ function validBundle(dongCount = 400) {
 
 /** 버스·거주 접근 심층 검증까지 통과하는 작은 현재 스키마 번들. */
 function validCommuteBundle() {
-  const bundle = validBundle(547);
+  const bundle = validBundle(556);
   bundle.graph.stations = [{ id: 0, name: "강남", lat: 37.51, lng: 127.01 }];
   bundle.bus = {
     version: 1,
@@ -78,7 +78,7 @@ function validCommuteBundle() {
 }
 
 describe("assertValidBundle — /api/data 응답의 최상위 구조를 검증한다", () => {
-  it("생성된 실제 번들이 버스망·547개 거주 접근을 포함해 통과한다", () => {
+  it("생성된 실제 번들이 버스망·556개 거주 접근을 포함해 통과한다", () => {
     const bundle = JSON.parse(
       readFileSync(join(__dirname, "../../public/data/bundle.json"), "utf8")
     );

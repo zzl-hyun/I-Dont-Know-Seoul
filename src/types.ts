@@ -149,7 +149,7 @@ export interface Edge {
   source: "measured" | "estimated";
 }
 
-/** 동별 평판 점수 (전부 대상 547개 동 내 백분위, 0~100) */
+/** 동별 평판 점수 (전부 대상 556개 동 내 백분위, 0~100) */
 export interface DongScore {
   safety: number;
   price: number;
@@ -239,7 +239,7 @@ export interface RentVariantStat {
   medianMan: number | null;
   samples: number;
   /**
-   * 이 조합·모드 안에서 547개 동 기준 백분위(0~100). 월세가 낮을수록 높은
+   * 이 조합·모드 안에서 556개 동 기준 백분위(0~100). 월세가 낮을수록 높은
    * 점수(기존 monthlyRentMan의 dir=-1 관례와 동일). 값이 없으면(전 동
    * 표본 0 등) null.
    */
@@ -338,7 +338,7 @@ export interface CommuteResult {
   hasEstimatedLeg: boolean;
   /**
    * 이 동이 실제로 이용한 그래프 노드. 경로를 되짚는 출발점이다.
-   * 547개 동의 경로를 미리 만들지 않고, 사용자가 선택한 동만 이 값으로 복원한다.
+   * 556개 동의 경로를 미리 만들지 않고, 사용자가 선택한 동만 이 값으로 복원한다.
    */
   viaNodeId: number;
 }

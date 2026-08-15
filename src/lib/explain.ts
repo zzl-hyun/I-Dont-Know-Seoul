@@ -41,7 +41,7 @@ export interface MetricDistribution {
  *
  * 파이프라인에서 미리 계산해 번들에 싣지 않는 이유: 모든 동의 원지표가 이미
  * 번들에 있으므로 여기서 한 번 만들면 되고, 같은 통계를 양쪽에 두면 언젠가
- * 어긋난다. 547개 × 지표 수 정렬은 1ms 미만이다.
+ * 어긋난다. 556개 × 지표 수 정렬은 1ms 미만이다.
  */
 export function buildDistributions(
   scores: Map<string, DongScore>,
