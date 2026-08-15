@@ -5,7 +5,7 @@
  * import하지 않는다. JSON 값만 받아 순수하게 검증한다.
  */
 
-export const EXPECTED_RESIDENTIAL_DONGS = 547;
+export const EXPECTED_RESIDENTIAL_DONGS = 556;
 export const MAX_RESIDENTIAL_PROFILES = 100_000;
 export const MIN_BUS_HEADWAY_MIN = 2;
 export const MAX_BUS_HEADWAY_MIN = 60;

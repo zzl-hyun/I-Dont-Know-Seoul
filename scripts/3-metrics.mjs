@@ -20,7 +20,7 @@
  * 환경변수는 .env 파일이나 셸에서 전달한다:
  *   DATA_GO_KR_KEY=... npm run data:metrics
  */
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { haversineM, pointInGeometry, bbox } from "./lib/geo.mjs";
@@ -68,14 +68,14 @@ const SBIZ_CACHE = join(ROOT, "data/raw/sbiz-stores.json");
 const SEOUL_RENT_DIR = join(ROOT, "data/raw/seoul_rent");
 
 /*
- * OSM POI 수집 범위. 대상 547개 동의 대표점이 위도 37.232~37.684,
+ * OSM POI 수집 범위. 대상 556개 동의 대표점이 위도 37.14~37.684,
  * 경도 126.795~127.182 에 걸쳐 있어 여유를 두고 잡는다. 동 폴리곤은
  * 대표점보다 넓으므로 경계에서 잘리지 않게 넉넉히 둔다.
  *
  * 서울만 볼 때(37.41~37.72)보다 남쪽으로 20km 정도 넓어져 수집량이 늘고
  * data/raw/osm-poi.json 이 커진다. 캐시라 한 번만 받으면 된다.
  */
-const TARGET_BBOX = "37.19,126.72,37.73,127.25";
+const TARGET_BBOX = "37.13,126.72,37.73,127.25";
 
 const OVERPASS_MIRRORS = [
   "https://overpass-api.de/api/interpreter",
@@ -269,7 +269,7 @@ async function main() {
       monthlyRentMan: r?.median ?? null,
       rentSamples: r?.samples ?? 0,
       rentByType: r?.byType ?? null,
-      // 주택유형 조합(15) × 환산모드(2) 원값 — 백분위(pct)는 4-score.mjs가 547개
+      // 주택유형 조합(15) × 환산모드(2) 원값 — 백분위(pct)는 4-score.mjs가 556개
       // 동 전체를 놓고 계산한다(이 시점엔 동 하나만 보이므로 여기선 못 한다).
       rentVariants: rentVariants.get(d.code) ?? null,
       walkToStationMin: round2(walkMin.get(d.code)),
@@ -328,7 +328,7 @@ async function main() {
 }
 
 /* ------------------------------------------------------------------ */
-/* 공간 인덱스 — 547개 폴리곤에 대량 POI를 배정하려면 필요하다.          */
+/* 공간 인덱스 — 556개 폴리곤에 대량 POI를 배정하려면 필요하다.          */
 /* 격자 버킷으로 후보를 줄인 뒤 point-in-polygon 을 돌린다.             */
 /* ------------------------------------------------------------------ */
 
@@ -548,7 +548,7 @@ function verifyCoverage(rows) {
 
   for (const w of warnings) console.log(`  참고 — ${w}`);
 
-  // 통과 시 시 단위 요약만 남긴다 (34개 구를 다 찍으면 정작 경고가 묻힌다)
+  // 통과 시 시 단위 요약만 남긴다 (35개 구를 다 찍으면 정작 경고가 묻힌다)
   const bySi = new Map();
   for (const [gu, ds] of byGu) {
     const si = gu.includes(" ") ? gu.split(" ")[0] : "서울";
@@ -567,7 +567,7 @@ const GRID_POP_100M = join(ROOT, "data/raw/grid-population-100m-2024.json");
  * 계산한 뒤, 인구 가중 중앙값을 쓴다. 양재처럼 생활권과 산지가 한 행정동에
  * 함께 있는 곳에서 산 쪽 중심점 하나가 전체 주민을 대표하던 오류를 피한다.
  *
- * 인구격자가 없는 동은 내부점으로 폴백하지만 전처리 검증상 현재 547/547개
+ * 인구격자가 없는 동은 내부점으로 폴백하지만 전처리 검증상 현재 556/556개
  * 동에 양수 인구격자가 있다.
  */
 async function buildPopulationMedianWalk(dongs, stations) {
@@ -804,7 +804,7 @@ const REQUEST_GAP_MS = 120;
 
 /**
  * 네 엔드포인트 모두 법정동 코드+계약년월로 조회한다. 서울은 페이지 잘림이
- * 없는 파일을 쓰고, 경기 9개 구만 이 API를 끝 페이지까지 읽는다.
+ * 없는 파일을 쓰고, 경기 10개 구만 이 API를 끝 페이지까지 읽는다.
  */
 const ENDPOINTS = [
   { name: "house", url: "https://apis.data.go.kr/1613000/RTMSDataSvcSHRent/getRTMSDataSvcSHRent" },
@@ -834,8 +834,8 @@ function legalDongCandidates(dongName) {
 }
 
 async function fetchRent(key, dongs) {
-  const archivePaths = SEOUL_RENT_ARCHIVE_YEARS.map((year) =>
-    join(SEOUL_RENT_DIR, `seoul_rent_${year}.zip`)
+  const archivePaths = await Promise.all(
+    SEOUL_RENT_ARCHIVE_YEARS.map(resolveSeoulRentSource)
   );
   const seoul = await loadSeoulRentArchives(archivePaths);
   console.log(
@@ -844,7 +844,7 @@ async function fetchRent(key, dongs) {
       `(중복 ${seoul.stats.duplicates.toLocaleString()}건 · 위치 누락 ${seoul.stats.invalidLocation}건 제외)`
   );
 
-  // 서울은 전체 파일을 쓰고, API는 파일이 없는 경기 9개 구만 조회한다.
+  // 서울은 전체 파일을 쓰고, API는 파일이 없는 경기 10개 구만 조회한다.
   const guCodes = [...new Set(dongs.map((d) => d.guCode))].filter((gu) => !gu.startsWith("11"));
   const months = contractMonths(SEOUL_RENT_START_DATE, SEOUL_RENT_END_DATE);
 
@@ -998,6 +998,21 @@ async function fetchRent(key, dongs) {
       },
     },
   };
+}
+
+async function resolveSeoulRentSource(year) {
+  for (const extension of [".zip", ".csv"]) {
+    const path = join(SEOUL_RENT_DIR, `seoul_rent_${year}${extension}`);
+    try {
+      await access(path);
+      return path;
+    } catch {
+      // Try the alternate source format before reporting the missing year.
+    }
+  }
+  throw new Error(
+    `서울 ${year}년 원본이 없습니다 (seoul_rent_${year}.zip 또는 .csv 필요)`
+  );
 }
 
 /* ------------------------------------------------------------------ */

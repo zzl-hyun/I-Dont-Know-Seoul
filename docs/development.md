@@ -40,13 +40,14 @@
 Git에는 `data:access`가 만든 동별 최대 24개 집약 프로필만 포함합니다. 운영 결과가
 완성되면 신청 동의조건에 따라 출처를 표시하고 SGIS에 운영 URL 사본을 제출합니다.
 
-월세는 서울 열린데이터광장의 연도별 전월세가 ZIP을 수동으로 내려받아 다음 이름으로
-둡니다. 세 파일이 모두 있어야 `data:metrics`가 실행됩니다.
+월세는 서울 열린데이터광장의 연도별 전월세가 ZIP 또는 CSV를 수동으로 내려받아 다음
+이름으로 둡니다. 같은 연도에 둘 다 있으면 ZIP을 우선 사용하며, 세 파일이 모두
+있어야 `data:metrics`가 실행됩니다.
 
 ```text
-data/raw/seoul_rent/seoul_rent_2023.zip
-data/raw/seoul_rent/seoul_rent_2024.zip
-data/raw/seoul_rent/seoul_rent_2025.zip
+data/raw/seoul_rent/seoul_rent_2023.{zip,csv}
+data/raw/seoul_rent/seoul_rent_2024.{zip,csv}
+data/raw/seoul_rent/seoul_rent_2025.{zip,csv}
 ```
 
 ### 3. Kakao Local — 자유 주소·장소 검색
@@ -91,7 +92,7 @@ npm run data:boundaries
 # 2) 지하철 그래프 (OpenStreetMap, 키 불필요)
 npm run data:subway
 
-# 3) SGIS 100m 인구 원본 → 로컬 전용 대상 547개 동 스냅샷
+# 3) SGIS 100m 인구 원본 → 로컬 전용 대상 556개 동 스냅샷
 npm run data:population
 
 # 4) 서울·경기 공식 버스 노선 → 정적 버스망
@@ -133,7 +134,7 @@ OSM POI(`osm-poi.json`) 캐시에는 "어떤 범위로 받았는지"(`guCodes` �
 재시도**로 받습니다. 동시 요청 6개로 돌렸더니 약 110건째부터 600건 끝까지 전부
 속도 제한에 걸렸습니다(당시 2개 엔드포인트 기준).
 
-지금은 경기 9개 구 × 36개월 × 4개 유형 = **1,296개 조회 작업**입니다. 1,000건을
+지금은 경기 10개 구 × 36개월 × 4개 유형 = **1,440개 조회 작업**입니다. 1,000건을
 넘는 응답은 다음 페이지도 받아 이번 실측은 1,424회 호출, 약 3분이 걸렸습니다.
 활용신청이 안 된 엔드포인트가 섞이면 재시도 백오프
 때문에 훨씬 오래 걸립니다.

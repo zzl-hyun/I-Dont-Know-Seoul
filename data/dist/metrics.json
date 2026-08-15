@@ -1,6 +1,6 @@
 {
-  "version": "2026-08-13",
-  "generatedAt": "2026-08-13T06:31:25.081Z",
+  "version": "2026-08-15",
+  "generatedAt": "2026-08-15T15:53:36.949Z",
   "sources": {
     "poi": "OpenStreetMap (ODbL) — 버스 정류장",
     "store": "소상공인시장진흥공단 상가업소정보 (공공누리 제1유형) — 편의점·음식점·의료·유흥업소",
@@ -36,9 +36,9 @@
     "seoul": {
       "source": "서울 열린데이터광장 부동산 전월세가 파일",
       "archives": [
-        "seoul_rent_2023.zip",
-        "seoul_rent_2024.zip",
-        "seoul_rent_2025.zip"
+        "seoul_rent_2023.csv",
+        "seoul_rent_2024.csv",
+        "seoul_rent_2025.csv"
       ],
       "records": 519176,
       "duplicatesRemoved": 150582,
@@ -46,8 +46,8 @@
     },
     "gyeonggi": {
       "source": "국토교통부 전월세 실거래가 API",
-      "records": 114042,
-      "calls": 1424
+      "records": 130565,
+      "calls": 1611
     }
   },
   "dongs": [
@@ -60263,7 +60263,7 @@
           }
         }
       },
-      "walkToStationMin": 7.63
+      "walkToStationMin": 7.51
     },
     {
       "code": "1168070000",
@@ -60424,7 +60424,7 @@
           }
         }
       },
-      "walkToStationMin": 31.24
+      "walkToStationMin": 31.18
     },
     {
       "code": "1168054500",
@@ -68498,7 +68498,7 @@
         },
         "rowhouse": {
           "medianMan": 47.29,
-          "samples": 2762
+          "samples": 2763
         },
         "officetel": {
           "medianMan": 51.29,
@@ -68981,7 +68981,7 @@
         },
         "rowhouse": {
           "medianMan": 42.29,
-          "samples": 221
+          "samples": 222
         },
         "officetel": {
           "medianMan": null,
@@ -69000,7 +69000,7 @@
           },
           "rowhouse": {
             "medianMan": 42.29,
-            "samples": 221
+            "samples": 222
           },
           "officetel": {
             "medianMan": 51.29,
@@ -69012,7 +69012,7 @@
           },
           "house+rowhouse": {
             "medianMan": 39.38,
-            "samples": 1058
+            "samples": 1059
           },
           "house+officetel": {
             "medianMan": 37.92,
@@ -69024,11 +69024,11 @@
           },
           "rowhouse+officetel": {
             "medianMan": 42.29,
-            "samples": 221
+            "samples": 222
           },
           "rowhouse+apartment": {
             "medianMan": 44.29,
-            "samples": 253
+            "samples": 254
           },
           "officetel+apartment": {
             "medianMan": 63.9,
@@ -69036,11 +69036,11 @@
           },
           "house+rowhouse+officetel": {
             "medianMan": 39.38,
-            "samples": 1058
+            "samples": 1059
           },
           "house+rowhouse+apartment": {
             "medianMan": 40.29,
-            "samples": 1090
+            "samples": 1091
           },
           "house+officetel+apartment": {
             "medianMan": 39.17,
@@ -69048,11 +69048,11 @@
           },
           "rowhouse+officetel+apartment": {
             "medianMan": 44.29,
-            "samples": 253
+            "samples": 254
           },
           "house+rowhouse+officetel+apartment": {
             "medianMan": 40.29,
-            "samples": 1090
+            "samples": 1091
           }
         },
         "raw": {
@@ -69062,7 +69062,7 @@
           },
           "rowhouse": {
             "medianMan": 40,
-            "samples": 221
+            "samples": 222
           },
           "officetel": {
             "medianMan": 45,
@@ -69074,7 +69074,7 @@
           },
           "house+rowhouse": {
             "medianMan": 37,
-            "samples": 1058
+            "samples": 1059
           },
           "house+officetel": {
             "medianMan": 35,
@@ -69086,11 +69086,11 @@
           },
           "rowhouse+officetel": {
             "medianMan": 40,
-            "samples": 221
+            "samples": 222
           },
           "rowhouse+apartment": {
             "medianMan": 40,
-            "samples": 253
+            "samples": 254
           },
           "officetel+apartment": {
             "medianMan": 60,
@@ -69098,11 +69098,11 @@
           },
           "house+rowhouse+officetel": {
             "medianMan": 37,
-            "samples": 1058
+            "samples": 1059
           },
           "house+rowhouse+apartment": {
             "medianMan": 37,
-            "samples": 1090
+            "samples": 1091
           },
           "house+officetel+apartment": {
             "medianMan": 35,
@@ -69110,11 +69110,11 @@
           },
           "rowhouse+officetel+apartment": {
             "medianMan": 40,
-            "samples": 253
+            "samples": 254
           },
           "house+rowhouse+officetel+apartment": {
             "medianMan": 37,
-            "samples": 1090
+            "samples": 1091
           }
         }
       },
@@ -72514,12 +72514,12 @@
       "cctvPerKm2": null,
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 55.35,
-      "monthlyRentMan": 50.92,
+      "monthlyRentMan": 50.88,
       "rentSamples": 0,
       "rentByType": {
         "house": {
           "medianMan": 42.29,
-          "samples": 3448
+          "samples": 3449
         },
         "rowhouse": {
           "medianMan": 52.29,
@@ -72553,7 +72553,7 @@
             "samples": 0
           },
           "house+rowhouse": {
-            "medianMan": 44.92,
+            "medianMan": 44.9,
             "samples": 0
           },
           "house+officetel": {
@@ -72585,7 +72585,7 @@
             "samples": 0
           },
           "house+officetel+apartment": {
-            "medianMan": 50.92,
+            "medianMan": 50.88,
             "samples": 0
           },
           "rowhouse+officetel+apartment": {
@@ -72837,11 +72837,11 @@
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 44.06,
       "monthlyRentMan": 52.29,
-      "rentSamples": 1043,
+      "rentSamples": 1044,
       "rentByType": {
         "house": {
-          "medianMan": 41.1,
-          "samples": 602
+          "medianMan": 40.92,
+          "samples": 603
         },
         "rowhouse": {
           "medianMan": 48.33,
@@ -72859,8 +72859,8 @@
       "rentVariants": {
         "converted": {
           "house": {
-            "medianMan": 41.1,
-            "samples": 602
+            "medianMan": 40.92,
+            "samples": 603
           },
           "rowhouse": {
             "medianMan": 48.33,
@@ -72876,15 +72876,15 @@
           },
           "house+rowhouse": {
             "medianMan": 41.58,
-            "samples": 745
+            "samples": 746
           },
           "house+officetel": {
-            "medianMan": 41.1,
-            "samples": 602
+            "medianMan": 40.92,
+            "samples": 603
           },
           "house+apartment": {
             "medianMan": 52.29,
-            "samples": 1043
+            "samples": 1044
           },
           "rowhouse+officetel": {
             "medianMan": 48.33,
@@ -72900,29 +72900,29 @@
           },
           "house+rowhouse+officetel": {
             "medianMan": 41.58,
-            "samples": 745
+            "samples": 746
           },
           "house+rowhouse+apartment": {
-            "medianMan": 51.48,
-            "samples": 1186
+            "medianMan": 51.38,
+            "samples": 1187
           },
           "house+officetel+apartment": {
             "medianMan": 52.29,
-            "samples": 1043
+            "samples": 1044
           },
           "rowhouse+officetel+apartment": {
             "medianMan": 94.17,
             "samples": 584
           },
           "house+rowhouse+officetel+apartment": {
-            "medianMan": 51.48,
-            "samples": 1186
+            "medianMan": 51.38,
+            "samples": 1187
           }
         },
         "raw": {
           "house": {
             "medianMan": 40,
-            "samples": 602
+            "samples": 603
           },
           "rowhouse": {
             "medianMan": 38,
@@ -72938,15 +72938,15 @@
           },
           "house+rowhouse": {
             "medianMan": 40,
-            "samples": 745
+            "samples": 746
           },
           "house+officetel": {
             "medianMan": 40,
-            "samples": 602
+            "samples": 603
           },
           "house+apartment": {
             "medianMan": 45,
-            "samples": 1043
+            "samples": 1044
           },
           "rowhouse+officetel": {
             "medianMan": 38,
@@ -72962,15 +72962,15 @@
           },
           "house+rowhouse+officetel": {
             "medianMan": 40,
-            "samples": 745
+            "samples": 746
           },
           "house+rowhouse+apartment": {
             "medianMan": 45,
-            "samples": 1186
+            "samples": 1187
           },
           "house+officetel+apartment": {
             "medianMan": 45,
-            "samples": 1043
+            "samples": 1044
           },
           "rowhouse+officetel+apartment": {
             "medianMan": 80,
@@ -72978,7 +72978,7 @@
           },
           "house+rowhouse+officetel+apartment": {
             "medianMan": 45,
-            "samples": 1186
+            "samples": 1187
           }
         }
       },
@@ -72998,11 +72998,11 @@
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 7.69,
       "monthlyRentMan": 52.29,
-      "rentSamples": 1043,
+      "rentSamples": 1044,
       "rentByType": {
         "house": {
-          "medianMan": 41.1,
-          "samples": 602
+          "medianMan": 40.92,
+          "samples": 603
         },
         "rowhouse": {
           "medianMan": 48.33,
@@ -73020,8 +73020,8 @@
       "rentVariants": {
         "converted": {
           "house": {
-            "medianMan": 41.1,
-            "samples": 602
+            "medianMan": 40.92,
+            "samples": 603
           },
           "rowhouse": {
             "medianMan": 48.33,
@@ -73037,15 +73037,15 @@
           },
           "house+rowhouse": {
             "medianMan": 41.58,
-            "samples": 745
+            "samples": 746
           },
           "house+officetel": {
-            "medianMan": 41.1,
-            "samples": 602
+            "medianMan": 40.92,
+            "samples": 603
           },
           "house+apartment": {
             "medianMan": 52.29,
-            "samples": 1043
+            "samples": 1044
           },
           "rowhouse+officetel": {
             "medianMan": 48.33,
@@ -73061,29 +73061,29 @@
           },
           "house+rowhouse+officetel": {
             "medianMan": 41.58,
-            "samples": 745
+            "samples": 746
           },
           "house+rowhouse+apartment": {
-            "medianMan": 51.48,
-            "samples": 1186
+            "medianMan": 51.38,
+            "samples": 1187
           },
           "house+officetel+apartment": {
             "medianMan": 52.29,
-            "samples": 1043
+            "samples": 1044
           },
           "rowhouse+officetel+apartment": {
             "medianMan": 94.17,
             "samples": 584
           },
           "house+rowhouse+officetel+apartment": {
-            "medianMan": 51.48,
-            "samples": 1186
+            "medianMan": 51.38,
+            "samples": 1187
           }
         },
         "raw": {
           "house": {
             "medianMan": 40,
-            "samples": 602
+            "samples": 603
           },
           "rowhouse": {
             "medianMan": 38,
@@ -73099,15 +73099,15 @@
           },
           "house+rowhouse": {
             "medianMan": 40,
-            "samples": 745
+            "samples": 746
           },
           "house+officetel": {
             "medianMan": 40,
-            "samples": 602
+            "samples": 603
           },
           "house+apartment": {
             "medianMan": 45,
-            "samples": 1043
+            "samples": 1044
           },
           "rowhouse+officetel": {
             "medianMan": 38,
@@ -73123,15 +73123,15 @@
           },
           "house+rowhouse+officetel": {
             "medianMan": 40,
-            "samples": 745
+            "samples": 746
           },
           "house+rowhouse+apartment": {
             "medianMan": 45,
-            "samples": 1186
+            "samples": 1187
           },
           "house+officetel+apartment": {
             "medianMan": 45,
-            "samples": 1043
+            "samples": 1044
           },
           "rowhouse+officetel+apartment": {
             "medianMan": 80,
@@ -73139,7 +73139,7 @@
           },
           "house+rowhouse+officetel+apartment": {
             "medianMan": 45,
-            "samples": 1186
+            "samples": 1187
           }
         }
       },
@@ -73158,12 +73158,12 @@
       "cctvPerKm2": null,
       "crimePer1k": 9.13,
       "trafficAccidentPerKm2": 93.91,
-      "monthlyRentMan": 50.92,
+      "monthlyRentMan": 50.88,
       "rentSamples": 0,
       "rentByType": {
         "house": {
           "medianMan": 42.29,
-          "samples": 3448
+          "samples": 3449
         },
         "rowhouse": {
           "medianMan": 52.29,
@@ -73197,7 +73197,7 @@
             "samples": 0
           },
           "house+rowhouse": {
-            "medianMan": 44.92,
+            "medianMan": 44.9,
             "samples": 0
           },
           "house+officetel": {
@@ -73229,7 +73229,7 @@
             "samples": 0
           },
           "house+officetel+apartment": {
-            "medianMan": 50.92,
+            "medianMan": 50.88,
             "samples": 0
           },
           "rowhouse+officetel+apartment": {
@@ -77506,7 +77506,7 @@
       "crimePer1k": 8.07,
       "trafficAccidentPerKm2": 96.16,
       "monthlyRentMan": 69.58,
-      "rentSamples": 2690,
+      "rentSamples": 2691,
       "rentByType": {
         "house": {
           "medianMan": 49.17,
@@ -77517,8 +77517,8 @@
           "samples": 124
         },
         "officetel": {
-          "medianMan": 75.42,
-          "samples": 1703
+          "medianMan": 75.4,
+          "samples": 1704
         },
         "apartment": {
           "medianMan": 62.58,
@@ -77536,8 +77536,8 @@
             "samples": 124
           },
           "officetel": {
-            "medianMan": 75.42,
-            "samples": 1703
+            "medianMan": 75.4,
+            "samples": 1704
           },
           "apartment": {
             "medianMan": 62.58,
@@ -77549,7 +77549,7 @@
           },
           "house+officetel": {
             "medianMan": 71.58,
-            "samples": 2517
+            "samples": 2518
           },
           "house+apartment": {
             "medianMan": 49.58,
@@ -77557,7 +77557,7 @@
           },
           "rowhouse+officetel": {
             "medianMan": 74.58,
-            "samples": 1827
+            "samples": 1828
           },
           "rowhouse+apartment": {
             "medianMan": 61.38,
@@ -77565,11 +77565,11 @@
           },
           "officetel+apartment": {
             "medianMan": 74.58,
-            "samples": 1876
+            "samples": 1877
           },
           "house+rowhouse+officetel": {
             "medianMan": 69.58,
-            "samples": 2641
+            "samples": 2642
           },
           "house+rowhouse+apartment": {
             "medianMan": 51.38,
@@ -77577,15 +77577,15 @@
           },
           "house+officetel+apartment": {
             "medianMan": 69.58,
-            "samples": 2690
+            "samples": 2691
           },
           "rowhouse+officetel+apartment": {
             "medianMan": 74.58,
-            "samples": 2000
+            "samples": 2001
           },
           "house+rowhouse+officetel+apartment": {
             "medianMan": 69.58,
-            "samples": 2814
+            "samples": 2815
           }
         },
         "raw": {
@@ -77599,7 +77599,7 @@
           },
           "officetel": {
             "medianMan": 65,
-            "samples": 1703
+            "samples": 1704
           },
           "apartment": {
             "medianMan": 45,
@@ -77611,7 +77611,7 @@
           },
           "house+officetel": {
             "medianMan": 55,
-            "samples": 2517
+            "samples": 2518
           },
           "house+apartment": {
             "medianMan": 45,
@@ -77619,7 +77619,7 @@
           },
           "rowhouse+officetel": {
             "medianMan": 63,
-            "samples": 1827
+            "samples": 1828
           },
           "rowhouse+apartment": {
             "medianMan": 43,
@@ -77627,11 +77627,11 @@
           },
           "officetel+apartment": {
             "medianMan": 65,
-            "samples": 1876
+            "samples": 1877
           },
           "house+rowhouse+officetel": {
             "medianMan": 52,
-            "samples": 2641
+            "samples": 2642
           },
           "house+rowhouse+apartment": {
             "medianMan": 45,
@@ -77639,15 +77639,15 @@
           },
           "house+officetel+apartment": {
             "medianMan": 55,
-            "samples": 2690
+            "samples": 2691
           },
           "rowhouse+officetel+apartment": {
-            "medianMan": 62.5,
-            "samples": 2000
+            "medianMan": 63,
+            "samples": 2001
           },
           "house+rowhouse+officetel+apartment": {
             "medianMan": 51,
-            "samples": 2814
+            "samples": 2815
           }
         }
       },
@@ -80710,7 +80710,7 @@
           }
         }
       },
-      "walkToStationMin": 11
+      "walkToStationMin": 10.82
     },
     {
       "code": "4113561000",
@@ -80871,7 +80871,7 @@
           }
         }
       },
-      "walkToStationMin": 14.09
+      "walkToStationMin": 14.68
     },
     {
       "code": "4113562000",
@@ -82159,7 +82159,7 @@
           }
         }
       },
-      "walkToStationMin": 15.91
+      "walkToStationMin": 16.6
     },
     {
       "code": "4113565000",
@@ -82481,7 +82481,7 @@
           }
         }
       },
-      "walkToStationMin": 10.31
+      "walkToStationMin": 9.93
     },
     {
       "code": "4113555000",
@@ -83133,7 +83133,7 @@
       "gu": "용인시 기흥구",
       "areaKm2": 11.6588,
       "storePerKm2": 3.77,
-      "foodPerKm2": 21.44,
+      "foodPerKm2": 21.61,
       "medicalPerKm2": 1.2,
       "nightlifePerKm2": 0,
       "busStopPerKm2": 6.78,
@@ -83145,7 +83145,7 @@
       "rentByType": {
         "house": {
           "medianMan": 47.29,
-          "samples": 5694
+          "samples": 5696
         },
         "rowhouse": {
           "medianMan": 56.29,
@@ -83306,7 +83306,7 @@
       "rentByType": {
         "house": {
           "medianMan": 47.29,
-          "samples": 5694
+          "samples": 5696
         },
         "rowhouse": {
           "medianMan": 56.29,
@@ -83467,7 +83467,7 @@
       "rentByType": {
         "house": {
           "medianMan": 47.29,
-          "samples": 5694
+          "samples": 5696
         },
         "rowhouse": {
           "medianMan": 56.29,
@@ -83769,7 +83769,7 @@
           }
         }
       },
-      "walkToStationMin": 19.09
+      "walkToStationMin": 19.37
     },
     {
       "code": "4146357700",
@@ -86026,6 +86026,650 @@
       "walkToStationMin": 19.44
     },
     {
+      "code": "4159756000",
+      "name": "화성시 동탄구 동탄6동",
+      "gu": "화성시 동탄구",
+      "areaKm2": 9.3759,
+      "storePerKm2": 8.85,
+      "foodPerKm2": 75.19,
+      "medicalPerKm2": 10.03,
+      "nightlifePerKm2": 0.43,
+      "busStopPerKm2": 6.29,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.68,
+      "trafficAccidentPerKm2": 0.53,
+      "monthlyRentMan": 53.75,
+      "rentSamples": 0,
+      "rentByType": {
+        "house": {
+          "medianMan": 49.29,
+          "samples": 814
+        },
+        "rowhouse": {
+          "medianMan": 41.38,
+          "samples": 35
+        },
+        "officetel": {
+          "medianMan": 59.58,
+          "samples": 6864
+        },
+        "apartment": {
+          "medianMan": 45.16,
+          "samples": 8805
+        }
+      },
+      "rentVariants": {
+        "converted": {
+          "house": {
+            "medianMan": 49.29,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 41.38,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 59.58,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 49.17,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 59.5,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 54.38,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 54.29,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          }
+        },
+        "raw": {
+          "house": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 40,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          }
+        }
+      },
+      "walkToStationMin": 15.39
+    },
+    {
+      "code": "4159752000",
+      "name": "화성시 동탄구 동탄2동",
+      "gu": "화성시 동탄구",
+      "areaKm2": 2.4725,
+      "storePerKm2": 15.77,
+      "foodPerKm2": 78.46,
+      "medicalPerKm2": 16.99,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 16.18,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.68,
+      "trafficAccidentPerKm2": 7.68,
+      "monthlyRentMan": 53.75,
+      "rentSamples": 0,
+      "rentByType": {
+        "house": {
+          "medianMan": 49.29,
+          "samples": 814
+        },
+        "rowhouse": {
+          "medianMan": 41.38,
+          "samples": 35
+        },
+        "officetel": {
+          "medianMan": 59.58,
+          "samples": 6864
+        },
+        "apartment": {
+          "medianMan": 45.16,
+          "samples": 8805
+        }
+      },
+      "rentVariants": {
+        "converted": {
+          "house": {
+            "medianMan": 49.29,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 41.38,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 59.58,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 49.17,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 59.5,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 54.38,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 54.29,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          }
+        },
+        "raw": {
+          "house": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 40,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          }
+        }
+      },
+      "walkToStationMin": 37.44
+    },
+    {
+      "code": "4159751000",
+      "name": "화성시 동탄구 동탄1동",
+      "gu": "화성시 동탄구",
+      "areaKm2": 5.0273,
+      "storePerKm2": 23.27,
+      "foodPerKm2": 229.94,
+      "medicalPerKm2": 26.06,
+      "nightlifePerKm2": 11.54,
+      "busStopPerKm2": 12.93,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.68,
+      "trafficAccidentPerKm2": 6.37,
+      "monthlyRentMan": 53.75,
+      "rentSamples": 0,
+      "rentByType": {
+        "house": {
+          "medianMan": 49.29,
+          "samples": 814
+        },
+        "rowhouse": {
+          "medianMan": 41.38,
+          "samples": 35
+        },
+        "officetel": {
+          "medianMan": 59.58,
+          "samples": 6864
+        },
+        "apartment": {
+          "medianMan": 45.16,
+          "samples": 8805
+        }
+      },
+      "rentVariants": {
+        "converted": {
+          "house": {
+            "medianMan": 49.29,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 41.38,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 59.58,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 49.17,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 59.5,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 54.38,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 54.29,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          }
+        },
+        "raw": {
+          "house": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 40,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          }
+        }
+      },
+      "walkToStationMin": 40.02
+    },
+    {
+      "code": "4159753000",
+      "name": "화성시 동탄구 동탄3동",
+      "gu": "화성시 동탄구",
+      "areaKm2": 1.9269,
+      "storePerKm2": 28.02,
+      "foodPerKm2": 123,
+      "medicalPerKm2": 24.91,
+      "nightlifePerKm2": 1.56,
+      "busStopPerKm2": 12.97,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.68,
+      "trafficAccidentPerKm2": 4.67,
+      "monthlyRentMan": 53.75,
+      "rentSamples": 0,
+      "rentByType": {
+        "house": {
+          "medianMan": 49.29,
+          "samples": 814
+        },
+        "rowhouse": {
+          "medianMan": 41.38,
+          "samples": 35
+        },
+        "officetel": {
+          "medianMan": 59.58,
+          "samples": 6864
+        },
+        "apartment": {
+          "medianMan": 45.16,
+          "samples": 8805
+        }
+      },
+      "rentVariants": {
+        "converted": {
+          "house": {
+            "medianMan": 49.29,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 41.38,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 59.58,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 49.17,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 59.5,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 54.38,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 54.29,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          }
+        },
+        "raw": {
+          "house": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 40,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          }
+        }
+      },
+      "walkToStationMin": 28
+    },
+    {
       "code": "4113162500",
       "name": "성남시 수정구 위례동",
       "gu": "성남시 수정구",
@@ -86509,6 +87153,328 @@
       "walkToStationMin": 11.18
     },
     {
+      "code": "4159755000",
+      "name": "화성시 동탄구 동탄5동",
+      "gu": "화성시 동탄구",
+      "areaKm2": 11.3217,
+      "storePerKm2": 10.25,
+      "foodPerKm2": 75.96,
+      "medicalPerKm2": 5.3,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 6.36,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.68,
+      "trafficAccidentPerKm2": 0,
+      "monthlyRentMan": 53.75,
+      "rentSamples": 0,
+      "rentByType": {
+        "house": {
+          "medianMan": 49.29,
+          "samples": 814
+        },
+        "rowhouse": {
+          "medianMan": 41.38,
+          "samples": 35
+        },
+        "officetel": {
+          "medianMan": 59.58,
+          "samples": 6864
+        },
+        "apartment": {
+          "medianMan": 45.16,
+          "samples": 8805
+        }
+      },
+      "rentVariants": {
+        "converted": {
+          "house": {
+            "medianMan": 49.29,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 41.38,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 59.58,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 49.17,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 59.5,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 54.38,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 54.29,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          }
+        },
+        "raw": {
+          "house": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 40,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          }
+        }
+      },
+      "walkToStationMin": 38.59
+    },
+    {
+      "code": "4159754000",
+      "name": "화성시 동탄구 동탄4동",
+      "gu": "화성시 동탄구",
+      "areaKm2": 4.2282,
+      "storePerKm2": 9.93,
+      "foodPerKm2": 47.77,
+      "medicalPerKm2": 10.17,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 6.39,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.68,
+      "trafficAccidentPerKm2": 2.6,
+      "monthlyRentMan": 53.75,
+      "rentSamples": 0,
+      "rentByType": {
+        "house": {
+          "medianMan": 49.29,
+          "samples": 814
+        },
+        "rowhouse": {
+          "medianMan": 41.38,
+          "samples": 35
+        },
+        "officetel": {
+          "medianMan": 59.58,
+          "samples": 6864
+        },
+        "apartment": {
+          "medianMan": 45.16,
+          "samples": 8805
+        }
+      },
+      "rentVariants": {
+        "converted": {
+          "house": {
+            "medianMan": 49.29,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 41.38,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 59.58,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 49.17,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 59.5,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 54.38,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 54.29,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          }
+        },
+        "raw": {
+          "house": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 40,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          }
+        }
+      },
+      "walkToStationMin": 32.12
+    },
+    {
       "code": "4111759600",
       "name": "수원시 영통구 망포2동",
       "gu": "수원시 영통구",
@@ -86668,6 +87634,328 @@
         }
       },
       "walkToStationMin": 20.89
+    },
+    {
+      "code": "4159757000",
+      "name": "화성시 동탄구 동탄7동",
+      "gu": "화성시 동탄구",
+      "areaKm2": 4.7409,
+      "storePerKm2": 16.45,
+      "foodPerKm2": 145.75,
+      "medicalPerKm2": 18.14,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 9.49,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.68,
+      "trafficAccidentPerKm2": 2.32,
+      "monthlyRentMan": 53.75,
+      "rentSamples": 0,
+      "rentByType": {
+        "house": {
+          "medianMan": 49.29,
+          "samples": 814
+        },
+        "rowhouse": {
+          "medianMan": 41.38,
+          "samples": 35
+        },
+        "officetel": {
+          "medianMan": 59.58,
+          "samples": 6864
+        },
+        "apartment": {
+          "medianMan": 45.16,
+          "samples": 8805
+        }
+      },
+      "rentVariants": {
+        "converted": {
+          "house": {
+            "medianMan": 49.29,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 41.38,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 59.58,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 49.17,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 59.5,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 54.38,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 54.29,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          }
+        },
+        "raw": {
+          "house": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 40,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          }
+        }
+      },
+      "walkToStationMin": 74.87
+    },
+    {
+      "code": "4159758000",
+      "name": "화성시 동탄구 동탄8동",
+      "gu": "화성시 동탄구",
+      "areaKm2": 6.5606,
+      "storePerKm2": 7.01,
+      "foodPerKm2": 24.69,
+      "medicalPerKm2": 2.59,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 8.38,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.68,
+      "trafficAccidentPerKm2": 0.61,
+      "monthlyRentMan": 53.75,
+      "rentSamples": 0,
+      "rentByType": {
+        "house": {
+          "medianMan": 49.29,
+          "samples": 814
+        },
+        "rowhouse": {
+          "medianMan": 41.38,
+          "samples": 35
+        },
+        "officetel": {
+          "medianMan": 59.58,
+          "samples": 6864
+        },
+        "apartment": {
+          "medianMan": 45.16,
+          "samples": 8805
+        }
+      },
+      "rentVariants": {
+        "converted": {
+          "house": {
+            "medianMan": 49.29,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 41.38,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 59.58,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 49.17,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 59.5,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 54.38,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 54.29,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          }
+        },
+        "raw": {
+          "house": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 40,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          }
+        }
+      },
+      "walkToStationMin": 83.65
     },
     {
       "code": "1153078000",
@@ -87005,11 +88293,11 @@
       "crimePer1k": 6.17,
       "trafficAccidentPerKm2": 1.53,
       "monthlyRentMan": 46.38,
-      "rentSamples": 718,
+      "rentSamples": 720,
       "rentByType": {
         "house": {
           "medianMan": 40.29,
-          "samples": 505
+          "samples": 507
         },
         "rowhouse": {
           "medianMan": 42.29,
@@ -87028,7 +88316,7 @@
         "converted": {
           "house": {
             "medianMan": 40.29,
-            "samples": 505
+            "samples": 507
           },
           "rowhouse": {
             "medianMan": 42.29,
@@ -87044,15 +88332,15 @@
           },
           "house+rowhouse": {
             "medianMan": 40.29,
-            "samples": 526
+            "samples": 528
           },
           "house+officetel": {
             "medianMan": 40.29,
-            "samples": 505
+            "samples": 507
           },
           "house+apartment": {
             "medianMan": 46.38,
-            "samples": 718
+            "samples": 720
           },
           "rowhouse+officetel": {
             "medianMan": 42.29,
@@ -87068,15 +88356,15 @@
           },
           "house+rowhouse+officetel": {
             "medianMan": 40.29,
-            "samples": 526
+            "samples": 528
           },
           "house+rowhouse+apartment": {
             "medianMan": 45.29,
-            "samples": 739
+            "samples": 741
           },
           "house+officetel+apartment": {
             "medianMan": 46.38,
-            "samples": 718
+            "samples": 720
           },
           "rowhouse+officetel+apartment": {
             "medianMan": 99.58,
@@ -87084,13 +88372,13 @@
           },
           "house+rowhouse+officetel+apartment": {
             "medianMan": 45.29,
-            "samples": 739
+            "samples": 741
           }
         },
         "raw": {
           "house": {
             "medianMan": 37,
-            "samples": 505
+            "samples": 507
           },
           "rowhouse": {
             "medianMan": 40,
@@ -87106,15 +88394,15 @@
           },
           "house+rowhouse": {
             "medianMan": 37,
-            "samples": 526
+            "samples": 528
           },
           "house+officetel": {
             "medianMan": 37,
-            "samples": 505
+            "samples": 507
           },
           "house+apartment": {
-            "medianMan": 40.5,
-            "samples": 718
+            "medianMan": 40,
+            "samples": 720
           },
           "rowhouse+officetel": {
             "medianMan": 40,
@@ -87130,15 +88418,15 @@
           },
           "house+rowhouse+officetel": {
             "medianMan": 37,
-            "samples": 526
+            "samples": 528
           },
           "house+rowhouse+apartment": {
             "medianMan": 40,
-            "samples": 739
+            "samples": 741
           },
           "house+officetel+apartment": {
-            "medianMan": 40.5,
-            "samples": 718
+            "medianMan": 40,
+            "samples": 720
           },
           "rowhouse+officetel+apartment": {
             "medianMan": 70,
@@ -87146,7 +88434,7 @@
           },
           "house+rowhouse+officetel+apartment": {
             "medianMan": 40,
-            "samples": 739
+            "samples": 741
           }
         }
       },
@@ -87956,6 +89244,167 @@
         }
       },
       "walkToStationMin": 15.96
+    },
+    {
+      "code": "4159759000",
+      "name": "화성시 동탄구 동탄9동",
+      "gu": "화성시 동탄구",
+      "areaKm2": 10.0353,
+      "storePerKm2": 3.19,
+      "foodPerKm2": 21.52,
+      "medicalPerKm2": 4.09,
+      "nightlifePerKm2": 0,
+      "busStopPerKm2": 2.89,
+      "cctvPerKm2": null,
+      "crimePer1k": 6.68,
+      "trafficAccidentPerKm2": 0.2,
+      "monthlyRentMan": 53.75,
+      "rentSamples": 0,
+      "rentByType": {
+        "house": {
+          "medianMan": 49.29,
+          "samples": 814
+        },
+        "rowhouse": {
+          "medianMan": 41.38,
+          "samples": 35
+        },
+        "officetel": {
+          "medianMan": 59.58,
+          "samples": 6864
+        },
+        "apartment": {
+          "medianMan": 45.16,
+          "samples": 8805
+        }
+      },
+      "rentVariants": {
+        "converted": {
+          "house": {
+            "medianMan": 49.29,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 41.38,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 59.58,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 49.17,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 59.5,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 45.16,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 54.38,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 57.29,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 45.87,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 54.29,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 53.75,
+            "samples": 0
+          }
+        },
+        "raw": {
+          "house": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "rowhouse": {
+            "medianMan": 40,
+            "samples": 0
+          },
+          "officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "house+rowhouse": {
+            "medianMan": 45,
+            "samples": 0
+          },
+          "house+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "rowhouse+apartment": {
+            "medianMan": 24,
+            "samples": 0
+          },
+          "officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel": {
+            "medianMan": 50,
+            "samples": 0
+          },
+          "house+rowhouse+apartment": {
+            "medianMan": 25,
+            "samples": 0
+          },
+          "house+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          },
+          "rowhouse+officetel+apartment": {
+            "medianMan": 35,
+            "samples": 0
+          },
+          "house+rowhouse+officetel+apartment": {
+            "medianMan": 37,
+            "samples": 0
+          }
+        }
+      },
+      "walkToStationMin": 64.17
     },
     {
       "code": "1123053300",

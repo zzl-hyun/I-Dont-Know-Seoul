@@ -115,12 +115,16 @@ describe("서울 전월세 CSV 파서", () => {
 });
 
 const rawRoot = join(process.cwd(), "data/raw/seoul_rent");
-const archivePaths = SEOUL_RENT_ARCHIVE_YEARS.map((year) =>
-  join(rawRoot, `seoul_rent_${year}.zip`)
-);
-const hasRawArchives = archivePaths.every(existsSync);
+const archivePaths = SEOUL_RENT_ARCHIVE_YEARS.map((year) => {
+  for (const extension of [".zip", ".csv"]) {
+    const path = join(rawRoot, `seoul_rent_${year}${extension}`);
+    if (existsSync(path)) return path;
+  }
+  return join(rawRoot, `seoul_rent_${year}.zip`);
+});
+const hasRawSources = archivePaths.every(existsSync);
 
-describe.runIf(hasRawArchives)("서울 전월세 원본 3개년 통합", () => {
+describe.runIf(hasRawSources)("서울 전월세 원본 3개년 통합", () => {
   it(
     "현재 스냅샷에서 위치가 있는 신규 소형 월세 519,176건을 중복 없이 만든다",
     async () => {

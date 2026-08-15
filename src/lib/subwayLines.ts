@@ -4,7 +4,7 @@ import type { SubwayGraph } from "../types";
 /**
  * 지하철 노선도 오버레이용 GeoJSON 생성.
  *
- * 추가로 받아오는 데이터가 없다. 역 좌표(623개)와 노선 연결 관계는 이미 통근
+ * 추가로 받아오는 데이터가 없다. 역 좌표(624개)와 노선 연결 관계는 이미 통근
  * 계산용으로 번들에 실려 있어서, 그대로 다시 읽어 그리기만 한다.
  */
 
@@ -53,6 +53,7 @@ export function lineName(line: string): string {
     AREX: "공항철도",
     인천1: "인천 1호선",
     I2: "인천 2호선",
+    "GTX-A": "GTX-A",
   };
   return alias[line] ?? `${line}선`.replace(/선선$/, "선");
 }

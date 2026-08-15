@@ -59,7 +59,7 @@ const MAP_THEME = {
 /*
  * 대상 지역 전체(서울 + 수원·성남·용인)를 담는 범위.
  *
- * 폴리곤 실측이 위도 37.216~37.701, 경도 126.765~127.196 이다. 서울만 볼 때의
+ * 폴리곤 실측이 위도 37.14~37.701, 경도 126.765~127.196 이다. 서울만 볼 때의
  * 남쪽 한계는 37.34 였는데 그대로 두면 수원·용인이 14km 잘린다.
  *
  * 중심은 두 지역의 기하학적 중앙(37.458)이 아니라 조금 북쪽으로 둔다 —
@@ -67,7 +67,7 @@ const MAP_THEME = {
  */
 const MAP_CENTER: [number, number] = [126.99, 37.5];
 const MAP_BOUNDS: [[number, number], [number, number]] = [
-  [126.7, 37.16],
+  [126.7, 37.12],
   [127.26, 37.76],
 ];
 
@@ -209,7 +209,7 @@ export default function MapView({
    * scheduleFade 참고).
    *
    * fadeSettled: 동 코드 → 마지막으로 정착한(애니메이션 끝난) 목표 상태.
-   * 다음 변경이 왔을 때 "진짜로 바뀌었는지" 비교하는 기준이다 — 547개
+   * 다음 변경이 왔을 때 "진짜로 바뀌었는지" 비교하는 기준이다 — 556개
    * 전부를 매번 다시 스냅샷 찍지 않고 실제로 바뀐 동만 애니메이션 대상에
    * 올리기 위함(성능).
    * fadeAnim: 지금 애니메이션 중인 동만 담는다. 중간에 목표가 또 바뀌면
@@ -302,7 +302,7 @@ export default function MapView({
     /*
      * 색은 전부 feature-state 기반 표현식으로 계산한다.
      * 이렇게 하면 가중치·통근시간 슬라이더를 움직일 때 지오메트리를 다시
-     * 보내지 않고 상태값만 갱신하면 되므로 547개 폴리곤도 즉시 반응한다.
+     * 보내지 않고 상태값만 갱신하면 되므로 556개 폴리곤도 즉시 반응한다.
      */
     map.addLayer({
       id: "dong-fill",
@@ -600,7 +600,7 @@ export default function MapView({
       if (!meta) return;
       const html = tooltipHtml(meta.name, view, stateRef.current.hasDestination);
       popup.setLngLat(e.lngLat).setHTML(html).addTo(map);
-      // 547개 폴리곤을 스치듯 지날 때 mousemove마다 리렌더가 나지 않도록 값이 실제로 바뀔 때만 알린다
+      // 556개 폴리곤을 스치듯 지날 때 mousemove마다 리렌더가 나지 않도록 값이 실제로 바뀔 때만 알린다
       if (lastHoveredOnMap.current !== code) {
         lastHoveredOnMap.current = code;
         stateRef.current.onHoverDong(code);
@@ -1060,7 +1060,7 @@ function fadeStatesEqual(a: FadeState, b: FadeState): boolean {
 /**
  * 동 하나를 목표 상태로 부드럽게 옮긴다. 목표가 실제로 안 바뀌었으면
  * (이미 그 상태로 정착했거나 이미 그 상태를 향해 애니메이션 중이면)
- * 아무것도 하지 않는다 — 이 가드가 있어야 슬라이더를 움직일 때 547개
+ * 아무것도 하지 않는다 — 이 가드가 있어야 슬라이더를 움직일 때 556개
  * 동을 매번 통째로 다시 애니메이션 걸지 않고 실제로 바뀐 동만 대상이
  * 된다(비용을 실제 변화량에 비례하게 묶어 둔다).
  *

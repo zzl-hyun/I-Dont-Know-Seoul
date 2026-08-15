@@ -70,7 +70,7 @@ describe("지하철 그래프 구조", () => {
     const lines = new Set(graph.nodes.map((n) => n.line));
     // 신림선·우이신설선이 빠지면 관악구·강북구가 통째로 '역 없음'이 된다.
     for (const line of ["1", "2", "3", "4", "5", "6", "7", "8", "9",
-                        "Silim", "W", "신분당", "경의·중앙", "수인·분당", "공항철도"]) {
+                        "Silim", "W", "신분당", "경의·중앙", "수인·분당", "공항철도", "GTX-A"]) {
       expect(lines, `${line} 노선 누락`).toContain(line);
     }
   });

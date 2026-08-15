@@ -76,7 +76,7 @@ function filterByCombo(pool, combo, field) {
  * 부족하면 자치구 표본으로 대체하고 `samples: 0`을 찍는 것까지 동일한
  * 규칙이다.
  *
- * 백분위(`pct`)는 여기서 계산하지 않는다 — 547개 동 전체가 있어야 계산
+ * 백분위(`pct`)는 여기서 계산하지 않는다 — 556개 동 전체가 있어야 계산
  * 가능하니 동 하나 단위인 이 함수의 책임이 아니다. `4-score.mjs`가 담당한다.
  */
 export function buildRentVariants(dongPool, districtPool, { minSamples }) {

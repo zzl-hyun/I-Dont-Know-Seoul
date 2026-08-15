@@ -59,7 +59,7 @@ async function main() {
     const cells = population.dongs?.[dong.code];
     const picked = pickMaxPopulationCell(cells);
     if (!picked) {
-      // 이론상 0개(실측으로 547/547개 동에 인구셀 확인 완료)지만, 방어적으로
+      // 이론상 0개(실측으로 556/556개 동에 인구셀 확인 완료)지만, 방어적으로
       // markerLng/markerLat 를 아예 안 넣어 클라이언트가 기존 lng/lat로
       // 자연스럽게 폴백하게 둔다.
       fallbackCount += 1;

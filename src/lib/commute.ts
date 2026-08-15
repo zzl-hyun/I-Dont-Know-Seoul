@@ -41,7 +41,7 @@ export interface StationEndpointAccess {
  *
  * 경로 복원에 필요한 재료(prev 배열, 목적지측 도보·버스 접근)를 함께 들고 있다가
  * 사용자가 동을 선택한 시점에 `buildRoute()` 로 하나만 되짚는다.
- * 547개 동의 경로를 미리 만들면 대부분 버려진다.
+ * 556개 동의 경로를 미리 만들면 대부분 버려진다.
  */
 export interface CommuteContext {
   byDong: Map<string, CommuteResult>;
@@ -65,7 +65,7 @@ export interface CommuteContext {
  * 뜻이 아니라 선택 가중치를 제거한 화면 표시용 값이라는 뜻이다.
  *
  * 목적지 쪽에서 Dijkstra를 한 번만 돌리면 모든 역까지의 최단시간이 나오므로,
- * 지하철 Dijkstra 계산량은 동이 547개든 4,000개든 늘지 않는다. 각 동의
+ * 지하철 Dijkstra 계산량은 동이 556개든 4,000개든 늘지 않는다. 각 동의
  * 거주인구 접근 프로필은 목적지별 최적 역과 중앙값을 고르는 데만 쓴다.
  */
 export function computeCommute(

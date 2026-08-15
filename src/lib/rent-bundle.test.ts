@@ -25,15 +25,15 @@ const scoresDoc = JSON.parse(
 );
 
 describe("생성 월세 번들 계약", () => {
-  it("547개 동 모두 15조합×2모드를 갖고 번들 기준 3종 환산값이 가격점수와 같다", () => {
-    expect(bundle.dongs).toHaveLength(547);
+  it("556개 동 모두 15조합×2모드를 갖고 번들 기준 3종 환산값이 가격점수와 같다", () => {
+    expect(bundle.dongs).toHaveLength(556);
     expect(bundle.meta.rentPeriod).toMatchObject({
       startDate: "20230101",
       endDate: "20251231",
       contractType: "신규",
       defaultTypes: ["house", "officetel", "apartment"],
       seoul: { records: 519_176, duplicatesRemoved: 150_582, invalidLocation: 2 },
-      gyeonggi: { records: 114_042 },
+      gyeonggi: { records: 130_565 },
     });
     expect(bundle.meta.rentPeriod.gyeonggi.calls).toBeGreaterThanOrEqual(1_296);
     expect(scoresDoc.rentPeriod).toEqual(metrics.rentPeriod);
@@ -60,8 +60,8 @@ describe("생성 월세 번들 계약", () => {
     const variant = selectedRentVariant(selectedScore, DEFAULT_RENT_SELECTION)!;
 
     expect(DEFAULT_RENT_SELECTION).toEqual({ types: ["house"], mode: "converted" });
-    expect(variant).toMatchObject({ medianMan: 59.58, samples: 312, pct: 16.4 });
-    expect(selectedScore.price).toBe(16.4);
+    expect(variant).toMatchObject({ medianMan: 59.58, samples: 312, pct: 16.1 });
+    expect(selectedScore.price).toBe(16.1);
   });
 
   it("문정역·문정1동에서 단독·다가구 순수월세 선택이 점수·등급·요약에 함께 반영된다", () => {
@@ -94,11 +94,11 @@ describe("생성 월세 번들 계약", () => {
     );
 
     expect(commute.byDong.get(target.code)?.worstMin).toBeCloseTo(14.7, 1);
-    expect(variant).toMatchObject({ medianMan: 50, samples: 312, pct: 26.1 });
-    expect(selectedScore.price).toBe(26.1);
-    expect(grade.score).toBeCloseTo(51.785, 3);
+    expect(variant).toMatchObject({ medianMan: 50, samples: 312, pct: 25.7 });
+    expect(selectedScore.price).toBe(25.7);
+    expect(grade.score).toBeCloseTo(51.555, 3);
     expect(grade.rank).toBe(55);
-    expect(grade.total).toBe(547);
+    expect(grade.total).toBe(556);
     expect(grade.grade).toBe("best");
     expect(summary).toContain("50만원");
   });

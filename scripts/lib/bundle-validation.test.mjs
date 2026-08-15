@@ -62,7 +62,7 @@ describe("통근 번들 공용 심층 검증", () => {
     expect(source).not.toMatch(/(?:from|import\s*)\s*[('\"]node:/);
   });
 
-  it("정상 버스망과 547개 동 거주 프로필은 통과한다", () => {
+  it("정상 버스망과 556개 동 거주 프로필은 통과한다", () => {
     expect(() => assertValidCommuteBundle(validCommuteBundle(), { required: true })).not.toThrow();
   });
 
@@ -118,7 +118,7 @@ describe("통근 번들 공용 심층 검증", () => {
     expect(messages(monotonic)).toMatch(/엄격히 증가하지 않음/);
   });
 
-  it("547개 행정동 각각의 거주 프로필이 비어 있지 않아야 한다", () => {
+  it("556개 행정동 각각의 거주 프로필이 비어 있지 않아야 한다", () => {
     const bundle = validCommuteBundle();
     bundle.residential.byDong[bundle.dongs[0].code] = [];
     expect(messages(bundle)).toMatch(/거주 접근 프로필이 비어 있음/);

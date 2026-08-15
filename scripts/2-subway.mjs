@@ -65,8 +65,8 @@ const LINE_CLASS = {
   light: { dwellSec: 45, cruiseKmh: 45 },
   /** 급행형 광역 — 역간거리가 길고 고속 주행 */
   rapid: { dwellSec: 50, cruiseKmh: 85 },
-  /** 광역급행철도 */
-  express: { dwellSec: 60, cruiseKmh: 160 },
+  /** 광역급행철도 — GTX-A만 사용; OSM의 수서~동탄 운행시간 20:00 기준 */
+  express: { dwellSec: 60, cruiseKmh: 120 },
 };
 
 const LINE_TO_CLASS = {
@@ -117,6 +117,49 @@ const VARIANT_RE = /급행|특급|셔틀|直通|Express/i;
 
 const STOP_ROLES = new Set(["stop", "stop_entry_only", "stop_exit_only"]);
 
+/**
+ * OSM의 GTX-A 수서~동탄 관계에는 성남역이 빠져 있고, 이름 필터를 풀면
+ * 사용하지 않기로 한 북부 구간까지 들어온다. 운영 중인 남부 구간만 OSM
+ * 형태로 명시해 downstream 그래프 로직은 그대로 재사용한다.
+ */
+const MANUAL_ROUTES = [
+  { name: "수서", lat: 37.4860164, lon: 127.1022789 },
+  { name: "성남", lat: 37.3936894, lon: 127.1205842 },
+  { name: "구성", lat: 37.2990413, lon: 127.1039242 },
+  { name: "동탄", lat: 37.1984804, lon: 127.0959773 },
+];
+
+function manualElements() {
+  const nodeIds = MANUAL_ROUTES.map((_, index) => -900000 - index);
+  const nodes = MANUAL_ROUTES.map((station, index) => ({
+    type: "node",
+    id: nodeIds[index],
+    lat: station.lat,
+    lon: station.lon,
+    tags: {
+      name: station.name,
+      public_transport: "stop_position",
+      railway: "stop",
+    },
+  }));
+  return [
+    ...nodes,
+    {
+      type: "relation",
+      id: -9000010,
+      tags: {
+        type: "route",
+        route: "train",
+        ref: "GTX-A",
+        name: "GTX-A 수서~동탄 (수동 정의)",
+        network: "수도권 전철",
+        service: "commuter",
+      },
+      members: nodeIds.map((ref) => ({ type: "node", ref, role: "stop" })),
+    },
+  ];
+}
+
 const QUERY = `
 [out:json][timeout:300];
 (
@@ -131,6 +174,7 @@ out body;
 async function main() {
   await mkdir(dirname(OUT), { recursive: true });
   const osm = await fetchOsm();
+  osm.elements = [...osm.elements, ...manualElements()];
 
   const relations = osm.elements.filter((e) => e.type === "relation");
   const nodes = new Map(
@@ -414,7 +458,7 @@ function buildGraph(stations, adjacency) {
     version: new Date().toISOString().slice(0, 10),
     generatedAt: new Date().toISOString(),
     source: "OpenStreetMap (ODbL) via Overpass API",
-    note: "역간 소요시간은 역간 직선거리 × 1.1 ÷ 노선별 표정속도로 추정한 값이다.",
+    note: "역간 소요시간은 역간 직선거리 × 1.04 ÷ 노선별 표정속도로 추정한 값이다.",
     stations: used,
     nodes: graphNodes,
     edges,
@@ -435,13 +479,13 @@ function verify(graph) {
 
   // 반드시 있어야 하는 노선 — 하나라도 빠지면 해당 자치구가 통째로 왜곡된다
   const lines = new Set(nodes.map((n) => n.line));
-  for (const must of ["1", "2", "3", "4", "5", "6", "7", "8", "9", "Silim", "W", "신분당", "경의·중앙", "수인·분당", "공항철도"]) {
+  for (const must of ["1", "2", "3", "4", "5", "6", "7", "8", "9", "Silim", "W", "신분당", "경의·중앙", "수인·분당", "공항철도", "GTX-A"]) {
     if (!lines.has(must)) problems.push(`노선 누락: ${must}`);
   }
 
   // 대표 역들이 있어야 한다
   const names = new Set(stations.map((s) => s.name));
-  for (const must of ["강남", "신림", "홍대입구", "여의도", "잠실", "서울대입구", "북한산우이", "샛강"]) {
+  for (const must of ["강남", "신림", "홍대입구", "여의도", "잠실", "서울대입구", "북한산우이", "샛강", "동탄"]) {
     if (!names.has(must)) problems.push(`역 누락: ${must}`);
   }
 
@@ -453,6 +497,9 @@ function verify(graph) {
    * 경로는 나오기 때문에(멀리 돌아가는 경로) 눈에 잘 안 띈다. 여기서 잡는다.
    */
   const KNOWN_TRANSFERS = {
+    수서: ["3", "수인·분당", "GTX-A"],
+    성남: ["경강", "GTX-A"],
+    구성: ["수인·분당", "GTX-A"],
     왕십리: ["2", "5", "경의·중앙", "수인·분당"],
     대림: ["2", "7"],
     잠실: ["2", "8"],
