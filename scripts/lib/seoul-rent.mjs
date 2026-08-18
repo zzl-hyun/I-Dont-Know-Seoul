@@ -5,6 +5,7 @@ import {
   RENT_AREA_MAX_BY_TYPE,
   RENT_AREA_MIN,
   isPublicRentalName,
+  rentConversionRate,
   toConvertedMonthly,
 } from "./rent.mjs";
 
@@ -185,7 +186,7 @@ export function parseSeoulRentLines(
       guCode,
       legalDongName,
       monthly,
-      converted: toConvertedMonthly(deposit, monthly),
+      converted: toConvertedMonthly(deposit, monthly, rentConversionRate(type, guCode)),
       type,
       contractDate,
     };

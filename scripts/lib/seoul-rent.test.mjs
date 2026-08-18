@@ -7,6 +7,7 @@ import {
   parseSeoulRentLines,
   SEOUL_RENT_ARCHIVE_YEARS,
 } from "./seoul-rent.mjs";
+import { rentConversionRate } from "./rent.mjs";
 
 const HEADERS = [
   "접수년도",
@@ -89,7 +90,11 @@ describe("서울 전월세 CSV 파서", () => {
 
     expect(records.map((r) => r.type)).toEqual(["rowhouse", "house", "apartment"]);
     expect(records[0].monthly).toBe(50);
-    expect(records[0].converted).toBeCloseTo(54.5833, 4);
+    // 환산월세는 유형·자치구별 전환율을 쓴다 — 서울 연립·다세대는 4.68%.
+    expect(records[0].converted).toBeCloseTo(
+      50 + (1_000 * rentConversionRate("rowhouse", records[0].guCode)) / 12,
+      4
+    );
     expect(stats.unique).toBe(3);
   });
 

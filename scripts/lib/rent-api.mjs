@@ -2,6 +2,7 @@ import {
   RENT_AREA_MAX_BY_TYPE,
   RENT_AREA_MIN,
   isPublicRentalName,
+  rentConversionRate,
   toConvertedMonthly,
 } from "./rent.mjs";
 
@@ -92,6 +93,8 @@ export async function fetchPaginatedRentJob({
 
   const records = [];
   const nameField = COMPLEX_NAME_FIELD[endpoint.name];
+  // 한 job 은 구·월·유형이 고정이라 전환율도 하나로 고정된다.
+  const conversionRate = rentConversionRate(endpoint.name, gu);
   let publicRental = 0;
   for (const item of items) {
     if (String(item.contractType ?? "").trim() !== "신규") continue;
@@ -109,7 +112,7 @@ export async function fetchPaginatedRentJob({
     records.push({
       legal,
       monthly,
-      converted: toConvertedMonthly(deposit, monthly),
+      converted: toConvertedMonthly(deposit, monthly, conversionRate),
       type: endpoint.name,
     });
   }

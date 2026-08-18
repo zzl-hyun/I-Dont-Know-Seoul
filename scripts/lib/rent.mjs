@@ -1,7 +1,57 @@
 export const RENT_TYPES = ["house", "rowhouse", "officetel", "apartment"];
 
-/** 보증금을 월세로 바꿀 때 쓰는 연 전월세전환율. */
-export const RENT_CONVERSION_RATE = 0.055;
+/**
+ * 보증금을 월세로 바꿀 때 쓰는 **연 전월세전환율**. 유형·지역별 실측값이다.
+ *
+ * 원래 전국 단일 `0.055` 였는데 근거가 어디에도 없었다. 한국부동산원 공표
+ * 통계로 재보니 4.4~7.7% 로 흩어져 있고, 특히 **경기가 서울보다 뚜렷하게
+ * 높다**(단독주택 7.71% 대 6.06%). 단일 상수를 쓰면 경기 환산월세가 체계적으로
+ * 과소평가되는데, 서울과 경기를 한 상대 척도에 올려 비교하는 이 앱에서는
+ * 단순 오차가 아니라 지역 간 편향이라 고쳤다.
+ *
+ * 값은 `npm run data:calibrate-rent-conversion` 으로 재현한다 — 실거래 수집
+ * 구간과 같은 2023-01~2025-12 평균이다. **자동 반영하지 않는다.** 계수가
+ * 바뀌면 환산월세 분포가 통째로 움직여 556개 동의 가격 백분위와 등급이
+ * 재배치되므로 사람이 보고 결정할 문제다(`WALK_DETOUR_FACTOR` 와 같은 이유).
+ *
+ * 키는 5자리 `guCode`, 없으면 앞 2자리 시도로 떨어진다. 한국부동산원이
+ * **아파트만 시군구 단위로 공표**하기 때문에 나머지 세 유형은 시도 값뿐이다.
+ * 규모별 표도 있지만 시도 단위라 지역 편향과 상충해서 안 썼다 — 소형 평형
+ * 보정은 미반영이다.
+ */
+export const RENT_CONVERSION_RATE = Object.freeze({
+  house: { 11: 0.0606, 41: 0.0771 },
+  rowhouse: { 11: 0.0468, 41: 0.0723 },
+  officetel: { 11: 0.0571, 41: 0.0637 },
+  apartment: {
+    11: 0.0467,
+    41: 0.0531,
+    11110: 0.0484, 11140: 0.05, 11170: 0.0506, 11200: 0.0498, 11215: 0.0455,
+    11230: 0.0482, 11260: 0.0454, 11290: 0.0465, 11305: 0.0509, 11320: 0.0482,
+    11350: 0.0476, 11380: 0.0474, 11410: 0.0472, 11440: 0.047, 11470: 0.0463,
+    11500: 0.0447, 11530: 0.0455, 11545: 0.05, 11560: 0.047, 11590: 0.045,
+    11620: 0.0467, 11650: 0.0456, 11680: 0.0468, 11710: 0.0438, 11740: 0.0464,
+    41111: 0.0515, 41113: 0.0521, 41115: 0.053, 41117: 0.0498, 41131: 0.0494,
+    41133: 0.0476, 41135: 0.0449, 41463: 0.0522, 41465: 0.0482, 41597: 0.0542,
+  },
+});
+
+/**
+ * 유형·자치구에 맞는 연 전환율. 시군구 값이 없으면 시도로 떨어진다.
+ *
+ * 대상 밖 지역이 들어오면 던진다 — 조용히 기본값을 쓰면 그 지역만 다른 계수로
+ * 환산되는데, 결측이 아니라 그럴듯한 숫자라 눈으로 못 잡는다.
+ */
+export function rentConversionRate(type, guCode) {
+  const table = RENT_CONVERSION_RATE[type];
+  if (!table) throw new Error(`알 수 없는 주택유형: ${type}`);
+  const gu = String(guCode ?? "");
+  const rate = table[gu] ?? table[gu.slice(0, 2)];
+  if (rate == null) {
+    throw new Error(`전월세전환율이 없는 지역입니다: ${type} ${guCode} — 대상 지역을 넓혔다면 npm run data:calibrate-rent-conversion 을 다시 돌리세요`);
+  }
+  return rate;
+}
 
 /** 1인 가구 후보로 집계하는 전용면적 범위. */
 export const RENT_AREA_MIN = 10;
@@ -12,8 +62,8 @@ export const RENT_AREA_MAX_BY_TYPE = Object.freeze({
   apartment: 60,
 });
 
-export const toConvertedMonthly = (depositMan, monthlyMan) =>
-  monthlyMan + (depositMan * RENT_CONVERSION_RATE) / 12;
+export const toConvertedMonthly = (depositMan, monthlyMan, rate) =>
+  monthlyMan + (depositMan * rate) / 12;
 
 /**
  * 단지명으로 공공임대주택을 알아본다. 걸리면 월세 표본에서 뺀다.

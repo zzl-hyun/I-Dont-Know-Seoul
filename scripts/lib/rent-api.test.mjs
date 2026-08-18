@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { contractMonths, fetchPaginatedRentJob } from "./rent-api.mjs";
+import { rentConversionRate } from "./rent.mjs";
 
 const endpoint = { name: "house", url: "https://example.test/rent" };
 
@@ -60,7 +61,12 @@ describe("fetchPaginatedRentJob", () => {
     expect(fetchImpl.mock.calls[1][0]).toContain("pageNo=2");
     expect(result.calls).toBe(2);
     expect(result.records).toHaveLength(2);
-    expect(result.records[0].converted).toBeCloseTo(54.5833, 4);
+    // 보증금 1,000만 · 월세 50만 · 경기(41135) 단독주택 전환율 7.71%
+    // → 50 + 1,000 × 0.0771 ÷ 12 = 56.425
+    expect(result.records[0].converted).toBeCloseTo(
+      50 + (1_000 * rentConversionRate("house", "41135")) / 12,
+      4
+    );
     expect(result.records[1].legal).toBe("정자동");
   });
 
