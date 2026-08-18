@@ -70,16 +70,16 @@ Copy `.env.example` to `.env` for local data keys; never commit secrets. Store `
 
 ## Current Shared State
 
-마지막 확인: **2026-08-16 (Codex, 동탄+GTX-A 구현 완료)**
+마지막 확인: **2026-08-18 (Claude, 월세 데이터 품질 배치 배포 완료)**
 
 | 항목 | 현재 상태 |
 | --- | --- |
-| 공용 작업트리 | `/Users/mac/Desktop/Work/I-Dont-Know-Seoul` |
-| 현재 브랜치 | `feat/dongtan-gtx-a` |
-| HEAD | `5c2c287` — `88b4139` 이후 동탄구+GTX-A·서울 월세 CSV 지원을 포함한 로컬 커밋, push하지 않음(사용자 미추적 자료만 남음) |
-| 최근 검증 | `npm test` 246/246, `npm run typecheck`·`npm run build`·`git diff --check` 전부 통과 |
-| 운영 배포 | **완료.** Worker Version `092f4a9e-8277-45f1-8e46-1775644dbb7c`. `/api/data` 200(`X-Oneday-Source: kv`), `POST /api/data`·`POST /api/geocode` 405(`Allow: GET`) 프로덕션에서 확인 |
-| 진행 중인 작업 | 없음. push/deploy는 별도 승인 전까지 금지 |
+| 공용 작업트리 | 기기마다 다름 — `git rev-parse --show-toplevel` 로 확인 |
+| 현재 브랜치 | `main` |
+| HEAD | `bafa847` — `origin/main`과 완전히 일치, push 완료, tracked 변경 없음(사용자 미추적 자료만 남음) |
+| 최근 검증 | `npm test` 271/271, `npm run typecheck`·`npm run build`·`git diff --check` 전부 통과 |
+| 운영 배포 | **완료.** Worker Version `fd059d69-78d6-4b88-8bf5-2879490eb834`, 지표 버전 `2026-08-18`. `/api/data` 200(`X-Oneday-Source: kv`, 556개 동), `POST /api/data`·`POST /api/geocode` 405(`Allow: GET`) 프로덕션 확인. 삼평동 아파트 순수월세가 140만원(표본 94)으로 나가는 것까지 대조함 |
+| 진행 중인 작업 | 없음 |
 
 이 표는 **지금 상태만** 유지합니다. 지나간 배치의 상세 서사(왜 그렇게 했는지,
 뭘 시도했다 실패했는지)는 다시 쌓지 않고 커밋 메시지 본문에 맡깁니다 — 이
@@ -96,16 +96,12 @@ Copy `.env.example` to `.env` for local data keys; never commit secrets. Store `
 | 문서 정합성 수정 | `6e75f05`, `a058e91` | 위 배치들 리뷰 중 발견한 낡은 주석·수치 정정, 새로 얻은 함정을 `CLAUDE.md`로 이관 |
 | Worker 안정성 수정 4건 | `c569727`, `a4042f5` | geocode KV 캐시 무가드 파싱·Kakao 파싱 실패 시 폴백 무력화·500 내부 메시지 노출·`POST /api/data` 405 누락을 Codex가 구현, Claude가 리뷰(누락된 폴백 무력화 문제 추가 발견)·후속 3건(500 한글화, 로그 스택트레이스, `/api/geocode` 405에 `Allow: GET`) 요청·재검증 후 커밋. Obsidian Vault `_agent/handoffs/`에 QA→구현→리뷰→후속수정 전 과정 기록 |
 | 동탄구+GTX-A 확장 및 서울 월세 CSV 지원 | `5c2c287` | 대상 556개 동·35개 구로 확장하고 수서~동탄 GTX-A 수동 경로, 화성시 원자료, 3개년 서울 전월세 `.zip`/`.csv` 로더, 지표·점수·공개 번들을 재생성. 전체 회귀 246/246 통과 |
+| 월세 데이터 품질 2건 | `608561c`~`bafa847` | 사용자가 "판교 아파트가 왜 31만원이냐"고 물어 발견. (1) 공공임대가 소형 표본을 지배(삼평동 79%·백현동 100%)해 10,551건 제외 → 삼평동 31→140만원, (2) 전월세전환율이 근거 없는 전국 단일 5.5%였던 것을 유형·지역별 실측(4.4~7.7%)으로 교체 → 경기 편향 교정(가격점수 서울 +1.13·경기 −3.77). 한국부동산원 R-ONE 738개 통계표를 전수 검토했으나 전환율 외에는 전부 시군구 단위라 기각. `data:calibrate-rent-conversion`·`data:crosscheck-rent` 추가 |
 
-### Codex slot
-
-- Status: done
-- Task: Execute the approved Dongtan-gu/GTX-A expansion and make the Seoul rent pipeline accept the supplied CSV snapshots.
-- Owned files: `AGENTS.md`; `CLAUDE.md`; `README.md`; `docs/commute.md`; `docs/data.md`; `docs/development.md`; `docs/scoring.md`; `data/dist/dong-meta.json`; `data/dist/metrics.json`; `data/dist/residential-access.json`; `data/dist/scores.json`; `data/dist/subway-graph.json`; `data/raw/police-crime-20241231.csv`; `data/raw/population-20260630.csv`; `data/raw/traffic-accident-hotspots-2012-2024.csv`; `public/data/bundle.json`; `public/dong.geojson`; `scripts/1-boundaries.mjs`; `scripts/2-subway.mjs`; `scripts/3-metrics.mjs`; `scripts/4-score.mjs`; `scripts/lib/bundle-validation.mjs`; `scripts/lib/bundle-validation.test.mjs`; `scripts/lib/rent.mjs`; `scripts/lib/residential-quality.test.ts`; `scripts/lib/seoul-rent.mjs`; `scripts/lib/seoul-rent.test.mjs`; `scripts/lib/sgis-population.mjs`; `scripts/update-marker-positions.mjs`; `src/App.tsx`; `src/components/DongDetail.tsx`; `src/components/Landing.tsx`; `src/components/MapView.tsx`; `src/components/WeightPlayground.tsx`; `src/lib/commute.test.ts`; `src/lib/commute.ts`; `src/lib/constants.ts`; `src/lib/data.test.ts`; `src/lib/dijkstra.ts`; `src/lib/explain.ts`; `src/lib/rent-bundle.test.ts`; `src/lib/score.ts`; `src/lib/subwayLines.ts`; `src/types.ts`.
-- Changed: Added 9 Dongtan dongs, 4 manual GTX-A stations from Suseo to Dongtan, expanded source snapshots and scoring artifacts, and added `.csv` fallback support for the 2023–2025 Seoul rent inputs. Preserve `Research on Advanced Regional Scoring Methods.md` as an untracked user file.
-- Verification: `npm run data:boundaries`, `npm run data:population`, `npm run data:metric-access`, `npm run data:access`, `npm run data:validate-access`, `npm run data:metrics`, `npm run data:score`, `npm test` (246/246), `npm run typecheck`, `npm run build`, and `git diff --check` pass. No push or deployment.
-- Commit/remote: `5c2c287` locally on `feat/dongtan-gtx-a`; no push or deployment. The prior inquiry widget is in `88b4139`.
-- Next handoff: Obtain separate approval before pushing this branch or running the production data-seed/deploy procedure.
+에이전트 슬롯은 현재 **둘 다 소유권 주장 없음** — 마지막 작업이 끝난 뒤 다음
+에이전트가 자유롭게 아무 파일이나 잡아도 됩니다. 새로 작업을 시작하면 아래
+[Handoff Update Template](#handoff-update-template) 형식으로 이 섹션 밑에
+자기 슬롯을 채우세요.
 
 ## Git and Deployment Gate
 
