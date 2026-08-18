@@ -126,23 +126,27 @@ const hasRawSources = archivePaths.every(existsSync);
 
 describe.runIf(hasRawSources)("서울 전월세 원본 3개년 통합", () => {
   it(
-    "현재 스냅샷에서 위치가 있는 신규 소형 월세 519,176건을 중복 없이 만든다",
+    "현재 스냅샷에서 위치가 있는 신규 소형 월세 516,349건을 중복·공공임대 없이 만든다",
     async () => {
       const { records, stats } = await loadSeoulRentArchives(archivePaths);
 
-      expect(records).toHaveLength(519_176);
+      expect(records).toHaveLength(516_349);
       expect(stats.duplicates).toBe(150_582);
       expect(stats.invalidLocation).toBe(2);
+      // 공공임대는 중복 제거 뒤에 걸러서 duplicates 를 흔들지 않는다.
+      // 서울은 2,827건(0.5%)뿐이라 동별 중앙값이 뒤집히는 곳은 없었다 —
+      // 이 지표가 실제로 문제였던 건 경기(판교·광교)다.
+      expect(stats.publicRental).toBe(2_827);
       expect(stats.uniqueByType).toEqual({
         house: 192_046,
-        rowhouse: 98_475,
+        rowhouse: 98_403,
         officetel: 113_622,
-        apartment: 115_033,
+        apartment: 112_278,
       });
       expect(stats.uniqueByYear).toEqual({
-        "2023": 142_079,
-        "2024": 180_720,
-        "2025": 196_377,
+        "2023": 141_816,
+        "2024": 179_084,
+        "2025": 195_449,
       });
     },
     120_000

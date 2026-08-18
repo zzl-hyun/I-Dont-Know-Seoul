@@ -841,7 +841,9 @@ async function fetchRent(key, dongs) {
   console.log(
     `  서울 파일 ${seoul.stats.rowsRead.toLocaleString()}행 → ` +
       `신규 소형 월세 ${seoul.stats.unique.toLocaleString()}건 ` +
-      `(중복 ${seoul.stats.duplicates.toLocaleString()}건 · 위치 누락 ${seoul.stats.invalidLocation}건 제외)`
+      `(중복 ${seoul.stats.duplicates.toLocaleString()}건 · ` +
+      `공공임대 ${seoul.stats.publicRental.toLocaleString()}건 · ` +
+      `위치 누락 ${seoul.stats.invalidLocation}건 제외)`
   );
 
   // 서울은 전체 파일을 쓰고, API는 파일이 없는 경기 10개 구만 조회한다.
@@ -874,6 +876,7 @@ async function fetchRent(key, dongs) {
   let done = 0;
   let calls = 0;
   let apiRecords = 0;
+  let apiPublicRental = 0;
 
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -888,6 +891,7 @@ async function fetchRent(key, dongs) {
     calls += result.calls;
     for (const record of result.records) addRecord(job.gu, record.legal, record);
     apiRecords += result.records.length;
+    apiPublicRental += result.publicRental ?? 0;
   };
 
   // 제한된 동시성 + 요청 간 간격으로 실행
@@ -903,7 +907,8 @@ async function fetchRent(key, dongs) {
           const el = Math.round((Date.now() - startedAt) / 1000);
           process.stdout.write(
             `\r  경기 실거래 조회 ${done}/${jobs.length} · 호출 ${calls.toLocaleString()}회 · ` +
-              `신규 소형 월세 ${apiRecords.toLocaleString()}건 · ${el}초   `
+              `신규 소형 월세 ${apiRecords.toLocaleString()}건 · ` +
+              `공공임대 ${apiPublicRental.toLocaleString()}건 제외 · ${el}초   `
           );
         }
         await sleep(REQUEST_GAP_MS);
@@ -989,11 +994,13 @@ async function fetchRent(key, dongs) {
         archives: seoul.stats.archives,
         records: seoul.stats.unique,
         duplicatesRemoved: seoul.stats.duplicates,
+        publicRentalRemoved: seoul.stats.publicRental,
         invalidLocation: seoul.stats.invalidLocation,
       },
       gyeonggi: {
         source: "국토교통부 전월세 실거래가 API",
         records: apiRecords,
+        publicRentalRemoved: apiPublicRental,
         calls,
       },
     },

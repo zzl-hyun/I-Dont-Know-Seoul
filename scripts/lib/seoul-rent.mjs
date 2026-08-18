@@ -4,6 +4,7 @@ import { unzipRaw } from "unzipit";
 import {
   RENT_AREA_MAX_BY_TYPE,
   RENT_AREA_MIN,
+  isPublicRentalName,
   toConvertedMonthly,
 } from "./rent.mjs";
 
@@ -172,6 +173,14 @@ export function parseSeoulRentLines(
     }
     seen.add(identity);
 
+    // 중복 제거 뒤에 거른다. duplicates 는 원본 파일의 행 중복 결함을 재는
+    // 진단값이라(docs/data.md 가 근거로 인용한다) 임대주택 필터가 그 수치를
+    // 흔들면 안 된다. 걸러낸 결과 집합은 어느 순서로 해도 같다.
+    if (isPublicRentalName(values[index["건물명"]])) {
+      stats.publicRental++;
+      continue;
+    }
+
     const record = {
       guCode,
       legalDongName,
@@ -247,6 +256,7 @@ function emptyStats(startDate, endDate) {
     rowsRead: 0,
     inPeriod: 0,
     eligible: 0,
+    publicRental: 0,
     invalidLocation: 0,
     duplicates: 0,
     unique: 0,
@@ -263,7 +273,14 @@ function increment(target, key, amount = 1) {
 
 function mergeStats(target, source) {
   target.archives.push(...source.archives);
-  for (const key of ["rowsRead", "inPeriod", "eligible", "invalidLocation", "duplicates"]) {
+  for (const key of [
+    "rowsRead",
+    "inPeriod",
+    "eligible",
+    "publicRental",
+    "invalidLocation",
+    "duplicates",
+  ]) {
     target[key] += source[key];
   }
   for (const key of ["uniqueByYear", "uniqueByType", "duplicatesByYear", "duplicatesByType"]) {

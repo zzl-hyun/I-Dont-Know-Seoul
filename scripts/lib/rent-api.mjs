@@ -1,8 +1,19 @@
 import {
   RENT_AREA_MAX_BY_TYPE,
   RENT_AREA_MIN,
+  isPublicRentalName,
   toConvertedMonthly,
 } from "./rent.mjs";
+
+/**
+ * 단지명 필드 이름이 엔드포인트마다 다르다. 단독·다가구(SHRent)는 단지가
+ * 아니라 개별 주택이라 이름 필드 자체가 없다 — 거를 것도 없으므로 빠져 있다.
+ */
+const COMPLEX_NAME_FIELD = Object.freeze({
+  rowhouse: "mhouseNm",
+  officetel: "offiNm",
+  apartment: "aptNm",
+});
 
 export function contractMonths(startDate, endDate) {
   const startYear = Number(startDate.slice(0, 4));
@@ -80,6 +91,8 @@ export async function fetchPaginatedRentJob({
   }
 
   const records = [];
+  const nameField = COMPLEX_NAME_FIELD[endpoint.name];
+  let publicRental = 0;
   for (const item of items) {
     if (String(item.contractType ?? "").trim() !== "신규") continue;
     const area = parseNumber(item.excluUseAr ?? item.totalFloorAr ?? 0);
@@ -89,6 +102,10 @@ export async function fetchPaginatedRentJob({
     if (!Number.isFinite(deposit) || !(monthly > 0)) continue;
     const legal = String(item.umdNm ?? "").trim();
     if (!legal) continue;
+    if (nameField && isPublicRentalName(item[nameField])) {
+      publicRental++;
+      continue;
+    }
     records.push({
       legal,
       monthly,
@@ -97,7 +114,7 @@ export async function fetchPaginatedRentJob({
     });
   }
 
-  return { records, calls, totalCount, pageCount };
+  return { records, calls, totalCount, pageCount, publicRental };
 }
 
 function parseNumber(value) {

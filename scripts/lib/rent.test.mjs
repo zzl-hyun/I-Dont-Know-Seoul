@@ -1,5 +1,40 @@
 import { describe, it, expect } from "vitest";
-import { RENT_TYPES, typeBreakdown } from "./rent.mjs";
+import { RENT_TYPES, isPublicRentalName, typeBreakdown } from "./rent.mjs";
+
+describe("isPublicRentalName", () => {
+  // 실제로 표본을 오염시킨 단지들이다. 전부 대상 지역 원자료에서 확인했다.
+  it.each([
+    "성남판교경기행복주택",
+    "봇들마을6단지(주공)임대",
+    "백현마을3단지(주공)임대",
+    "판교제2테크노밸리LH1단지",
+    "휴먼시아섬마을9단지(임대)",
+    "LH동분당센트럴파크",
+    "수원광교행복주택",
+  ])("공공임대를 걸러낸다: %s", (name) => {
+    expect(isPublicRentalName(name)).toBe(true);
+  });
+
+  // 여기 있는 이름이 하나라도 true 가 되면 일반 물건이 표본에서 사라진다.
+  // 봇들마을3·4단지(주공)는 분양 단지라 삼평동 표본에 반드시 남아야 한다 —
+  // 이게 빠지면 삼평동에 일반 물건이 0건이 되어 자치구 중앙값으로 넘어간다.
+  it.each([
+    "봇들마을3단지(주공)",
+    "봇들마을4단지(주공)",
+    "광교역참누리포레스트",
+    "장안타운(건영)",
+    "정자동3차 푸르지오 시티",
+    "래미안강남포레스트",
+  ])("분양 단지는 남긴다: %s", (name) => {
+    expect(isPublicRentalName(name)).toBe(false);
+  });
+
+  it("이름이 없어도 터지지 않는다 — 단독·다가구는 단지명 필드 자체가 없다", () => {
+    expect(isPublicRentalName(undefined)).toBe(false);
+    expect(isPublicRentalName(null)).toBe(false);
+    expect(isPublicRentalName("")).toBe(false);
+  });
+});
 
 describe("typeBreakdown", () => {
   it("유형별로 정확히 나눠 중앙값·표본수를 계산한다", () => {

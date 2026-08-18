@@ -98,4 +98,45 @@ describe("fetchPaginatedRentJob", () => {
       })
     ).rejects.toThrow(/일부만/);
   });
+
+  // 단지명 필드가 엔드포인트마다 다르다. 하나라도 이름을 잘못 짚으면 그 유형만
+  // 공공임대가 조용히 섞여 들어가고, 결측이 아니라 "싼 월세"로 보여서 어느
+  // 검증에도 안 걸린다.
+  it.each([
+    ["apartment", "aptNm", 60],
+    ["officetel", "offiNm", 30],
+    ["rowhouse", "mhouseNm", 30],
+  ])("%s 은 %s 로 공공임대를 걸러낸다", async (name, field, area) => {
+    const typed = { name, url: "https://example.test/rent" };
+    const items = [
+      item({ excluUseAr: String(area), [field]: "백현마을3단지(주공)임대" }),
+      item({ excluUseAr: String(area), [field]: "봇들마을3단지(주공)", monthlyRent: "140" }),
+    ];
+    const result = await fetchPaginatedRentJob({
+      key: "secret",
+      gu: "41135",
+      ym: "202501",
+      endpoint: typed,
+      fetchImpl: vi.fn().mockResolvedValue(response(items)),
+      sleep: async () => {},
+    });
+
+    expect(result.publicRental).toBe(1);
+    expect(result.records).toHaveLength(1);
+    expect(result.records[0].monthly).toBe(140);
+  });
+
+  it("단독·다가구는 단지명 필드가 없어 아무것도 걸러내지 않는다", async () => {
+    const result = await fetchPaginatedRentJob({
+      key: "secret",
+      gu: "41135",
+      ym: "202501",
+      endpoint,
+      fetchImpl: vi.fn().mockResolvedValue(response([item(), item()])),
+      sleep: async () => {},
+    });
+
+    expect(result.publicRental).toBe(0);
+    expect(result.records).toHaveLength(2);
+  });
 });
