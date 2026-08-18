@@ -21,6 +21,7 @@
     "data:score": "node scripts/4-score.mjs",
     "data:seed": "node scripts/5-seed-kv.mjs",
     "data:calibrate-walk": "node --max-old-space-size=6144 scripts/calibrate-walk.mjs",
+    "data:crosscheck-rent": "node --env-file-if-exists=.env scripts/crosscheck-rent.mjs",
     "test": "vitest run",
     "typecheck": "tsc -b --noEmit"
   },
