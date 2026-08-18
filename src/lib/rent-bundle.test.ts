@@ -65,8 +65,9 @@ describe("생성 월세 번들 계약", () => {
     const variant = selectedRentVariant(selectedScore, DEFAULT_RENT_SELECTION)!;
 
     expect(DEFAULT_RENT_SELECTION).toEqual({ types: ["house"], mode: "converted" });
-    expect(variant).toMatchObject({ medianMan: 59.58, samples: 312, pct: 16.1 });
-    expect(selectedScore.price).toBe(16.1);
+    // 환산월세는 서울 단독·다가구 전환율 6.06%로 계산된다(옛 전국 단일 5.5% 아님).
+    expect(variant).toMatchObject({ medianMan: 60.05, samples: 312, pct: 21.6 });
+    expect(selectedScore.price).toBe(21.6);
   });
 
   it("문정역·문정1동에서 단독·다가구 순수월세 선택이 점수·등급·요약에 함께 반영된다", () => {
