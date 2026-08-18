@@ -32,8 +32,13 @@ describe("생성 월세 번들 계약", () => {
       endDate: "20251231",
       contractType: "신규",
       defaultTypes: ["house", "officetel", "apartment"],
-      seoul: { records: 519_176, duplicatesRemoved: 150_582, invalidLocation: 2 },
-      gyeonggi: { records: 130_565 },
+      seoul: {
+        records: 516_349,
+        duplicatesRemoved: 150_582,
+        publicRentalRemoved: 2_827,
+        invalidLocation: 2,
+      },
+      gyeonggi: { records: 122_841, publicRentalRemoved: 7_724 },
     });
     expect(bundle.meta.rentPeriod.gyeonggi.calls).toBeGreaterThanOrEqual(1_296);
     expect(scoresDoc.rentPeriod).toEqual(metrics.rentPeriod);
