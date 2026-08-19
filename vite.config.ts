@@ -1,25 +1,16 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { fileURLToPath } from "node:url";
-
-const html = (relativePath: string) =>
-  fileURLToPath(new URL(relativePath, import.meta.url));
+import { seoPages } from "./src/seo/plugin";
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), seoPages()],
   build: {
     outDir: "dist",
     // 경계 GeoJSON은 public/ 에서 그대로 복사된다. 인라인되면 안 되므로 0으로 둔다.
     assetsInlineLimit: 0,
-    // 검색어별 HTML이 고유 메타데이터를 가진 채 같은 React 앱을 공유한다.
-    rollupOptions: {
-      input: {
-        main: html("index.html"),
-        pangyo: html("guide/pangyo-commute/index.html"),
-        gangnam: html("guide/gangnam-commute/index.html"),
-        sinbundang: html("guide/sinbundang/index.html"),
-      },
-    },
+    // 검색어 저격 페이지(`/guide/*`)는 React를 부팅하지 않는 순수 문서라
+    // 여기 rollupOptions.input 에 넣지 않는다 — `seoPages()` 플러그인이
+    // closeBundle 에서 dist/ 에 직접 써 넣는다(`src/seo/generate.ts`).
   },
   server: {
     // `vite dev` 단독 실행 시 /api 는 `wrangler dev`(8787)로 넘긴다.
