@@ -1,4 +1,11 @@
 import { SITE_NAME, SITE_ORIGIN } from "./site";
+import {
+  LOCALE_META,
+  SUPPORTED_LOCALES,
+  localizePath,
+  stripLocalePrefix,
+  type Locale,
+} from "../lib/locale";
 
 /** HTML 텍스트 컨텍스트 이스케이프. 실거래 단지명 등 원 데이터에 `<`·`&` 가 섞여 들어올 수 있다. */
 export function escapeHtml(s: string): string {
@@ -22,6 +29,7 @@ export interface BreadcrumbItem {
 
 export interface PageMeta {
   path: string; // "/guide/xxx/"
+  locale: Locale;
   title: string;
   description: string;
   breadcrumbs: BreadcrumbItem[];
@@ -41,6 +49,19 @@ export interface FaqEntry {
  */
 export function renderHead(meta: PageMeta, faqs: FaqEntry[]): string {
   const url = `${SITE_ORIGIN}${meta.path}`;
+  const basePath = stripLocalePrefix(meta.path);
+  const alternateLinks = SUPPORTED_LOCALES.map((locale) => {
+    const href = `${SITE_ORIGIN}${localizePath(basePath, locale)}`;
+    return `    <link rel="alternate" hreflang="${locale}" href="${href}" />`;
+  }).join("\n");
+  const alternateLocales = SUPPORTED_LOCALES.filter((locale) => locale !== meta.locale)
+    .map(
+      (locale) =>
+        `    <meta property="og:locale:alternate" content="${LOCALE_META[locale].ogLocale}" />`
+    )
+    .join("\n");
+  const localeRoot = localizePath("/", meta.locale);
+  const ogImage = meta.locale === "ko" ? "og-image.jpg" : `og-image-${meta.locale}.jpg`;
   const graph: unknown[] = [
     {
       "@type": "WebPage",
@@ -48,8 +69,8 @@ export function renderHead(meta: PageMeta, faqs: FaqEntry[]): string {
       url,
       name: meta.title,
       description: meta.description,
-      inLanguage: "ko-KR",
-      isPartOf: { "@id": `${SITE_ORIGIN}/#website` },
+      inLanguage: LOCALE_META[meta.locale].htmlLang,
+      isPartOf: { "@id": `${SITE_ORIGIN}${localeRoot}#website` },
     },
     {
       "@type": "BreadcrumbList",
@@ -75,28 +96,31 @@ export function renderHead(meta: PageMeta, faqs: FaqEntry[]): string {
   }
 
   return `<!doctype html>
-<html lang="ko">
+<html lang="${LOCALE_META[meta.locale].htmlLang}">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>${escapeHtml(meta.title)}</title>
     <meta name="description" content="${escapeHtml(meta.description)}" />
     <link rel="canonical" href="${url}" />
+${alternateLinks}
+    <link rel="alternate" hreflang="x-default" href="${SITE_ORIGIN}${basePath}" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="${escapeHtml(SITE_NAME)}" />
-    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:locale" content="${LOCALE_META[meta.locale].ogLocale}" />
+${alternateLocales}
     <meta property="og:url" content="${url}" />
     <meta property="og:title" content="${escapeHtml(meta.title)}" />
     <meta property="og:description" content="${escapeHtml(meta.description)}" />
-    <meta property="og:image" content="${SITE_ORIGIN}/og-image.jpg" />
+    <meta property="og:image" content="${SITE_ORIGIN}/${ogImage}" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${escapeHtml(meta.title)}" />
     <meta name="twitter:description" content="${escapeHtml(meta.description)}" />
-    <meta name="twitter:image" content="${SITE_ORIGIN}/og-image.jpg" />
+    <meta name="twitter:image" content="${SITE_ORIGIN}/${ogImage}" />
 
     <meta name="theme-color" content="#16181d" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f4f5f7" media="(prefers-color-scheme: light)" />
@@ -122,6 +146,9 @@ const PAGE_CSS = `
   @media (prefers-color-scheme: dark) { body { color: #e7e8ea; background: #16181d; } }
   header.crumbs { padding: 20px 0 8px; font-size: 13px; opacity: .7; }
   header.crumbs a { color: inherit; }
+  nav.locales { display: flex; gap: 6px; margin: 0 0 24px; font-size: 12px; }
+  nav.locales a { padding: 3px 9px; border: 1px solid rgba(128,128,128,.3); border-radius: 999px; color: inherit; text-decoration: none; }
+  nav.locales a[aria-current="page"] { border-color: #2563eb; font-weight: 700; }
   h1 { font-size: 28px; line-height: 1.35; margin: 8px 0 20px; }
   h2 { font-size: 20px; margin: 40px 0 12px; }
   h3 { font-size: 16px; margin: 20px 0 6px; }
@@ -149,4 +176,23 @@ export function renderBreadcrumbNav(items: BreadcrumbItem[]): string {
       : `<a href="${b.path}">${escapeHtml(b.name)}</a>`
   );
   return `<header class="crumbs">${parts.join(" · ")}</header>`;
+}
+
+export function renderLocaleNav(path: string, current: Locale): string {
+  const basePath = stripLocalePrefix(path);
+  const links = SUPPORTED_LOCALES.map((locale) => {
+    const currentAttribute = locale === current ? ' aria-current="page"' : "";
+    return `<a href="${localizePath(basePath, locale)}" hreflang="${locale}" lang="${
+      LOCALE_META[locale].htmlLang
+    }"${currentAttribute}>${LOCALE_META[locale].nativeLabel}</a>`;
+  }).join("");
+  return `<nav class="locales" aria-label="${escapeHtml(
+    translateLocaleLabel(current)
+  )}">${links}</nav>`;
+}
+
+function translateLocaleLabel(locale: Locale): string {
+  if (locale === "en") return "Language";
+  if (locale === "ja") return "言語";
+  return "언어";
 }

@@ -23,6 +23,7 @@ describe("Google Forms 문의 링크", () => {
       EXPECTED_CATEGORY[category]
     );
     expect(url.searchParams.get("embedded")).toBe("true");
+    expect(url.searchParams.get("hl")).toBe("ko");
   });
 
   it("새 탭 링크에는 iframe 전용 파라미터를 넣지 않는다", () => {
@@ -30,5 +31,14 @@ describe("Google Forms 문의 링크", () => {
 
     expect(url.searchParams.has("embedded")).toBe(false);
     expect(url.searchParams.get("usp")).toBe("pp_url");
+  });
+
+  it("Google Forms chrome에 EN/JA locale을 전달한다", () => {
+    expect(new URL(buildInquiryFormUrl("feedback", true, "en")).searchParams.get("hl")).toBe(
+      "en"
+    );
+    expect(new URL(buildInquiryFormUrl("feedback", true, "ja")).searchParams.get("hl")).toBe(
+      "ja"
+    );
   });
 });

@@ -70,16 +70,16 @@ Copy `.env.example` to `.env` for local data keys; never commit secrets. Store `
 
 ## Current Shared State
 
-마지막 확인: **2026-08-18 (Claude, 월세 데이터 품질 배치 배포 완료)**
+마지막 확인: **2026-08-19 (Codex, 현지화 로컬 커밋 완료·push 대기)**
 
 | 항목 | 현재 상태 |
 | --- | --- |
 | 공용 작업트리 | 기기마다 다름 — `git rev-parse --show-toplevel` 로 확인 |
 | 현재 브랜치 | `main` |
-| HEAD | `bafa847` — `origin/main`과 완전히 일치, push 완료, tracked 변경 없음(사용자 미추적 자료만 남음) |
-| 최근 검증 | `npm test` 271/271, `npm run typecheck`·`npm run build`·`git diff --check` 전부 통과 |
+| HEAD | `main`의 현지화 로컬 커밋 — `origin/main`보다 1커밋 앞섬, push 없음, tracked 변경 없음(사용자 미추적 자료만 남음) |
+| 최근 검증 | `npm test` 288/288, `npm run typecheck`·`npm run build`·`git diff --check`·90-page SEO audit·EN/JA CDP visible-text 검증 통과 |
 | 운영 배포 | **완료.** Worker Version `fd059d69-78d6-4b88-8bf5-2879490eb834`, 지표 버전 `2026-08-18`. `/api/data` 200(`X-Oneday-Source: kv`, 556개 동), `POST /api/data`·`POST /api/geocode` 405(`Allow: GET`) 프로덕션 확인. 삼평동 아파트 순수월세가 140만원(표본 94)으로 나가는 것까지 대조함 |
-| 진행 중인 작업 | 없음 |
+| 진행 중인 작업 | EN/JA 원어민 지명·UI 문구 검수 대기 |
 
 이 표는 **지금 상태만** 유지합니다. 지나간 배치의 상세 서사(왜 그렇게 했는지,
 뭘 시도했다 실패했는지)는 다시 쌓지 않고 커밋 메시지 본문에 맡깁니다 — 이
@@ -98,10 +98,19 @@ Copy `.env.example` to `.env` for local data keys; never commit secrets. Store `
 | 동탄구+GTX-A 확장 및 서울 월세 CSV 지원 | `5c2c287` | 대상 556개 동·35개 구로 확장하고 수서~동탄 GTX-A 수동 경로, 화성시 원자료, 3개년 서울 전월세 `.zip`/`.csv` 로더, 지표·점수·공개 번들을 재생성. 전체 회귀 246/246 통과 |
 | 월세 데이터 품질 2건 | `608561c`~`bafa847` | 사용자가 "판교 아파트가 왜 31만원이냐"고 물어 발견. (1) 공공임대가 소형 표본을 지배(삼평동 79%·백현동 100%)해 10,551건 제외 → 삼평동 31→140만원, (2) 전월세전환율이 근거 없는 전국 단일 5.5%였던 것을 유형·지역별 실측(4.4~7.7%)으로 교체 → 경기 편향 교정(가격점수 서울 +1.13·경기 −3.77). 한국부동산원 R-ONE 738개 통계표를 전수 검토했으나 전환율 외에는 전부 시군구 단위라 기각. `data:calibrate-rent-conversion`·`data:crosscheck-rent` 추가 |
 
-에이전트 슬롯은 현재 **둘 다 소유권 주장 없음** — 마지막 작업이 끝난 뒤 다음
-에이전트가 자유롭게 아무 파일이나 잡아도 됩니다. 새로 작업을 시작하면 아래
-[Handoff Update Template](#handoff-update-template) 형식으로 이 섹션 밑에
-자기 슬롯을 채우세요.
+Claude 슬롯은 비어 있고, Codex는 아래 파일을 native review handoff까지
+소유합니다. 새 작업을 시작하면 아래 [Handoff Update
+Template](#handoff-update-template) 형식으로 자기 슬롯을 갱신하세요.
+
+### Codex
+
+- Status: ready for review
+- Task: 한국어·영어·일본어 전체 UI/SEO, 지명 별칭, 현지화 이미지 구현
+- Owned files: `AGENTS.md`, `index.html`, `package.json`, `src/App.tsx`, `src/main.tsx`, `src/index.css`, `src/components/DestinationSearch.tsx`, `src/components/DongDetail.tsx`, `src/components/InquiryWidget.tsx`, `src/components/Landing.css`, `src/components/Landing.tsx`, `src/components/MapView.tsx`, `src/components/SearchGuide.tsx`, `src/components/TopPicks.tsx`, `src/components/WeightPlayground.tsx`, `src/data/geographicAliases.ts`, `src/lib/explain.ts`, `src/lib/geographicNames.test.ts`, `src/lib/geographicNames.ts`, `src/lib/i18n.tsx`, `src/lib/inquiry.test.ts`, `src/lib/inquiry.ts`, `src/lib/landingVariants.test.ts`, `src/lib/landingVariants.ts`, `src/lib/locale.test.ts`, `src/lib/locale.ts`, `src/lib/localizedAssets.test.ts`, `src/lib/rent-selection.ts`, `src/lib/subwayLines.ts`, `src/lib/translationCoverage.test.ts`, `src/seo/areaPage.ts`, `src/seo/generate.ts`, `src/seo/layout.ts`, `src/seo/localize.ts`, `src/seo/rootPage.ts`, `src/seo/seo.test.ts`, `src/seo/sitemap.ts`, `src/seo/slug.ts`, `scripts/capture-localized-images.mjs`, `scripts/generate-geographic-aliases.mjs`, `public/og-image-en.jpg`, `public/og-image-ja.jpg`, EN/JA 파일 18개인 `public/shots/`
+- Changed: URL 기준 `/`·`/en/`·`/ja/` UI와 공유 링크, 90개 정적 SEO URL, 556개 동·35개 구·621개 역명·22개 노선 별칭/오프라인 검색, EN/JA 캡처·OG 자산 구현. 한국어 랜딩에 화성·동탄 범위도 반영. 지명은 자동 초안+주요 수동 예외이며 원어민 검수 대기
+- Verification: `npm run data:aliases` 재생성 SHA 동일, `npm test` 288/288, `npm run typecheck`, `npm run build`, `git diff --check` 통과. HTML 90개·sitemap URL 90개·hreflang 360개·JSON-LD 전수 감사 통과. CDP 390px EN/JA 오버플로·visible Hangul 없음, 로컬 EN 루트·JA 가이드·`/api/data` 200
+- Commit/remote: local commit, push·KV seed·배포 없음
+- Next handoff: EN/JA 원어민이 `src/data/geographicAliases.ts`와 화면 문구를 검수하고 지명 수정은 생성기 override에 반영한 뒤 커밋·배포 승인 절차 진행
 
 ## Git and Deployment Gate
 

@@ -2,6 +2,8 @@ import "./SearchGuide.css";
 import type { LandingVariant } from "../lib/landingVariants";
 import { AREA_DEFS } from "../seo/areas";
 import { guideUrlPath } from "../seo/slug";
+import { localizeAreaDef } from "../seo/localize";
+import { useI18n } from "../lib/i18n";
 
 /**
  * 검색엔진만 보는 키워드 더미가 아니라, 실제 사용자가 자신의 상황과 기능을
@@ -25,6 +27,7 @@ const FEATURED_GUIDES = FEATURED_GUIDE_SLUGS.map(
 ).filter(Boolean);
 
 export default function SearchGuide({ variant }: { variant: LandingVariant }) {
+  const { locale, tr } = useI18n();
   return (
     <section className="landing-section search-guide" aria-labelledby="search-guide-title">
       <p className="search-guide-kicker">{variant.guideKicker}</p>
@@ -33,18 +36,21 @@ export default function SearchGuide({ variant }: { variant: LandingVariant }) {
         {variant.guideLead}
       </p>
 
-      <ul className="search-topic-list" aria-label="비교할 수 있는 자취 검색 주제">
+      <ul className="search-topic-list" aria-label={tr("비교할 수 있는 자취 검색 주제")}>
         {variant.topics.map((topic) => (
           <li key={topic}>{topic}</li>
         ))}
       </ul>
 
-      <nav className="search-guide-nav" aria-label="검색어별 자취 추천 가이드">
-        {FEATURED_GUIDES.map((area) => (
-          <a key={area.slug} href={guideUrlPath(area.slug)}>
-            {area.keyword}
-          </a>
-        ))}
+      <nav className="search-guide-nav" aria-label={tr("검색어별 자취 추천 가이드")}>
+        {FEATURED_GUIDES.map((area) => {
+          const localized = localizeAreaDef(area, locale);
+          return (
+            <a key={area.slug} href={guideUrlPath(area.slug, locale)}>
+              {localized.keyword}
+            </a>
+          );
+        })}
       </nav>
 
       <div className="search-guide-grid">

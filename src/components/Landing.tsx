@@ -6,6 +6,8 @@ import WeightPlayground from "./WeightPlayground";
 import type { Theme } from "./MapView";
 import type { Destination } from "../types";
 import type { LandingVariant } from "../lib/landingVariants";
+import type { GeographicSuggestion } from "../lib/geographicNames";
+import { LocaleSwitcher, useI18n } from "../lib/i18n";
 import {
   COMMUTE_BANDS,
   DEFAULT_WEIGHTS,
@@ -22,6 +24,7 @@ interface Props {
   theme: Theme;
   onToggleTheme: () => void;
   variant: LandingVariant;
+  geographicSuggestions: GeographicSuggestion[];
 }
 
 /**
@@ -51,7 +54,9 @@ export default function Landing({
   theme,
   onToggleTheme,
   variant,
+  geographicSuggestions,
 }: Props) {
+  const { locale, tr, minutes, rent, number } = useI18n();
   const pct = (v: number) => Math.round(v * 100);
   const [mode, setMode] = useState<"grade" | "commute">("grade");
 
@@ -64,14 +69,21 @@ export default function Landing({
 
         <div className="hero-nav">
           <span className="landing-mark">I Don&rsquo;t Know Seoul</span>
-          <button
-            type="button"
-            className="hero-theme"
-            onClick={onToggleTheme}
-            title={theme === "dark" ? "밝게 보기" : "어둡게 보기"}
-          >
-            {theme === "dark" ? "☀ 밝게" : "☾ 어둡게"}
-          </button>
+          <div className="hero-actions">
+            <LocaleSwitcher />
+            <button
+              type="button"
+              className="hero-theme"
+              onClick={onToggleTheme}
+              title={theme === "dark" ? tr("밝게 보기") : tr("어둡게 보기")}
+              aria-label={theme === "dark" ? tr("밝게 보기") : tr("어둡게 보기")}
+            >
+              <span aria-hidden="true">{theme === "dark" ? "☀" : "☾"}</span>{" "}
+              <span className="hero-theme-label">
+                {theme === "dark" ? tr("밝게") : tr("어둡게")}
+              </span>
+            </button>
+          </div>
         </div>
 
         <div className="hero-body">
@@ -96,16 +108,17 @@ export default function Landing({
           </p>
 
           <div className="hero-search">
-            <DestinationSearch onPick={onPick} />
+            <DestinationSearch
+              onPick={onPick}
+              geographicSuggestions={geographicSuggestions}
+            />
           </div>
 
           <button type="button" className="link-btn" onClick={onSkip}>
-            목적지 없이 지도부터 볼게요
+            {tr("목적지 없이 지도부터 볼게요")}
           </button>
 
-          <p className="hero-stats">
-            서버에 아무것도 저장하지 않습니다
-          </p>
+          <p className="hero-stats">{tr("서버에 아무것도 저장하지 않습니다")}</p>
         </div>
 
         <div className="scroll-cue" aria-hidden="true">
@@ -123,12 +136,12 @@ export default function Landing({
         {/* ---------------- 기능 ---------------- */}
         <Reveal>
           <section className="landing-section">
-            <h2>무엇을 해주는가</h2>
+            <h2>{tr("무엇을 해주는가")}</h2>
             <div className="feature-grid" data-stagger>
               {FEATURES.map((f) => (
                 <div className="feature" key={f.title}>
-                  <b>{f.title}</b>
-                  <span>{f.body}</span>
+                  <b>{tr(f.title)}</b>
+                  <span>{tr(f.body)}</span>
                 </div>
               ))}
             </div>
@@ -138,10 +151,9 @@ export default function Landing({
         {/* ---------------- 실제 화면 ---------------- */}
         <Reveal>
           <section className="landing-section">
-            <h2>이게 실제 화면입니다</h2>
+            <h2>{tr("이게 실제 화면입니다")}</h2>
             <p className="landing-note">
-              합성이나 컨셉 이미지가 아니라, 강남역을 목적지로 두고 실행한
-              화면을 그대로 찍은 것입니다.
+              {tr("합성이나 컨셉 이미지가 아니라, 강남역을 목적지로 두고 실행한 화면을 그대로 찍은 것입니다.")}
             </p>
 
             <figure className="app-shot">
@@ -149,12 +161,12 @@ export default function Landing({
                 <picture>
                   <source
                     type="image/webp"
-                    srcSet="/shots/app-full-sm.webp 1200w, /shots/app-full.webp 2200w"
+                    srcSet={`${shotPath("app-full-sm.webp", locale)} 1200w, ${shotPath("app-full.webp", locale)} 2200w`}
                     sizes="(max-width: 880px) 100vw, min(1180px, 100vw - 40px)"
                   />
                   <img
-                    src="/shots/app-full.jpg"
-                    alt="강남역을 목적지로 둔 실행 화면. 서울 지도가 초록·노랑·빨강으로 칠해져 있고 오른쪽에 조건·가중치 패널과 추천 동네 목록이 있다."
+                    src={shotPath("app-full.jpg", locale)}
+                    alt={tr("강남역을 목적지로 둔 실행 화면. 서울 지도가 초록·노랑·빨강으로 칠해져 있고 오른쪽에 조건·가중치 패널과 추천 동네 목록이 있다.")}
                     width={2200}
                     height={1095}
                     loading="lazy"
@@ -185,8 +197,8 @@ export default function Landing({
                 <li key={m.title}>
                   <span className="app-mark-no">{i + 1}</span>
                   <div>
-                    <b>{m.title}</b>
-                    <span>{m.body}</span>
+                    <b>{tr(m.title)}</b>
+                    <span>{tr(m.body)}</span>
                   </div>
                 </li>
               ))}
@@ -197,7 +209,7 @@ export default function Landing({
         {/* ---------------- 지도 두 모드 ---------------- */}
         <Reveal>
           <section className="landing-section">
-            <h2>지도를 두 가지로 봅니다</h2>
+            <h2>{tr("지도를 두 가지로 봅니다")}</h2>
 
             <div className="mode-switch shot-switch">
               <button
@@ -205,14 +217,14 @@ export default function Landing({
                 data-active={mode === "grade"}
                 onClick={() => setMode("grade")}
               >
-                등급
+                {tr("등급")}
               </button>
               <button
                 type="button"
                 data-active={mode === "commute"}
                 onClick={() => setMode("commute")}
               >
-                통근시간
+                {tr("통근시간")}
               </button>
             </div>
 
@@ -221,12 +233,12 @@ export default function Landing({
                 <picture key={s.mode}>
                   <source
                     type="image/webp"
-                    srcSet={`/shots/mode-${s.mode}-sm.webp 1000w, /shots/mode-${s.mode}.webp 1800w`}
+                    srcSet={`${shotPath(`mode-${s.mode}-sm.webp`, locale)} 1000w, ${shotPath(`mode-${s.mode}.webp`, locale)} 1800w`}
                     sizes="(max-width: 880px) calc(100vw - 40px), 840px"
                   />
                   <img
-                    src={`/shots/mode-${s.mode}.jpg`}
-                    alt={s.alt}
+                    src={shotPath(`mode-${s.mode}.jpg`, locale)}
+                    alt={tr(s.alt)}
                     data-on={mode === s.mode}
                     loading="lazy"
                     decoding="async"
@@ -248,14 +260,13 @@ export default function Landing({
                 : COMMUTE_BANDS.map((b) => (
                     <span key={b.label}>
                       <i className="grade-dot" style={{ background: b.color }} />
-                      {b.label}
+                      {tr(b.label)}
                     </span>
                   ))}
             </div>
 
             <p className="landing-note">
-              두 모드의 색 계열을 다르게 둔 이유는, 같은 계열이면 &ldquo;빨간
-              동네가 나쁜 건지 먼 건지&rdquo; 구분이 안 되기 때문입니다.
+              {tr("두 모드의 색 계열을 다르게 둔 이유는, 같은 계열이면 “빨간 동네가 나쁜 건지 먼 건지” 구분이 안 되기 때문입니다.")}
             </p>
           </section>
         </Reveal>
@@ -264,14 +275,12 @@ export default function Landing({
         <Reveal>
           <section className="landing-section split" data-stagger>
             <div className="split-text">
-              <h2>왜 그 등급인지 전부 보여줍니다</h2>
+              <h2>{tr("왜 그 등급인지 전부 보여줍니다")}</h2>
               <p className="landing-note">
-                점수만 던지지 않습니다. 원지표가 전체 중앙값 대비 어디쯤인지,
-                백분위가 몇 점인지, 가중치가 얼마인지, 그게 어떻게 합산됐는지
-                마지막 덧셈까지 펼쳐서 보여줍니다.
+                {tr("점수만 던지지 않습니다. 원지표가 전체 중앙값 대비 어디쯤인지, 백분위가 몇 점인지, 가중치가 얼마인지, 그게 어떻게 합산됐는지 마지막 덧셈까지 펼쳐서 보여줍니다.")}
               </p>
               <p className="landing-note">
-                <b>믿으라고 하지 않고, 검산할 수 있게 둡니다.</b>
+                <b>{tr("믿으라고 하지 않고, 검산할 수 있게 둡니다.")}</b>
               </p>
             </div>
             {/*
@@ -282,27 +291,32 @@ export default function Landing({
             <div className="panel-mock">
               <div className="metric">
                 <div className="metric-head">
-                  <span>치안</span>
+                  <span>{tr("치안")}</span>
                   <b style={{ color: GRADE_COLOR.normal }}>65</b>
                 </div>
                 <div className="bar">
                   <div style={{ width: "65.3%", background: GRADE_COLOR.normal }} />
                 </div>
                 <div className="why-mock">
-                  <span className="why-summary">▾ 계산 과정</span>
+                  <span className="why-summary">▾ {locale === "ko" ? "계산 과정" : locale === "ja" ? "計算過程" : "Calculation"}</span>
                   {WHY_ROWS.map((r) => (
                     <div className="metric-row" key={r.label}>
                       <div className="metric-row-head">
-                        <span>{r.label}</span>
-                        <b>{r.value}</b>
+                        <span>{tr(r.label)}</span>
+                        <b>{metricDisplay(locale, r.value)}</b>
                       </div>
                       <div className="metric-row-note">
-                        전체 중앙값 {r.median} · 이 동은 {r.rank} <b>({r.point}점)</b> ·
-                        가중치 {r.weight}
+                        {locale === "en"
+                          ? `Overall median ${metricDisplay(locale, r.median)} · this neighborhood ${rankDisplay(locale, r.rank)} `
+                          : locale === "ja"
+                            ? `全体中央値 ${metricDisplay(locale, r.median)}・この地域は${rankDisplay(locale, r.rank)} `
+                            : `전체 중앙값 ${r.median} · 이 동은 ${r.rank} `}
+                        <b>({locale === "en" ? `${r.point} pts` : locale === "ja" ? `${r.point}点` : `${r.point}점`})</b>{" "}
+                        · {locale === "en" ? "weight" : locale === "ja" ? "重み" : "가중치"} {r.weight}
                       </div>
                     </div>
                   ))}
-                  <div className="formula">치안 65.3 = 61×0.38 + 84×0.46 + 20×0.15</div>
+                  <div className="formula">{tr("치안")} 65.3 = 61×0.38 + 84×0.46 + 20×0.15</div>
                 </div>
               </div>
             </div>
@@ -313,40 +327,41 @@ export default function Landing({
         <Reveal>
           <section className="landing-section split reverse" data-stagger>
             <div className="split-text">
-              <h2>통근시간을 직접 계산합니다</h2>
+              <h2>{tr("통근시간을 직접 계산합니다")}</h2>
               <p className="landing-note">
-                외부 길찾기 API를 부르지 않습니다. 지하철 그래프를 브라우저에서
-                직접 탐색하기 때문에, 조건을 바꿔도 네트워크 왕복 없이 즉시
-                다시 계산됩니다.
+                {tr("외부 길찾기 API를 부르지 않습니다. 지하철 그래프를 브라우저에서 직접 탐색하기 때문에, 조건을 바꿔도 네트워크 왕복 없이 즉시 다시 계산됩니다.")}
               </p>
               <p className="landing-note">
-                몇 분이 걸리는지만이 아니라 <b>어느 역에서 타고 어디서
-                갈아타는지</b>까지 구간별로 나옵니다.
+                {tr("몇 분이 걸리는지만이 아니라 어느 역에서 타고 어디서 갈아타는지까지 구간별로 나옵니다.")}
               </p>
             </div>
             <div className="panel-mock">
               <div className="detail-head">
-                <h3>동작구 노량진1동</h3>
+                <h3>{locale === "en" ? "Dongjak-gu Noryangjin 1-dong" : locale === "ja" ? "トンジャク区 ノリャンジン1洞" : "동작구 노량진1동"}</h3>
                 <span className="badge">
                   <i className="grade-dot best" />
                   {GRADE_LABEL.best}
                 </span>
               </div>
               <p className="rank-line">
-                수도권 556개 동 중 <b>10위</b> · 상위 2%
+                {locale === "en" ? "#" : ""}<b>{locale === "en" ? "10 of 556" : locale === "ja" ? "556地域中10位" : "수도권 556개 동 중 10위"}</b> · {locale === "en" ? "top 2%" : locale === "ja" ? "上位2%" : "상위 2%"}
               </p>
               <p className="summary">
-                범죄가 적고 월세는 47만원으로 싸지만, 교통사고 다발지점이 많습니다.
+                {locale === "en"
+                  ? `Crime is low and rent is affordable at ${rent(47)}, but traffic-accident hotspots are numerous.`
+                  : locale === "ja"
+                    ? `犯罪が少なく家賃は${rent(47)}と安い一方、交通事故多発地点が多い地域です。`
+                    : "범죄가 적고 월세는 47만원으로 싸지만, 교통사고 다발지점이 많습니다."}
               </p>
               <div className="route-total">
-                <b>34분</b>
-                <span>환승 1회</span>
+                <b>{minutes(34)}</b>
+                <span>{locale === "en" ? "1 transfer" : locale === "ja" ? "乗り換え1回" : "환승 1회"}</span>
               </div>
               <ol className="route-legs">
                 {ROUTE_LEGS.map((l, i) => (
                   <li key={i} className={`leg leg-${l.kind}`}>
-                    <span className="leg-time">{l.min}분</span>
-                    <span className="leg-text">{l.text}</span>
+                    <span className="leg-time">{minutes(l.min)}</span>
+                    <span className="leg-text">{tr(l.text)}</span>
                   </li>
                 ))}
               </ol>
@@ -357,59 +372,63 @@ export default function Landing({
         {/* ---------------- 기준 ---------------- */}
         <Reveal>
           <section className="landing-section">
-            <h2>무엇을 보고 매기는가</h2>
+            <h2>{tr("무엇을 보고 매기는가")}</h2>
 
             <table className="axis-table">
               <thead>
                 <tr>
-                  <th>축</th>
-                  <th>무엇을 보는가</th>
-                  <th>기본</th>
+                  <th>{tr("축")}</th>
+                  <th>{tr("무엇을 보는가")}</th>
+                  <th>{tr("기본")}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>치안</td>
-                  <td>유흥업소 밀도, 5대범죄(자치구), 교통사고 다발지역</td>
+                  <td>{tr("치안")}</td>
+                  <td>{tr("유흥업소 밀도, 5대범죄(자치구), 교통사고 다발지역")}</td>
                   <td>{pct(DEFAULT_WEIGHTS.safety)}%</td>
                 </tr>
                 <tr>
-                  <td>가격</td>
-                  <td>선택한 주택유형의 월세 중앙값 (기본: 단독·다가구 환산월세)</td>
+                  <td>{tr("가격")}</td>
+                  <td>{tr("선택한 주택유형의 월세 중앙값 (기본: 단독·다가구 환산월세)")}</td>
                   <td>{pct(DEFAULT_WEIGHTS.price)}%</td>
                 </tr>
                 <tr>
-                  <td>생활편의</td>
-                  <td>편의점·마트, 음식점, 병원·약국, 교통 접근성</td>
+                  <td>{tr("생활편의")}</td>
+                  <td>{tr("편의점·마트, 음식점, 병원·약국, 교통 접근성")}</td>
                   <td>{pct(DEFAULT_WEIGHTS.convenience)}%</td>
                 </tr>
               </tbody>
             </table>
 
             <p className="landing-note">
-              월세는 연립·다세대까지 네 유형의 15개 조합과 순수/환산 모드를
-              선택할 수 있습니다. 기본은 단독·다가구 환산월세입니다.
+              {locale === "en"
+                ? "Choose any of 15 non-empty combinations across four housing types, including row and multiplex housing, in either monthly-payment-only or deposit-adjusted mode. The default is deposit-adjusted detached and multi-family housing."
+                : locale === "ja"
+                  ? "連立・多世帯住宅を含む4種類・15通りの組み合わせと、月額のみ／保証金換算モードを選べます。既定は戸建て・多世帯住宅の保証金換算家賃です。"
+                  : "월세는 연립·다세대까지 네 유형의 15개 조합과 순수/환산 모드를 선택할 수 있습니다. 기본은 단독·다가구 환산월세입니다."}
             </p>
 
             <p className="landing-note">
-              이 비중은 <b>슬라이더로 직접 바꿉니다.</b> 월세가 제일 중요한
-              사람과 조용한 동네가 제일 중요한 사람에게 같은 순위를 강요할 근거가
-              없습니다. 아래에서 직접 옮겨보세요.
+              {tr("이 비중은 슬라이더로 직접 바꿉니다. 월세가 제일 중요한 사람과 조용한 동네가 제일 중요한 사람에게 같은 순위를 강요할 근거가 없습니다. 아래에서 직접 옮겨보세요.")}
             </p>
 
             <WeightPlayground />
 
             <p className="landing-note">
-              여기 쓰인 점수는 예시가 아니라 <b>실제 산출물</b>입니다. 계산도
-              앱과 같은 코드를 씁니다 — 슬라이더를 끝까지 밀면 1등이 바뀌는데,
-              그게 이 도구가 하는 일의 전부입니다.
+              {locale === "en"
+                ? "These are real outputs, not illustrative scores. The playground uses the same calculation as the app; move a slider to an extreme and the top-ranked neighborhood changes."
+                : locale === "ja"
+                  ? "ここで使う点数は例ではなく実際の算出結果です。アプリと同じ計算を使うため、スライダーを端まで動かすと1位の街が変わります。"
+                  : "여기 쓰인 점수는 예시가 아니라 실제 산출물입니다. 계산도 앱과 같은 코드를 씁니다 — 슬라이더를 끝까지 밀면 1등이 바뀌는데, 그게 이 도구가 하는 일의 전부입니다."}
             </p>
 
             <p className="summary">
-              등급은 절대 평가가 아니라 대상 지역 안에서의 상대 평가입니다. 상위{" "}
-              {pct(GRADE_CUT.best)}%가 Best, 하위 {pct(1 - GRADE_CUT.normal)}%가
-              Bad입니다. &ldquo;Bad&rdquo;는 살 수 없는 동네라는 뜻이 아니라,
-              같은 조건에서 비교했을 때 하위권이라는 뜻입니다.
+              {locale === "en"
+                ? `Grades are relative within the coverage area, not absolute: the top ${pct(GRADE_CUT.best)}% are Best and the bottom ${pct(1 - GRADE_CUT.normal)}% are Bad. “Bad” means lower-ranked under the same conditions, not unlivable.`
+                : locale === "ja"
+                  ? `評価は絶対評価ではなく対象地域内の相対評価です。上位${pct(GRADE_CUT.best)}%がBest、下位${pct(1 - GRADE_CUT.normal)}%がBadです。「Bad」は住めない地域という意味ではなく、同じ条件で比較したときに下位という意味です。`
+                  : `등급은 절대 평가가 아니라 대상 지역 안에서의 상대 평가입니다. 상위 ${pct(GRADE_CUT.best)}%가 Best, 하위 ${pct(1 - GRADE_CUT.normal)}%가 Bad입니다. “Bad”는 살 수 없는 동네라는 뜻이 아니라, 같은 조건에서 비교했을 때 하위권이라는 뜻입니다.`}
             </p>
           </section>
         </Reveal>
@@ -417,30 +436,29 @@ export default function Landing({
         {/* ---------------- 다중 목적지 ---------------- */}
         <Reveal>
           <section className="landing-section">
-            <h2>둘 다 가까운 동네도 찾습니다</h2>
+            <h2>{tr("둘 다 가까운 동네도 찾습니다")}</h2>
             <p className="landing-note">
-              커플이 각자 다른 회사에 다니거나 회사 + 학원처럼,{" "}
-              <b>&ldquo;둘 다 40분 이내인 동네&rdquo;</b>를 찾는 건 흔한
-              니즈입니다. 목적지를 최대 3곳까지 더하면 모두 만족하는 지역만
-              남습니다.
+              {locale === "en"
+                ? "Couples working at different offices, or anyone balancing work and classes, often need a neighborhood within 40 minutes of both. Add up to three destinations to keep only areas that satisfy every one."
+                : locale === "ja"
+                  ? "別々の会社へ通うカップルや、会社とスクールの両方へ通う人には「どちらも40分以内」の街が必要です。目的地を最大3か所追加すると、すべてを満たす地域だけが残ります。"
+                  : "커플이 각자 다른 회사에 다니거나 회사 + 학원처럼, “둘 다 40분 이내인 동네”를 찾는 건 흔한 니즈입니다. 목적지를 최대 3곳까지 더하면 모두 만족하는 지역만 남습니다."}
             </p>
             <div className="count-compare" data-stagger>
               <div className="count-box">
-                <b>146</b>
-                <span>강남역만</span>
+                <b>{number(146)}</b>
+                <span>{locale === "en" ? "Gangnam Station only" : locale === "ja" ? "カンナム駅のみ" : "강남역만"}</span>
               </div>
               <div className="count-arrow" aria-hidden="true">
                 →
               </div>
               <div className="count-box narrowed">
-                <b>76</b>
-                <span>강남역 + 여의도역</span>
+                <b>{number(76)}</b>
+                <span>{locale === "en" ? "Gangnam + Yeouido" : locale === "ja" ? "カンナム駅＋ヨイド駅" : "강남역 + 여의도역"}</span>
               </div>
             </div>
             <p className="landing-note">
-              판정은 가장 오래 걸리는 쪽 기준입니다. 평균이나 합을 쓰면
-              &ldquo;한 명은 20분, 다른 한 명은 90분&rdquo;인 동네가
-              통과해버립니다.
+              {tr("판정은 가장 오래 걸리는 쪽 기준입니다. 평균이나 합을 쓰면 “한 명은 20분, 다른 한 명은 90분”인 동네가 통과해버립니다.")}
             </p>
           </section>
         </Reveal>
@@ -453,26 +471,58 @@ export default function Landing({
         <div className="cta-body">
           <h2>{variant.ctaTitle}</h2>
           <div className="hero-search">
-            <DestinationSearch onPick={onPick} />
+            <DestinationSearch
+              onPick={onPick}
+              geographicSuggestions={geographicSuggestions}
+            />
           </div>
         </div>
       </section>
 
       <p className="disclaimer landing-foot">
-        등급은 공공·공개 데이터로 계산한 <b>대상 지역 내 상대 평가</b>이며, 특정
-        지역에 대한 가치판단이 아닙니다. 통근시간은 정적 지하철·버스 모델
-        추정치이며 실시간 교통상황에 따라 달라질 수 있습니다.
+        {tr("등급은 공공·공개 데이터로 계산한 대상 지역 내 상대 평가이며, 특정 지역에 대한 가치판단이 아닙니다. 통근시간은 정적 지하철·버스 모델 추정치이며 실시간 교통상황에 따라 달라질 수 있습니다.")}
         <br />
-        경계 © SGIS/vuski · 100m 인구(2024) © 국가데이터처 SGIS ·
-        지하철·편의지표 정류장 © OpenStreetMap contributors · 통근 버스노선 ©
-        서울특별시·경기도 · 상가업소 © 소상공인시장진흥공단 · 월세 © 서울특별시
-        열린데이터광장·국토교통부 실거래가
+        {locale === "en"
+          ? "Boundaries © SGIS/vuski · 100 m population (2024) © SGIS · subway and convenience-stop data © OpenStreetMap contributors · commute bus routes © Seoul & Gyeonggi · businesses © SEMAS · rent © Seoul Open Data Plaza & MOLIT"
+          : locale === "ja"
+            ? "境界 © SGIS/vuski・100m人口(2024) © SGIS・地下鉄／利便施設 © OpenStreetMap contributors・通勤バス路線 © ソウル特別市／京畿道・店舗 © 小商工人市場振興公団・家賃 © ソウル開かれたデータ広場／国土交通部"
+            : "경계 © SGIS/vuski · 100m 인구(2024) © 국가데이터처 SGIS · 지하철·편의지표 정류장 © OpenStreetMap contributors · 통근 버스노선 © 서울특별시·경기도 · 상가업소 © 소상공인시장진흥공단 · 월세 © 서울특별시 열린데이터광장·국토교통부 실거래가"}
       </p>
     </div>
   );
 }
 
 /* ------------------------------------------------------------------ */
+
+function shotPath(file: string, locale: "ko" | "en" | "ja"): string {
+  if (locale === "ko") return `/shots/${file}`;
+  const dot = file.lastIndexOf(".");
+  return `/shots/${file.slice(0, dot)}-${locale}${file.slice(dot)}`;
+}
+
+function metricDisplay(locale: "ko" | "en" | "ja", value: string): string {
+  if (locale === "ko") return value;
+  if (value.includes("개/km²")) {
+    return locale === "ja" ? value.replace("개/km²", "件/km²") : value.replace("개/km²", "/km²");
+  }
+  if (value.includes("건/km²")) {
+    return locale === "ja" ? value.replace("건/km²", "件/km²") : value.replace("건/km²", "/km²");
+  }
+  if (value.includes("건/천명")) {
+    return locale === "ja"
+      ? value.replace("건/천명", "件/千人")
+      : value.replace("건/천명", " per 1,000 people");
+  }
+  return value;
+}
+
+function rankDisplay(locale: "ko" | "en" | "ja", value: string): string {
+  if (locale === "ko") return value;
+  const amount = value.match(/\d+%/)?.[0] ?? value;
+  const isTop = value.startsWith("상위");
+  if (locale === "ja") return `${isTop ? "上位" : "下位"}${amount}`;
+  return `${isTop ? "top" : "bottom"} ${amount}`;
+}
 
 /**
  * 히어로·마무리 CTA 의 배경 지도.
@@ -533,6 +583,7 @@ function HeroImage({
  * 안 읽는다.
  */
 function StatBand() {
+  const { locale, tr } = useI18n();
   return (
     <div className="stat-band">
       <dl className="stat-band-inner">
@@ -540,9 +591,9 @@ function StatBand() {
           <div className="stat" key={s.label}>
             <dt>
               <CountUp to={s.value} />
-              <i>{s.unit}</i>
+              <i>{statUnit(locale, s.unit)}</i>
             </dt>
-            <dd>{s.label}</dd>
+            <dd>{tr(s.label)}</dd>
           </div>
         ))}
       </dl>
@@ -559,6 +610,7 @@ function StatBand() {
  * 값은 따로 둔다.
  */
 function CountUp({ to, ms = 1100 }: { to: number; ms?: number }) {
+  const { number } = useI18n();
   const ref = useRef<HTMLSpanElement>(null);
   const [n, setN] = useState(to);
 
@@ -596,10 +648,17 @@ function CountUp({ to, ms = 1100 }: { to: number; ms?: number }) {
 
   return (
     <span ref={ref}>
-      <span aria-hidden="true">{n.toLocaleString("ko-KR")}</span>
-      <span className="sr-only">{to.toLocaleString("ko-KR")}</span>
+      <span aria-hidden="true">{number(n)}</span>
+      <span className="sr-only">{number(to)}</span>
     </span>
   );
+}
+
+function statUnit(locale: "ko" | "en" | "ja", unit: string): string {
+  if (locale === "ko") return unit;
+  if (unit === "역") return locale === "ja" ? "駅" : " stations";
+  if (unit === "회") return locale === "ja" ? "回" : " calls";
+  return locale === "ja" ? "件" : "";
 }
 
 /**
@@ -773,7 +832,7 @@ const SHOT_MARKS = [
 const FEATURES = [
   {
     title: "556개 행정동 등급화",
-    body: "서울과 신분당선 축(수원·성남·용인)을 Best / Normal / Bad 로 나눕니다.",
+    body: "서울과 신분당선 축(수원·성남·용인), GTX-A 축(화성 동탄)을 Best / Normal / Bad 로 나눕니다.",
   },
   {
     title: "가중치 조절",

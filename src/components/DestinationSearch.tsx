@@ -1,11 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import type { Destination } from "../types";
+import {
+  searchGeographicSuggestions,
+  type GeographicSuggestion,
+} from "../lib/geographicNames";
+import { useI18n } from "../lib/i18n";
 
 interface Props {
   onPick: (dest: Destination) => void;
   /** 목적지 상한에 도달하면 입력을 막는다 */
   disabled?: boolean;
   placeholder?: string;
+  geographicSuggestions?: GeographicSuggestion[];
 }
 
 interface Suggestion {
@@ -13,9 +19,11 @@ interface Suggestion {
   address: string;
   lat: number;
   lng: number;
-  /** station = 지하철역 폴백, place = 지오코딩 결과 */
-  kind: "station" | "place";
+  /** station/neighborhood = 로컬 별칭 검색, place = Kakao 지오코딩 결과 */
+  kind: "station" | "neighborhood" | "place";
 }
+
+const EMPTY_GEOGRAPHIC_SUGGESTIONS: GeographicSuggestion[] = [];
 
 /**
  * 목적지 검색.
@@ -24,7 +32,13 @@ interface Suggestion {
  * 클라이언트에 노출하지 않기 위해서다. 키가 설정되지 않은 환경에서는
  * Worker가 지하철역 이름 검색으로 폴백하므로 개발 중에도 동작한다.
  */
-export default function DestinationSearch({ onPick, disabled, placeholder }: Props) {
+export default function DestinationSearch({
+  onPick,
+  disabled,
+  placeholder,
+  geographicSuggestions = EMPTY_GEOGRAPHIC_SUGGESTIONS,
+}: Props) {
+  const { tr } = useI18n();
   const [query, setQuery] = useState("");
   const [items, setItems] = useState<Suggestion[]>([]);
   const [open, setOpen] = useState(false);
@@ -50,6 +64,10 @@ export default function DestinationSearch({ onPick, disabled, placeholder }: Pro
       setOpen(false);
       return;
     }
+    const localItems = searchGeographicSuggestions(geographicSuggestions, q);
+    setItems(localItems);
+    setActive(0);
+    setOpen(true);
     const ctrl = new AbortController();
     const timer = setTimeout(async () => {
       setLoading(true);
@@ -59,13 +77,19 @@ export default function DestinationSearch({ onPick, disabled, placeholder }: Pro
         });
         if (!res.ok) throw new Error(String(res.status));
         const data: { results: Suggestion[] } = await res.json();
-        setItems(data.results ?? []);
+        const merged = [...localItems, ...(data.results ?? [])].filter(
+          (item, index, all) =>
+            all.findIndex(
+              (candidate) => candidate.lat === item.lat && candidate.lng === item.lng
+            ) === index
+        );
+        setItems(merged.slice(0, 10));
         setActive(0);
         setOpen(true);
       } catch (err) {
         if ((err as Error).name !== "AbortError") {
-          setItems([]);
-          setOpen(false);
+          setItems(localItems);
+          setOpen(localItems.length > 0);
         }
       } finally {
         setLoading(false);
@@ -76,7 +100,7 @@ export default function DestinationSearch({ onPick, disabled, placeholder }: Pro
       clearTimeout(timer);
       ctrl.abort();
     };
-  }, [query]);
+  }, [geographicSuggestions, query]);
 
   // 바깥 클릭 시 닫기
   useEffect(() => {
@@ -124,24 +148,24 @@ export default function DestinationSearch({ onPick, disabled, placeholder }: Pro
         disabled={disabled}
         placeholder={
           disabled
-            ? "목적지를 더 추가할 수 없습니다"
+            ? tr("목적지를 더 추가할 수 없습니다")
             : /*
                * 예시를 "강남역, SK AX" 로 둔다. 역 하나와 회사 하나를 보여줘
                * 둘 다 된다는 걸 알리는 게 첫째 이유고, SK AX 는 판교라
                * **목적지가 서울 밖이어도 된다**는 것까지 같이 알린다
                * (서울 밖으로 통근하며 서울에 사는 게 이 도구의 흔한 쓰임이다).
                */
-              (placeholder ?? "회사나 학교를 검색하세요 (예: 강남역, SK AX)")
+              (placeholder ?? tr("회사나 학교를 검색하세요 (예: 강남역, SK AX)"))
         }
         autoComplete="off"
         spellCheck={false}
-        aria-label="목적지 검색"
+        aria-label={tr("목적지 검색")}
       />
       {open && (
         <div className="suggestions" role="listbox">
           {items.length === 0 && !loading && (
             <div className="suggestion" style={{ color: "var(--text-faint)" }}>
-              검색 결과가 없습니다
+              {tr("검색 결과가 없습니다")}
             </div>
           )}
           {items.map((s, i) => (
@@ -155,7 +179,8 @@ export default function DestinationSearch({ onPick, disabled, placeholder }: Pro
               aria-selected={i === active}
             >
               {s.name}
-              {s.kind === "station" && <span className="pill">지하철역</span>}
+              {s.kind === "station" && <span className="pill">{tr("지하철역")}</span>}
+              {s.kind === "neighborhood" && <span className="pill">{tr("행정동")}</span>}
               <small>{s.address}</small>
             </button>
           ))}

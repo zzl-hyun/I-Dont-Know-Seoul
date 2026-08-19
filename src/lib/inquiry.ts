@@ -40,11 +40,14 @@ const GOOGLE_FORM_CATEGORY: Record<InquiryCategory, string> = {
  */
 export function buildInquiryFormUrl(
   category: InquiryCategory,
-  embedded: boolean
+  embedded: boolean,
+  locale: Locale = "ko"
 ): string {
   const url = new URL(GOOGLE_FORM_URL);
   url.searchParams.set("usp", "pp_url");
   url.searchParams.set(CATEGORY_ENTRY, GOOGLE_FORM_CATEGORY[category]);
+  url.searchParams.set("hl", locale === "ja" ? "ja" : locale === "en" ? "en" : "ko");
   if (embedded) url.searchParams.set("embedded", "true");
   return url.toString();
 }
+import type { Locale } from "./locale";

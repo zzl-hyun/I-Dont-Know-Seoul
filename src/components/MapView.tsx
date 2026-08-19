@@ -9,6 +9,13 @@ import {
   OUT_OF_RANGE_COLOR,
 } from "../lib/constants";
 import { LINE_COLOR, lineName, type SubwayLayers } from "../lib/subwayLines";
+import {
+  localizedDongName,
+  localizedDongShortName,
+  localizedStationName,
+} from "../lib/geographicNames";
+import { useI18n } from "../lib/i18n";
+import { formatMinutes, translate, type Locale } from "../lib/locale";
 
 /**
  * 배경 지도 스타일.
@@ -163,6 +170,7 @@ export default function MapView({
   theme,
   onPickStation,
 }: Props) {
+  const { locale, tr } = useI18n();
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const readyRef = useRef(false);
@@ -254,7 +262,11 @@ export default function MapView({
       new maplibregl.AttributionControl({
         compact: true,
         customAttribution:
-          "경계 © SGIS/vuski · 100m 인구(2024) © 국가데이터처 SGIS · 지하철 © OpenStreetMap · 버스 © 서울특별시·경기도",
+          locale === "ko"
+            ? "경계 © SGIS/vuski · 100m 인구(2024) © 국가데이터처 SGIS · 지하철 © OpenStreetMap · 버스 © 서울특별시·경기도"
+            : locale === "ja"
+              ? "境界 © SGIS/vuski · 100m人口(2024) © SGIS · 地下鉄 © OpenStreetMap · バス © ソウル特別市・京畿道"
+              : "Boundaries © SGIS/vuski · 100 m population (2024) © SGIS · subway © OpenStreetMap · bus © Seoul & Gyeonggi",
       }),
       "bottom-right"
     );
@@ -285,7 +297,7 @@ export default function MapView({
     // 동 대표점 — 등급 아이콘을 찍을 자리 (폴리곤 내부가 보장된 좌표)
     map.addSource(SRC_POINT, {
       type: "geojson",
-      data: pointsFrom(stateRef.current.dongs),
+      data: pointsFrom(stateRef.current.dongs, locale),
       promoteId: "code",
     });
 
@@ -437,7 +449,7 @@ export default function MapView({
       source: SRC_POINT,
       minzoom: 12.2,
       layout: {
-        "text-field": ["get", "dong"],
+        "text-field": ["coalesce", ["feature-state", "label"], ["get", "dong"]],
         "text-size": 11,
         "text-offset": [0, 1.15],
         "text-anchor": "top",
@@ -598,7 +610,12 @@ export default function MapView({
       const view = stateRef.current.views.get(code);
       const meta = stateRef.current.dongs.find((d) => d.code === code);
       if (!meta) return;
-      const html = tooltipHtml(meta.name, view, stateRef.current.hasDestination);
+      const html = tooltipHtml(
+        localizedDongName(meta, locale),
+        view,
+        stateRef.current.hasDestination,
+        locale
+      );
       popup.setLngLat(e.lngLat).setHTML(html).addTo(map);
       // 556개 폴리곤을 스치듯 지날 때 mousemove마다 리렌더가 나지 않도록 값이 실제로 바뀔 때만 알린다
       if (lastHoveredOnMap.current !== code) {
@@ -627,7 +644,7 @@ export default function MapView({
       popup
         .setLngLat(e.lngLat)
         .setHTML(
-          `<b style="color:${LINE_COLOR[line] ?? "#fff"}">●</b> ${escapeHtml(lineName(line))}`
+          `<b style="color:${LINE_COLOR[line] ?? "#fff"}">●</b> ${escapeHtml(lineName(line, locale))}`
         )
         .addTo(map);
     };
@@ -642,8 +659,8 @@ export default function MapView({
       popup
         .setLngLat(e.lngLat)
         .setHTML(
-          `<b>${escapeHtml(String(p.name))}역</b>` +
-            `<br><span style="color:#9aa1ae">클릭하면 목적지로 추가</span>`
+          `<b>${escapeHtml(stationLabelFromLocalized(String(p.name), locale))}</b>` +
+            `<br><span style="color:#9aa1ae">${escapeHtml(tr("클릭하면 목적지로 추가"))}</span>`
         )
         .addTo(map);
     };
@@ -655,7 +672,11 @@ export default function MapView({
       const [lng, lat] = f.geometry.coordinates as [number, number];
       // 역 클릭이 아래 동 폴리곤 클릭까지 발동시키면 선택이 덮어써진다
       e.preventDefault();
-      stateRef.current.onPickStation({ name: `${f.properties.name}역`, lat, lng });
+      stateRef.current.onPickStation({
+        name: stationLabelFromLocalized(String(f.properties.name), locale),
+        lat,
+        lng,
+      });
     };
 
     map.on("mousemove", "dong-fill", onMove);
@@ -697,7 +718,7 @@ export default function MapView({
         fadeRaf.current = null;
       }
     };
-  }, []);
+  }, [locale, tr]);
 
   /* ---------------- 등급/통근 상태 반영 ---------------- */
   useEffect(() => {
@@ -712,6 +733,7 @@ export default function MapView({
           grade: v?.grade ?? "normal",
           band: v?.band ?? -1,
           reachable,
+          label: localizedDongShortName(dong, locale),
         };
         map.setFeatureState({ source: SRC_DONG, id: dong.code }, state);
         map.setFeatureState({ source: SRC_POINT, id: dong.code }, state);
@@ -731,7 +753,7 @@ export default function MapView({
 
     if (readyRef.current) apply();
     else map.once("oneday.ready", apply);
-  }, [dongs, views, hasDestination, styleEpoch]);
+  }, [dongs, views, hasDestination, locale, styleEpoch]);
 
   /* ---------------- 선택 상태 ---------------- */
   const prevSelected = useRef<string | null>(null);
@@ -1271,13 +1293,17 @@ function fillColorExpr(mode: MapMode): maplibregl.ExpressionSpecification {
   ] as unknown as maplibregl.ExpressionSpecification;
 }
 
-function pointsFrom(dongs: DongMeta[]): FeatureCollection {
+function pointsFrom(dongs: DongMeta[], locale: Locale): FeatureCollection {
   return {
     type: "FeatureCollection",
     features: dongs.map((d) => ({
       type: "Feature",
       geometry: { type: "Point", coordinates: markerCoord(d) },
-      properties: { code: d.code, dong: d.dong, gu: d.gu },
+      properties: {
+        code: d.code,
+        dong: localizedDongShortName(d, locale),
+        gu: d.gu,
+      },
     })),
   };
 }
@@ -1296,14 +1322,19 @@ const emptyFC = (): FeatureCollection => ({
  * 툴팁. 지도를 훑기만 해도 "왜 이 등급인지"가 보이도록 한 줄 이유를 붙인다.
  * 다만 세 줄을 넘기면 지도를 가려서 방해가 되므로 이유는 잘라 쓴다.
  */
-function tooltipHtml(name: string, view: DongView | undefined, hasDestination: boolean): string {
+function tooltipHtml(
+  name: string,
+  view: DongView | undefined,
+  hasDestination: boolean,
+  locale: Locale
+): string {
   const esc = escapeHtml;
 
   if (!hasDestination) {
-    return `<b>${esc(name)}</b><br><span style="color:#9aa1ae">먼저 목적지를 정해주세요</span>`;
+    return `<b>${esc(name)}</b><br><span style="color:#9aa1ae">${esc(translate(locale, "먼저 목적지를 정해주세요"))}</span>`;
   }
   if (!view || !view.reachable) {
-    const why = view?.overBudget ? "예산 초과" : "통근 가능 시간 밖";
+    const why = translate(locale, view?.overBudget ? "예산 초과" : "통근 가능 시간 밖");
     return `<b>${esc(name)}</b><br><span style="color:#9aa1ae">${why}</span>`;
   }
   const min = view.worstMin;
@@ -1312,13 +1343,33 @@ function tooltipHtml(name: string, view: DongView | undefined, hasDestination: b
   ];
   if (min !== null) {
     lines.push(
-      `<span style="color:#9aa1ae">통근 약 ${Math.round(min)}분 · ${esc(view.commute.viaStation ?? "")}역</span>`
+      `<span style="color:#9aa1ae">${esc(commuteTooltip(locale, min, view.commute.viaStation))}</span>`
     );
   }
   if (view.reason) {
     lines.push(`<span style="color:#c7cbd4">${esc(trim(view.reason, 46))}</span>`);
   }
   return lines.join("<br>");
+}
+
+function stationLabelFromLocalized(name: string, locale: Locale): string {
+  if (locale === "en") return `${name} Station`;
+  if (locale === "ja") return `${name}駅`;
+  return `${name}역`;
+}
+
+function commuteTooltip(locale: Locale, minutes: number, station: string | null): string {
+  const duration = formatMinutes(locale, Math.round(minutes));
+  const stationLabel = station
+    ? stationLabelFromLocalized(localizedStationName(station, locale), locale)
+    : "";
+  if (locale === "en") {
+    return `About ${duration} commute${stationLabel ? ` · via ${stationLabel}` : ""}`;
+  }
+  if (locale === "ja") {
+    return `通勤 約${duration}${stationLabel ? `・${stationLabel}経由` : ""}`;
+  }
+  return `통근 약 ${duration}${stationLabel ? ` · ${stationLabel}` : ""}`;
 }
 
 function escapeHtml(s: string): string {

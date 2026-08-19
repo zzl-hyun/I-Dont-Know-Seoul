@@ -128,6 +128,28 @@
   color: rgba(255, 255, 255, 0.82);
 }
 
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.hero .locale-switcher {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(12, 14, 19, 0.45);
+  backdrop-filter: blur(6px);
+}
+
+.hero .locale-switcher a {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.hero .locale-switcher a[aria-current="page"] {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.16);
+}
+
 .hero-theme {
   padding: 7px 12px;
   border: 1px solid rgba(255, 255, 255, 0.22);
@@ -1145,6 +1167,38 @@
   .app-mark-list {
     grid-template-columns: 1fr;
     gap: 14px;
+  }
+}
+
+@media (max-width: 520px) {
+  .hero-nav {
+    gap: 6px;
+    padding: 14px 12px;
+  }
+
+  .landing-mark {
+    font-size: 12px;
+  }
+
+  .hero-actions {
+    gap: 4px;
+  }
+
+  .hero .locale-switcher a {
+    padding: 4px 6px;
+    font-size: 10px;
+  }
+
+  .hero-theme {
+    display: inline-grid;
+    width: 30px;
+    height: 28px;
+    place-items: center;
+    padding: 0;
+  }
+
+  .hero-theme-label {
+    display: none;
   }
 }
 

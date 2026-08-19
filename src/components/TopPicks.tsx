@@ -1,5 +1,7 @@
 import type { DongMeta, Grade } from "../types";
 import { GRADE_LABEL } from "../lib/constants";
+import { localizedDistrictName, localizedDongName, localizedDongShortName } from "../lib/geographicNames";
+import { useI18n } from "../lib/i18n";
 
 export interface Pick {
   dong: DongMeta;
@@ -39,23 +41,26 @@ export default function TopPicks({
   onExpandCommute,
   onResetBudget,
 }: Props) {
+  const { locale, tr, minutes, neighborhoodCount } = useI18n();
   if (picks.length === 0) {
     const commuteMessage = canExpandCommute
-      ? "현재 통근 시간 안에 드는 지역이 없습니다."
-      : "통근 한계를 최대로 늘려도 조건에 맞는 지역이 없습니다.";
+      ? tr("현재 통근 시간 안에 드는 지역이 없습니다.")
+      : tr("통근 한계를 최대로 늘려도 조건에 맞는 지역이 없습니다.");
 
     return (
       <div className="section top-picks">
-        <p className="section-title">추천 지역 · 통근권 0개 동</p>
+        <p className="section-title">
+          {tr("추천 지역")} · {tr("통근권")} {neighborhoodCount(0)}
+        </p>
         <div className="picks-empty">
           <p className="metric-note" role="status">
             {emptyReason === "budget"
-              ? "현재 월세 상한과 통근 조건을 함께 만족하는 지역이 없습니다."
+              ? tr("현재 월세 상한과 통근 조건을 함께 만족하는 지역이 없습니다.")
               : commuteMessage}
           </p>
           {emptyReason === "budget" ? (
             <button type="button" className="picks-empty-action" onClick={onResetBudget}>
-              월세 제한 해제
+              {tr("월세 제한 해제")}
             </button>
           ) : (
             canExpandCommute && (
@@ -64,7 +69,7 @@ export default function TopPicks({
                 className="picks-empty-action"
                 onClick={onExpandCommute}
               >
-                통근 한계 15분 늘리기
+                {tr("통근 한계 15분 늘리기")}
               </button>
             )
           )}
@@ -75,7 +80,9 @@ export default function TopPicks({
 
   return (
     <div className="section top-picks">
-      <p className="section-title">추천 지역 · 통근권 {picks.length}개 동</p>
+      <p className="section-title">
+        {tr("추천 지역")} · {tr("통근권")} {neighborhoodCount(picks.length)}
+      </p>
       <ul className="picks">
         {picks.slice(0, 10).map((p, i) => (
           <li key={p.dong.code}>
@@ -87,15 +94,15 @@ export default function TopPicks({
               onClick={() => onSelect(p.dong.code)}
               onMouseEnter={() => onHover(p.dong.code)}
               onMouseLeave={() => onHover(null)}
-              title={`${p.dong.name} · ${GRADE_LABEL[p.grade]}`}
+              title={`${localizedDongName(p.dong, locale)} · ${GRADE_LABEL[p.grade]}`}
             >
               <span className="rank">{i + 1}</span>
               <span className="name">
                 <i className={`grade-dot ${p.grade}`} />
-                <b>{p.dong.dong}</b>
-                <small>{p.dong.gu}</small>
+                <b>{localizedDongShortName(p.dong, locale)}</b>
+                <small>{localizedDistrictName(p.dong.gu, locale)}</small>
               </span>
-              <span className="time">{Math.round(p.commuteMin)}분</span>
+              <span className="time">{minutes(Math.round(p.commuteMin))}</span>
             </button>
           </li>
         ))}

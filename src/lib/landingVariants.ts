@@ -1,3 +1,5 @@
+import type { Locale } from "./locale";
+
 /**
  * 예전에는 `/guide/pangyo-commute/` 등 검색어별 경로마다 이 React 앱을
  * 다른 변형으로 부팅했다. 지금은 검색어 저격 페이지가 전부 `src/seo/`
@@ -101,12 +103,146 @@ export const LANDING_VARIANTS: Record<LandingVariantKey, LandingVariant> = {
   },
 };
 
+const EN_LANDING: LandingVariant = {
+  key: "default",
+  path: "/en/",
+  navLabel: "All neighborhood picks",
+  seoTitle: "Where to Live Near Seoul | I Don't Know Seoul",
+  seoDescription:
+    "Compare neighborhoods across Seoul, Seongnam, Suwon, Yongin, and Dongtan by commute time, rent, safety, and convenience.",
+  heroTitle: ["Not sure", "where to live?"],
+  heroLead: [
+    "Search for your workplace or school,",
+    "then compare neighborhoods across Seoul and nearby Gyeonggi at a glance.",
+  ],
+  guideKicker: "Find a neighborhood",
+  guideTitle: "Choose a place to live by commute and rent",
+  guideLead:
+    "Compare real commutes instead of generic popularity lists. Set a workplace or school, a commute limit, and a rent cap to explore all of Seoul plus Seongnam, Suwon, Suji and Giheung in Yongin, and Dongtan in Hwaseong with safety, price, and convenience data.",
+  topics: [
+    "Where to live in Seoul",
+    "Commuting to Pangyo",
+    "Commuting to Gangnam",
+    "Living along the Shinbundang Line",
+    "Where to live in Dongtan",
+    "Rent comparison",
+  ],
+  cards: [
+    {
+      title: "Compare commutes to your destination",
+      body: "Enter a workplace or school address and narrow the list using estimated subway, walking, and bus travel time.",
+    },
+    {
+      title: "Stay within your rent budget",
+      body: "Exclude areas above your rent cap, then compare price scores and transaction sample sizes for the remaining neighborhoods.",
+    },
+    {
+      title: "Balance safety and convenience",
+      body: "Adjust the weight of safety, price, and daily convenience to create a ranking that reflects your priorities.",
+    },
+  ],
+  faqTitle: "How to use the neighborhood finder",
+  faqs: [
+    {
+      question: "How are recommended neighborhoods selected?",
+      answer:
+        "Search for a workplace or school, set your commute and rent limits, and adjust the safety, price, and convenience weights. Matching administrative neighborhoods are then ranked in order.",
+    },
+    {
+      question: "Can I find places for commuting to Pangyo or Gangnam?",
+      answer:
+        "Yes. Enter Pangyo Station, Gangnam Station, or a specific office address to compare estimated subway, walking, and bus commute times from Seoul and nearby Gyeonggi areas.",
+    },
+    {
+      question: "Can I set a monthly rent budget?",
+      answer:
+        "Yes. Areas above your rent cap are removed from recommendations, while the remaining neighborhoods show deposit-adjusted rent and price scores.",
+    },
+    {
+      question: "Which areas are covered?",
+      answer:
+        "The map covers all of Seoul, Seongnam, Suwon, Suji-gu and Giheung-gu in Yongin, and Dongtan in Hwaseong using one scoring and commute model.",
+    },
+  ],
+  ctaTitle: "Where do you commute to?",
+};
+
+const JA_LANDING: LandingVariant = {
+  key: "default",
+  path: "/ja/",
+  navLabel: "街選びマップ",
+  seoTitle: "ソウル周辺の住む街選び | I Don't Know Seoul",
+  seoDescription:
+    "ソウル・ソンナム・スウォン・ヨンイン・華城トンタンの街を、通勤時間・家賃・治安・生活利便性で比較できます。",
+  heroTitle: ["どこに住むか", "迷っているなら"],
+  heroLead: [
+    "勤務先や学校を検索して、",
+    "ソウルと京畿道近郊の街をひと目で比較できます。",
+  ],
+  guideKicker: "住む街を探す",
+  guideTitle: "通勤先と家賃から選ぶ街",
+  guideLead:
+    "漠然とした人気ランキングではなく、実際の通勤先を基準に比較します。勤務先や学校、通勤時間、家賃上限を設定すると、ソウル全域とソンナム・スウォン、ヨンイン市スジ区・キフン区、華城市トンタンの行政洞を治安・価格・生活利便性とともに確認できます。",
+  topics: [
+    "ソウルで住む街",
+    "パンギョ通勤",
+    "カンナム通勤",
+    "新盆唐線沿線",
+    "トンタンで住む街",
+    "家賃比較",
+  ],
+  cards: [
+    {
+      title: "通勤先を基準に比較",
+      body: "勤務先や学校の住所を目的地に設定し、地下鉄・徒歩・バスを合わせた推定通勤時間で候補を絞ります。",
+    },
+    {
+      title: "家賃予算に合う街を検索",
+      body: "家賃上限を超える地域を除外し、残った街の価格スコアと実取引サンプルを比較します。",
+    },
+    {
+      title: "治安と生活利便性も比較",
+      body: "通勤時間だけでなく、治安・価格・生活利便性の重みを調整して自分の基準で順位を作れます。",
+    },
+  ],
+  faqTitle: "街選びマップの使い方",
+  faqs: [
+    {
+      question: "おすすめの街はどのように選びますか？",
+      answer:
+        "勤務先や学校を検索し、通勤時間と家賃上限を設定して、治安・価格・生活利便性の重みを調整すると、条件に合う行政洞を順位で比較できます。",
+    },
+    {
+      question: "パンギョやカンナムへの通勤に合う街も探せますか？",
+      answer:
+        "パンギョ駅やカンナム駅、実際の会社住所を目的地にすると、地下鉄・徒歩・バスを合わせた推定通勤時間でソウルと京畿道近郊の候補を絞れます。",
+    },
+    {
+      question: "月々の家賃予算を設定できますか？",
+      answer:
+        "家賃上限を超える街をおすすめから除外し、残った地域の保証金換算家賃と価格スコアを比較できます。",
+    },
+    {
+      question: "どの地域まで比較できますか？",
+      answer:
+        "ソウル全域、ソンナム、スウォン、ヨンイン市スジ区・キフン区、華城市トンタンを同じ評価基準と通勤条件で比較します。",
+    },
+  ],
+  ctaTitle: "どこへ通勤しますか？",
+};
+
+export const LOCALIZED_LANDING_VARIANTS: Record<Locale, LandingVariant> = {
+  ko: LANDING_VARIANTS.default,
+  en: EN_LANDING,
+  ja: JA_LANDING,
+};
+
 /**
  * 변형이 하나뿐이라 실질적으로는 상수 반환이지만, `src/App.tsx` 가 여전히
  * `getLandingVariant(window.location.pathname)` 형태로 호출한다 — 시그니처를
  * 유지해야 그쪽을 안 건드린다. `/guide/*` 로 들어온 요청은 애초에 정적
  * 문서(`src/seo/`)가 서빙하므로 이 함수까지 오지 않는다.
  */
-export function getLandingVariant(_pathname: string): LandingVariant {
-  return LANDING_VARIANTS.default;
+export function getLandingVariant(_pathname: string, locale: Locale = "ko"): LandingVariant {
+  return LOCALIZED_LANDING_VARIANTS[locale];
 }

@@ -169,6 +169,39 @@ button {
   line-height: 1.5;
 }
 
+.locale-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--panel-2);
+}
+
+.brand .locale-switcher {
+  margin-top: 10px;
+}
+
+.locale-switcher a {
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: var(--text-dim);
+  font-size: 10.5px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.locale-switcher a[aria-current="page"] {
+  color: var(--text);
+  background: var(--bg);
+}
+
+.locale-switcher a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
 .search {
   position: relative;
   padding: 0 20px 14px;

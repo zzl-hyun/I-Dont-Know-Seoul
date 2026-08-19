@@ -13,4 +13,11 @@ describe("landing variant", () => {
     expect(getLandingVariant("/guide/pangyo-commute/")).toBe(LANDING_VARIANTS.default);
     expect(getLandingVariant("/anything")).toBe(LANDING_VARIANTS.default);
   });
+
+  it("EN/JA 루트 문구와 경로를 locale별로 반환한다", () => {
+    expect(getLandingVariant("/en/", "en").path).toBe("/en/");
+    expect(getLandingVariant("/en/", "en").heroTitle.join(" ")).not.toMatch(/[가-힣]/);
+    expect(getLandingVariant("/ja/", "ja").path).toBe("/ja/");
+    expect(getLandingVariant("/ja/", "ja").heroTitle.join(" ")).not.toMatch(/[가-힣]/);
+  });
 });

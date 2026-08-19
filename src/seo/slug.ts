@@ -1,3 +1,5 @@
+import { localizePath, type Locale } from "../lib/locale";
+
 /**
  * 이 파일이 다루는 슬러그는 전부 로마자(영문)다 — Phase 1 권역 페이지는
  * `hongdae`·`suwon` 처럼 검색어를 로마자로 옮긴 URL을 쓴다. 한글 경로는
@@ -24,6 +26,6 @@ export function assertUniqueSlugs(slugs: string[]): void {
   }
 }
 
-export function guideUrlPath(slug: string): string {
-  return `/guide/${slug}/`;
+export function guideUrlPath(slug: string, locale: Locale = "ko"): string {
+  return localizePath(`/guide/${slug}/`, locale);
 }

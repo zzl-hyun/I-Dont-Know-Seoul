@@ -1,4 +1,5 @@
 import type { DongScore, RentComboKey, RentHousingType, RentVariantStat } from "../types";
+import { translate, type Locale } from "./locale";
 
 /**
  * 사용자가 가격 축을 다시 계산할 때 고르는 선택 상태.
@@ -137,10 +138,10 @@ export function selectedRentVariant(
 }
 
 /** "단독·다가구+아파트 순수월세" 같은 화면 라벨. */
-export function rentSelectionLabel(selection: RentSelection): string {
+export function rentSelectionLabel(selection: RentSelection, locale: Locale = "ko"): string {
   const typesLabel = sortRentTypes(selection.types)
-    .map((t) => RENT_TYPE_LABEL[t])
-    .join("+");
-  const modeLabel = selection.mode === "raw" ? "순수월세" : "환산월세";
+    .map((t) => translate(locale, RENT_TYPE_LABEL[t]))
+    .join(locale === "en" ? " + " : "+");
+  const modeLabel = translate(locale, selection.mode === "raw" ? "순수월세" : "환산월세");
   return `${typesLabel} ${modeLabel}`;
 }

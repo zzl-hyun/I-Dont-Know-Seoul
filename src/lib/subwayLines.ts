@@ -1,5 +1,7 @@
 import type { FeatureCollection, Feature, MultiLineString, Point } from "geojson";
 import type { SubwayGraph } from "../types";
+import { LINE_ALIASES, STATION_ALIASES } from "../data/geographicAliases";
+import type { Locale } from "./locale";
 
 /**
  * 지하철 노선도 오버레이용 GeoJSON 생성.
@@ -45,7 +47,8 @@ export const LINE_COLOR: Record<string, string> = {
 export const UNKNOWN_LINE_COLOR = "#8b93a1";
 
 /** 그래프의 노선 식별자를 사람이 읽는 이름으로. */
-export function lineName(line: string): string {
+export function lineName(line: string, locale: Locale = "ko"): string {
+  if (locale !== "ko") return LINE_ALIASES[line]?.[locale] ?? line;
   if (/^\d+$/.test(line)) return `${line}호선`;
   const alias: Record<string, string> = {
     W: "우이신설선",
@@ -80,7 +83,7 @@ export interface SubwayLayers {
   missingColors: string[];
 }
 
-export function buildSubwayLayers(graph: SubwayGraph): SubwayLayers {
+export function buildSubwayLayers(graph: SubwayGraph, locale: Locale = "ko"): SubwayLayers {
   /* ---- 노선별 구간 ---- */
   const byLine = new Map<string, Array<[number, number][]>>();
   // 엣지는 양방향으로 들어 있으므로 한 번만 그린다
@@ -126,7 +129,7 @@ export function buildSubwayLayers(graph: SubwayGraph): SubwayLayers {
       type: "Feature",
       geometry: { type: "Point", coordinates: [s.lng, s.lat] },
       properties: {
-        name: s.name,
+        name: locale === "ko" ? s.name : (STATION_ALIASES[s.name]?.[locale] ?? s.name),
         isTransfer,
         // 환승역은 노선이 여럿이라 색을 하나로 정할 수 없다. 실제 노선도 관례대로
         // 흰 점으로 그려 구분하고, 단일 노선 역만 노선색을 쓴다.

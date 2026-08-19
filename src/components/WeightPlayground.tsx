@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { compositeScore, rebalanceWeights } from "../lib/score";
 import { DEFAULT_WEIGHTS } from "../lib/constants";
 import type { Weights } from "../types";
+import { useI18n } from "../lib/i18n";
 
 /**
  * 랜딩에서 가중치 슬라이더를 직접 만져보는 데모.
@@ -64,7 +65,23 @@ const PRESETS: Array<{ label: string; w: Weights }> = [
   { label: "생활이 편한 곳", w: { safety: 0.15, price: 0.15, convenience: 0.7 } },
 ];
 
+const DEMO_NAMES: Record<string, { en: string; ja: string }> = {
+  공릉1동: { en: "Gongneung 1-dong", ja: "コンヌン1洞" },
+  안암동: { en: "Anam-dong", ja: "アナム洞" },
+  창신1동: { en: "Changsin 1-dong", ja: "チャンシン1洞" },
+  신림동: { en: "Sillim-dong", ja: "シンリム洞" },
+  상도1동: { en: "Sangdo 1-dong", ja: "サンド1洞" },
+  옥수동: { en: "Oksu-dong", ja: "オクス洞" },
+  노원구: { en: "Nowon-gu", ja: "ノウォン区" },
+  성북구: { en: "Seongbuk-gu", ja: "ソンブク区" },
+  종로구: { en: "Jongno-gu", ja: "チョンノ区" },
+  관악구: { en: "Gwanak-gu", ja: "クァンアク区" },
+  동작구: { en: "Dongjak-gu", ja: "トンジャク区" },
+  성동구: { en: "Seongdong-gu", ja: "ソンドン区" },
+};
+
 export default function WeightPlayground() {
+  const { locale, tr, rent, minutes, number } = useI18n();
   const [w, setW] = useState<Weights>({ ...DEFAULT_WEIGHTS });
 
   /*
@@ -106,7 +123,7 @@ export default function WeightPlayground() {
                 data-active={on}
                 onClick={() => setW({ ...p.w })}
               >
-                {p.label}
+                {tr(p.label)}
               </button>
             );
           })}
@@ -114,7 +131,7 @@ export default function WeightPlayground() {
 
         {AXES.map(({ key, label }) => (
           <label className="wp-slider" key={key}>
-            <span className="wp-slider-label">{label}</span>
+            <span className="wp-slider-label">{tr(label)}</span>
             <input
               type="range"
               min={0}
@@ -122,7 +139,7 @@ export default function WeightPlayground() {
               step={1}
               value={pct(w[key])}
               onChange={(e) => set(key, Number(e.target.value))}
-              aria-label={`${label} 비중`}
+              aria-label={locale === "en" ? `${tr(label)} weight` : locale === "ja" ? `${tr(label)}の重み` : `${label} 비중`}
             />
             <b>{pct(w[key])}%</b>
           </label>
@@ -145,17 +162,17 @@ export default function WeightPlayground() {
             style={{ "--i": rank } as React.CSSProperties}
             data-top={rank === 0}
           >
-            <span className="wp-rank">{rank + 1}</span>
+            <span className="wp-rank">{number(rank + 1)}</span>
             <span className="wp-name">
-              <b>{row.dong}</b>
-              <i>{row.gu}</i>
+              <b>{locale === "ko" ? row.dong : DEMO_NAMES[row.dong]?.[locale] ?? row.dong}</b>
+              <i>{locale === "ko" ? row.gu : DEMO_NAMES[row.gu]?.[locale] ?? row.gu}</i>
             </span>
             <span className="wp-bar">
               <span style={{ width: `${bar}%` }} />
             </span>
             <span className="wp-score">{score.toFixed(1)}</span>
             <span className="wp-meta">
-              월세 {Math.round(row.rentMan)}만 · 강남역 {row.commuteMin}분
+              {tr("월세")} {rent(Math.round(row.rentMan))} · {locale === "en" ? "Gangnam Station" : locale === "ja" ? "カンナム駅" : "강남역"} {minutes(row.commuteMin)}
             </span>
           </li>
         ))}

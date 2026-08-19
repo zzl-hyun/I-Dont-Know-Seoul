@@ -5,6 +5,9 @@ import { renderAreaPage } from "./areaPage";
 import { buildSitemapUrls, renderSitemapXml, toLastmod } from "./sitemap";
 import { guideUrlPath, assertUniqueSlugs, assertValidSlug } from "./slug";
 import { resolveByDongCodes, resolveByGuNames } from "./pick";
+import { SUPPORTED_LOCALES } from "../lib/locale";
+import { localizeAreaDef } from "./localize";
+import { extractBuiltAssetTags, renderRootPage } from "./rootPage";
 
 /**
  * 검색어 저격 페이지(`src/seo/`)의 데이터 무결성을 잠근다.
@@ -111,17 +114,50 @@ describe("렌더된 페이지", () => {
       expect(html).not.toContain('type="module"');
     }
   });
+
+  it("EN/JA 페이지는 번역된 본문·언어 메타·canonical/hreflang 묶음을 갖는다", () => {
+    const area = AREA_DEFS[0];
+    for (const locale of ["en", "ja"] as const) {
+      const localized = localizeAreaDef(area, locale);
+      const html = renderAreaPage(area, data, locale);
+      const text = bodyText(html);
+      expect(html).toContain(`<html lang="${locale}">`);
+      expect(html).toContain(`<title>${localized.title}</title>`);
+      expect(html).toContain(`rel="canonical" href="https://i-dont-know-seoul.cioud.workers.dev/${locale}/guide/${area.slug}/"`);
+      for (const hreflang of [...SUPPORTED_LOCALES, "x-default"] as const) {
+        expect(html).toContain(`hreflang="${hreflang}"`);
+      }
+      expect(text.length).toBeGreaterThanOrEqual(800);
+      expect(text.replace("한국어", "")).not.toMatch(/[가-힣]/);
+    }
+  });
+
+  it("locale root shells reuse built assets and expose localized static copy", () => {
+    const built = '<link rel="stylesheet" href="/assets/index-a.css"><script type="module" crossorigin src="/assets/index-b.js"></script>';
+    const tags = extractBuiltAssetTags(built);
+    for (const locale of SUPPORTED_LOCALES) {
+      const html = renderRootPage(locale, tags);
+      expect(html).toContain('/assets/index-a.css');
+      expect(html).toContain('/assets/index-b.js');
+      expect(html).toContain(`lang="${locale === "ko" ? "ko-KR" : locale}"`);
+      expect(html).toContain(`rel="canonical" href="https://i-dont-know-seoul.cioud.workers.dev/${locale === "ko" ? "" : `${locale}/`}"`);
+      expect(html).toContain('"@type": "WebApplication"');
+    }
+  });
 });
 
 describe("sitemap", () => {
-  it("루트 + 모든 권역 페이지가 정확히 한 번씩 들어간다", () => {
+  it("3개 locale의 루트 + 모든 권역 페이지가 정확히 한 번씩 들어간다", () => {
     const urls = buildSitemapUrls(AREA_DEFS, toLastmod(data.scoresFile.generatedAt));
-    expect(urls.length).toBe(AREA_DEFS.length + 1);
+    expect(urls.length).toBe((AREA_DEFS.length + 1) * SUPPORTED_LOCALES.length);
 
     const xml = renderSitemapXml(urls);
-    for (const a of AREA_DEFS) {
-      const loc = `<loc>https://i-dont-know-seoul.cioud.workers.dev${guideUrlPath(a.slug)}</loc>`;
-      expect(xml.split(loc)).toHaveLength(2);
+    expect(xml).toContain('xmlns:xhtml="http://www.w3.org/1999/xhtml"');
+    for (const locale of SUPPORTED_LOCALES) {
+      for (const area of AREA_DEFS) {
+        const loc = `<loc>https://i-dont-know-seoul.cioud.workers.dev${guideUrlPath(area.slug, locale)}</loc>`;
+        expect(xml.split(loc)).toHaveLength(2);
+      }
     }
   });
 });

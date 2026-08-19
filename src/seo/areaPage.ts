@@ -1,5 +1,31 @@
+import { DEFAULT_WEIGHTS, GRADE_LABEL } from "../lib/constants";
+import { summarize, formatMetric } from "../lib/explain";
+import {
+  formatMinutes,
+  formatNeighborhoodCount,
+  formatNumber,
+  formatPercent,
+  formatRentMan,
+  localeRoot,
+  translate,
+  type Locale,
+} from "../lib/locale";
+import {
+  localizedDistrictName,
+  localizedDongName,
+  localizedDongShortName,
+} from "../lib/geographicNames";
 import type { AreaDef } from "./areas";
+import { AREA_DEFS } from "./areas";
 import type { SeoData } from "./data";
+import {
+  escapeHtml,
+  renderBreadcrumbNav,
+  renderHead,
+  renderLocaleNav,
+  type BreadcrumbItem,
+} from "./layout";
+import { localizeAreaDef } from "./localize";
 import {
   allDongCodes,
   rankByCondition,
@@ -9,46 +35,66 @@ import {
   summarizeByGu,
   type RankedDong,
 } from "./pick";
-import { summarize } from "../lib/explain";
-import { DEFAULT_WEIGHTS, GRADE_LABEL } from "../lib/constants";
-import { escapeHtml, renderBreadcrumbNav, renderHead, type BreadcrumbItem } from "./layout";
 import { guideUrlPath } from "./slug";
 import { SITE_ORIGIN } from "./site";
-import { AREA_DEFS } from "./areas";
 
 /** 목적지를 URL 로 — `src/lib/shareUrl.ts` 의 `to` 형식과 동일 (`이름@lat,lng`). */
-function ctaHref(anchor: AreaDef["anchor"]): string {
-  if (!anchor) return "/";
-  const round5 = (v: number) => Math.round(v * 1e5) / 1e5;
-  const p = new URLSearchParams();
-  p.set("to", `${anchor.name}@${round5(anchor.lat)},${round5(anchor.lng)}`);
-  return `/?${p.toString()}`;
+function ctaHref(anchor: AreaDef["anchor"], locale: Locale): string {
+  if (!anchor) return localeRoot(locale);
+  const round5 = (value: number) => Math.round(value * 1e5) / 1e5;
+  const params = new URLSearchParams();
+  params.set("to", `${anchor.name}@${round5(anchor.lat)},${round5(anchor.lng)}`);
+  return `${localeRoot(locale)}?${params.toString()}`;
 }
 
-const rentFmt = (v: number | null) => (v == null ? "표본 없음" : `${Math.round(v)}만원`);
-const minFmt = (v: number | null) => (v == null ? "—" : `${v.toFixed(1)}분`);
-const crimeFmt = (v: number | null) => (v == null ? "—" : `${v.toFixed(1)}건/천명`);
+const rentFmt = (value: number | null, locale: Locale) =>
+  value == null ? translate(locale, "표본 없음") : formatRentMan(locale, value);
+const minFmt = (value: number | null, locale: Locale) =>
+  value == null ? "—" : formatMinutes(locale, value, 1);
+const crimeFmt = (value: number | null, locale: Locale) =>
+  value == null ? "—" : formatMetric("crimePer1k", value, locale);
 
-function renderDongList(rows: RankedDong[], data: SeoData): string {
+function densityFmt(value: number | null, locale: Locale): string {
+  if (value == null) return "—";
+  const amount = formatNumber(locale, value, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  if (locale === "en") return `${amount} /km²`;
+  return `${amount}${locale === "ja" ? "件" : "개"}/km²`;
+}
+
+function localizedRank(locale: Locale, topPct: number): string {
+  if (locale === "en") return `top ${formatPercent(locale, topPct)}`;
+  if (locale === "ja") return `上位${formatPercent(locale, topPct)}`;
+  return `상위 ${formatPercent(locale, topPct)}`;
+}
+
+function renderDongList(rows: RankedDong[], data: SeoData, locale: Locale): string {
   const items = rows
     .slice(0, 15)
-    .map((r) => {
-      const topPct = Math.max(1, Math.round((r.overallRank / r.overallTotal) * 100));
+    .map((row) => {
+      const topPct = Math.max(1, Math.round((row.overallRank / row.overallTotal) * 100));
       const sentence = summarize(
-        r.score,
+        row.score,
         data.scoresFile.pctKeys,
-        r.grade,
+        row.grade,
         DEFAULT_WEIGHTS,
-        data.scoresFile.axisWeights
+        data.scoresFile.axisWeights,
+        {},
+        locale
       );
       const rentLabel =
-        r.score.raw.monthlyRentMan == null
+        row.score.raw.monthlyRentMan == null
           ? ""
-          : ` · 환산월세 ${rentFmt(r.score.raw.monthlyRentMan)}${
-              r.score.dataQuality === "low" ? "(자치구 대체값)" : ""
+          : ` · ${translate(locale, "환산월세")} ${rentFmt(row.score.raw.monthlyRentMan, locale)}${
+              row.score.dataQuality === "low"
+                ? locale === "en"
+                  ? " (district estimate)"
+                  : locale === "ja"
+                    ? "（区の補完値）"
+                    : "(자치구 대체값)"
+                : ""
             }`;
       return `<li>
-        <div class="dong-name">${escapeHtml(r.meta.name)}<span class="dong-rank">상위 ${topPct}% · ${GRADE_LABEL[r.grade]}${rentLabel}</span></div>
+        <div class="dong-name">${escapeHtml(localizedDongName(row.meta, locale))}<span class="dong-rank">${localizedRank(locale, topPct)} · ${GRADE_LABEL[row.grade]}${rentLabel}</span></div>
         <div class="dong-summary">${escapeHtml(sentence)}</div>
       </li>`;
     })
@@ -56,146 +102,193 @@ function renderDongList(rows: RankedDong[], data: SeoData): string {
   return `<ul class="dong-list">${items}</ul>`;
 }
 
-/**
- * 동이 4개 이하인 좁은 권역(홍대·건대·흑석 같은)은 "동네별 요약" 목록만으로는
- * 얇다. 그런 페이지는 동별 원지표 전체를 표로 펼친다 — 다른 어떤 블로그도
- * 못 가진 실측 수치라 좁은 권역일수록 오히려 이 표가 핵심 콘텐츠가 된다.
- */
-function renderRawMetricsTable(rows: RankedDong[]): string {
+/** 좁은 권역은 동별 원지표 전체를 표로 펼쳐 정적 페이지에도 실측 근거를 남긴다. */
+function renderRawMetricsTable(rows: RankedDong[], locale: Locale): string {
   if (rows.length === 0 || rows.length > 4) return "";
-  const fmtRent = (v: number | null | undefined) => (v == null ? "—" : `${Math.round(v)}만원`);
-  const metrics: Array<{ label: string; get: (r: RankedDong) => string }> = [
-    { label: "단독·다가구 월세", get: (r) => fmtRent(r.score.raw.rentByType?.house.medianMan) },
-    { label: "연립·다세대 월세", get: (r) => fmtRent(r.score.raw.rentByType?.rowhouse.medianMan) },
-    { label: "오피스텔 월세", get: (r) => fmtRent(r.score.raw.rentByType?.officetel.medianMan) },
-    { label: "소형아파트 월세", get: (r) => fmtRent(r.score.raw.rentByType?.apartment.medianMan) },
+  const metrics: Array<{ label: string; get: (row: RankedDong) => string }> = [
     {
-      label: "5대범죄",
-      get: (r) => crimeFmt(r.score.raw.crimePer1k),
+      label: "단독·다가구 월세",
+      get: (row) => rentFmt(row.score.raw.rentByType?.house.medianMan ?? null, locale),
     },
     {
+      label: "연립·다세대 월세",
+      get: (row) => rentFmt(row.score.raw.rentByType?.rowhouse.medianMan ?? null, locale),
+    },
+    {
+      label: "오피스텔 월세",
+      get: (row) => rentFmt(row.score.raw.rentByType?.officetel.medianMan ?? null, locale),
+    },
+    {
+      label: "소형아파트 월세",
+      get: (row) => rentFmt(row.score.raw.rentByType?.apartment.medianMan ?? null, locale),
+    },
+    { label: "5대범죄", get: (row) => crimeFmt(row.score.raw.crimePer1k, locale) },
+    {
       label: "유흥업소 밀도",
-      get: (r) => (r.score.raw.nightlifePerKm2 == null ? "—" : `${r.score.raw.nightlifePerKm2.toFixed(1)}개/km²`),
+      get: (row) => densityFmt(row.score.raw.nightlifePerKm2, locale),
     },
     {
       label: "편의점·마트 밀도",
-      get: (r) => (r.score.raw.storePerKm2 == null ? "—" : `${r.score.raw.storePerKm2.toFixed(1)}개/km²`),
+      get: (row) => densityFmt(row.score.raw.storePerKm2, locale),
     },
-    {
-      label: "음식점 밀도",
-      get: (r) => (r.score.raw.foodPerKm2 == null ? "—" : `${r.score.raw.foodPerKm2.toFixed(1)}개/km²`),
-    },
+    { label: "음식점 밀도", get: (row) => densityFmt(row.score.raw.foodPerKm2, locale) },
     {
       label: "병원·약국 밀도",
-      get: (r) => (r.score.raw.medicalPerKm2 == null ? "—" : `${r.score.raw.medicalPerKm2.toFixed(1)}개/km²`),
+      get: (row) => densityFmt(row.score.raw.medicalPerKm2, locale),
     },
-    { label: "최근접역 도보", get: (r) => minFmt(r.score.raw.walkToStationMin) },
+    { label: "최근접역 도보", get: (row) => minFmt(row.score.raw.walkToStationMin, locale) },
   ];
-  const header = `<tr><th>지표</th>${rows.map((r) => `<th>${escapeHtml(r.meta.dong)}</th>`).join("")}</tr>`;
+  const metricHeader = locale === "en" ? "Metric" : locale === "ja" ? "指標" : "지표";
+  const header = `<tr><th>${metricHeader}</th>${rows
+    .map((row) => `<th>${escapeHtml(localizedDongShortName(row.meta, locale))}</th>`)
+    .join("")}</tr>`;
   const body = metrics
-    .map((m) => `<tr><td>${m.label}</td>${rows.map((r) => `<td>${m.get(r)}</td>`).join("")}</tr>`)
+    .map(
+      (metric) =>
+        `<tr><td>${escapeHtml(translate(locale, metric.label))}</td>${rows
+          .map((row) => `<td>${metric.get(row)}</td>`)
+          .join("")}</tr>`
+    )
     .join("\n");
   return `
-    <h2>동별 실측 지표</h2>
+    <h2>${escapeHtml(translate(locale, "동별 실측 지표"))}</h2>
     <table>
       <thead>${header}</thead>
       <tbody>${body}</tbody>
     </table>`;
 }
 
-function renderGuTable(data: SeoData, codes: string[]): string {
+function renderGuTable(data: SeoData, codes: string[], locale: Locale): string {
   const rows = summarizeByGu(data, codes);
   if (rows.length <= 1) return "";
   const body = rows
     .map(
-      (r) =>
-        `<tr><td>${escapeHtml(r.gu)}</td><td>${r.dongCount}개 동</td><td>${rentFmt(
-          r.medianRentMan
-        )}</td><td>${minFmt(r.medianWalkMin)}</td><td>${crimeFmt(r.medianCrimePer1k)}</td></tr>`
+      (row) =>
+        `<tr><td>${escapeHtml(localizedDistrictName(row.gu, locale))}</td><td>${formatNeighborhoodCount(
+          locale,
+          row.dongCount
+        )}</td><td>${rentFmt(row.medianRentMan, locale)}</td><td>${minFmt(
+          row.medianWalkMin,
+          locale
+        )}</td><td>${crimeFmt(row.medianCrimePer1k, locale)}</td></tr>`
     )
     .join("\n");
   return `
-    <h2>지역별 비교</h2>
+    <h2>${escapeHtml(translate(locale, "지역별 비교"))}</h2>
     <table>
-      <thead><tr><th>지역</th><th>동 수</th><th>환산월세 중앙값</th><th>최근접역 도보</th><th>5대범죄</th></tr></thead>
+      <thead><tr><th>${escapeHtml(translate(locale, "지역"))}</th><th>${escapeHtml(
+        translate(locale, "동 수")
+      )}</th><th>${escapeHtml(translate(locale, "환산월세 중앙값"))}</th><th>${escapeHtml(
+        translate(locale, "최근접역 도보")
+      )}</th><th>${escapeHtml(translate(locale, "5대범죄"))}</th></tr></thead>
       <tbody>${body}</tbody>
     </table>`;
 }
 
-function renderRelatedNav(area: AreaDef): string {
-  const related = AREA_DEFS.filter((a) => a.group === area.group && a.slug !== area.slug).slice(
-    0,
-    6
-  );
+function renderRelatedNav(sourceArea: AreaDef, locale: Locale): string {
+  const related = AREA_DEFS.filter(
+    (area) => area.group === sourceArea.group && area.slug !== sourceArea.slug
+  ).slice(0, 6);
   if (related.length === 0) return "";
   const links = related
-    .map((a) => `<a href="${guideUrlPath(a.slug)}">${escapeHtml(a.keyword)}</a>`)
+    .map((source) => {
+      const area = localizeAreaDef(source, locale);
+      return `<a href="${guideUrlPath(area.slug, locale)}">${escapeHtml(area.keyword)}</a>`;
+    })
     .join("\n");
-  return `<nav class="related" aria-label="관련 자취 추천">${links}</nav>`;
+  return `<nav class="related" aria-label="${escapeHtml(
+    translate(locale, "관련 자취 추천")
+  )}">${links}</nav>`;
+}
+
+function scopeNote(locale: Locale, isCondition: boolean): string {
+  if (locale === "en") {
+    return isCondition
+      ? "This ranking is calculated across all 556 administrative neighborhoods in Seoul, Seongnam, Suwon, Suji and Giheung in Yongin, and Dongtan in Hwaseong. Grades are relative within the coverage area, not absolute judgments."
+      : "Best, Normal, and Bad are relative grades across the 556-neighborhood coverage area. This page uses the default weights (safety 40, price 35, convenience 25) without commute time; adding a destination on the map recalculates the ranking with commute time.";
+  }
+  if (locale === "ja") {
+    return isCondition
+      ? "この順位は、ソウル・ソンナム・スウォン・ヨンイン市スジ区／キフン区・ファソン市トンタンの全556行政洞を対象に算出しています。評価は絶対評価ではなく、対象地域内での相対評価です。"
+      : "Best・Normal・Badは対象556行政洞内での相対評価です。このページは通勤時間を含まない基本の重み（治安40・価格35・生活利便性25）を使い、地図で目的地を追加すると通勤時間を反映して再計算します。";
+  }
+  return isCondition
+    ? "이 순위는 서울·성남·수원·용인 수지·기흥·화성 동탄 전체 556개 행정동 중에서 계산했습니다. 등급은 절대평가가 아니라 대상 지역 안에서의 상대평가입니다."
+    : "등급(Best/Normal/Bad)은 대상 지역 556개 행정동 안에서의 상대평가입니다. 통근시간을 반영하지 않은 기본 가중치(치안 40·가격 35·생활편의 25) 기준이며, 지도에서 목적지를 넣으면 통근시간까지 반영한 순위로 다시 계산됩니다.";
+}
+
+function anchorCta(area: AreaDef, locale: Locale): string {
+  if (!area.anchor) {
+    return `<a class="cta" href="${localeRoot(locale)}">${escapeHtml(
+      translate(locale, "지도에서 내 조건으로 비교하기 →")
+    )}</a>`;
+  }
+  const label =
+    locale === "en"
+      ? `Compare from ${area.anchor.name} on the map →`
+      : locale === "ja"
+        ? `${area.anchor.name}を基準に地図で比較する →`
+        : `${area.anchor.name} 기준으로 지도에서 직접 비교하기 →`;
+  return `<a class="cta" href="${ctaHref(area.anchor, locale)}">${escapeHtml(label)}</a>`;
 }
 
 /** 권역 페이지 하나의 전체 HTML 문서를 만든다. React 를 부팅하지 않는 순수 문서다. */
-export function renderAreaPage(area: AreaDef, data: SeoData): string {
-  const path = guideUrlPath(area.slug);
+export function renderAreaPage(sourceArea: AreaDef, data: SeoData, locale: Locale = "ko"): string {
+  const area = localizeAreaDef(sourceArea, locale);
+  const path = guideUrlPath(sourceArea.slug, locale);
   const breadcrumbs: BreadcrumbItem[] = [
-    { name: "홈", path: "/" },
+    { name: translate(locale, "홈"), path: localeRoot(locale) },
     { name: area.keyword, path },
   ];
 
-  const codes = area.match
+  const codes = sourceArea.match
     ? [
-        ...(area.match.guNames ? resolveByGuNames(data, area.match.guNames) : []),
-        ...(area.match.dongCodes ? resolveByDongCodes(data, area.match.dongCodes) : []),
+        ...(sourceArea.match.guNames ? resolveByGuNames(data, sourceArea.match.guNames) : []),
+        ...(sourceArea.match.dongCodes ? resolveByDongCodes(data, sourceArea.match.dongCodes) : []),
       ]
     : allDongCodes(data);
 
-  const ranked = area.pick ? rankByCondition(data, area.pick) : rankByComposite(data, codes);
-
-  const introHtml = area.intro.map((p) => `<p>${escapeHtml(p)}</p>`).join("\n");
+  const ranked = sourceArea.pick
+    ? rankByCondition(data, sourceArea.pick)
+    : rankByComposite(data, codes);
+  const introHtml = area.intro.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("\n");
   const faqHtml = area.faqs
     .map(
-      (f) =>
-        `<article><h3>${escapeHtml(f.question)}</h3><p>${escapeHtml(f.answer)}</p></article>`
+      (faq) =>
+        `<article><h3>${escapeHtml(faq.question)}</h3><p>${escapeHtml(faq.answer)}</p></article>`
     )
     .join("\n");
 
-  const cta = area.anchor
-    ? `<a class="cta" href="${ctaHref(area.anchor)}">${escapeHtml(
-        area.anchor.name
-      )} 기준으로 지도에서 직접 비교하기 →</a>`
-    : `<a class="cta" href="/">지도에서 내 조건으로 비교하기 →</a>`;
-
-  const scopeNote = area.pick
-    ? `<p class="note">이 순위는 서울·성남·수원·용인 수지·기흥·화성 동탄 전체 556개 행정동 중에서 계산했습니다. 등급은 절대평가가 아니라 대상 지역 안에서의 상대평가입니다.</p>`
-    : `<p class="note">등급(Best/Normal/Bad)은 대상 지역 556개 행정동 안에서의 상대평가입니다. 통근시간을 반영하지 않은 기본 가중치(치안 40·가격 35·생활편의 25) 기준이며, 지도에서 목적지를 넣으면 통근시간까지 반영한 순위로 다시 계산됩니다.</p>`;
-
   const body = `<body>
     ${renderBreadcrumbNav(breadcrumbs)}
+    ${renderLocaleNav(path, locale)}
     <main>
       <h1>${escapeHtml(area.h1)}</h1>
       ${introHtml}
-      ${cta}
-      <h2>동네별 요약</h2>
-      ${renderDongList(ranked, data)}
-      ${renderRawMetricsTable(ranked)}
-      ${renderGuTable(data, codes)}
-      <h2>자주 묻는 질문</h2>
+      ${anchorCta(area, locale)}
+      <h2>${escapeHtml(translate(locale, "동네별 요약"))}</h2>
+      ${renderDongList(ranked, data, locale)}
+      ${renderRawMetricsTable(ranked, locale)}
+      ${renderGuTable(data, codes, locale)}
+      <h2>${escapeHtml(translate(locale, "자주 묻는 질문"))}</h2>
       <div class="faq">${faqHtml}</div>
-      ${renderRelatedNav(area)}
-      <p><a href="/">← 전체 자취 추천 지도로 돌아가기</a></p>
-      ${scopeNote}
+      ${renderRelatedNav(sourceArea, locale)}
+      <p><a href="${localeRoot(locale)}">← ${escapeHtml(
+        translate(locale, "전체 자취 추천 지도로 돌아가기")
+      )}</a></p>
+      <p class="note">${escapeHtml(scopeNote(locale, Boolean(sourceArea.pick)))}</p>
     </main>
   </body>
 </html>`;
 
   const head = renderHead(
-    { path, title: area.title, description: area.seoDescription, breadcrumbs },
+    { path, locale, title: area.title, description: area.seoDescription, breadcrumbs },
     area.faqs
   );
 
   return `${head}\n${body}`;
 }
 
-export function areaCanonicalUrl(area: AreaDef): string {
-  return `${SITE_ORIGIN}${guideUrlPath(area.slug)}`;
+export function areaCanonicalUrl(area: AreaDef, locale: Locale = "ko"): string {
+  return `${SITE_ORIGIN}${guideUrlPath(area.slug, locale)}`;
 }

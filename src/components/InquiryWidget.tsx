@@ -5,8 +5,10 @@ import {
   type InquiryCategory,
 } from "../lib/inquiry";
 import "./InquiryWidget.css";
+import { useI18n } from "../lib/i18n";
 
 export default function InquiryWidget() {
+  const { locale, tr } = useI18n();
   const [isOpen, setIsOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] =
     useState<InquiryCategory | null>(null);
@@ -71,8 +73,8 @@ export default function InquiryWidget() {
                 type="button"
                 className="inquiry-icon-btn"
                 onClick={goBack}
-                aria-label="문의 유형 목록으로 돌아가기"
-                title="뒤로"
+                aria-label={tr("문의 유형 목록으로 돌아가기")}
+                title={tr("뒤로")}
               >
                 <ArrowLeftIcon />
               </button>
@@ -83,16 +85,16 @@ export default function InquiryWidget() {
             )}
             <div>
               <h2 id="inquiry-title">
-                {selectedOption?.label ?? "무엇을 도와드릴까요?"}
+                {selectedOption ? tr(selectedOption.label) : tr("무엇을 도와드릴까요?")}
               </h2>
-              {!selectedCategory && <p>보내실 의견의 종류를 선택해 주세요.</p>}
+              {!selectedCategory && <p>{tr("보내실 의견의 종류를 선택해 주세요.")}</p>}
             </div>
             <button
               type="button"
               className="inquiry-icon-btn inquiry-head-close"
               onClick={close}
-              aria-label="문의 창 닫기"
-              title="닫기"
+              aria-label={tr("문의 창 닫기")}
+              title={tr("닫기")}
             >
               <CloseIcon />
             </button>
@@ -104,23 +106,23 @@ export default function InquiryWidget() {
                 {!isFrameLoaded && (
                   <div className="inquiry-frame-loading" role="status">
                     <span />
-                    문의 폼을 불러오는 중...
+                    {tr("문의 폼을 불러오는 중...")}
                   </div>
                 )}
                 <iframe
                   ref={iframeRef}
-                  src={buildInquiryFormUrl(selectedCategory, true)}
-                  title={`${selectedOption?.label ?? "문의"} Google Form`}
+                  src={buildInquiryFormUrl(selectedCategory, true, locale)}
+                  title={`${selectedOption ? tr(selectedOption.label) : tr("문의")} Google Form`}
                   onLoad={() => setIsFrameLoaded(true)}
                 />
               </div>
               <a
                 className="inquiry-external-link"
-                href={buildInquiryFormUrl(selectedCategory, false)}
+                href={buildInquiryFormUrl(selectedCategory, false, locale)}
                 target="_blank"
                 rel="noreferrer"
               >
-                폼이 보이지 않나요? 새 탭에서 열기
+                {tr("폼이 보이지 않나요? 새 탭에서 열기")}
                 <ExternalIcon />
               </a>
             </div>
@@ -140,8 +142,8 @@ export default function InquiryWidget() {
                       <OptionIcon category={option.category} />
                     </span>
                     <span className="inquiry-option-copy">
-                      <b>{option.label}</b>
-                      <small>{option.description}</small>
+                      <b>{tr(option.label)}</b>
+                      <small>{tr(option.description)}</small>
                     </span>
                     <ChevronRightIcon />
                   </button>
@@ -158,10 +160,10 @@ export default function InquiryWidget() {
         className="inquiry-trigger"
         data-open={isOpen}
         onClick={() => (isOpen ? close() : setIsOpen(true))}
-        aria-label={isOpen ? "문의 창 닫기" : "문의하기"}
+        aria-label={isOpen ? tr("문의 창 닫기") : tr("문의하기")}
         aria-expanded={isOpen}
         aria-controls="inquiry-panel"
-        title={isOpen ? "닫기" : "문의하기"}
+        title={isOpen ? tr("닫기") : tr("문의하기")}
       >
         {isOpen ? <CloseIcon /> : <ChatIcon />}
       </button>

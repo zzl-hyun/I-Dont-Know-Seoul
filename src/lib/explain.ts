@@ -7,6 +7,13 @@ import type {
   Weights,
 } from "../types";
 import { commutePenalty } from "./score";
+import {
+  formatMinutes,
+  formatNumber,
+  formatRentMan,
+  translate,
+  type Locale,
+} from "./locale";
 
 /**
  * 등급의 근거를 설명하는 모듈.
@@ -212,8 +219,26 @@ const METRIC_COPY: Record<MetricKey, MetricCopy> = {
   },
 };
 
-export const metricLabel = (key: MetricKey) => METRIC_COPY[key].label;
-export const formatMetric = (key: MetricKey, v: number) => METRIC_COPY[key].format(v);
+export const metricLabel = (key: MetricKey, locale: Locale = "ko") =>
+  translate(locale, METRIC_COPY[key].label);
+
+export function formatMetric(key: MetricKey, value: number, locale: Locale = "ko"): string {
+  if (locale === "ko") return METRIC_COPY[key].format(value);
+  if (key === "monthlyRentMan") return formatRentMan(locale, value);
+  if (key === "walkToStationMin") {
+    const duration = formatMinutes(locale, Math.round(value));
+    return locale === "ja" ? `徒歩${duration}` : `${duration} walk`;
+  }
+  const formatted = formatNumber(locale, value, {
+    minimumFractionDigits: key === "crimePer1k" ? 1 : value >= 100 ? 0 : value >= 10 ? 1 : 2,
+    maximumFractionDigits: key === "crimePer1k" ? 1 : value >= 100 ? 0 : value >= 10 ? 1 : 2,
+  });
+  if (key === "crimePer1k") {
+    return locale === "ja" ? `${formatted}件/千人` : `${formatted} per 1,000 people`;
+  }
+  const counter = key === "cctvPerKm2" ? (locale === "ja" ? "台" : "") : locale === "ja" ? "件" : "";
+  return `${formatted}${counter}/km²`;
+}
 
 /* ------------------------------------------------------------------ */
 /* 요약 문장                                                           */
@@ -261,7 +286,8 @@ export function summarize(
   grade: Grade,
   weights: Weights,
   axisWeights: Record<AxisName, AxisWeight[]>,
-  overrides: Partial<Record<MetricKey, SummaryMetricOverride>> = {}
+  overrides: Partial<Record<MetricKey, SummaryMetricOverride>> = {},
+  locale: Locale = "ko"
 ): string {
   // 지표 → 최종 점수 기여 비중
   const influence = new Map<MetricKey, number>();
@@ -286,6 +312,8 @@ export function summarize(
   });
 
   if (cands.length === 0) {
+    if (locale === "en") return "This area is close to the overall average.";
+    if (locale === "ja") return "対象地域の平均と大きく変わらない地域です。";
     return "서울 평균과 크게 다르지 않은 지역입니다.";
   }
 
@@ -299,6 +327,23 @@ export function summarize(
   // 최대 3개. 양쪽이 다 있으면 주 2 + 반대 1 로 섞어 균형을 맞춘다.
   const head = primary.slice(0, secondary.length > 0 ? 2 : 3);
   const tail = secondary.slice(0, head.length < 3 && secondary.length > 0 ? 1 : 0);
+
+  if (locale !== "ko") {
+    const headParts = head.map((candidate) =>
+      localizedSummaryFragment(locale, candidate, score, overrides)
+    );
+    const tailParts = tail.map((candidate) =>
+      localizedSummaryFragment(locale, candidate, score, overrides)
+    );
+    const join = (parts: string[]) =>
+      locale === "en" ? parts.join(parts.length > 2 ? ", " : " and ") : parts.join("、");
+    if (tailParts.length > 0) {
+      return locale === "en"
+        ? `${join(headParts)}; however, ${join(tailParts)}.`
+        : `${join(headParts)}一方、${join(tailParts)}。`;
+    }
+    return `${join(headParts)}${locale === "ja" ? "。" : "."}`;
+  }
 
   const parts: string[] = [];
   const push = (c: Candidate, form: keyof Fragment) => {
@@ -319,6 +364,47 @@ export function summarize(
       ? parts.slice(0, head.length).join(" ") + ", " + parts.slice(head.length).join(" ")
       : parts.join(" ");
   return body + ".";
+}
+
+const SUMMARY_EN: Record<MetricKey, { good: string; bad: string }> = {
+  monthlyRentMan: { good: "rent is low at {v}", bad: "rent is high at {v}" },
+  nightlifePerKm2: { good: "nightlife density is low", bad: "nightlife venues are concentrated" },
+  cctvPerKm2: { good: "CCTV coverage is high", bad: "CCTV coverage is low" },
+  crimePer1k: { good: "reported major crime is low", bad: "reported major crime is high" },
+  trafficAccidentPerKm2: { good: "traffic-accident hotspots are few", bad: "traffic-accident hotspots are numerous" },
+  storePerKm2: { good: "stores are plentiful", bad: "stores are sparse" },
+  foodPerKm2: { good: "restaurants are plentiful", bad: "restaurants are sparse" },
+  medicalPerKm2: { good: "healthcare is nearby", bad: "healthcare is sparse" },
+  busStopPerKm2: { good: "bus stops are plentiful", bad: "bus stops are sparse" },
+  walkToStationMin: { good: "a station is nearby", bad: "the nearest station is far" },
+};
+
+const SUMMARY_JA: Record<MetricKey, { good: string; bad: string }> = {
+  monthlyRentMan: { good: "家賃は{v}と安く", bad: "家賃は{v}と高く" },
+  nightlifePerKm2: { good: "遊興施設が少なく", bad: "遊興施設が集中しており" },
+  cctvPerKm2: { good: "CCTVが多く", bad: "CCTVが少なく" },
+  crimePer1k: { good: "主要犯罪が少なく", bad: "主要犯罪が多く" },
+  trafficAccidentPerKm2: { good: "交通事故多発地点が少なく", bad: "交通事故多発地点が多く" },
+  storePerKm2: { good: "コンビニやスーパーが多く", bad: "コンビニやスーパーが少なく" },
+  foodPerKm2: { good: "飲食店が多く", bad: "飲食店が少なく" },
+  medicalPerKm2: { good: "病院や薬局が近く", bad: "病院や薬局が少なく" },
+  busStopPerKm2: { good: "バス停が多く", bad: "バス停が少なく" },
+  walkToStationMin: { good: "駅が近く", bad: "最寄り駅が遠く" },
+};
+
+function localizedSummaryFragment(
+  locale: Exclude<Locale, "ko">,
+  candidate: Candidate,
+  score: DongScore,
+  overrides: Partial<Record<MetricKey, SummaryMetricOverride>>
+): string {
+  const template = (locale === "en" ? SUMMARY_EN : SUMMARY_JA)[candidate.key][
+    candidate.good ? "good" : "bad"
+  ];
+  const override = overrides[candidate.key];
+  const value = override ? override.value : score.raw[candidate.key];
+  if (typeof value !== "number") return template.replace(/\{v\}/g, "");
+  return template.replace("{v}", formatMetric(candidate.key, value, locale));
 }
 
 /** 조각의 `{v}` 자리에 실제 수치를 넣는다. 값이 없으면 자리표시자를 지운다. */
@@ -370,7 +456,8 @@ export function explainAxis(
   score: DongScore,
   pctKeys: MetricKey[],
   axisWeights: AxisWeight[],
-  dists: Map<MetricKey, MetricDistribution>
+  dists: Map<MetricKey, MetricDistribution>,
+  locale: Locale = "ko"
 ): AxisExplanation {
   const metrics: MetricExplanation[] = axisWeights.map((aw) => {
     const idx = pctKeys.indexOf(aw.key);
@@ -378,10 +465,10 @@ export function explainAxis(
     const dist = dists.get(aw.key);
     return {
       key: aw.key,
-      label: aw.label,
-      value: rawValue == null ? "데이터 없음" : formatMetric(aw.key, rawValue),
+      label: translate(locale, aw.label),
+      value: rawValue == null ? translate(locale, "데이터 없음") : formatMetric(aw.key, rawValue, locale),
       rawValue,
-      median: dist ? formatMetric(aw.key, dist.median) : "—",
+      median: dist ? formatMetric(aw.key, dist.median, locale) : "—",
       pct: idx >= 0 ? score.pct[idx] : null,
       weight: aw.w,
       tiedShare: dist && rawValue != null ? sameValueShare(dist, rawValue) : 0,
@@ -443,12 +530,13 @@ export function explainComposite(
   rank: number,
   totalDongs: number,
   cuts: { best: number; normal: number },
-  commuteMin?: number | null
+  commuteMin?: number | null,
+  locale: Locale = "ko"
 ): CompositeExplanation {
   const axes: AxisName[] = ["safety", "price", "convenience"];
   const terms = axes.map((axis) => ({
     axis,
-    label: AXIS_LABEL[axis],
+    label: translate(locale, AXIS_LABEL[axis]),
     score: score[axis],
     weight: weights[axis],
     contribution: score[axis] * weights[axis],
@@ -482,9 +570,12 @@ export function explainComposite(
 /* ------------------------------------------------------------------ */
 
 /** 백분위를 사람 말로 — "상위 8%" / "하위 12%" */
-export function pctPhrase(pct: number): string {
+export function pctPhrase(pct: number, locale: Locale = "ko"): string {
   const top = 100 - pct;
-  return top <= 50 ? `상위 ${Math.max(1, Math.round(top))}%` : `하위 ${Math.round(pct)}%`;
+  const amount = top <= 50 ? Math.max(1, Math.round(top)) : Math.round(pct);
+  if (locale === "en") return `${top <= 50 ? "top" : "bottom"} ${amount}%`;
+  if (locale === "ja") return `${top <= 50 ? "上位" : "下位"}${amount}%`;
+  return `${top <= 50 ? "상위" : "하위"} ${amount}%`;
 }
 
 const fmt = (v: number) => (v >= 100 ? v.toFixed(0) : v >= 10 ? v.toFixed(1) : v.toFixed(2));

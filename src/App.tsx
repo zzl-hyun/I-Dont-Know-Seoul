@@ -16,6 +16,9 @@ import { buildDistributions, summarize } from "./lib/explain";
 import { buildSubwayLayers, LINE_COLOR, lineName } from "./lib/subwayLines";
 import { decodeShareState, encodeShareState } from "./lib/shareUrl";
 import { getLandingVariant } from "./lib/landingVariants";
+import { buildGeographicSuggestions, localizedDongShortName } from "./lib/geographicNames";
+import { LocaleSwitcher, useI18n } from "./lib/i18n";
+import { localeRoot, localizeDataError } from "./lib/locale";
 import {
   applyRentSelection,
   RENT_TYPE_LABEL,
@@ -68,10 +71,21 @@ const NO_COMMUTE: CommuteResult = {
 type SidebarTab = "detail" | "recommendations";
 
 export default function App() {
+  const {
+    locale,
+    tr,
+    minutes,
+    rent,
+    neighborhoodCount,
+    destinationCount,
+    rentPeriod,
+  } = useI18n();
   const [data, setData] = useState<AppData | null>(null);
   const [error, setError] = useState<string | null>(null);
   /** 검색 유입 경로는 랜딩을 보는 동안만 유지하고 앱 URL에는 남기지 않는다. */
-  const [landingVariant] = useState(() => getLandingVariant(window.location.pathname));
+  const [landingVariant] = useState(() =>
+    getLandingVariant(window.location.pathname, locale)
+  );
 
   // 링크로 들어온 경우 그 상태에서 시작한다 (최초 1회만 읽는다)
   const [initial] = useState(() => decodeShareState(window.location.search));
@@ -248,8 +262,8 @@ export default function App() {
   /* 지하철 노선도 — 그래프는 세션 내내 불변이라 한 번만 만든다 */
   const subway = useMemo(() => {
     if (!data) return null;
-    return buildSubwayLayers(data.graph);
-  }, [data]);
+    return buildSubwayLayers(data.graph, locale);
+  }, [data, locale]);
 
   const explainCtx = useMemo<ExplainContext | null>(() => {
     if (!data || !graded || !dists) return null;
@@ -296,13 +310,14 @@ export default function App() {
               data.axisWeights,
               rentVariant
                 ? { monthlyRentMan: { pct: rentVariant.pct, value: rentVariant.medianMan } }
-                : undefined
+                : undefined,
+              locale
             )
-          : "",
+              : "",
       });
     }
     return map;
-  }, [data, graded, ratedScores, commute, maxCommute, weights, budget, rentSelection]);
+  }, [data, graded, ratedScores, commute, maxCommute, weights, budget, rentSelection, locale]);
 
   /* 통근권 안에서 종합 점수가 높은 순 */
   const { picks, commuteEligibleCount } = useMemo(() => {
@@ -334,7 +349,8 @@ export default function App() {
     const commutes: CommuteLeg[] =
       commute && c
         ? commute.contexts.map((ctx, i) => ({
-            destName: destinations[i]?.name ?? `목적지 ${i + 1}`,
+            destName:
+              destinations[i]?.name ?? `${tr("목적지")} ${i + 1}`,
             result: c.per[i],
             route: buildRoute(data.graph, ctx, c.per[i], dong),
           }))
@@ -345,7 +361,7 @@ export default function App() {
     // 직접 대입)으로 처리해 화면 수식과 실제 등급 계산이 어긋나지 않는다.
     const commuteMin = commute ? c?.worstMin ?? null : undefined;
     return { dong, score, grade: g.grade, rank: g.rank, total: g.total, commutes, commuteMin };
-  }, [data, graded, commute, selectedCode, destinations, ratedScores]);
+  }, [data, graded, commute, selectedCode, destinations, ratedScores, tr]);
 
   /**
    * 선택된 동의 경로를 지도에 그릴 선분들.
@@ -389,7 +405,7 @@ export default function App() {
     // 검색 랜딩은 고유 경로를 유지하되, 지도에 들어간 뒤의 공유 URL은 기존
     // `/?to=...` 형식으로 통일한다. 가이드 URL에 목적지 상태가 붙어 들어와도
     // 첫 effect에서 곧장 루트 앱 URL로 정규화된다.
-    const pathname = showLanding ? landingVariant.path : "/";
+    const pathname = showLanding ? landingVariant.path : localeRoot(locale);
     const url = qs ? `${pathname}?${qs}` : pathname;
     window.history.replaceState(null, "", url);
   }, [
@@ -403,6 +419,7 @@ export default function App() {
     rentSelection,
     showLanding,
     landingVariant.path,
+    locale,
   ]);
 
   const copyShareLink = async () => {
@@ -439,6 +456,11 @@ export default function App() {
     const all = new Set(data.graph.nodes.map((n) => n.line));
     return [...all].filter((l) => !hiddenLines.has(l));
   }, [data, hiddenLines]);
+
+  const geographicSuggestions = useMemo(
+    () => (data ? buildGeographicSuggestions(data.dongs, data.graph, locale) : []),
+    [data, locale]
+  );
 
   const toggleLine = (line: string) =>
     setHiddenLines((prev) => {
@@ -494,7 +516,7 @@ export default function App() {
 
   /** 지도의 역을 클릭 → 목적지로 추가 */
   const pickStation = (s: { name: string; lat: number; lng: number }) =>
-    addDestination({ name: s.name, address: "지하철역", lat: s.lat, lng: s.lng });
+    addDestination({ name: s.name, address: tr("지하철역"), lat: s.lat, lng: s.lng });
 
   /*
    * 소개 페이지는 `.app` 그리드(지도 1fr + 사이드바 380px)를 통째로 대체한다.
@@ -510,6 +532,7 @@ export default function App() {
         theme={theme}
         onToggleTheme={() => setTheme(theme === "dark" ? "light" : "dark")}
         variant={landingVariant}
+        geographicSuggestions={geographicSuggestions}
       />
     );
   }
@@ -541,10 +564,10 @@ export default function App() {
                 type="button"
                 className="map-toggle theme-toggle"
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                title={theme === "dark" ? "밝게 보기" : "어둡게 보기"}
+                title={theme === "dark" ? tr("밝게 보기") : tr("어둡게 보기")}
               >
                 {theme === "dark" ? "☀" : "☾"}
-                {theme === "dark" ? "밝게" : "어둡게"}
+                {theme === "dark" ? tr("밝게") : tr("어둡게")}
               </button>
               <label className="map-toggle">
                 <input
@@ -552,12 +575,13 @@ export default function App() {
                   checked={showSubway}
                   onChange={(e) => setShowSubway(e.target.checked)}
                 />
-                지하철 노선도
+                {tr("지하철 노선도")}
               </label>
               {showSubway && (
                 <details className="line-legend">
                   <summary>
-                    노선 {hiddenLines.size > 0 && `· ${hiddenLines.size}개 숨김`}
+                    {tr("노선")} {hiddenLines.size > 0 &&
+                      `· ${locale === "en" ? `${hiddenLines.size} hidden` : locale === "ja" ? `${hiddenLines.size}件非表示` : `${hiddenLines.size}개 숨김`}`}
                   </summary>
                   <div className="line-legend-body">
                     {/* 범례를 그대로 토글로 쓴다 — 별도 UI를 만들 필요가 없다 */}
@@ -567,10 +591,10 @@ export default function App() {
                         type="button"
                         data-off={hiddenLines.has(l)}
                         onClick={() => toggleLine(l)}
-                        title={hiddenLines.has(l) ? "켜기" : "끄기"}
+                        title={hiddenLines.has(l) ? tr("켜기") : tr("끄기")}
                       >
                         <i style={{ background: LINE_COLOR[l] }} />
-                        {lineName(l)}
+                        {lineName(l, locale)}
                       </button>
                     ))}
                   </div>
@@ -580,7 +604,7 @@ export default function App() {
                       className="legend-reset"
                       onClick={() => setHiddenLines(new Set())}
                     >
-                      전부 다시 켜기
+                      {tr("전부 다시 켜기")}
                     </button>
                   )}
                 </details>
@@ -589,7 +613,9 @@ export default function App() {
           </>
         ) : (
           <div className="loading">
-            {error ? `오류: ${error}` : "지도를 불러오는 중..."}
+            {error
+              ? `${tr("오류")}: ${localizeDataError(locale, error)}`
+              : tr("지도를 불러오는 중...")}
           </div>
         )}
       </div>
@@ -597,10 +623,8 @@ export default function App() {
       <aside className="sidebar" ref={sidebarRef}>
         <div className="brand">
           <h1>I Don&rsquo;t Know Seoul</h1>
-          <p>
-            회사나 학교를 검색하면, 통근 가능한 동네를 치안·월세·생활편의 등급으로
-            한눈에 보여줍니다.
-          </p>
+          <p>{tr("회사나 학교를 검색하면, 통근 가능한 동네를 치안·월세·생활편의 등급으로 한눈에 보여줍니다.")}</p>
+          <LocaleSwitcher />
         </div>
 
         {/*
@@ -611,10 +635,11 @@ export default function App() {
         */}
         <DestinationSearch
           onPick={replaceDestination}
+          geographicSuggestions={geographicSuggestions}
           placeholder={
             destinations.length === 0
-              ? "회사나 학교를 검색하세요 (예: 강남역, SK AX)"
-              : "다른 곳으로 바꾸려면 검색하세요 (예: 강남역, SK AX)"
+              ? tr("회사나 학교를 검색하세요 (예: 강남역, SK AX)")
+              : tr("다른 곳으로 바꾸려면 검색하세요 (예: 강남역, SK AX)")
           }
         />
 
@@ -622,7 +647,7 @@ export default function App() {
           <>
             <div className="section">
               <p className="section-title">
-                목적지 {destinations.length > 1 && `· 모두 만족하는 지역`}
+                {tr("목적지")} {destinations.length > 1 && `· ${tr("모두 만족하는 지역")}`}
               </p>
               <ul className="dest-list">
                 {destinations.map((d, i) => (
@@ -632,8 +657,8 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => removeDestination(i)}
-                      aria-label={`${d.name} 제거`}
-                      title="제거"
+                      aria-label={`${d.name} ${tr("제거")}`}
+                      title={tr("제거")}
                     >
                       ✕
                     </button>
@@ -646,17 +671,27 @@ export default function App() {
                 <DestinationSearch
                   onPick={addDestination}
                   disabled={destinations.length >= MAX_DESTINATIONS}
-                  placeholder="+ 목적지 추가 (예: 룸메이트 회사)"
+                  placeholder={tr("+ 목적지 추가 (예: 룸메이트 회사)")}
+                  geographicSuggestions={geographicSuggestions}
                 />
               </div>
 
               {destinations.length < MAX_DESTINATIONS ? (
                 <p className="metric-note">
-                  지도의 역을 클릭해서도 목적지를 더할 수 있습니다 (최대{" "}
-                  {MAX_DESTINATIONS}개).
+                  {tr("지도의 역을 클릭해서도 목적지를 더할 수 있습니다")} ({locale === "en"
+                    ? `max ${destinationCount(MAX_DESTINATIONS)}`
+                    : locale === "ja"
+                      ? `最大${destinationCount(MAX_DESTINATIONS)}`
+                      : `최대 ${destinationCount(MAX_DESTINATIONS)}`}).
                 </p>
               ) : (
-                <p className="metric-note">목적지는 최대 {MAX_DESTINATIONS}개까지입니다.</p>
+                <p className="metric-note">
+                  {locale === "en"
+                    ? `Up to ${destinationCount(MAX_DESTINATIONS)} are allowed.`
+                    : locale === "ja"
+                      ? `目的地は最大${destinationCount(MAX_DESTINATIONS)}までです。`
+                      : `목적지는 최대 ${destinationCount(MAX_DESTINATIONS)}까지입니다.`}
+                </p>
               )}
             </div>
 
@@ -664,7 +699,7 @@ export default function App() {
               className="sidebar-tabs"
               ref={sidebarTabsRef}
               role="tablist"
-              aria-label="오른쪽 패널 보기"
+              aria-label={tr("오른쪽 패널 보기")}
               onKeyDown={(event) => {
                 if (!selected || !["ArrowLeft", "ArrowRight", "Home", "End"].includes(event.key)) {
                   return;
@@ -691,8 +726,12 @@ export default function App() {
                 data-active={visibleSidebarTab === "detail"}
                 onClick={() => showSidebarTab("detail")}
               >
-                <span>상세 정보</span>
-                <small>{selected?.dong.dong ?? "동네를 선택하세요"}</small>
+                <span>{tr("상세 정보")}</span>
+                <small>
+                  {selected
+                    ? localizedDongShortName(selected.dong, locale)
+                    : tr("동네를 선택하세요")}
+                </small>
               </button>
               <button
                 id="sidebar-tab-recommendations"
@@ -704,8 +743,8 @@ export default function App() {
                 data-active={visibleSidebarTab === "recommendations"}
                 onClick={() => showSidebarTab("recommendations")}
               >
-                <span>조건·추천</span>
-                <small>통근권 {picks.length}개 동</small>
+                <span>{tr("조건·추천")}</span>
+                <small>{tr("통근권")} {neighborhoodCount(picks.length)}</small>
               </button>
             </div>
 
@@ -738,9 +777,9 @@ export default function App() {
                 aria-labelledby="sidebar-tab-recommendations"
               >
                 <div className="section">
-                  <p className="section-title">조건</p>
+                  <p className="section-title">{tr("조건")}</p>
                   <div className="slider-row">
-                    <label htmlFor="commute">통근</label>
+                    <label htmlFor="commute">{tr("통근")}</label>
                     <input
                       id="commute"
                       type="range"
@@ -750,10 +789,10 @@ export default function App() {
                       value={maxCommute}
                       onChange={(e) => setMaxCommute(Number(e.target.value))}
                     />
-                    <output>{maxCommute}분</output>
+                    <output>{minutes(maxCommute)}</output>
                   </div>
                   <div className="slider-row">
-                    <label htmlFor="budget">월세</label>
+                    <label htmlFor="budget">{tr("월세")}</label>
                     <input
                       id="budget"
                       type="range"
@@ -763,15 +802,14 @@ export default function App() {
                       value={budget}
                       onChange={(e) => setBudget(Number(e.target.value))}
                     />
-                    <output>{budget >= BUDGET_OFF ? "제한 없음" : `${budget}만원`}</output>
+                    <output>{budget >= BUDGET_OFF ? tr("제한 없음") : rent(budget)}</output>
                   </div>
                   <p className="metric-note budget-note">
-                    월세 제한은 아래 &ldquo;월세 기준&rdquo;에서 고른 유형·계산 방식의
-                    중앙값 기준입니다. 표본이 없는 동은 제한을 설정해도 거르지 않습니다.
+                    {tr("월세 제한은 아래 “월세 기준”에서 고른 유형·계산 방식의 중앙값 기준입니다. 표본이 없는 동은 제한을 설정해도 거르지 않습니다.")}
                   </p>
 
-                  <p className="section-subtitle">월세 기준</p>
-                  <div className="rent-type-checks" role="group" aria-label="포함할 주택유형">
+                  <p className="section-subtitle">{tr("월세 기준")}</p>
+                  <div className="rent-type-checks" role="group" aria-label={tr("포함할 주택유형")}>
                     {RENT_TYPE_OPTIONS.map((type) => {
                       const checked = rentSelection.types.includes(type);
                       const lastOne = checked && rentSelection.types.length === 1;
@@ -781,7 +819,7 @@ export default function App() {
                           className="rent-type-check"
                           data-checked={checked}
                           data-disabled={lastOne}
-                          title={lastOne ? "최소 1개는 선택돼 있어야 합니다" : undefined}
+                          title={lastOne ? tr("최소 1개는 선택돼 있어야 합니다") : undefined}
                         >
                           <input
                             type="checkbox"
@@ -789,12 +827,12 @@ export default function App() {
                             disabled={lastOne}
                             onChange={() => toggleRentType(type)}
                           />
-                          {RENT_TYPE_LABEL[type]}
+                          {tr(RENT_TYPE_LABEL[type])}
                         </label>
                       );
                     })}
                   </div>
-                  <div className="mode-switch" role="group" aria-label="월세 계산 방식">
+                  <div className="mode-switch" role="group" aria-label={tr("월세 계산 방식")}>
                     {(
                       [
                         ["converted", "환산월세"],
@@ -807,19 +845,19 @@ export default function App() {
                         data-active={rentSelection.mode === m}
                         onClick={() => setRentSelection((prev) => ({ ...prev, mode: m }))}
                       >
-                        {label}
+                        {tr(label)}
                       </button>
                     ))}
                   </div>
                   {rentSelection.mode === "raw" && (
                     <p className="metric-note warn">
-                      보증금이 큰 매물이 실제보다 싸게 보일 수 있습니다.
+                      {tr("보증금이 큰 매물이 실제보다 싸게 보일 수 있습니다.")}
                     </p>
                   )}
                 </div>
 
                 <div className="section">
-                  <p className="section-title">무엇이 중요한가요?</p>
+                  <p className="section-title">{tr("무엇이 중요한가요?")}</p>
                   {(
                     [
                       ["safety", "치안"],
@@ -828,7 +866,7 @@ export default function App() {
                     ] as const
                   ).map(([key, label]) => (
                     <div className="slider-row" key={key}>
-                      <label htmlFor={key}>{label}</label>
+                      <label htmlFor={key}>{tr(label)}</label>
                       <input
                         id={key}
                         type="range"
@@ -841,7 +879,7 @@ export default function App() {
                       <output>{Math.round(weights[key] * 100)}%</output>
                     </div>
                   ))}
-                  <div className="mode-switch" role="group" aria-label="지도 색 기준">
+                  <div className="mode-switch" role="group" aria-label={tr("지도 색 기준")}>
                     {(
                       [
                         ["grade", "등급"],
@@ -854,7 +892,7 @@ export default function App() {
                         data-active={mapMode === m}
                         onClick={() => setMapMode(m)}
                       >
-                        {label}
+                        {tr(label)}
                       </button>
                     ))}
                   </div>
@@ -870,8 +908,7 @@ export default function App() {
                         ))}
                       </div>
                       <p className="metric-note" style={{ marginTop: 8 }}>
-                        등급은 대상 지역 전체 분포 기준 상대 평가입니다 — 상위 30%가 Best,
-                        하위 30%가 Bad입니다.
+                        {tr("등급은 대상 지역 전체 분포 기준 상대 평가입니다 — 상위 30%가 Best, 하위 30%가 Bad입니다.")}
                       </p>
                     </>
                   ) : (
@@ -880,12 +917,13 @@ export default function App() {
                         {COMMUTE_BANDS.map((b) => (
                           <span key={b.label}>
                             <i className="grade-dot" style={{ background: b.color }} />
-                            {b.label}
+                            {tr(b.label)}
                           </span>
                         ))}
                       </div>
                       <p className="metric-note" style={{ marginTop: 8 }}>
-                        목적지가 여럿이면 <b>가장 오래 걸리는 쪽</b> 기준입니다.
+                        {tr("목적지가 여럿이면")} <b>{tr("가장 오래 걸리는 쪽")}</b>{" "}
+                        {tr("기준입니다.")}
                       </p>
                     </>
                   )}
@@ -909,10 +947,10 @@ export default function App() {
 
                 <div className="section share-row">
                   <button type="button" className="share-btn" onClick={copyShareLink}>
-                    {copied ? "링크가 복사됐습니다" : "이 결과 링크 복사"}
+                    {copied ? tr("링크가 복사됐습니다") : tr("이 결과 링크 복사")}
                   </button>
                   <p className="metric-note">
-                    목적지·조건·가중치가 주소에 담깁니다. 받은 사람은 같은 화면을 그대로 봅니다.
+                    {tr("목적지·조건·가중치가 주소에 담깁니다. 받은 사람은 같은 화면을 그대로 봅니다.")}
                   </p>
                 </div>
               </div>
@@ -922,39 +960,38 @@ export default function App() {
 
         {destinations.length === 0 && (
           <div className="empty">
-            먼저 목적지를 정해주세요.
+            {tr("먼저 목적지를 정해주세요.")}
             <br />
-            출근할 회사나 등교할 학교를 검색하면
+            {tr("출근할 회사나 등교할 학교를 검색하면")}
             <br />
-            통근 가능한 지역이 지도에 나타납니다.
+            {tr("통근 가능한 지역이 지도에 나타납니다.")}
           </div>
         )}
 
         <div className="disclaimer">
-          등급은 공공·공개 데이터로 계산한 <b>대상 지역 내 상대 평가</b>이며, 특정 지역에
-          대한 가치판단이 아닙니다. 통근시간은 정적 지하철·버스 모델 추정치이며
-          실시간 교통상황에 따라 달라질 수 있습니다.
+          {tr("등급은 공공·공개 데이터로 계산한 대상 지역 내 상대 평가이며, 특정 지역에 대한 가치판단이 아닙니다. 통근시간은 정적 지하철·버스 모델 추정치이며 실시간 교통상황에 따라 달라질 수 있습니다.")}
           {data && (
             <>
               <br />
-              데이터 기준 · 경계 {data.meta.boundaryVersion} · 지하철{" "}
+              {tr("데이터 기준")} · {tr("경계")} {data.meta.boundaryVersion} · {tr("지하철")}{" "}
               {data.meta.graphVersion}
-              {data.meta.busVersion != null && <> · 버스 {data.meta.busVersion}</>}
+              {data.meta.busVersion != null && <> · {tr("버스")} {data.meta.busVersion}</>}
               {data.meta.residentialVersion &&
-                <> · 거주분포 {data.meta.residentialVersion}</>}
+                <> · {tr("거주분포")} {data.meta.residentialVersion}</>}
               {data.meta.rentPeriod && (
                 <>
-                  {" · "}월세 {data.meta.rentPeriod.startDate.slice(0, 4)}~
-                  {data.meta.rentPeriod.endDate.slice(0, 4)}년 {data.meta.rentPeriod.contractType}
-                  계약(서울특별시·국토교통부)
+                  {" · "}{tr("월세")} {rentPeriod(
+                    data.meta.rentPeriod.startDate,
+                    data.meta.rentPeriod.endDate
+                  )}
                 </>
               )}
-              {" · "}지표 {data.meta.scoreVersion}
+              {" · "}{tr("지표")} {data.meta.scoreVersion}
               {data.meta.missingMetrics.length > 0 && (
                 <>
                   <br />
                   <span style={{ color: "var(--normal)" }}>
-                    미수집 지표: {data.meta.missingMetrics.join(", ")}
+                    {tr("미수집 지표")}: {data.meta.missingMetrics.join(", ")}
                   </span>
                 </>
               )}
