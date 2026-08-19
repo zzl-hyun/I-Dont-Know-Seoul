@@ -7,7 +7,7 @@
     <!-- 실제 검색 문장을 넣되 키워드를 나열하지 않고 페이지 기능을 한 문장으로 설명한다. -->
     <meta
       name="description"
-      content="회사·학교를 기준으로 서울·성남·수원·용인 수지·기흥의 자취 동네를 통근시간·월세·치안·생활편의로 비교하세요."
+      content="회사·학교를 기준으로 서울·성남·수원·용인 수지·기흥·화성 동탄의 자취 동네를 통근시간·월세·치안·생활편의로 비교하세요."
     />
     <link rel="canonical" href="https://i-dont-know-seoul.cioud.workers.dev/" />
 
@@ -23,7 +23,7 @@
     <meta property="og:title" content="서울 자취 동네 추천 | I Don't Know Seoul" />
     <meta
       property="og:description"
-      content="회사·학교를 검색하고 서울·성남·수원·용인 수지·기흥의 자취 동네를 통근시간·월세·치안·생활편의로 비교하세요."
+      content="회사·학교를 검색하고 서울·성남·수원·용인 수지·기흥·화성 동탄의 자취 동네를 통근시간·월세·치안·생활편의로 비교하세요."
     />
     <meta property="og:image" content="https://i-dont-know-seoul.cioud.workers.dev/og-image.jpg" />
     <meta property="og:image:alt" content="출퇴근시간과 자취 조건을 비교하는 I Don't Know Seoul 지도" />
@@ -34,7 +34,7 @@
     <meta name="twitter:title" content="서울 자취 동네 추천 | I Don't Know Seoul" />
     <meta
       name="twitter:description"
-      content="회사·학교를 기준으로 서울·성남·수원·용인 수지·기흥의 자취 동네를 통근시간·월세·치안·생활편의로 비교하세요."
+      content="회사·학교를 기준으로 서울·성남·수원·용인 수지·기흥·화성 동탄의 자취 동네를 통근시간·월세·치안·생활편의로 비교하세요."
     />
     <meta name="twitter:image" content="https://i-dont-know-seoul.cioud.workers.dev/og-image.jpg" />
     <meta name="twitter:image:alt" content="출퇴근시간과 자취 조건을 비교하는 I Don't Know Seoul 지도" />
@@ -79,7 +79,7 @@
             "alternateName": "I Don't Know Seoul",
             "url": "https://i-dont-know-seoul.cioud.workers.dev/",
             "inLanguage": "ko-KR",
-            "description": "회사나 학교를 기준으로 서울과 인접 경기 생활권의 자취 동네를 비교하고 추천하는 지도"
+            "description": "회사나 학교를 기준으로 서울과 성남·수원·용인·화성 동탄 생활권의 자취 동네를 비교하고 추천하는 지도"
           },
           {
             "@type": "WebApplication",
@@ -92,7 +92,7 @@
             "inLanguage": "ko-KR",
             "description": "회사나 학교를 검색하고 통근시간·월세·치안·생활편의를 비교해 자취 동네를 추천받는 무료 웹 지도",
             "featureList": [
-              "서울·성남·수원·용인 수지·기흥 자취 동네 비교",
+              "서울·성남·수원·용인 수지·기흥·화성 동탄 자취 동네 비교",
               "강남·판교 등 목적지별 통근시간 계산",
               "월세 상한과 치안·가격·생활편의 가중치 설정",
               "공공·공개 데이터 기반 추천 근거 공개"
@@ -131,7 +131,7 @@
                 "name": "어느 지역까지 비교하나요?",
                 "acceptedAnswer": {
                   "@type": "Answer",
-                  "text": "서울 전체와 성남, 수원, 용인 수지구·기흥구의 행정동을 같은 평가 기준과 통근 조건으로 한 지도에서 비교합니다."
+                  "text": "서울 전체와 성남, 수원, 용인 수지구·기흥구, 화성 동탄의 행정동을 같은 평가 기준과 통근 조건으로 한 지도에서 비교합니다."
                 }
               }
             ]
@@ -139,9 +139,38 @@
         ]
       }
     </script>
+    <style>
+      .initial-guide { max-width: 760px; margin: 0 auto; padding: 72px 20px; font-family: system-ui, sans-serif; line-height: 1.75; }
+      .initial-guide nav { display: flex; flex-wrap: wrap; gap: 12px; }
+      .initial-guide a { color: inherit; }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <!--
+      크롤러(특히 JS 렌더링이 제한적인 네이버 Yeti)를 위한 사전 렌더 마크업.
+      `src/main.tsx`의 `createRoot(root).render()`가 마운트되면서 이 내용을
+      실제 <Landing/> 렌더 결과로 교체한다(비우는 게 아니라 갈아끼우는 것 —
+      `guide/*`가 예전에 쓰던 것과 같은 패턴이다).
+
+      **문구는 `src/lib/landingVariants.ts`의 `LANDING_VARIANTS.default`와
+      반드시 같아야 한다** — 다르면 크롤러가 보는 것과 사용자가 보는 것이
+      달라지는 클로킹이다. 그쪽을 바꾸면 여기도 같이 바꾼다.
+    -->
+    <div id="root">
+      <main class="initial-guide">
+        <h1>어디 살아야 할지 모르겠다면</h1>
+        <p>회사나 학교를 검색하면, 서울과 인접 경기의 자취 동네를 한눈에 비교합니다.</p>
+        <h2>출근지와 월세로 찾는 자취 동네 추천</h2>
+        <p>막연한 인기 순위 대신 실제 출근지를 기준으로 비교합니다. 회사나 학교를 검색하고 통근시간과 월세 상한을 정하면 서울 전체와 성남·수원, 용인 수지·기흥, 화성 동탄의 행정동을 치안·가격·생활편의와 함께 살펴볼 수 있습니다.</p>
+        <nav aria-label="검색어별 자취 추천 가이드">
+          <a href="/guide/gangnam-commute/">강남 출근 자취</a>
+          <a href="/guide/pangyo-commute/">판교 출근 자취</a>
+          <a href="/guide/sinbundang/">신분당선 자취</a>
+          <a href="/guide/suwon/">수원 자취 추천</a>
+          <a href="/guide/hongdae/">홍대 자취 추천</a>
+        </nav>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

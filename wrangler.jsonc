@@ -11,10 +11,16 @@
 
   // 정적 자산(React 빌드 + 행정동 경계)은 CDN에서 바로 서빙되고,
   // /api/* 만 Worker를 거친다. 덕분에 Worker 호출량과 CPU 시간이 최소화된다.
+  //
+  // `not_found_handling`은 "404-page"다. 이 앱은 클라이언트 라우터가 없고
+  // 실제 경로는 "/"와 `src/seo/areas.ts`가 생성하는 "/guide/*" 뿐이다 —
+  // 나머지 전부를 "/"로 200 서빙하면(`single-page-application`이었을 때처럼)
+  // 크롤러가 존재하지 않는 URL을 계속 발견하는 soft-404가 무한히 생긴다.
+  // 404는 `public/404.html`이 서빙한다.
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",
-    "not_found_handling": "single-page-application",
+    "not_found_handling": "404-page",
     "run_worker_first": ["/api/*"]
   },
 
