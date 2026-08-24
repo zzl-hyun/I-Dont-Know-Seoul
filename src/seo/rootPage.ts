@@ -6,7 +6,7 @@ import {
   translate,
   type Locale,
 } from "../lib/locale";
-import { AREA_DEFS } from "./areas";
+import { AREA_DEFS, type AreaGroup } from "./areas";
 import { escapeHtml } from "./layout";
 import { localizeAreaDef } from "./localize";
 import { guideUrlPath } from "./slug";
@@ -139,6 +139,14 @@ const ROOT_COPY: Record<Locale, RootCopy> = {
   },
 };
 
+/** 루트 프리렌더의 그룹 소제목. 번역은 `src/lib/locale.ts` 의 MESSAGES 에 있다. */
+const GROUP_HEADINGS: Record<AreaGroup, string> = {
+  city: "도시·지역별 자취 추천",
+  commute: "출근지별 자취 추천",
+  district: "대학가·번화가별 자취 추천",
+  condition: "조건별 자취 추천",
+};
+
 function jsonLd(value: unknown): string {
   return JSON.stringify(value, null, 2).replace(/</g, "\\u003c");
 }
@@ -151,6 +159,41 @@ export function extractBuiltAssetTags(html: string): string {
     .join("\n    ");
 }
 
+/**
+ * 루트 프리렌더에 32장 권역 페이지를 **전부** 링크한다.
+ *
+ * 예전엔 `AREA_DEFS.slice(0, 5)` 로 앞 5개(전부 city 그룹)만 걸었다. 그런데
+ * `areaPage.ts` 의 관련 링크는 같은 group 안에서만 도니까 city 6장이 닫힌
+ * 덩어리가 되고, commute·district·condition 26장 × 3 locale = 78장이
+ * **내부 링크가 하나도 없는 고아 페이지**가 됐다. 사이트맵에만 있는 URL은
+ * "존재한다"는 신호일 뿐 "중요하다"는 신호가 아니어서, Search Console 이
+ * 97장을 통째로 "발견됨 - 현재 색인이 생성되지 않음" 으로 잡아뒀다
+ * (크롤조차 안 했다는 뜻이다).
+ *
+ * 이 블록은 `#root` 안에 있어서 React 가 마운트되는 순간 통째로 교체된다 —
+ * 즉 사람 눈에는 안 보이고 크롤러만 읽는다. 링크를 32개로 늘려도 UX 비용이
+ * 0인 이유다.
+ */
+function renderGuideDirectory(locale: Locale): string {
+  const groups: AreaGroup[] = ["city", "commute", "district", "condition"];
+  return groups
+    .map((group) => {
+      const heading = translate(locale, GROUP_HEADINGS[group]);
+      const links = AREA_DEFS.filter((area) => area.group === group)
+        .map((source) => localizeAreaDef(source, locale))
+        .map(
+          (area) =>
+            `<a href="${guideUrlPath(area.slug, locale)}">${escapeHtml(area.keyword)}</a>`
+        )
+        .join("\n            ");
+      return `        <h3>${escapeHtml(heading)}</h3>
+        <nav aria-label="${escapeHtml(heading)}">
+            ${links}
+        </nav>`;
+    })
+    .join("\n");
+}
+
 export function renderRootPage(locale: Locale, assetTags: string): string {
   const copy = ROOT_COPY[locale];
   const path = localeRoot(locale);
@@ -158,7 +201,6 @@ export function renderRootPage(locale: Locale, assetTags: string): string {
   const imageName = locale === "ko" ? "og-image.jpg" : `og-image-${locale}.jpg`;
   const imageUrl = `${SITE_ORIGIN}/${imageName}`;
   const variant = getLandingVariant(path, locale);
-  const guides = AREA_DEFS.slice(0, 5).map((area) => localizeAreaDef(area, locale));
   const alternates = SUPPORTED_LOCALES.map(
     (candidate) =>
       `    <link rel="alternate" hreflang="${candidate}" href="${SITE_ORIGIN}${localeRoot(candidate)}" />`
@@ -263,14 +305,7 @@ ${jsonLd(graph)}
         <p>${escapeHtml(variant.heroLead.join(" "))}</p>
         <h2>${escapeHtml(variant.guideTitle)}</h2>
         <p>${escapeHtml(variant.guideLead)}</p>
-        <nav aria-label="${escapeHtml(translate(locale, "검색어별 자취 추천 가이드"))}">
-          ${guides
-            .map(
-              (area) =>
-                `<a href="${guideUrlPath(area.slug, locale)}">${escapeHtml(area.keyword)}</a>`
-            )
-            .join("\n          ")}
-        </nav>
+${renderGuideDirectory(locale)}
       </main>
     </div>
   </body>
