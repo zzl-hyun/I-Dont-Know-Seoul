@@ -340,6 +340,7 @@ const MESSAGES: Record<string, Translation> = {
   "출근지별 자취 추천": { en: "By commute destination", ja: "通勤先別" },
   "대학가·번화가별 자취 추천": { en: "By neighborhood", ja: "大学街・繁華街別" },
   "조건별 자취 추천": { en: "By what matters to you", ja: "条件別" },
+  "이웃 권역 자취 추천": { en: "Other neighborhood guides", ja: "ほかの街選びガイド" },
   "홈": { en: "Home", ja: "ホーム" },
   "동네별 요약": { en: "Neighborhood summary", ja: "地域別まとめ" },
   "동별 실측 지표": { en: "Measured metrics by neighborhood", ja: "地域別の実測指標" },

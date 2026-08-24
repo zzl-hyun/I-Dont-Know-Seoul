@@ -185,20 +185,50 @@ function renderGuTable(data: SeoData, codes: string[], locale: Locale): string {
     </table>`;
 }
 
-function renderRelatedNav(sourceArea: AreaDef, locale: Locale): string {
-  const related = AREA_DEFS.filter(
-    (area) => area.group === sourceArea.group && area.slug !== sourceArea.slug
-  ).slice(0, 6);
-  if (related.length === 0) return "";
-  const links = related
+function renderLinkList(areas: AreaDef[], locale: Locale, label: string): string {
+  if (areas.length === 0) return "";
+  const links = areas
     .map((source) => {
       const area = localizeAreaDef(source, locale);
       return `<a href="${guideUrlPath(area.slug, locale)}">${escapeHtml(area.keyword)}</a>`;
     })
     .join("\n");
-  return `<nav class="related" aria-label="${escapeHtml(
-    translate(locale, "관련 자취 추천")
-  )}">${links}</nav>`;
+  return `<nav class="related" aria-label="${escapeHtml(translate(locale, label))}">${links}</nav>`;
+}
+
+/**
+ * 같은 group 안의 형제 링크만 걸면 group 이 **닫힌 덩어리**가 된다.
+ *
+ * 루트가 city 6장만 링크하던 시절, city 끼리만 서로를 가리켜서
+ * commute·district·condition 26장이 통째로 고아가 됐다. 루트에서 32장을 전부
+ * 링크하도록 고쳤지만(`rootPage.ts` 의 `renderGuideDirectory`), 그것만으로는
+ * 모든 페이지가 "루트에서 1홉" 인 납작한 그래프라 group 간에 신호가 안 흐른다.
+ * 그래서 group 밖으로도 4장을 건다.
+ *
+ * 고르는 방식은 **결정적 회전**이다 — 원본 배열에서 자기 위치를 기준으로
+ * 한 칸씩 밀며 뽑는다. 무작위로 뽑으면 빌드마다 링크가 바뀌어서 크롤러가
+ * 매번 다른 그래프를 보고, 스냅샷 테스트도 못 건다.
+ */
+function renderRelatedNav(sourceArea: AreaDef, locale: Locale): string {
+  const siblings = AREA_DEFS.filter(
+    (area) => area.group === sourceArea.group && area.slug !== sourceArea.slug
+  ).slice(0, 6);
+
+  const outsiders = AREA_DEFS.filter((area) => area.group !== sourceArea.group);
+  const start = AREA_DEFS.findIndex((area) => area.slug === sourceArea.slug);
+  const crossGroup = outsiders.length
+    ? Array.from(
+        { length: Math.min(4, outsiders.length) },
+        (_, i) => outsiders[(start + i * 3 + 1) % outsiders.length]
+      ).filter((area, i, list) => list.findIndex((x) => x.slug === area.slug) === i)
+    : [];
+
+  return [
+    renderLinkList(siblings, locale, "관련 자취 추천"),
+    renderLinkList(crossGroup, locale, "이웃 권역 자취 추천"),
+  ]
+    .filter(Boolean)
+    .join("\n");
 }
 
 function scopeNote(locale: Locale, isCondition: boolean): string {
