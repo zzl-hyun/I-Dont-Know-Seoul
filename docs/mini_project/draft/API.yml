@@ -1,0 +1,888 @@
+openapi: 3.0.0
+info:
+  title: I Don't Know Seoul API
+  version: "1.0"
+  description: |
+    서울에 연고가 없는 사람을 위한 자취 지역 탐색 서비스 API.
+    목적지만 정하면 수도권 547개 행정동을 같은 잣대로 비교해 후보 목록을 만들어 준다.
+
+    핵심 흐름: 목적지 검색(최대 3곳) -> 등급 지도·추천 목록 -> 동 상세에서 계산 과정·통근 경로 확인
+    -> 그 동네 실거주 후기 읽기.
+
+    문의 접수는 외부 폼(Google Form)이 담당하므로 이 명세에 포함하지 않는다.
+
+    조회는 전부 비로그인이다. 로그인은 후기 쓰기(작성·수정·삭제·도움돼요)에만 필요하며,
+    카카오·GitHub 소셜 로그인만 쓴다(자체 가입 절차 없음).
+servers:
+  - url: http://localhost:8787/api
+    description: DEV
+tags:
+  - name: auth
+    description: 계정 (후기 쓰기 전용)
+  - name: places
+    description: 목적지 검색
+  - name: regions
+    description: 지역 등급·지표·통근
+  - name: reviews
+    description: 실거주 후기
+
+paths:
+  /auth/{provider}:
+    get:
+      tags: [auth]
+      summary: 소셜 로그인 시작
+      operationId: startOAuth
+      description: |
+        제공자 인가 화면으로 리다이렉트한다. 별도 가입 절차는 없다.
+        - 요구사항: REQ-FUNC-011
+        - 화면: SCR-AUTH-001
+        - 테이블: users
+      parameters:
+        - $ref: '#/components/parameters/Provider'
+      responses:
+        '302':
+          description: 제공자 인가 화면으로 리다이렉트
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /auth/{provider}/callback:
+    get:
+      tags: [auth]
+      summary: 소셜 로그인 콜백
+      operationId: oauthCallback
+      description: |
+        제공자가 준 인가 코드로 사용자를 식별해 세션을 발급한다.
+        처음 로그인하는 사용자는 이 시점에 users 행이 만들어진다(제공자 식별자 + 닉네임만 저장).
+        제공자 토큰은 서버에만 두고 응답에 포함하지 않는다.
+        - 요구사항: REQ-FUNC-011, REQ-NFN-003, REQ-NFN-004
+        - 화면: SCR-AUTH-001
+        - 테이블: users
+      parameters:
+        - $ref: '#/components/parameters/Provider'
+        - name: code
+          in: query
+          required: true
+          description: 제공자가 발급한 인가 코드
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 로그인 성공 (세션 발급)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: 인가 코드 누락·만료·불일치
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /auth/logout:
+    post:
+      tags: [auth]
+      summary: 로그아웃
+      operationId: logout
+      description: |
+        세션을 종료한다. 조회 기능은 로그아웃 상태에서도 그대로 쓴다.
+        - 요구사항: REQ-FUNC-011
+        - 화면: SCR-AUTH-001
+        - 테이블: users
+      responses:
+        '204':
+          description: 로그아웃 완료
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /auth/me:
+    get:
+      tags: [auth]
+      summary: 현재 로그인 사용자 조회
+      operationId: getMe
+      description: |
+        후기 작성·도움돼요 버튼의 활성 여부를 판단할 때 호출한다.
+        - 요구사항: REQ-FUNC-011
+        - 화면: SCR-RVW-001, SCR-RVW-002
+        - 테이블: users
+      responses:
+        '200':
+          description: 조회 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /places:
+    get:
+      tags: [places]
+      summary: 목적지 검색
+      operationId: searchPlaces
+      description: |
+        주소·장소명 키워드로 목적지 후보를 찾는다. 지하철역만 찾을 때는 type=station을 쓴다.
+        서비스 범위 밖 좌표는 반환하지 않는다.
+        - 요구사항: REQ-FUNC-002, REQ-NFN-004
+        - 화면: SCR-MAIN-001, SCR-RVW-002
+        - 테이블: destinations
+      parameters:
+        - name: query
+          in: query
+          required: true
+          description: 검색 키워드 (2자 이상)
+          schema:
+            type: string
+            minLength: 2
+        - name: type
+          in: query
+          required: false
+          description: place = 주소·장소 전체, station = 지하철역만
+          schema:
+            type: string
+            enum: [place, station]
+            default: place
+      responses:
+        '200':
+          description: 검색 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Destination'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          description: 검색 결과 없음
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /regions:
+    get:
+      tags: [regions]
+      summary: 지역 등급 목록 조회 (지도·추천 공용)
+      operationId: listRegions
+      description: |
+        목적지와 조건을 쿼리로 받아 동별 등급·종합 점수·통근시간을 내려준다.
+        지도는 전체(sort=none), 추천 탭은 상위 20개(sort=score)를 쓴다.
+        - 요구사항: REQ-FUNC-003, REQ-FUNC-004, REQ-FUNC-006, REQ-NFN-001, REQ-NFN-002
+        - 화면: SCR-MAIN-001, SCR-REC-001
+        - 테이블: regions, region_scores, subway_stations
+      parameters:
+        - name: destination
+          in: query
+          required: false
+          description: '목적지 좌표 "경도,위도". 최대 3개까지 반복. 없으면 통근시간을 계산하지 않는다'
+          schema:
+            type: array
+            maxItems: 3
+            items:
+              type: string
+              example: 127.1112,37.3948
+        - name: maxCommuteMin
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 40
+            minimum: 10
+            maximum: 120
+        - name: budgetMan
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 0
+            maximum: 500
+        - name: weightSafety
+          in: query
+          required: false
+          schema:
+            type: number
+            default: 0.4
+        - name: weightPrice
+          in: query
+          required: false
+          schema:
+            type: number
+            default: 0.35
+        - name: weightConvenience
+          in: query
+          required: false
+          schema:
+            type: number
+            default: 0.25
+        - name: sort
+          in: query
+          required: false
+          description: score = 종합 점수 내림차순(추천 탭), none = 지도용 전체
+          schema:
+            type: string
+            enum: [score, none]
+            default: none
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+      responses:
+        '200':
+          description: 조회 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalCount:
+                    type: integer
+                  page:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/RegionSummary'
+        '400':
+          description: 목적지 4곳 이상, 서비스 범위 밖 좌표, 범위를 벗어난 조건값
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /regions/{code}:
+    get:
+      tags: [regions]
+      summary: 동 상세 조회
+      operationId: getRegion
+      description: |
+        등급·축 점수와 함께 원지표 수치·백분위를 내려준다. 화면의 "계산 과정 공개"가 이 응답만으로 그려진다.
+        - 요구사항: REQ-FUNC-007, REQ-FUNC-008, REQ-NFN-006
+        - 화면: SCR-DONG-001
+        - 테이블: regions, region_scores, region_metrics
+      parameters:
+        - $ref: '#/components/parameters/RegionCode'
+      responses:
+        '200':
+          description: 조회 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RegionDetail'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /regions/{code}/commute:
+    get:
+      tags: [regions]
+      summary: 동 → 목적지 통근 경로 조회
+      operationId: getCommuteRoutes
+      description: |
+        목적지별 소요시간과 경로(승·하차역, 환승, 도보 구간)를 내려준다. 지도에 점선으로 그린다.
+        - 요구사항: REQ-FUNC-009, REQ-NFN-002
+        - 화면: SCR-DONG-001
+        - 테이블: regions, subway_stations, line_stations
+      parameters:
+        - $ref: '#/components/parameters/RegionCode'
+        - name: destination
+          in: query
+          required: true
+          description: '목적지 좌표 "경도,위도". 최대 3개까지 반복'
+          schema:
+            type: array
+            maxItems: 3
+            items:
+              type: string
+      responses:
+        '200':
+          description: 조회 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CommuteRoute'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /subway-network:
+    get:
+      tags: [regions]
+      summary: 지하철 노선·역 조회
+      operationId: getSubwayNetwork
+      description: |
+        지도에 노선도를 그리고 노선별 켜기·끄기를 만들기 위한 데이터.
+        - 요구사항: REQ-FUNC-005
+        - 화면: SCR-MAIN-001, SCR-LINE-001
+        - 테이블: subway_lines, subway_stations, line_stations
+      responses:
+        '200':
+          description: 조회 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  lines:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SubwayLine'
+                  stations:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/SubwayStation'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /regions/{code}/reviews:
+    get:
+      tags: [reviews]
+      summary: 동 후기 목록 조회
+      operationId: listReviews
+      description: |
+        비로그인 열람. destinationId를 주면 그 목적지로 통근하는 사람의 후기를 우선 정렬한다.
+        - 요구사항: REQ-FUNC-012
+        - 화면: SCR-RVW-001
+        - 테이블: reviews, users, destinations
+      parameters:
+        - $ref: '#/components/parameters/RegionCode'
+        - name: destinationId
+          in: query
+          required: false
+          description: 지정 시 통근 목적지가 가까운 후기 우선
+          schema:
+            type: integer
+            format: int64
+        - name: sort
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [relevant, recent, helpful]
+            default: relevant
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+            minimum: 1
+      responses:
+        '200':
+          description: 조회 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalCount:
+                    type: integer
+                  page:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Review'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    post:
+      tags: [reviews]
+      summary: 후기 작성
+      operationId: createReview
+      description: |
+        로그인 필수. 한 사용자는 한 동에 후기 1건만 남긴다(두 번째 작성은 409).
+        - 요구사항: REQ-FUNC-013
+        - 화면: SCR-RVW-002
+        - 테이블: reviews
+      parameters:
+        - $ref: '#/components/parameters/RegionCode'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewRequest'
+      responses:
+        '201':
+          description: 작성 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: 이미 이 동에 후기를 작성함
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /reviews/{reviewId}:
+    patch:
+      tags: [reviews]
+      summary: 후기 수정
+      operationId: updateReview
+      description: |
+        작성자 본인만 수정한다.
+        - 요구사항: REQ-FUNC-014
+        - 화면: SCR-RVW-002
+        - 테이블: reviews
+      parameters:
+        - $ref: '#/components/parameters/ReviewId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewRequest'
+      responses:
+        '200':
+          description: 수정 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Review'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    delete:
+      tags: [reviews]
+      summary: 후기 삭제
+      operationId: deleteReview
+      description: |
+        작성자 본인만 삭제한다.
+        - 요구사항: REQ-FUNC-014
+        - 화면: SCR-RVW-002
+        - 테이블: reviews
+      parameters:
+        - $ref: '#/components/parameters/ReviewId'
+      responses:
+        '204':
+          description: 삭제 완료
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+  /reviews/{reviewId}/helpful:
+    post:
+      tags: [reviews]
+      summary: 도움돼요 등록
+      operationId: addHelpful
+      description: |
+        로그인 필수. 후기 1건당 1인 1회.
+        - 요구사항: REQ-FUNC-015
+        - 화면: SCR-RVW-001
+        - 테이블: review_helpfuls, reviews
+      parameters:
+        - $ref: '#/components/parameters/ReviewId'
+      responses:
+        '201':
+          description: 등록 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HelpfulCount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: 이미 도움돼요를 누른 후기
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          $ref: '#/components/responses/ServerError'
+    delete:
+      tags: [reviews]
+      summary: 도움돼요 취소
+      operationId: removeHelpful
+      description: |
+        - 요구사항: REQ-FUNC-015
+        - 화면: SCR-RVW-001
+        - 테이블: review_helpfuls, reviews
+      parameters:
+        - $ref: '#/components/parameters/ReviewId'
+      responses:
+        '200':
+          description: 취소 성공
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HelpfulCount'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/ServerError'
+
+components:
+  parameters:
+    Provider:
+      name: provider
+      in: path
+      required: true
+      description: 인증 제공자
+      schema:
+        type: string
+        enum: [kakao, github]
+    RegionCode:
+      name: code
+      in: path
+      required: true
+      description: 행정동 코드 10자리
+      schema:
+        type: string
+        minLength: 10
+        maxLength: 10
+    ReviewId:
+      name: reviewId
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  responses:
+    BadRequest:
+      description: 입력값 오류
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: 로그인이 필요함
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: 권한 없음 (타인이 쓴 후기를 수정·삭제하려는 경우)
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: 대상 없음
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    ServerError:
+      description: 서버 오류
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Error:
+      type: object
+      required: [code, message]
+      properties:
+        code:
+          type: string
+          example: REVIEW_DUPLICATED
+        message:
+          type: string
+          example: 이미 이 동네 후기를 남기셨습니다.
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        email:
+          type: string
+          format: email
+        nickname:
+          type: string
+
+    Destination:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        source:
+          type: string
+          enum: [place, station]
+          description: 지하철역 선택으로 들어온 목적지인지 구분
+        placeName:
+          type: string
+        address:
+          type: string
+        lng:
+          type: number
+          format: double
+        lat:
+          type: number
+          format: double
+
+    RegionSummary:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        grade:
+          type: string
+          enum: [best, normal, bad]
+        safety:
+          type: number
+        price:
+          type: number
+        convenience:
+          type: number
+        total:
+          type: number
+        monthlyRentMan:
+          type: number
+          nullable: true
+        commuteMin:
+          type: number
+          nullable: true
+          description: 목적지가 여러 곳이면 가장 오래 걸리는 값. 목적지가 없으면 null
+        lng:
+          type: number
+        lat:
+          type: number
+
+    RegionDetail:
+      allOf:
+        - $ref: '#/components/schemas/RegionSummary'
+        - type: object
+          properties:
+            gu:
+              type: string
+            areaKm2:
+              type: number
+            dataQuality:
+              type: string
+              enum: [ok, low]
+            sourceNote:
+              type: string
+              description: 지표 출처·기준 시점 (REQ-NFN-006)
+            formula:
+              type: string
+              example: total = 0.40*safety + 0.35*price + 0.25*convenience
+            metrics:
+              type: array
+              description: 원지표와 백분위 쌍. 계산 과정 공개 화면이 그대로 그린다
+              items:
+                $ref: '#/components/schemas/RegionMetric'
+
+    RegionMetric:
+      type: object
+      properties:
+        key:
+          type: string
+          example: nightlife_per_km2
+        label:
+          type: string
+          example: 유흥주점 밀도
+        axis:
+          type: string
+          enum: [safety, price, convenience]
+        value:
+          type: number
+          nullable: true
+        unit:
+          type: string
+          example: 개/km²
+        percentile:
+          type: number
+          nullable: true
+
+    SubwayLine:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        color:
+          type: string
+        stationIds:
+          type: array
+          description: 노선 내 순번대로
+          items:
+            type: integer
+            format: int64
+
+    SubwayStation:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        lng:
+          type: number
+        lat:
+          type: number
+
+    CommuteRoute:
+      type: object
+      properties:
+        destination:
+          $ref: '#/components/schemas/Destination'
+        minutes:
+          type: number
+          nullable: true
+        reachable:
+          type: boolean
+        legs:
+          type: array
+          items:
+            $ref: '#/components/schemas/CommuteLeg'
+
+    CommuteLeg:
+      type: object
+      properties:
+        kind:
+          type: string
+          enum: [walk, subway]
+        fromName:
+          type: string
+        toName:
+          type: string
+        lineName:
+          type: string
+          nullable: true
+        minutes:
+          type: number
+
+    Review:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        regionCode:
+          type: string
+        nickname:
+          type: string
+          description: 작성자 식별은 닉네임까지만 노출한다
+        residenceMonths:
+          type: integer
+        destination:
+          $ref: '#/components/schemas/Destination'
+        feltCommuteMin:
+          type: integer
+          nullable: true
+        ratingSafety:
+          type: integer
+        ratingPrice:
+          type: integer
+        ratingConvenience:
+          type: integer
+        body:
+          type: string
+        helpfulCount:
+          type: integer
+        myHelpful:
+          type: boolean
+          description: 로그인 상태에서만 의미 있음
+        mine:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+
+    ReviewRequest:
+      type: object
+      required: [residenceMonths, ratingSafety, ratingPrice, ratingConvenience, body]
+      properties:
+        residenceMonths:
+          type: integer
+          minimum: 1
+          maximum: 600
+        destinationId:
+          type: integer
+          format: int64
+          nullable: true
+        feltCommuteMin:
+          type: integer
+          minimum: 0
+          maximum: 240
+          nullable: true
+        ratingSafety:
+          type: integer
+          minimum: 1
+          maximum: 5
+        ratingPrice:
+          type: integer
+          minimum: 1
+          maximum: 5
+        ratingConvenience:
+          type: integer
+          minimum: 1
+          maximum: 5
+        body:
+          type: string
+          minLength: 20
+          maxLength: 1000
+
+    HelpfulCount:
+      type: object
+      properties:
+        reviewId:
+          type: integer
+          format: int64
+        helpfulCount:
+          type: integer
+        myHelpful:
+          type: boolean

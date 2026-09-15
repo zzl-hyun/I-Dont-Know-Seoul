@@ -1,0 +1,175 @@
+// =====================================================================
+// I Don't Know Seoul — 데이터 모델
+// PG7반 {개인별코드} {이름} · v1.0
+//
+// 원칙
+//  1) 화면(개요.pdf)에 보이는 값은 반드시 이 안에 컬럼으로 있다.
+//  2) UI에 없는 테이블은 만들지 않는다.
+//  3) 지표는 최신 한 벌만 보관한다. 버전별 보관·롤백은 다음 단계.
+//  4) 사용자 후기(reviews)는 등급 계산에 쓰지 않는다 — region_scores와 계산 경로가 분리돼 있다.
+//  5) 문의는 외부 폼(Google Form)이 접수·보관하므로 테이블을 두지 않는다.
+// =====================================================================
+
+Enum auth_provider { kakao github }
+Enum destination_source { place station }
+Enum grade { best normal bad }
+
+// ---------------------------------------------------------------- 계정
+Table users {
+  id               bigint        [pk, increment]
+  provider         auth_provider [not null, note: '카카오 또는 GitHub (REQ-FUNC-011)']
+  provider_user_id varchar(64)   [not null, note: '제공자가 주는 고유 식별자. 이 값으로 같은 사람인지 판별한다']
+  nickname         varchar(12)   [not null, unique, note: '후기에 표시되는 이름. 최초 로그인 시 제공자 닉네임으로 채운다 (REQ-FUNC-012)']
+  created_at       timestamp     [not null, default: `now()`]
+
+  indexes {
+    (provider, provider_user_id) [unique, note: '같은 제공자 계정으로 두 번 가입되지 않는다']
+  }
+  Note: '자체 비밀번호를 두지 않는다 — 소셜 로그인만 쓴다(REQ-NFN-003). 이메일·프로필 사진은 저장하지 않는다(REQ-NFN-004).'
+}
+
+// ------------------------------------------------------------- 행정동
+Table regions {
+  code               char(10)     [pk, note: '행정동 코드 10자리. 전 테이블 조인 키']
+  name               varchar(60)  [not null, note: '예: 관악구 신림동']
+  gu                 varchar(30)  [not null, note: '자치구. 목록 필터·표시용']
+  area_km2           decimal(8,4) [not null, note: '밀도 지표의 분모']
+  lng                decimal(9,6) [not null, note: '지도 마커·통근 계산 기준점']
+  lat                decimal(9,6) [not null]
+  nearest_station_id bigint       [null, note: '가장 가까운 지하철역. 통근 경로의 첫 구간 (REQ-FUNC-009)']
+}
+
+Table region_metrics {
+  region_code              char(10)     [pk, note: 'regions와 1:1. 수집 결과를 담는다']
+  monthly_rent_man         decimal(7,1) [null, note: '월세 중앙값(만원) (REQ-FUNC-007)']
+  monthly_rent_pct         decimal(5,2) [null, note: '547개 동 중 백분위 (REQ-FUNC-008)']
+  rent_samples             int          [not null, default: 0, note: '실거래 표본 수. 부족하면 data_quality=low']
+  nightlife_per_km2        decimal(9,2) [null, note: '유흥주점 밀도 — 치안 축']
+  nightlife_pct            decimal(5,2) [null]
+  crime_per_1k             decimal(9,2) [null, note: '자치구 5대범죄(건/천명) — 치안 축']
+  crime_pct                decimal(5,2) [null]
+  traffic_accident_per_km2 decimal(9,2) [null, note: '교통사고 다발지점 밀도 — 치안 축']
+  traffic_accident_pct     decimal(5,2) [null]
+  store_per_km2            decimal(9,2) [null, note: '편의점·마트 밀도 — 편의 축']
+  store_pct                decimal(5,2) [null]
+  food_per_km2             decimal(9,2) [null, note: '음식점 밀도 — 편의 축']
+  food_pct                 decimal(5,2) [null]
+  medical_per_km2          decimal(9,2) [null, note: '병원·약국 밀도 — 편의 축']
+  medical_pct              decimal(5,2) [null]
+  bus_stop_per_km2         decimal(9,2) [null, note: '버스 정류장 밀도 — 편의 축']
+  bus_stop_pct             decimal(5,2) [null]
+  walk_to_station_min      decimal(5,2) [null, note: '최근접역까지 도보시간(분) — 편의 축']
+  walk_to_station_pct      decimal(5,2) [null]
+  source_note              varchar(500) [null, note: '지표 출처·기준 시점 (REQ-NFN-006)']
+  updated_at               timestamp    [not null, default: `now()`]
+
+  Note: '동 상세의 원지표 표(④)와 계산 과정(③)이 그대로 이 테이블이다. 원값과 백분위를 짝으로 둔다.'
+}
+
+Table region_scores {
+  region_code  char(10)     [pk, note: 'regions와 1:1. 계산 결과를 담는다']
+  safety       decimal(5,2) [not null, note: '치안 축 0~100 (가중 0.40)']
+  price        decimal(5,2) [not null, note: '가격 축 0~100 (가중 0.35)']
+  convenience  decimal(5,2) [not null, note: '편의 축 0~100 (가중 0.25)']
+  total        decimal(5,2) [not null, note: '세 축의 가중합']
+  grade        grade        [not null, note: '상대 평가 — 상위 30% best / 하위 30% bad']
+  data_quality varchar(10)  [not null, default: 'ok', note: 'ok | low (표본 부족)']
+  updated_at   timestamp    [not null, default: `now()`]
+
+  indexes {
+    (total)
+  }
+  Note: '원지표(region_metrics)와 분리한 이유 — 수집과 계산의 갱신 시점이 다르고, 가중치가 바뀌면 이 표만 다시 만든다.'
+}
+
+// --------------------------------------------------------- 지하철 노선
+Table subway_lines {
+  id    bigint      [pk, increment]
+  name  varchar(40) [not null, unique, note: '예: 2호선, 신분당선']
+  color char(7)     [not null, note: '지도 노선색 #RRGGBB']
+}
+
+Table subway_stations {
+  id   bigint       [pk, increment]
+  name varchar(40)  [not null, unique, note: '괄호 부기명을 뗀 이름 — 안 떼면 같은 역이 갈라져 환승이 끊긴다']
+  lng  decimal(9,6) [not null]
+  lat  decimal(9,6) [not null]
+}
+
+// M:N — 한 노선에 여러 역, 한 역이 여러 노선(환승역)
+Table line_stations {
+  line_id    bigint [not null]
+  station_id bigint [not null]
+  seq        int    [not null, note: '노선 내 순번. 경로 텍스트의 순서가 된다']
+
+  indexes {
+    (line_id, station_id) [pk]
+    (line_id, seq) [unique]
+  }
+}
+
+// ------------------------------------------------------------- 목적지
+Table destinations {
+  id         bigint       [pk, increment]
+  query      varchar(120) [not null, note: '사용자가 입력한 키워드']
+  source     destination_source [not null, default: 'place', note: '장소 검색 / 지하철역 선택 (REQ-FUNC-002)']
+  place_name varchar(120) [not null]
+  address    varchar(200) [not null]
+  lng        decimal(9,6) [not null]
+  lat        decimal(9,6) [not null]
+  cached_at  timestamp    [not null, default: `now()`, note: '지오코딩 결과 캐시 (REQ-FUNC-002)']
+
+  indexes {
+    (query, source) [unique]
+  }
+  Note: '후기의 통근 목적지도 이 테이블을 참조한다.'
+}
+
+// ----------------------------------------------------------- 사용자 후기
+Table reviews {
+  id               bigint        [pk, increment]
+  user_id          bigint        [not null]
+  region_code      char(10)      [not null]
+  destination_id   bigint        [null, note: '작성자의 통근 목적지. 목적지 기준 정렬(REQ-FUNC-012)의 키']
+  residence_months int           [not null, note: '거주 기간(개월) 1~600']
+  felt_commute_min int           [null, note: '체감 통근시간(분)']
+  rating_safety    smallint      [not null, note: '1~5']
+  rating_price     smallint      [not null, note: '1~5']
+  rating_conv      smallint      [not null, note: '1~5']
+  body             varchar(1000) [not null, note: '20자 이상']
+  helpful_count    int           [not null, default: 0, note: '집계 캐시. 원본은 review_helpfuls']
+  created_at       timestamp     [not null, default: `now()`]
+  updated_at       timestamp     [null]
+
+  indexes {
+    (user_id, region_code) [unique, note: '한 동에 후기 1건 — 두 번째 작성은 409']
+    (region_code, created_at)
+  }
+  Note: '등급 산정에 쓰지 않는다. region_scores와 연결되지 않는 별도 레이어다.'
+}
+
+// M:N — 회원 × 후기 (1인 1회)
+Table review_helpfuls {
+  user_id    bigint    [not null]
+  review_id  bigint    [not null]
+  created_at timestamp [not null, default: `now()`]
+
+  indexes {
+    (user_id, review_id) [pk, note: '중복 클릭은 409']
+  }
+}
+
+// ------------------------------------------------------------- 관계
+Ref: regions.nearest_station_id > subway_stations.id
+Ref: region_metrics.region_code - regions.code
+Ref: region_scores.region_code - regions.code
+
+Ref: line_stations.line_id > subway_lines.id
+Ref: line_stations.station_id > subway_stations.id
+
+Ref: reviews.user_id > users.id
+Ref: reviews.region_code > regions.code
+Ref: reviews.destination_id > destinations.id
+Ref: review_helpfuls.user_id > users.id
+Ref: review_helpfuls.review_id > reviews.id
+

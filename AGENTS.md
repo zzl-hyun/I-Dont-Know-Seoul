@@ -105,12 +105,12 @@ Template](#handoff-update-template) 형식으로 자기 슬롯을 갱신하세�
 ### Codex
 
 - Status: ready for review
-- Task: 한국어·영어·일본어 전체 UI/SEO, 지명 별칭, 현지화 이미지 구현
-- Owned files: `AGENTS.md`, `index.html`, `package.json`, `src/App.tsx`, `src/main.tsx`, `src/index.css`, `src/components/DestinationSearch.tsx`, `src/components/DongDetail.tsx`, `src/components/InquiryWidget.tsx`, `src/components/Landing.css`, `src/components/Landing.tsx`, `src/components/MapView.tsx`, `src/components/SearchGuide.tsx`, `src/components/TopPicks.tsx`, `src/components/WeightPlayground.tsx`, `src/data/geographicAliases.ts`, `src/lib/explain.ts`, `src/lib/geographicNames.test.ts`, `src/lib/geographicNames.ts`, `src/lib/i18n.tsx`, `src/lib/inquiry.test.ts`, `src/lib/inquiry.ts`, `src/lib/landingVariants.test.ts`, `src/lib/landingVariants.ts`, `src/lib/locale.test.ts`, `src/lib/locale.ts`, `src/lib/localizedAssets.test.ts`, `src/lib/rent-selection.ts`, `src/lib/subwayLines.ts`, `src/lib/translationCoverage.test.ts`, `src/seo/areaPage.ts`, `src/seo/generate.ts`, `src/seo/layout.ts`, `src/seo/localize.ts`, `src/seo/rootPage.ts`, `src/seo/seo.test.ts`, `src/seo/sitemap.ts`, `src/seo/slug.ts`, `scripts/capture-localized-images.mjs`, `scripts/generate-geographic-aliases.mjs`, `public/og-image-en.jpg`, `public/og-image-ja.jpg`, EN/JA 파일 18개인 `public/shots/`
-- Changed: URL 기준 `/`·`/en/`·`/ja/` UI와 공유 링크, 90개 정적 SEO URL, 556개 동·35개 구·621개 역명·22개 노선 별칭/오프라인 검색, EN/JA 캡처·OG 자산 구현. 한국어 랜딩에 화성·동탄 범위도 반영. 지명은 자동 초안+주요 수동 예외이며 원어민 검수 대기
-- Verification: `npm run data:aliases` 재생성 SHA 동일, `npm test` 288/288, `npm run typecheck`, `npm run build`, `git diff --check` 통과. HTML 90개·sitemap URL 90개·hreflang 360개·JSON-LD 전수 감사 통과. CDP 390px EN/JA 오버플로·visible Hangul 없음, 로컬 EN 루트·JA 가이드·`/api/data` 200
-- Commit/remote: local commit, push·KV seed·배포 없음
-- Next handoff: EN/JA 원어민이 `src/data/geographicAliases.ts`와 화면 문구를 검수하고 지명 수정은 생성기 override에 반영한 뒤 커밋·배포 승인 절차 진행
+- Task: 실제 `localhost:8787` 서비스 기준으로 미니프로젝트 화면설계서와 Figma 와이어프레임 정합화
+- Owned files: `AGENTS.md`, `docs/mini_project/draft/화면설계서.md`
+- Changed: 실제 랜딩·목적지 없음·조건/추천·동 상세·노선 필터·문의 유형·Google Form 흐름으로 화면설계서를 7개 상태로 재작성. Figma에 `Actual Service Wireframes` 페이지와 8개 프레임(7개 상태+모바일)을 생성하고 기존 초안은 `Archive · 이전 초안`으로 보존
+- Verification: Chrome에서 `localhost:8787` 랜딩·강남역 추천·풍덕천2동 상세·노선 펼침·문의 2단계를 직접 확인. 문서 323행·코드펜스 18개·`git diff --check` 이상 없음. Figma 행별/전체 스크린샷 검수, 화면 카드 8개·텍스트 161개 모두 Noto Sans KR·플레이스홀더 0개. 보조 HTML 캡처는 Chrome `ERR_BLOCKED_BY_CLIENT`로 미사용했고 임시 `index.html` 스크립트는 원복
+- Commit/remote: uncommitted, push·KV seed·배포 없음
+- Next handoff: 제출 범위에서 현재 미구현인 후기·로그인을 뺄지 구현할지 결정하고 `요구사항정의서.md`를 같은 기준으로 정합화
 
 ## Git and Deployment Gate
 
