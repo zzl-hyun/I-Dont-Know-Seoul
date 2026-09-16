@@ -105,12 +105,12 @@ Template](#handoff-update-template) 형식으로 자기 슬롯을 갱신하세�
 ### Codex
 
 - Status: ready for review
-- Task: 실제 `localhost:8787` 서비스 기준으로 미니프로젝트 화면설계서와 Figma 와이어프레임 정합화
-- Owned files: `AGENTS.md`, `docs/mini_project/draft/화면설계서.md`
-- Changed: 실제 랜딩·목적지 없음·조건/추천·동 상세·노선 필터·문의 유형·Google Form 흐름으로 화면설계서를 7개 상태로 재작성. Figma에 `Actual Service Wireframes` 페이지와 8개 프레임(7개 상태+모바일)을 생성하고 기존 초안은 `Archive · 이전 초안`으로 보존
-- Verification: Chrome에서 `localhost:8787` 랜딩·강남역 추천·풍덕천2동 상세·노선 펼침·문의 2단계를 직접 확인. 문서 323행·코드펜스 18개·`git diff --check` 이상 없음. Figma 행별/전체 스크린샷 검수, 화면 카드 8개·텍스트 161개 모두 Noto Sans KR·플레이스홀더 0개. 보조 HTML 캡처는 Chrome `ERR_BLOCKED_BY_CLIENT`로 미사용했고 임시 `index.html` 스크립트는 원복
+- Task: 최종 DBML을 dbdocs로 발행·렌더하고 제출 DB PDF의 ERD를 dbdocs 결과로 교체
+- Owned files: `AGENTS.md`, `docs/mini_project/draft/API_DB_최종검수.md`, `docs/mini_project/submission/PG7반_P211_김기현_I-Dont-Know-Seoul_DB.pdf`
+- Changed: 최종 DBML을 `https://dbdocs.io/zzl-hyun/I-Dont-Know-Seoul` Version 3으로 게시하고 공식 PNG Export를 DB PDF 2쪽 ERD로 교체. 표지의 DBDiagram·벡터 fallback 표기를 dbdocs Version 3으로 정정하고 최종 검수 문서의 도구·해시·파일 크기를 동기화
+- Verification: dbdocs 게시 입력과 제출 DBML SHA-256 `d61b1b052d5ab539b21b7fcdbf1b5c054bba5ada2e42c71645f4a30ff6361724` 일치. dbdocs 7 tables/37 fields 및 ERD 7 tables/7 refs 확인. DB PDF 9쪽·A4 가로·273,999 bytes·SHA-256 `3a9c18f0cffb0274a3e953ec2873196569bdadcb2c8cbd0be60073c10917939f`; 9쪽 전부 PNG 렌더 및 확대 시각 QA, 옛 `DBDiagram|fallback|벡터` 텍스트 0건, 제출 폴더 4개 파일 확인, `git diff --check` 통과
 - Commit/remote: uncommitted, push·KV seed·배포 없음
-- Next handoff: 제출 범위에서 현재 미구현인 후기·로그인을 뺄지 구현할지 결정하고 `요구사항정의서.md`를 같은 기준으로 정합화
+- Next handoff: 사용자가 공개 dbdocs 링크와 제출용 PDF를 최종 확인한 뒤 제출
 
 ## Git and Deployment Gate
 
