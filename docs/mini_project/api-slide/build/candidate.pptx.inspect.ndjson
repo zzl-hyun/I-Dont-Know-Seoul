@@ -1,0 +1,14 @@
+{"kind":"deck","id":"pr/jchuuc","name":"Deck"}
+{"kind":"layout","layoutId":"7977c19a-247b-4168-b66d-3e0cf1d8ae8d","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"395f53f9-d69b-44cb-b7b8-0e4facfeaefa","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/9ikp3b","slide":1,"title":"0 5  /  시 스 템  설 계","textShapes":8}
+{"kind":"textbox","id":"sh/2dkjud0b","slide":1,"text":"0 5  /  시 스 템  설 계","textPreview":"0 5  /  시 스 템  설 계","textChars":18,"textLines":1,"bbox":[54,65,600,32]}
+{"kind":"textbox","id":"sh/pgv2psj2","slide":1,"text":"GET /api/data","textPreview":"GET /api/data","textChars":13,"textLines":1,"bbox":[54,113,1300,82]}
+{"kind":"textbox","id":"sh/of21wnih","slide":1,"text":"지도 탐색에 필요한 데이터를 한 번에 받는 API","textPreview":"지도 탐색에 필요한 데이터를 한 번에 받는 API","textChars":27,"textLines":1,"bbox":[54,202,1300,45]}
+{"kind":"textbox","id":"sh/bidkr2hs","slide":1,"text":"최초 로딩 시 번들 조회","textPreview":"최초 로딩 시 번들 조회","textChars":13,"textLines":1,"bbox":[54,302,420,45]}
+{"kind":"textbox","id":"sh/qh4jyx07","slide":1,"text":"Cloudflare KV의 JSON 데이터\n약 8 MB 규모의 응답","textPreview":"Cloudflare KV의 JSON 데이터 | 약 8 MB 규모의 응답","textChars":37,"textLines":2,"bbox":[54,365,420,85]}
+{"kind":"textbox","id":"sh/d4v2tszy","slide":1,"text":"조건 변경 시 브라우저 계산","textPreview":"조건 변경 시 브라우저 계산","textChars":15,"textLines":1,"bbox":[54,505,425,45]}
+{"kind":"textbox","id":"sh/cjm10nid","slide":1,"text":"통근시간·등급·추천 순위 재계산\n조건마다 계산 API를 호출하지 않음","textPreview":"통근시간·등급·추천 순위 재계산 | 조건마다 계산 API를 호출하지 않음","textChars":38,"textLines":2,"bbox":[54,568,430,85]}
+{"kind":"textbox","id":"sh/6l0jmt03","slide":1,"text":"¹ 동별 대표 프로필에는 좌표를 포함하지 않음","textPreview":"¹ 동별 대표 프로필에는 좌표를 포함하지 않음","textChars":25,"textLines":1,"bbox":[520,718,866,30]}
+{"kind":"table","id":"tb/up43alcn","slide":1,"name":"","rows":10,"cols":3,"preview":"필드 | 내용 | 규모","bbox":[520,294,866,400]}
+{"kind":"notes","id":"nt/9ikp3b","slide":1,"text":"GET /api/data는 미리 가공한 공통 데이터 번들을 제공합니다. 브라우저는 받은 데이터를 사용해 통근시간과 등급, 추천 순위를 계산합니다. 조건 변경마다 서버 계산 API를 호출하지 않는 구조입니다. 약 8 MB는 제공된 자료의 응답 규모이며 압축된 네트워크 전송량을 측정한 값은 아닙니다. 데이터 규모와 필드 구성 출처: 사용자 첨부 codex-clipboard-daed72fe-5a3d-4bcc-a507-038d3f245268.png. 시각 참고: /Users/macbookpro/Downloads/I-Dont-Know-Seoul-PPT.pdf 19~22쪽. 기존 슬라이드의 547개와 달리 이번 슬라이드는 첨부 표의 556개를 사용합니다."}

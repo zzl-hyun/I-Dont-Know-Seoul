@@ -105,12 +105,12 @@ Template](#handoff-update-template) 형식으로 자기 슬롯을 갱신하세�
 ### Codex
 
 - Status: ready for review
-- Task: 최종 DBML을 dbdocs로 발행·렌더하고 제출 DB PDF의 ERD를 dbdocs 결과로 교체
-- Owned files: `AGENTS.md`, `docs/mini_project/draft/API_DB_최종검수.md`, `docs/mini_project/submission/PG7반_P211_김기현_I-Dont-Know-Seoul_DB.pdf`
-- Changed: 최종 DBML을 `https://dbdocs.io/zzl-hyun/I-Dont-Know-Seoul` Version 3으로 게시하고 공식 PNG Export를 DB PDF 2쪽 ERD로 교체. 표지의 DBDiagram·벡터 fallback 표기를 dbdocs Version 3으로 정정하고 최종 검수 문서의 도구·해시·파일 크기를 동기화
-- Verification: dbdocs 게시 입력과 제출 DBML SHA-256 `d61b1b052d5ab539b21b7fcdbf1b5c054bba5ada2e42c71645f4a30ff6361724` 일치. dbdocs 7 tables/37 fields 및 ERD 7 tables/7 refs 확인. DB PDF 9쪽·A4 가로·273,999 bytes·SHA-256 `3a9c18f0cffb0274a3e953ec2873196569bdadcb2c8cbd0be60073c10917939f`; 9쪽 전부 PNG 렌더 및 확대 시각 QA, 옛 `DBDiagram|fallback|벡터` 텍스트 0건, 제출 폴더 4개 파일 확인, `git diff --check` 통과
+- Task: 발표 PDF 후반부 스타일에 맞춘 GET /api/data 설명 슬라이드 1장 제작
+- Owned files: `AGENTS.md`, `docs/mini_project/api-slide/`
+- Changed: 후반부 회색 배경·파란 포인트 스타일의 1장 PPTX 생성. GET /api/data 역할과 9개 응답 필드를 편집 가능한 텍스트·표로 작성. 기존 발표 파일은 유지
+- Verification: PPTX 1장·native table·기하 및 파일 구조 검증 통과, 렌더 시각 검사. 첨부 표 기준 556개 동 사용(기존 PPT 547개와 차이 고지). git diff --check 통과
 - Commit/remote: uncommitted, push·KV seed·배포 없음
-- Next handoff: 사용자가 공개 dbdocs 링크와 제출용 PDF를 최종 확인한 뒤 제출
+- Next handoff: 기존 발표의 API 구성 다음에 새 슬라이드 삽입
 
 ## Git and Deployment Gate
 
