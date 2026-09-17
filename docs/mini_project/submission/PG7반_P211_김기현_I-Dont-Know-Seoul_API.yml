@@ -902,46 +902,629 @@ components:
       type: object
       required: [meta, pctKeys, axisWeights, unavailableAxes, dongs, graph, bus, residential, scores]
       description: |
-        현재 브라우저 통근·추천·상세 계산에 사용하는 bundle의 필수 top-level
-        구조다. `bus`와 `residential`도 현재 bundle에서 항상 제공되는 필수 키이며,
-        서버 추천·통근 계산 결과가 아니라 브라우저 계산용 원자료다.
+        `GET /api/data`가 내려주는 KV 번들(`bundle:current`)의 전체 구조다.
+        브라우저는 이 번들 하나로 통근시간·등급·추천 정렬·상세 근거를 모두
+        계산하며, 그래서 별도의 추천·통근 계산 API가 없다.
+
+        **화면 표시값이 어느 필드에서 오는가**
+
+        | 화면 | 표시값 | 출처 필드 |
+        |---|---|---|
+        | SCR-MAIN-001 | 지도 등급 색·아이콘 | `scores[code].safety/price/convenience` |
+        | SCR-DONG-001 | 축 점수와 계산식 | `scores[code]` + `axisWeights` |
+        | SCR-DONG-001 | "왜 이 등급인지" 원지표 | `scores[code].raw` |
+        | SCR-DONG-001 | 지표별 백분위 | `scores[code].pct` (순서는 `pctKeys`) |
+        | SCR-WGHT-001 | 주택유형·환산모드별 가격 | `scores[code].rentVariants` |
+        | SCR-WGHT-001 | 통근시간·경로 | `graph`·`bus`·`residential`로 브라우저가 계산 |
+        | 공통 | 출처·기준 시점 표기 | `meta` |
+
+        **서버가 주는 값과 브라우저가 만드는 값의 구분**
+
+        이 번들의 모든 필드는 파이프라인이 사전계산해 KV에 올린 *서버 제공값*이다.
+        반면 통근시간, 사용자 가중치를 반영한 종합 점수, 등급(상위 30% Best /
+        하위 30% Bad), 추천 정렬, 분포 통계(중앙값·동점 비율), 공유 URL 상태는
+        번들에 없고 *브라우저가 매번 계산*한다.
+
+        예외가 하나 있다. 백분위(`pct`, `rentVariants[].pct`)는 브라우저가
+        가진 원지표로 다시 계산할 수 있지만 그렇게 하지 않고 파이프라인 값을
+        그대로 쓴다. 동점 평균 순위 처리가 미세하게 어긋나면 화면에 노출하는
+        계산식과 실제 축 점수가 안 맞기 때문이다.
       properties:
         meta:
-          type: object
-          description: 데이터별 출처·기준 시점·버전 메타데이터
-          additionalProperties: true
+          $ref: '#/components/schemas/BundleMeta'
         pctKeys:
           type: array
+          description: "`DongScore.pct` 배열의 순서를 정하는 지표 키 목록. 현재 9개다."
           items:
-            type: string
+            $ref: '#/components/schemas/MetricKey'
+          example: [nightlifePerKm2, crimePer1k, trafficAccidentPerKm2, monthlyRentMan, storePerKm2, foodPerKm2, medicalPerKm2, walkToStationMin, busStopPerKm2]
         axisWeights:
-          type: object
-          description: 브라우저 점수 계산에 쓰는 안전·가격·편의 축 설정
-          additionalProperties: true
+          $ref: '#/components/schemas/AxisWeights'
         unavailableAxes:
           type: array
+          description: 원지표가 전부 결측이라 점수를 낼 수 없는 축. 현재 번들은 빈 배열이다.
           items:
             type: string
+            enum: [safety, price, convenience]
+          example: []
         dongs:
           type: array
+          description: 대상 행정동 메타데이터. 현재 556개이며 `scores`의 키 개수와 같다.
           items:
             $ref: '#/components/schemas/Dong'
         graph:
-          type: object
-          description: 지하철 그래프와 역·노선 정보
-          additionalProperties: true
+          $ref: '#/components/schemas/SubwayGraph'
         bus:
-          type: object
-          description: 현재 bundle에서 항상 제공되는 필수 top-level 키. 브라우저 통근 계산용 버스 정류장·노선 정보
-          additionalProperties: true
+          $ref: '#/components/schemas/BusNetwork'
         residential:
-          type: object
-          description: 현재 bundle에서 항상 제공되는 필수 top-level 키. 거주인구 격자와 동별 프로필
-          additionalProperties: true
+          $ref: '#/components/schemas/ResidentialAccess'
         scores:
           type: object
-          description: 행정동 코드별 원지표·백분위·점수·월세 조합
+          description: |
+            행정동 코드를 키로 하는 맵이다. 키가 10자리 행정동 코드 556개로
+            가변이라 값 타입만 고정한다.
+          additionalProperties:
+            $ref: '#/components/schemas/DongScore'
+
+    MetricKey:
+      type: string
+      description: |
+        원지표 키. `pctKeys`, `AxisWeight.key`, `DongRawMetrics`가 모두 같은
+        이름을 쓴다. `cctvPerKm2`는 원 데이터셋이 폐기되어 현재 항상 null이며
+        `meta.missingMetrics`에 들어간다.
+      enum:
+        - monthlyRentMan
+        - nightlifePerKm2
+        - cctvPerKm2
+        - crimePer1k
+        - trafficAccidentPerKm2
+        - storePerKm2
+        - foodPerKm2
+        - medicalPerKm2
+        - busStopPerKm2
+        - walkToStationMin
+
+    BundleMeta:
+      type: object
+      required: [boundaryVersion, graphVersion, busVersion, residentialVersion, scoreVersion, availableMetrics, missingMetrics]
+      description: 데이터 출처별 기준 시점과 버전. 상세 패널의 출처 표기에 쓴다.
+      properties:
+        boundaryVersion:
+          type: string
+          description: 행정동 경계 기준일
+          example: "20260701"
+        graphVersion:
+          type: string
+          example: "2026-08-15"
+        busVersion:
+          type: string
+          example: "2026-08-12"
+        residentialVersion:
+          type: string
+          example: sgis-2024-100m-bus-v4
+        scoreVersion:
+          type: string
+          example: "2026-08-18"
+        rentPeriod:
+          $ref: '#/components/schemas/RentPeriod'
+        availableMetrics:
+          type: array
+          description: 실제로 수집되어 축 점수에 반영된 지표. 현재 9개다.
+          items:
+            $ref: '#/components/schemas/MetricKey'
+        missingMetrics:
+          type: array
+          description: 수집 불가로 점수에서 빠진 지표. 현재 `cctvPerKm2` 하나다.
+          items:
+            $ref: '#/components/schemas/MetricKey'
+          example: [cctvPerKm2]
+
+    RentPeriod:
+      type: object
+      description: 월세 중앙값을 낸 실거래 표본의 범위와 정제 내역.
+      properties:
+        startDate:
+          type: string
+          example: "20230101"
+        endDate:
+          type: string
+          example: "20251231"
+        contractType:
+          type: string
+          example: 신규
+        defaultTypes:
+          type: array
+          description: "`raw.monthlyRentMan`을 만든 기본 주택유형 조합"
+          items:
+            $ref: '#/components/schemas/RentHousingType'
+          example: [house, officetel, apartment]
+        seoul:
+          type: object
+          description: 서울 표본 집계. 원본 중복 행과 공공임대를 제거한 수를 함께 남긴다.
           additionalProperties: true
+          example:
+            source: 서울 열린데이터광장 부동산 전월세가 파일
+            records: 516349
+            duplicatesRemoved: 150582
+            publicRentalRemoved: 2827
+        gyeonggi:
+          type: object
+          description: 경기 표본 집계
+          additionalProperties: true
+          example:
+            source: 국토교통부 전월세 실거래가 API
+            records: 122841
+            publicRentalRemoved: 7724
+
+    AxisWeights:
+      type: object
+      required: [safety, price, convenience]
+      description: |
+        축별 하위 지표와 그 가중치다. 결측 지표를 뺀 뒤 합이 1이 되도록
+        재정규화한 값이라, 상세 패널의 계산식을 이 배열 그대로 보여줄 수 있다.
+      properties:
+        safety:
+          type: array
+          items:
+            $ref: '#/components/schemas/AxisWeight'
+        price:
+          type: array
+          items:
+            $ref: '#/components/schemas/AxisWeight'
+        convenience:
+          type: array
+          items:
+            $ref: '#/components/schemas/AxisWeight'
+      example:
+        safety:
+          - {key: nightlifePerKm2, label: 유흥업소 밀도, dir: -1, w: 0.3846153846153846}
+          - {key: crimePer1k, label: 5대범죄, dir: -1, w: 0.4615384615384615}
+          - {key: trafficAccidentPerKm2, label: 교통사고 다발지역, dir: -1, w: 0.15384615384615385}
+        price:
+          - {key: monthlyRentMan, label: 환산월세, dir: -1, w: 1}
+        convenience:
+          - {key: storePerKm2, label: 편의점·마트 밀도, dir: 1, w: 0.3}
+          - {key: foodPerKm2, label: 음식점 밀도, dir: 1, w: 0.25}
+          - {key: medicalPerKm2, label: 병원·약국 밀도, dir: 1, w: 0.2}
+          - {key: walkToStationMin, label: 최근접역 도보, dir: -1, w: 0.175}
+          - {key: busStopPerKm2, label: 버스 정류장 밀도, dir: 1, w: 0.075}
+
+    AxisWeight:
+      type: object
+      required: [key, label, dir, w]
+      properties:
+        key:
+          $ref: '#/components/schemas/MetricKey'
+        label:
+          type: string
+          description: 상세 패널에 그대로 노출하는 지표명
+          example: 유흥업소 밀도
+        dir:
+          type: integer
+          description: +1이면 값이 클수록 좋고, -1이면 클수록 나쁘다.
+          enum: [1, -1]
+          example: -1
+        w:
+          type: number
+          format: double
+          description: 축 안에서의 가중치. 같은 축의 합이 1이다.
+          example: 0.3846153846153846
+
+    DongScore:
+      type: object
+      required: [safety, price, convenience, pct, raw, dataQuality]
+      description: |
+        행정동 하나의 평판 점수다. 세 축 점수는 대상 556개 동 안에서의
+        백분위(0~100)이며, 후기의 평점·본문은 여기에 전혀 반영하지 않는다.
+      properties:
+        safety:
+          type: number
+          format: double
+          description: 치안 축 점수 0~100
+          example: 36.5
+        price:
+          type: number
+          format: double
+          description: 가격 축 점수 0~100
+          example: 41.5
+        convenience:
+          type: number
+          format: double
+          description: 생활편의 축 점수 0~100
+          example: 16.9
+        pct:
+          type: array
+          description: |
+            지표별 백분위. 배열 순서는 번들의 `pctKeys`가 정하고, 결측이면
+            null이다. 축 점수만으로는 "치안 36.5"가 어디서 왔는지 설명할 수
+            없어 상세 패널이 이 배열로 계산을 되짚는다.
+          items:
+            type: number
+            format: double
+            nullable: true
+          example: [56.2, 31.4, 78.0, 21.6, 44.1, 92.3, 60.5, 12.8, 70.2]
+        raw:
+          $ref: '#/components/schemas/DongRawMetrics'
+        dataQuality:
+          type: string
+          description: 표본이 부족해 자치구 중앙값 등 대체값을 쓴 경우 `low`다.
+          enum: [ok, low]
+          example: low
+        rentVariants:
+          $ref: '#/components/schemas/RentVariants'
+
+    DongRawMetrics:
+      type: object
+      description: |
+        상세 패널이 "왜 이 등급인지" 근거로 보여주는 실제 수치다. 수집하지
+        못한 지표는 0이 아니라 null이다 — 0으로 두면 "사고 0건"처럼 가장 좋은
+        값으로 읽혀 조용히 틀린다.
+      required: [monthlyRentMan, rentSamples, rentByType, cctvPerKm2, nightlifePerKm2, crimePer1k, trafficAccidentPerKm2, storePerKm2, foodPerKm2, medicalPerKm2, busStopPerKm2, walkToStationMin]
+      properties:
+        monthlyRentMan:
+          type: number
+          format: double
+          nullable: true
+          description: 환산월세 중앙값(만원)
+          example: 67.76
+        rentSamples:
+          type: integer
+          description: 실거래 표본 수
+          example: 0
+        rentByType:
+          allOf:
+            - $ref: '#/components/schemas/RentByType'
+          nullable: true
+        cctvPerKm2:
+          type: number
+          format: double
+          nullable: true
+          description: CCTV 밀도(대/km²). 원 데이터셋이 폐기되어 현재 항상 null이다.
+          example: null
+        nightlifePerKm2:
+          type: number
+          format: double
+          nullable: true
+          description: 일반·무도 유흥주점 밀도(개/km²)
+          example: 0.82
+        crimePer1k:
+          type: number
+          format: double
+          nullable: true
+          description: 자치구 5대범죄 발생(건/천명). 경찰서 단위라 구 해상도가 한계다.
+          example: 20.27
+        trafficAccidentPerKm2:
+          type: number
+          format: double
+          nullable: true
+          description: 교통사고 다발지점 사고건수 밀도(건/km²)
+          example: 2.05
+        storePerKm2:
+          type: number
+          format: double
+          nullable: true
+          description: 편의점·마트 밀도(개/km²)
+          example: 9.44
+        foodPerKm2:
+          type: number
+          format: double
+          nullable: true
+          description: 음식점 밀도(개/km²). 주점(I211)은 제외한다.
+          example: 96.45
+        medicalPerKm2:
+          type: number
+          format: double
+          nullable: true
+          description: 병원·약국 밀도(개/km²)
+          example: 4.93
+        busStopPerKm2:
+          type: number
+          format: double
+          nullable: true
+          description: 버스 정류장 밀도(개/km²). 노선 다양성이 아니라 정류장 수다.
+          example: 9.85
+        walkToStationMin:
+          type: number
+          format: double
+          nullable: true
+          description: 100m 거주인구 분포 기준 최근접 지하철역까지 도보시간 중앙값(분)
+          example: 11.2
+
+    RentHousingType:
+      type: string
+      description: 주택유형. house는 단독·다가구, apartment는 소형아파트(10~60㎡)다.
+      enum: [house, rowhouse, officetel, apartment]
+
+    RentTypeStat:
+      type: object
+      required: [medianMan, samples]
+      properties:
+        medianMan:
+          type: number
+          format: double
+          nullable: true
+          example: 60.05
+        samples:
+          type: integer
+          example: 3923
+
+    RentByType:
+      type: object
+      required: [house, rowhouse, officetel, apartment]
+      description: 네 주택유형별 월세 분해. 상세 패널 표시용이다.
+      properties:
+        house:
+          $ref: '#/components/schemas/RentTypeStat'
+        rowhouse:
+          $ref: '#/components/schemas/RentTypeStat'
+        officetel:
+          $ref: '#/components/schemas/RentTypeStat'
+        apartment:
+          $ref: '#/components/schemas/RentTypeStat'
+
+    RentVariantStat:
+      type: object
+      required: [medianMan, samples, pct]
+      properties:
+        medianMan:
+          type: number
+          format: double
+          nullable: true
+          example: 60.05
+        samples:
+          type: integer
+          example: 0
+        pct:
+          type: number
+          format: double
+          nullable: true
+          description: |
+            이 조합·모드 안에서의 556개 동 기준 백분위(0~100). 월세가 낮을수록
+            높다. 파이프라인이 계산한 값이며 클라이언트가 다시 계산하지 않는다.
+          example: 21.6
+
+    RentVariants:
+      type: object
+      required: [converted, raw]
+      description: |
+        주택유형 조합 15개(공집합을 뺀 부분집합) × 환산모드 2개를 사전계산해
+        둔 것이다. 사용자가 SCR-WGHT-001에서 유형을 고르면 클라이언트 재계산
+        없이 여기서 바로 조회한다.
+
+        키는 house, rowhouse, officetel, apartment 순으로 정렬해 `+`로 이은
+        문자열이다(예: `house`, `house+officetel`, `house+officetel+apartment`).
+        화면 기본값은 `converted`의 `house`이다.
+      properties:
+        converted:
+          type: object
+          description: 보증금을 월세로 환산해 더한 값. 전월세전환율은 유형·지역별 실측값을 쓴다.
+          additionalProperties:
+            $ref: '#/components/schemas/RentVariantStat'
+        raw:
+          type: object
+          description: 보증금 환산 없는 순수 월세.
+          additionalProperties:
+            $ref: '#/components/schemas/RentVariantStat'
+
+    SubwayGraph:
+      type: object
+      required: [version, generatedAt, stations, nodes, edges]
+      description: |
+        브라우저 통근 계산에 쓰는 지하철 그래프다. 노드는 "역"이 아니라
+        "(역, 노선)" 쌍이라, 강남역은 2호선 노드와 신분당선 노드로 나뉘고 둘
+        사이를 환승 엣지가 잇는다. 이렇게 해야 환승 비용이 경로에 자연히
+        반영된다.
+      properties:
+        version:
+          type: string
+          example: "2026-08-15"
+        generatedAt:
+          type: string
+          format: date-time
+        source:
+          type: string
+          example: OpenStreetMap (ODbL) via Overpass API
+        note:
+          type: string
+          example: 역간 소요시간은 역간 직선거리 × 1.04 ÷ 노선별 표정속도로 추정한 값이다.
+        stations:
+          type: array
+          description: 물리적 역. 좌표 기반 최근접 탐색이 이쪽을 쓴다. 현재 624개다.
+          items:
+            $ref: '#/components/schemas/Station'
+        nodes:
+          type: array
+          description: (역, 노선) 노드. 그래프 탐색이 이쪽을 쓴다.
+          items:
+            $ref: '#/components/schemas/GraphNode'
+        edges:
+          type: array
+          description: 인접 리스트. `edges[nodeId]`가 그 노드에서 나가는 엣지들이다.
+          items:
+            type: array
+            items:
+              $ref: '#/components/schemas/Edge'
+
+    Station:
+      type: object
+      required: [id, name, lat, lng, nodeIds, lines]
+      properties:
+        id:
+          type: integer
+          example: 0
+        name:
+          type: string
+          example: 성신여대입구
+        lat:
+          type: number
+          format: double
+          example: 37.592615
+        lng:
+          type: number
+          format: double
+          example: 127.016459
+        nodeIds:
+          type: array
+          description: 이 역에 속한 노드 id. 환승역이면 여러 개다.
+          items:
+            type: integer
+          example: [104, 500]
+        lines:
+          type: array
+          items:
+            type: string
+          example: ["4", "W"]
+
+    GraphNode:
+      type: object
+      required: [id, stationId, line]
+      properties:
+        id:
+          type: integer
+          example: 0
+        stationId:
+          type: integer
+          example: 21
+        line:
+          type: string
+          example: "3"
+
+    Edge:
+      type: object
+      required: [to, min, kind, source]
+      properties:
+        to:
+          type: integer
+          description: 도착 노드 id
+          example: 1
+        min:
+          type: number
+          format: double
+          description: 소요시간(분). 환승 도보는 상수 2분이다.
+          example: 2.31
+        kind:
+          type: string
+          enum: [ride, transfer]
+          example: ride
+        source:
+          type: string
+          description: |
+            measured는 공공데이터 실측값, estimated는 거리 기반 추정값이다.
+            현재 파이프라인은 estimated만 만든다.
+          enum: [measured, estimated]
+          example: estimated
+
+    BusNetwork:
+      type: object
+      required: [version, generatedAt, defaultHeadwayMin, sources, stops, routes]
+      description: |
+        정적 버스망이다. 원천의 긴 필드명을 튜플로 접어 KV 번들 크기를 줄였다.
+        노선의 정류장 배열은 운행 방향 순서이며 역방향 이동은 허용하지 않는다.
+        통근 계산에서 첫·마지막 무환승 접근에만 쓰고, 전체 노선을 지도에
+        그리지는 않는다.
+      properties:
+        version:
+          oneOf:
+            - type: string
+            - type: integer
+          example: 1
+        generatedAt:
+          type: string
+          format: date-time
+        defaultHeadwayMin:
+          type: number
+          format: double
+          description: 배차간격이 없는 노선에 쓰는 기본값(분)
+          example: 15
+        sources:
+          type: object
+          description: 원천 데이터와 거리 추정 모델의 파라미터
+          additionalProperties: true
+        stops:
+          type: array
+          description: |
+            정류장 목록. 배열 인덱스가 곧 정류장 id다. 현재 41,423개다.
+          items:
+            type: array
+            description: "[정류장명, 위도, 경도]"
+            minItems: 3
+            maxItems: 3
+            items:
+              oneOf:
+                - type: string
+                - type: number
+                  format: double
+          example: [수월암리공단, 37.118583, 127.0248]
+        routes:
+          type: array
+          description: |
+            노선 목록. 배열 인덱스가 곧 노선 id다. 현재 2,943개다.
+            각 원소는 [노선명, 평일 배차간격(분), 정류장 id 순서, 누적 운행거리(m)]다.
+          items:
+            type: array
+            minItems: 4
+            maxItems: 4
+            items: {}
+
+    ResidentialAccess:
+      type: object
+      required: [version, generatedAt, resolutionM, percentile, byDong]
+      description: |
+        100m 거주인구 격자를 좌표 없이 접근 선택지 묶음으로 압축한 프로필이다.
+        통근시간을 동 대표점 하나가 아니라 실제 사람이 사는 분포로 계산하려고
+        둔다. 공개 번들에는 **거주 좌표를 전혀 넣지 않고** 동별 최대 24개
+        대표 생활권의 정규화 가중치와 역 접근 선택지만 담는다.
+      properties:
+        version:
+          type: string
+          example: sgis-2024-100m-bus-v4
+        source:
+          type: string
+          description: 공개 산출물에서 분리되어도 유지해야 하는 필수 출처표시
+          example: 국가데이터처 통계지리정보서비스(SGIS), 2024년 인구 100m 격자
+        busVersion:
+          oneOf:
+            - type: string
+            - type: integer
+          description: 인덱스 기반 busRef를 만들 때 사용한 버스망 버전
+        generatedAt:
+          type: string
+          format: date-time
+        resolutionM:
+          type: integer
+          example: 100
+        percentile:
+          type: number
+          format: double
+          description: 동별 대표 통근시간을 뽑을 때 쓰는 분위수
+          example: 0.5
+        weightScale:
+          type: number
+          format: double
+          description: 원 인구수 대신 동마다 합을 같게 만든 정규화 가중치 눈금
+          example: 10000
+        maxProfilesPerDong:
+          type: integer
+          description: 원 100m 셀을 그대로 노출하지 않기 위한 동별 대표 프로필 상한
+          example: 24
+        byDong:
+          type: object
+          description: |
+            행정동 코드를 키로 하는 맵이다. 값은 프로필 배열이고, 프로필 하나는
+            [동별 정규화 가중치, 역 접근 선택지 목록]이다. 접근 선택지 하나는
+            [역 id, 실제 접근시간(분), 역 선택용 비용, 0=도보/1=버스, busRef?]이고
+            busRef는 [버스 노선 id, 승차 순번, 하차 순번, 승차 정류장까지 도보(분)]다.
+
+            "실제 접근시간"과 "역 선택용 비용"이 나뉘어 있는 이유: 어느 역에서
+            탈지 고를 때만 도보 1분을 1.4분으로 환산해 비교하고, 화면에 표시하는
+            소요시간은 항상 가중치 없는 실측값을 쓴다.
+          additionalProperties:
+            type: array
+            items:
+              type: array
+              minItems: 2
+              maxItems: 2
+              items: {}
 
     Dong:
       type: object
