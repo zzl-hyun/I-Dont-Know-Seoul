@@ -41,7 +41,8 @@ Project I_Dont_Know_Seoul {
     통근 목적지는 후기 생성에 필수다. POST는 전용 destinations snapshot과
     reviews를 한 트랜잭션에서 함께 생성한다. destinations 행은 후기에만
     속하는 snapshot이고 공유하지 않으므로 reviews.destination_id에는 unique
-    index를 둔다. PATCH는 작성자 본인 후기의 전용 snapshot만 갱신하거나 새
+    index를 둔다. 따라서 destinations와 reviews의 카디널리티는 1:N이 아니라
+    1:1이다 — Ref를 one-to-one(-)으로 선언하고 관계 정의서에도 1:1로 적는다. PATCH는 작성자 본인 후기의 전용 snapshot만 갱신하거나 새
     snapshot으로 교체하고 이전 snapshot을 같은 트랜잭션에서 정리한다.
     DELETE는 reviews 삭제로 review_helpfuls를 cascade 처리한 뒤 연결된
     destinations를 같은 트랜잭션에서 삭제한다. FK 방향상 destination 삭제는
@@ -113,7 +114,7 @@ Table destinations {
   lat        real    [not null, note: '위도 -90..90. 후기와 연결된 좌표이며 일반 검색 캐시가 아님 (REQ-FUNC-002, REQ-FUNC-013)']
   created_at text    [not null, default: `CURRENT_TIMESTAMP`, note: '후기 연결 목적지 생성 시각']
 
-  Note: '일반 지오코딩 결과의 query/cached_at 또는 검색 이력은 저장하지 않는다. 일반 지오코딩 캐시는 KV geo:v2 영역이며, 이 테이블은 후기에서 참조되는 목적지 좌표만 보관한다. 각 행은 하나의 후기만을 위한 전용 snapshot이며 다른 후기와 공유하지 않는다. 후기 생성 시 reviews와 함께 생성하고, 작성자 후기의 PATCH에서만 갱신·교체하며, 후기 DELETE 트랜잭션에서 연결 행을 삭제한다.'
+  Note: '일반 지오코딩 결과의 query/cached_at 또는 검색 이력은 저장하지 않는다. 일반 지오코딩 캐시는 KV geo:v2 영역이며, 이 테이블은 후기에서 참조되는 목적지 좌표만 보관한다. 각 행은 하나의 후기만을 위한 전용 snapshot이며 다른 후기와 공유하지 않는다(reviews와 1:1). 후기 생성 시 reviews와 함께 생성하고, 작성자 후기의 PATCH에서만 갱신·교체하며, 후기 DELETE 트랜잭션에서 연결 행을 삭제한다.'
 }
 
 // ------------------------------------------------------------- 실거주 후기
@@ -121,7 +122,7 @@ Table reviews {
   id                 integer [pk, increment, not null]
   user_id            integer [not null, note: '작성자 users.id. 수정·삭제 권한 판정 기준 (REQ-FUNC-013, REQ-FUNC-014)']
   region_code        text    [not null, note: '후기 대상 regions.code (REQ-FUNC-012, REQ-FUNC-013, REQ-FUNC-014)']
-  destination_id     integer [not null, note: 'destinations.id. 통근 목적지는 후기 생성 시 필수이며 전용 snapshot을 참조한다 (REQ-FUNC-012, REQ-FUNC-013)']
+  destination_id     integer [not null, note: 'destinations.id. 통근 목적지는 후기 생성 시 필수이며 전용 snapshot을 참조한다. UNIQUE라 destinations와 1:1이다 (REQ-FUNC-012, REQ-FUNC-013)']
   residence_months  integer [not null, note: '거주 기간(개월), 1..600 (REQ-FUNC-013)']
   felt_commute_min   integer [note: '체감 통근시간(분), 선택 입력 0..240. 이 컬럼은 nullable이 기본 동작이며 값이 없으면 NULL이다. 명시적 nullable 설정은 사용하지 않는다 (REQ-FUNC-012, REQ-FUNC-013)']
   rating_safety      integer [not null, note: '치안 평점 1..5 (REQ-FUNC-012, REQ-FUNC-013)']
@@ -137,7 +138,7 @@ Table reviews {
     (destination_id) [unique, name: 'uq_reviews_destination']
   }
 
-  Note: 'UNIQUE(user_id, region_code)는 회원 1명당 행정동별 후기 1건을 보장한다(중복 작성은 409). UNIQUE(destination_id)는 하나의 전용 destination snapshot이 최대 한 후기에서만 참조되도록 한다. API는 작성자 소유권을 확인한 뒤 PATCH에서 현재 snapshot을 갱신하거나 새 snapshot으로 교체하고, DELETE에서 review_helpfuls cascade와 연결 destination 삭제를 같은 트랜잭션으로 수행한다. destination FK에는 자동 cascade를 두지 않는다. API 응답의 destination.name↔place_name, residenceMonths↔residence_months, feltCommuteMin↔felt_commute_min, ratings 3종↔rating_* 매핑을 사용한다. helpfulCount/helpfulByMe/isMine은 각각 COUNT(*), 현재 세션 반응 존재 여부, 소유권 비교로 계산하며 컬럼을 추가하지 않는다. helpful_count를 중복 저장하지 않는다. 후기의 평점·본문은 등급/추천 점수 계산에 사용하지 않는다.'
+  Note: 'UNIQUE(user_id, region_code)는 회원 1명당 행정동별 후기 1건을 보장한다(중복 작성은 409). UNIQUE(destination_id)는 하나의 전용 destination snapshot이 최대 한 후기에서만 참조되도록 한다. 이 제약 때문에 destinations : reviews는 1:1이며, 관계 정의서의 카디널리티도 1:1로 적는다. API는 작성자 소유권을 확인한 뒤 PATCH에서 현재 snapshot을 갱신하거나 새 snapshot으로 교체하고, DELETE에서 review_helpfuls cascade와 연결 destination 삭제를 같은 트랜잭션으로 수행한다. destination FK에는 자동 cascade를 두지 않는다. API 응답의 destination.name↔place_name, residenceMonths↔residence_months, feltCommuteMin↔felt_commute_min, ratings 3종↔rating_* 매핑을 사용한다. helpfulCount/helpfulByMe/isMine은 각각 COUNT(*), 현재 세션 반응 존재 여부, 소유권 비교로 계산하며 컬럼을 추가하지 않는다. helpful_count를 중복 저장하지 않는다. 후기의 평점·본문은 등급/추천 점수 계산에 사용하지 않는다.'
 }
 
 // ------------------------------------------------------------- 후기 도움돼요 반응
@@ -159,6 +160,6 @@ Ref: oauth_accounts.user_id > users.id [delete: cascade]
 Ref: sessions.user_id > users.id [delete: cascade]
 Ref: reviews.user_id > users.id [delete: cascade]
 Ref: reviews.region_code > regions.code
-Ref: reviews.destination_id > destinations.id
+Ref: reviews.destination_id - destinations.id
 Ref: review_helpfuls.review_id > reviews.id [delete: cascade]
 Ref: review_helpfuls.user_id > users.id [delete: cascade]
