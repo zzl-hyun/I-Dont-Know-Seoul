@@ -123,11 +123,11 @@ paths:
         목적지 검색 결과를 D1 `destinations`에 저장하지 않으며, 후기 저장 시
         전달된 목적지 스냅샷만 후기 API의 트랜잭션으로 D1에 저장한다.
 
-        현재 Worker는 q가 없거나 2자 미만·100자 초과여도 400으로 바꾸지 않고
-        `200 {"results": []}`를 반환한다. 검색 결과 0건을 404로 표시한
-        `SCR-HOME-001` 화면 문서와의 차이는 실제 응답을 바꾸지 않고, 브라우저가
-        빈 배열을 “검색 결과 없음” UI 상태로 처리하도록 한다. 비 GET은 405와
-        `Allow: GET`, 처리 중 예외는 500을 반환한다.
+        검색 결과가 0건이어도 404가 아니라 `200 {"results": []}`다. q가 없거나
+        2자 미만·100자 초과인 경우도 400으로 바꾸지 않고 같은 빈 배열을 반환한다.
+        `SCR-HOME-001` 화면 문서도 이 응답에 맞춰 "검색 결과 없음"을 오류가 아닌
+        빈 목록 상태로 표시한다 — 찾는 장소가 없는 것은 요청 실패가 아니기
+        때문이다. 비 GET은 405와 `Allow: GET`, 처리 중 예외는 500을 반환한다.
 
         - 요구사항: `REQ-FUNC-002`, `REQ-FUNC-013`, `REQ-NFN-003`
         - 화면: `SCR-HOME-001`, `SCR-MAIN-001`, `SCR-WGHT-001`, `SCR-RVW-002`
@@ -342,12 +342,28 @@ paths:
         - {}
         - cookieAuth: []
       description: |
-        비로그인 공개 후기 목록이다. 기본 `relevant` 정렬은 브라우저가 가진 현재
+        비로그인 공개 후기 목록이다. `relevant` 정렬은 브라우저가 가진 현재
         목적지의 `lat`·`lng`를 query로 받아 후기 목적지와의 거리가 가까운 순으로
         정렬한다. 현재 브라우저 목적지는 D1에 저장된 행이 아니므로 D1
         `destinationId`가 아니라 `lat`와 `lng` query를 사용한다. `sort=relevant`일
         때는 두 좌표를 함께 보내야 하며 하나라도 없으면 400이다. `latest`와
-        `helpful`은 좌표를 생략할 수 있다. 로그인 쿠키가 있으면 각 카드에
+        `helpful`은 좌표를 생략할 수 있다.
+
+        화면이 이 API를 부르는 규칙은 다음과 같다(`SCR-RVW-001`).
+
+        | 설정한 목적지 | 화면 정렬 기본값 | 실제 호출 |
+        |---|---|---|
+        | 0곳 | 최신순 | `?sort=latest` |
+        | 1~3곳 | 현재 목적지 관련순 | `?sort=relevant&lat=..&lng=..` |
+
+        서비스는 목적지 없이도 진입할 수 있고 목적지를 최대 3곳까지 둘 수 있다.
+        그래서 두 가지를 정해 둔다. 첫째, 목적지가 0곳이면 화면이 `relevant`를
+        보내지 않고 `latest`로 부른다 — 스키마의 `default`가 `relevant`라
+        `sort`를 생략하면 좌표 없는 `relevant` 요청이 되어 400이 나기 때문에,
+        화면은 `sort`를 항상 명시한다. 둘째, 목적지가 여러 곳이어도 좌표는
+        사이드바에서 현재 선택한 목적지 1곳의 것만 보낸다. 3곳의 평균이나
+        최솟값을 쓰지 않는 이유는 후기 정렬이 "지금 보고 있는 목적지 기준
+        가까운 후기"를 뜻해야 사용자가 결과를 예측할 수 있기 때문이다. 로그인 쿠키가 있으면 각 카드에
         `helpfulByMe`와 `isMine`을 채우고, 없으면 둘 다 false로 반환한다.
         `helpfulCount`는 `review_helpfuls` COUNT, `helpfulByMe`는 현재 세션 사용자와
         `review_helpfuls`의 존재 여부, `isMine`은 현재 세션 사용자와
@@ -362,7 +378,10 @@ paths:
         - name: sort
           in: query
           required: false
-          description: 목적지 관련순, 최신순, 도움돼요순
+          description: |
+            목적지 관련순, 최신순, 도움돼요순. `default`는 `relevant`지만 화면은
+            이 값을 생략하지 않는다 — 목적지가 0곳일 때는 `latest`를 명시해야
+            좌표 없는 `relevant` 요청으로 400이 나는 것을 피할 수 있다.
           schema:
             type: string
             enum: [relevant, latest, helpful]
@@ -371,7 +390,7 @@ paths:
         - name: lat
           in: query
           required: false
-          description: 현재 브라우저 목적지 위도. sort=relevant일 때 lng와 함께 필요하다.
+          description: 사이드바에서 현재 선택한 목적지 1곳의 위도. sort=relevant일 때 lng와 함께 필요하다.
           schema:
             type: number
             format: double
@@ -381,7 +400,7 @@ paths:
         - name: lng
           in: query
           required: false
-          description: 현재 브라우저 목적지 경도. sort=relevant일 때 lat와 함께 필요하다.
+          description: 사이드바에서 현재 선택한 목적지 1곳의 경도. sort=relevant일 때 lat와 함께 필요하다.
           schema:
             type: number
             format: double
