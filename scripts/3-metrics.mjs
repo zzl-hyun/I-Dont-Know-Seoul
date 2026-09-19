@@ -25,7 +25,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { haversineM, pointInGeometry, bbox } from "./lib/geo.mjs";
 import { SBIZ_GROUPS } from "./lib/sbiz.mjs";
-import { CACHE_SCHEMA, checkCache } from "./lib/cache.mjs";
+import { CACHE_SCHEMA, readScopedCache, writeScopedCache } from "./lib/cache.mjs";
 import { populationWalkByDong } from "./lib/population-access.mjs";
 import {
   buildRentVariants,
@@ -389,17 +389,13 @@ async function fetchPois() {
    * 되는데, 결측이 아니라 0 이라 이후 검사에도 안 걸린다.
    */
   const want = { schema: CACHE_SCHEMA, bbox: TARGET_BBOX };
-  try {
-    const cached = JSON.parse(await readFile(POI_CACHE, "utf8"));
-    const { usable, reason } = checkCache(cached, want);
-    if (usable) {
-      console.log(`  OSM POI 캐시 사용 ${cached.elements.length.toLocaleString()}개`);
-      return cached.elements;
-    }
-    console.log(`  OSM POI 캐시 버림 — ${reason}. 다시 받습니다`);
-  } catch {
-    /* 캐시 없음 */
+  const { hit, data, missing, reason } = await readScopedCache(POI_CACHE, want);
+  if (hit && Array.isArray(data.elements)) {
+    console.log(`  OSM POI 캐시 사용 ${data.elements.length.toLocaleString()}개`);
+    return data.elements;
   }
+  const poiDiscard = hit ? "elements 배열이 없음" : reason;
+  if (poiDiscard) console.log(`  OSM POI 캐시 버림 — ${poiDiscard}. 다시 받습니다`);
 
   const filters = [];
   for (const rules of Object.values(POI_GROUPS)) {
@@ -410,11 +406,7 @@ async function fetchPois() {
   const query = `[out:json][timeout:300];(${filters.join("")});out center tags;`;
 
   const json = await overpass(query);
-  await mkdir(dirname(POI_CACHE), { recursive: true });
-  await writeFile(
-    POI_CACHE,
-    JSON.stringify({ ...want, fetchedAt: new Date().toISOString(), elements: json.elements })
-  );
+  await writeScopedCache(POI_CACHE, want, { elements: json.elements });
   return json.elements;
 }
 
@@ -707,17 +699,13 @@ async function fetchSbizStores(key, guCodes) {
    * 유흥업소가 전부 0 이 된다 — 결측이 아니라 0 이라 조용히 통과한다.
    */
   const want = { schema: CACHE_SCHEMA, guCodes: [...guCodes].map(String).sort() };
-  try {
-    const cached = JSON.parse(await readFile(SBIZ_CACHE, "utf8"));
-    const { usable, reason } = checkCache(cached, want);
-    if (usable) {
-      console.log(`  상가업소 캐시 사용 ${cached.stores.length.toLocaleString()}건 (${cached.guCodes.length}개 구)`);
-      return cached;
-    }
-    console.log(`  상가업소 캐시 버림 — ${reason}. 다시 받습니다`);
-  } catch {
-    /* 캐시 없음 → 받는다 */
+  const { hit, data, missing, reason } = await readScopedCache(SBIZ_CACHE, want);
+  if (hit && Array.isArray(data.stores)) {
+    console.log(`  상가업소 캐시 사용 ${data.stores.length.toLocaleString()}건 (${data.guCodes.length}개 구)`);
+    return data;
   }
+  const sbizDiscard = hit ? "stores 배열이 없음" : reason;
+  if (sbizDiscard) console.log(`  상가업소 캐시 버림 — ${sbizDiscard}. 다시 받습니다`);
 
   const page = async (gu, pageNo, attempt = 0) => {
     const q = new URLSearchParams({
@@ -769,11 +757,11 @@ async function fetchSbizStores(key, guCodes) {
     process.stdout.write(`\r  상가업소 수집 ${stores.length.toLocaleString()}건 · 호출 ${calls}회   `);
   }
   console.log();
-  const out = { ...want,
-                source: "소상공인시장진흥공단 상가업소정보 (data.go.kr 15012005)",
-                fetchedAt: new Date().toISOString(), calls, names, stores };
-  await writeFile(SBIZ_CACHE, JSON.stringify(out));
-  return out;
+  // fetchedAt 은 writeScopedCache 가 붙인다 — 여기서 또 넣으면 키 충돌로 던진다.
+  const payload = { source: "소상공인시장진흥공단 상가업소정보 (data.go.kr 15012005)",
+                    calls, names, stores };
+  await writeScopedCache(SBIZ_CACHE, want, payload);
+  return { ...want, ...payload };
 }
 
 /* ---- 서울 파일 + 국토교통부 API: 4종 신규 월세 실거래가 ---- */

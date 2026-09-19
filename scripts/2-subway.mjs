@@ -15,26 +15,21 @@
  *   그 사이를 환승 엣지가 잇는다. 이렇게 해야 환승 비용이 경로 탐색에
  *   자연스럽게 반영된다.
  */
-import { mkdir, readFile, writeFile, stat } from "node:fs/promises";
+import { mkdir, writeFile, stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { haversineM } from "./lib/geo.mjs";
+import { CACHE_SCHEMA, fetchOverpassCached } from "./lib/overpass.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, "data/raw/osm-subway.json");
 const OUT = join(ROOT, "data/dist/subway-graph.json");
 
-/**
- * Overpass 공개 인스턴스는 자주 과부하(504)가 난다. 미러를 돌아가며 재시도한다.
- * 한 번 성공하면 data/raw/osm-subway.json 에 캐시되므로 재실행 시엔 호출하지 않는다.
+/*
+ * 조회·재시도·캐시는 scripts/lib/overpass.mjs 가 맡는다. 한 번 성공하면
+ * data/raw/osm-subway.json 에 캐시되어 재실행 시엔 호출하지 않지만, BBOX 가
+ * 바뀌면 캐시의 요청 범위와 달라져 자동으로 다시 받는다.
  */
-const OVERPASS_MIRRORS = [
-  "https://overpass-api.de/api/interpreter",
-  "https://overpass.kumi.systems/api/interpreter",
-  "https://overpass.private.coffee/api/interpreter",
-  "https://overpass.osm.jp/api/interpreter",
-];
-const MAX_ATTEMPTS = 3;
 
 /** 서울 + 인접 경기/인천 일부. 서울 밖 역도 경로 중간에 필요할 수 있어 여유를 둔다. */
 const BBOX = "37.40,126.70,37.72,127.22";
@@ -173,13 +168,10 @@ out body;
 
 async function main() {
   await mkdir(dirname(OUT), { recursive: true });
-  const osm = await fetchOsm();
-  osm.elements = [...osm.elements, ...manualElements()];
+  const elements = [...(await fetchOsm()), ...manualElements()];
 
-  const relations = osm.elements.filter((e) => e.type === "relation");
-  const nodes = new Map(
-    osm.elements.filter((e) => e.type === "node").map((n) => [n.id, n])
-  );
+  const relations = elements.filter((e) => e.type === "relation");
+  const nodes = new Map(elements.filter((e) => e.type === "node").map((n) => [n.id, n]));
   console.log(`OSM: 노선 계통 ${relations.length}개, 정차 노드 ${nodes.size}개`);
 
   const { stations, stationOfNode } = clusterStations(nodes);
@@ -200,56 +192,12 @@ async function main() {
 /* ------------------------------------------------------------------ */
 
 async function fetchOsm() {
-  try {
-    const cached = await readFile(CACHE, "utf8");
-    console.log("OSM 캐시 사용 (다시 받으려면 data/raw/osm-subway.json 삭제)");
-    return JSON.parse(cached);
-  } catch {
-    /* 캐시 없음 → 내려받는다 */
-  }
-  let lastError = null;
-  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-    for (const mirror of OVERPASS_MIRRORS) {
-      const host = new URL(mirror).host;
-      process.stdout.write(`Overpass 조회 (${attempt}/${MAX_ATTEMPTS}) ${host} ... `);
-      try {
-        const res = await fetch(mirror, {
-          method: "POST",
-          // Overpass는 fetch의 기본 Content-Type(text/plain)을 406으로 거부한다.
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            // HTTP 헤더 값은 latin-1만 허용되므로 한글을 넣으면 안 된다.
-            "User-Agent": "oneday-data-pipeline/0.1 (Seoul neighborhood map)",
-          },
-          body: QUERY,
-        });
-        if (!res.ok) {
-          console.log(`실패 (HTTP ${res.status})`);
-          lastError = new Error(`${host} → HTTP ${res.status}`);
-          continue;
-        }
-        const json = await res.json();
-        if (!json.elements?.length) {
-          console.log("실패 (빈 응답)");
-          lastError = new Error(`${host} → 빈 응답`);
-          continue;
-        }
-        console.log(`성공 (${json.elements.length}개 요소)`);
-        await mkdir(dirname(CACHE), { recursive: true });
-        await writeFile(CACHE, JSON.stringify(json));
-        return json;
-      } catch (err) {
-        console.log(`실패 (${err.message})`);
-        lastError = err;
-      }
-    }
-    if (attempt < MAX_ATTEMPTS) {
-      const waitSec = attempt * 15;
-      console.log(`  ${waitSec}초 후 재시도...`);
-      await new Promise((r) => setTimeout(r, waitSec * 1000));
-    }
-  }
-  throw new Error(`Overpass 조회 실패 (모든 미러). 마지막 오류: ${lastError?.message}`);
+  const { elements } = await fetchOverpassCached({
+    cachePath: CACHE,
+    want: { schema: CACHE_SCHEMA, bbox: BBOX },
+    query: QUERY,
+  });
+  return elements;
 }
 
 /**

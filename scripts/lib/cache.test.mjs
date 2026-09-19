@@ -1,5 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { checkCache, CACHE_SCHEMA } from "./cache.mjs";
+import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { checkCache, CACHE_SCHEMA, readScopedCache, writeScopedCache } from "./cache.mjs";
 
 const expectSbiz = { schema: CACHE_SCHEMA, guCodes: ["11110", "41135", "41465"] };
 
@@ -48,5 +51,87 @@ describe("캐시 범위 판정", () => {
   it("캐시 파일이 아예 없으면 거부한다", () => {
     expect(checkCache(null, expectSbiz).usable).toBe(false);
     expect(checkCache(undefined, expectSbiz).usable).toBe(false);
+  });
+});
+
+describe("범위 검증 캐시 읽기/쓰기", () => {
+  const want = { schema: CACHE_SCHEMA, bbox: "37.40,126.70,37.72,127.22" };
+
+  async function withTmpDir(fn) {
+    const dir = await mkdtemp(join(tmpdir(), "cache-test-"));
+    try {
+      await fn(dir);
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  }
+
+  it("같은 범위로 쓰고 읽으면 hit 이고 payload 가 들어 있다", async () => {
+    await withTmpDir(async (dir) => {
+      const path = join(dir, "osm-subway.json");
+      await writeScopedCache(path, want, { elements: [{ type: "node", id: 1 }] });
+
+      const { hit, data, missing, reason } = await readScopedCache(path, want);
+      expect(hit).toBe(true);
+      expect(missing).toBe(false);
+      expect(reason).toBeNull();
+      expect(data.elements).toEqual([{ type: "node", id: 1 }]);
+    });
+  });
+
+  it("bbox 가 다른 want 로 읽으면 hit: false 이고 reason 에 bbox 가 들어간다", async () => {
+    await withTmpDir(async (dir) => {
+      const path = join(dir, "osm-subway.json");
+      await writeScopedCache(path, want, { elements: [] });
+
+      const narrower = { schema: CACHE_SCHEMA, bbox: "37.19,126.72,37.73,127.25" };
+      const { hit, data, missing, reason } = await readScopedCache(path, narrower);
+      expect(hit).toBe(false);
+      expect(data).toBeNull();
+      expect(missing).toBe(false);
+      expect(reason).toContain("bbox");
+    });
+  });
+
+  /*
+   * payload 가 want 뒤에 펼쳐지므로 키가 겹치면 범위 메타가 덮인다. 캐시가
+   * 자기 범위를 거짓으로 주장하게 되는 경로라 조용히 넘기면 안 된다.
+   * (범위 메타 없는 옛 Overpass 응답을 거부하는지는 실제 조회 경로를 타는
+   *  overpass.test.mjs 가 확인한다.)
+   */
+  it("payload 키가 범위 메타와 겹치면 저장을 거부한다", async () => {
+    await withTmpDir(async (dir) => {
+      const path = join(dir, "osm-subway.json");
+      await expect(
+        writeScopedCache(path, want, { bbox: "거짓범위", elements: [] })
+      ).rejects.toThrow("겹칩니다");
+    });
+  });
+
+  /*
+   * 첫 실행에는 캐시 파일이 없는 게 정상이다(`data/raw/` 는 gitignore 대상).
+   * 이걸 범위 불일치와 같이 다루면 호출부가 매번 "캐시 버림 — ENOENT …" 를
+   * 찍어, 버릴 게 없었는데 버렸다고 말하게 된다. 그래서 사유를 비워 둔다.
+   */
+  it("파일이 아예 없으면 missing 이고 경고할 사유는 없다", async () => {
+    await withTmpDir(async (dir) => {
+      const path = join(dir, "does-not-exist.json");
+      const { hit, data, missing, reason } = await readScopedCache(path, want);
+      expect(hit).toBe(false);
+      expect(data).toBeNull();
+      expect(missing).toBe(true);
+      expect(reason).toBeNull();
+    });
+  });
+
+  it("손상된 JSON 은 throw 하지 않되 파일 없음과 구분해 사유를 남긴다", async () => {
+    await withTmpDir(async (dir) => {
+      const path = join(dir, "broken.json");
+      await writeFile(path, "{ not valid json");
+      const { hit, missing, reason } = await readScopedCache(path, want);
+      expect(hit).toBe(false);
+      expect(missing).toBe(false);
+      expect(reason).toBeTruthy();
+    });
   });
 });
