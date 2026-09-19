@@ -15,10 +15,11 @@
  *   그 사이를 환승 엣지가 잇는다. 이렇게 해야 환승 비용이 경로 탐색에
  *   자연스럽게 반영된다.
  */
-import { mkdir, readFile, writeFile, stat } from "node:fs/promises";
+import { mkdir, writeFile, stat } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { haversineM } from "./lib/geo.mjs";
+import { CACHE_SCHEMA, readScopedCache, writeScopedCache } from "./lib/cache.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, "data/raw/osm-subway.json");
@@ -26,7 +27,8 @@ const OUT = join(ROOT, "data/dist/subway-graph.json");
 
 /**
  * Overpass 공개 인스턴스는 자주 과부하(504)가 난다. 미러를 돌아가며 재시도한다.
- * 한 번 성공하면 data/raw/osm-subway.json 에 캐시되므로 재실행 시엔 호출하지 않는다.
+ * 한 번 성공하면 data/raw/osm-subway.json 에 캐시되어 재실행 시엔 호출하지 않지만,
+ * BBOX 가 바뀌면 캐시의 요청 범위와 달라져 자동으로 다시 받는다.
  */
 const OVERPASS_MIRRORS = [
   "https://overpass-api.de/api/interpreter",
@@ -173,13 +175,10 @@ out body;
 
 async function main() {
   await mkdir(dirname(OUT), { recursive: true });
-  const osm = await fetchOsm();
-  osm.elements = [...osm.elements, ...manualElements()];
+  const elements = [...(await fetchOsm()), ...manualElements()];
 
-  const relations = osm.elements.filter((e) => e.type === "relation");
-  const nodes = new Map(
-    osm.elements.filter((e) => e.type === "node").map((n) => [n.id, n])
-  );
+  const relations = elements.filter((e) => e.type === "relation");
+  const nodes = new Map(elements.filter((e) => e.type === "node").map((n) => [n.id, n]));
   console.log(`OSM: 노선 계통 ${relations.length}개, 정차 노드 ${nodes.size}개`);
 
   const { stations, stationOfNode } = clusterStations(nodes);
@@ -200,13 +199,19 @@ async function main() {
 /* ------------------------------------------------------------------ */
 
 async function fetchOsm() {
-  try {
-    const cached = await readFile(CACHE, "utf8");
-    console.log("OSM 캐시 사용 (다시 받으려면 data/raw/osm-subway.json 삭제)");
-    return JSON.parse(cached);
-  } catch {
-    /* 캐시 없음 → 내려받는다 */
+  /*
+   * 캐시가 **지금 BBOX 로 받은 것인지** 확인한다. BBOX 를 넓혔는데 옛 캐시를
+   * 그대로 쓰면 새 지역의 역이 하나도 안 들어오는데, 역이 없으면 그 동들은
+   * "통근 불가"가 되어 결측이 아니라 "역 없는 동네"와 구분되지 않는다.
+   */
+  const want = { schema: CACHE_SCHEMA, bbox: BBOX };
+  const { hit, data, reason } = await readScopedCache(CACHE, want);
+  if (hit) {
+    console.log(`OSM 캐시 사용 (${data.elements.length.toLocaleString()}개 요소)`);
+    return data.elements;
   }
+  console.log(`OSM 캐시 버림 — ${reason}. 다시 받습니다`);
+
   let lastError = null;
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     for (const mirror of OVERPASS_MIRRORS) {
@@ -235,9 +240,8 @@ async function fetchOsm() {
           continue;
         }
         console.log(`성공 (${json.elements.length}개 요소)`);
-        await mkdir(dirname(CACHE), { recursive: true });
-        await writeFile(CACHE, JSON.stringify(json));
-        return json;
+        await writeScopedCache(CACHE, want, { elements: json.elements });
+        return json.elements;
       } catch (err) {
         console.log(`실패 (${err.message})`);
         lastError = err;
