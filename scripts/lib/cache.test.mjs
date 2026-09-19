@@ -71,8 +71,9 @@ describe("범위 검증 캐시 읽기/쓰기", () => {
       const path = join(dir, "osm-subway.json");
       await writeScopedCache(path, want, { elements: [{ type: "node", id: 1 }] });
 
-      const { hit, data, reason } = await readScopedCache(path, want);
+      const { hit, data, missing, reason } = await readScopedCache(path, want);
       expect(hit).toBe(true);
+      expect(missing).toBe(false);
       expect(reason).toBeNull();
       expect(data.elements).toEqual([{ type: "node", id: 1 }]);
     });
@@ -93,23 +94,17 @@ describe("범위 검증 캐시 읽기/쓰기", () => {
   });
 
   /*
-   * 이 버그의 실제 재현 조건: 옛 fetchOsm() 은 Overpass 응답
-   * { version, generator, elements } 를 요청 범위 메타 없이 그대로 저장했다.
-   * schema 키가 없으니 checkCache 가 즉시 거부해야 한다 — 그래야 BBOX 를
-   * 넓혔을 때 이 옛 캐시가 조용히 재사용되어 새 지역 역이 0개가 되는 사고가
-   * 재발하지 않는다.
+   * payload 가 want 뒤에 펼쳐지므로 키가 겹치면 범위 메타가 덮인다. 캐시가
+   * 자기 범위를 거짓으로 주장하게 되는 경로라 조용히 넘기면 안 된다.
+   * (범위 메타 없는 옛 Overpass 응답을 거부하는지는 실제 조회 경로를 타는
+   *  overpass.test.mjs 가 확인한다.)
    */
-  it("범위 메타가 없는 옛 Overpass 응답은 hit: false 다", async () => {
+  it("payload 키가 범위 메타와 겹치면 저장을 거부한다", async () => {
     await withTmpDir(async (dir) => {
       const path = join(dir, "osm-subway.json");
-      await writeFile(
-        path,
-        JSON.stringify({ version: 0.6, generator: "Overpass API", elements: [{ type: "node", id: 1 }] })
-      );
-
-      const { hit, reason } = await readScopedCache(path, want);
-      expect(hit).toBe(false);
-      expect(reason).toContain("스키마");
+      await expect(
+        writeScopedCache(path, want, { bbox: "거짓범위", elements: [] })
+      ).rejects.toThrow("겹칩니다");
     });
   });
 

@@ -109,8 +109,20 @@ export async function readScopedCache(path, want) {
  * @param path 캐시 파일 경로
  * @param want 이번에 실제로 요청한 범위 ({ schema, ...범위키 })
  * @param payload 저장할 나머지 데이터 (예: { elements })
+ * @throws payload 키가 범위 메타와 겹치면 던진다 — 아래 설명 참고
  */
 export async function writeScopedCache(path, want, payload) {
+  /*
+   * payload 를 want 뒤에 펼치므로, 키가 겹치면 범위 메타가 조용히 덮인다.
+   * 그러면 캐시가 자기 범위를 거짓으로 주장하게 되고 checkCache 는 그걸
+   * 사실로 믿는다 — 이 파일이 막으려는 사고를 이 함수가 직접 만드는 꼴이라
+   * 조용히 넘기지 않는다.
+   */
+  for (const key of Object.keys(payload)) {
+    if (key in want || key === "fetchedAt") {
+      throw new Error(`캐시 payload 키가 범위 메타와 겹칩니다: ${key}`);
+    }
+  }
   await mkdir(dirname(path), { recursive: true });
   await writeFile(
     path,
