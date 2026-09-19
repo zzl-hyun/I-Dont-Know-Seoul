@@ -205,12 +205,14 @@ async function fetchOsm() {
    * "통근 불가"가 되어 결측이 아니라 "역 없는 동네"와 구분되지 않는다.
    */
   const want = { schema: CACHE_SCHEMA, bbox: BBOX };
-  const { hit, data, reason } = await readScopedCache(CACHE, want);
+  const { hit, data, missing, reason } = await readScopedCache(CACHE, want);
   if (hit) {
     console.log(`OSM 캐시 사용 (${data.elements.length.toLocaleString()}개 요소)`);
     return data.elements;
   }
-  console.log(`OSM 캐시 버림 — ${reason}. 다시 받습니다`);
+  // 첫 실행은 캐시가 없는 게 정상이라 조용히 받는다. 있는데 못 쓸 때만 사유를
+  // 알린다 — 3-metrics.mjs 의 fetchPois() 와 같은 동작이다.
+  if (!missing) console.log(`OSM 캐시 버림 — ${reason}. 다시 받습니다`);
 
   let lastError = null;
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {

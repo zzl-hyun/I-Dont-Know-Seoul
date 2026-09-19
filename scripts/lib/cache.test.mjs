@@ -84,9 +84,10 @@ describe("범위 검증 캐시 읽기/쓰기", () => {
       await writeScopedCache(path, want, { elements: [] });
 
       const narrower = { schema: CACHE_SCHEMA, bbox: "37.19,126.72,37.73,127.25" };
-      const { hit, data, reason } = await readScopedCache(path, narrower);
+      const { hit, data, missing, reason } = await readScopedCache(path, narrower);
       expect(hit).toBe(false);
       expect(data).toBeNull();
+      expect(missing).toBe(false);
       expect(reason).toContain("bbox");
     });
   });
@@ -112,22 +113,29 @@ describe("범위 검증 캐시 읽기/쓰기", () => {
     });
   });
 
-  it("파일이 아예 없으면 hit: false 다", async () => {
+  /*
+   * 첫 실행에는 캐시 파일이 없는 게 정상이다(`data/raw/` 는 gitignore 대상).
+   * 이걸 범위 불일치와 같이 다루면 호출부가 매번 "캐시 버림 — ENOENT …" 를
+   * 찍어, 버릴 게 없었는데 버렸다고 말하게 된다. 그래서 사유를 비워 둔다.
+   */
+  it("파일이 아예 없으면 missing 이고 경고할 사유는 없다", async () => {
     await withTmpDir(async (dir) => {
       const path = join(dir, "does-not-exist.json");
-      const { hit, data, reason } = await readScopedCache(path, want);
+      const { hit, data, missing, reason } = await readScopedCache(path, want);
       expect(hit).toBe(false);
       expect(data).toBeNull();
-      expect(reason).toBeTruthy();
+      expect(missing).toBe(true);
+      expect(reason).toBeNull();
     });
   });
 
-  it("손상된 JSON 이어도 throw 하지 않고 hit: false 다", async () => {
+  it("손상된 JSON 은 throw 하지 않되 파일 없음과 구분해 사유를 남긴다", async () => {
     await withTmpDir(async (dir) => {
       const path = join(dir, "broken.json");
       await writeFile(path, "{ not valid json");
-      const { hit, reason } = await readScopedCache(path, want);
+      const { hit, missing, reason } = await readScopedCache(path, want);
       expect(hit).toBe(false);
+      expect(missing).toBe(false);
       expect(reason).toBeTruthy();
     });
   });
