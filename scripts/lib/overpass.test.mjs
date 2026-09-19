@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { CACHE_SCHEMA, fetchOverpassCached } from "./overpass.mjs";
@@ -204,4 +205,43 @@ describe("Overpass 캐시 로그", () => {
     expect(discarded).toBeTruthy();
     expect(discarded).toContain("bbox");
   });
+});
+
+/*
+ * 여기가 이 저장소에서 제일 중요한 테스트일 수 있다.
+ *
+ * 조회 로직을 이 모듈로 뽑고 단위 테스트를 9개 붙인 뒤에도, 2-subway.mjs 의
+ * fetchOsm() 을 옛 readFile 직접 호출로 되돌리는 변이가 **전체 테스트를 그대로
+ * 통과했다.** 모듈을 아무리 잘 테스트해도 호출부가 그 모듈을 안 부르면 소용이
+ * 없고, 번호 스크립트는 import 시점에 await main() 이 돌아 불러볼 수도 없다.
+ *
+ * 그래서 소스를 직접 읽어 규약을 잠근다 — bundle-validation.test.mjs 가
+ * "검증 모듈은 node: API 를 import 하지 않는다" 를 잠글 때 쓴 방식이다.
+ *
+ * 규칙은 캐시 상수에만 건다. 3-metrics.mjs 는 .env·경계·CSV 를 읽느라
+ * readFile 을 정당하게 여러 번 쓰므로 "readFile 금지" 같은 뭉툭한 규칙은
+ * 걸 수 없다.
+ */
+describe("파이프라인 스크립트가 캐시 헬퍼를 우회하지 않는다", () => {
+  const read = (name) =>
+    readFileSync(new URL(`../${name}`, import.meta.url), "utf8");
+
+  const CASES = [
+    { script: "2-subway.mjs", helper: "fetchOverpassCached", caches: ["CACHE"] },
+    { script: "3-metrics.mjs", helper: "readScopedCache", caches: ["POI_CACHE", "SBIZ_CACHE"] },
+  ];
+
+  for (const { script, helper, caches } of CASES) {
+    it(`${script} 는 ${helper} 로 캐시를 읽는다`, () => {
+      expect(read(script)).toMatch(new RegExp(`\\b${helper}\\s*\\(`));
+    });
+
+    for (const cache of caches) {
+      it(`${script} 는 ${cache} 를 직접 읽거나 쓰지 않는다`, () => {
+        const source = read(script);
+        // readFile(CACHE) / writeFile(CACHE, …) 처럼 헬퍼를 건너뛰는 호출
+        expect(source).not.toMatch(new RegExp(`\\b(read|write)File\\s*\\(\\s*${cache}\\b`));
+      });
+    }
+  }
 });
